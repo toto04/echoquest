@@ -74,9 +74,13 @@ Host-side total: 16 bytes.
 - **Yaw:** −180°..+180°, wraps (crossing +180° jumps to −180°). Positive = turning right (clockwise seen from above).
 - **Pitch:** −90°..+90° (−16384..16384). Positive = nose up.
 - **Roll:** −180°..+180°. Positive = right side down.
-- The zero reference is defined by the IMU driver. With `FakeImu`, all three
-  axes are slow sine waves: yaw ±180° with a 20 s period, pitch ±45° with a 7 s period,
-  roll ±30° with an 11 s period.
+- **Body frame:** the controller lying flat, screen up, in the LCD's landscape
+  orientation. "Forward"/"nose" is the top edge of the screen.
+- **Zero reference:** pitch and roll are absolute (measured against gravity; 0 = flat).
+  Yaw is relative: 0 at power-on, and it drifts slowly because there is no magnetometer.
+  Hosts that need a stable heading should recenter yaw themselves.
+- With `FakeImu` (DevKitC-1 build), all three axes are slow sine waves: yaw ±180°
+  with a 20 s period, pitch ±45° with a 7 s period, roll ±30° with an 11 s period.
 
 ### Send behaviour
 

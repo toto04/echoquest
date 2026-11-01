@@ -1,4 +1,4 @@
-// Wiring only: buttons + IMU -> input report -> BLE; BLE output report -> haptics.
+// Wiring only: buttons + touch UI + IMU -> input report -> BLE; BLE output report -> haptics.
 #include <Arduino.h>
 
 #include "ble_hid.h"
@@ -8,6 +8,7 @@
 #include "imu.h"
 #include "log.h"
 #include "protocol.h"
+#include "ui.h"
 
 namespace {
 
@@ -15,7 +16,7 @@ ImuSource& imu = createImu();
 StubHapticDriver hapticDriver;
 HapticDriver& haptics = hapticDriver;
 
-Orientation orientation;
+Orientation imuOrientation;
 protocol::InputState lastSent;
 bool lastSentValid = false;   // false forces a send on the next tick
 bool wasConnected = false;
@@ -25,11 +26,11 @@ uint32_t reportsSent = 0;
 
 protocol::InputState buildInputState() {
     protocol::InputState s;
-    s.buttons = buttons::mask();
+    s.buttons = buttons::mask() | ui::buttonMask();
     s.hat = buttons::hat();
-    s.axes[protocol::AXIS_YAW] = protocol::degreesToAxis(orientation.yawDeg);
-    s.axes[protocol::AXIS_PITCH] = protocol::degreesToAxis(orientation.pitchDeg);
-    s.axes[protocol::AXIS_ROLL] = protocol::degreesToAxis(orientation.rollDeg);
+    s.axes[protocol::AXIS_YAW] = protocol::degreesToAxis(imuOrientation.yawDeg);
+    s.axes[protocol::AXIS_PITCH] = protocol::degreesToAxis(imuOrientation.pitchDeg);
+    s.axes[protocol::AXIS_ROLL] = protocol::degreesToAxis(imuOrientation.rollDeg);
     return s;
 }
 
@@ -55,6 +56,7 @@ void setup() {
 
     buttons::begin();
     haptics.begin();
+    if (!ui::begin()) LOG("boot", "UI started without touch");
     if (!imu.begin()) LOG("boot", "IMU %s failed to start", imu.name());
     else LOG("boot", "IMU: %s", imu.name());
 
@@ -87,9 +89,18 @@ void loop() {
     if (wasConnected && !connected) haptics.stopAll();
     wasConnected = connected;
 
+    imu.read(now, imuOrientation);   // every iteration, so the filter sees every sample
+
+    ui::View view;
+    view.deviceName = ble_hid::deviceName();
+    view.connected = connected;
+    view.ready = ble_hid::isReady();
+    view.orientation = imuOrientation;
+    view.hapticIntensity = haptics.activeIntensity();
+    ui::update(now, view);
+
     if (now - lastReportMs >= INPUT_REPORT_INTERVAL_MS) {
         lastReportMs = now;
-        imu.read(now, orientation);
         const protocol::InputState state = buildInputState();
         if (!ble_hid::isReady()) {
             lastSentValid = false;

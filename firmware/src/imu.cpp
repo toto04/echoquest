@@ -31,6 +31,9 @@ ImuSource& createImu() {
 #if IMU_DRIVER == IMU_DRIVER_FAKE
     static FakeImu imu;
     return imu;
+#elif IMU_DRIVER == IMU_DRIVER_QMI8658
+    static Qmi8658Imu imu;
+    return imu;
 #else
 #error "Unknown IMU_DRIVER in config.h"
 #endif

@@ -15,6 +15,8 @@ class HapticDriver {
     virtual void stopAll() = 0;
     // Call every loop iteration; ends effects whose duration has elapsed.
     virtual void update(uint32_t nowMs) = 0;
+    // Highest intensity among active motors, 0 when idle (for UI/debug).
+    virtual uint8_t activeIntensity() const = 0;
 };
 
 // Placeholder until motors exist: logs every command, drives HAPTIC_STUB_PIN
@@ -26,6 +28,7 @@ class StubHapticDriver : public HapticDriver {
     void play(const protocol::HapticCommand& cmd, uint32_t nowMs) override;
     void stopAll() override;
     void update(uint32_t nowMs) override;
+    uint8_t activeIntensity() const override;
 
    private:
     struct Motor {

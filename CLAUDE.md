@@ -5,21 +5,25 @@ This repo contains the controller firmware, the HID protocol spec, and host tool
 
 ## Layout
 
-- `firmware/`: PlatformIO project, ESP32-C6 (esp32-c6-devkitc-1), Arduino core 3.x via the pioarduino platform (pinned URL in `platformio.ini`), NimBLE-Arduino 2.x.
-  - `include/config.h`: **all** pins, button count, VID/PID, timing. Change hardware settings here only.
+- `firmware/`: PlatformIO project, ESP32-C6, Arduino core 3.x via the pioarduino platform (pinned URL in `platformio.ini`), NimBLE-Arduino 2.x.
+  - Envs: `waveshare-c6-lcd147` (default; Waveshare ESP32-C6-Touch-LCD-1.47 with QMI8658 IMU, JD9853 LCD, AXS5106L touch; adds Arduino_GFX), `esp32-c6-devkitc-1` (GPIO buttons, FakeImu), `release` (DevKitC-1, no logging), `native` (tests).
+  - `include/config.h`: **all** pins, button count, VID/PID, timing, as per-board profiles (`BOARD_*`, set by `-DBOARD=` in `platformio.ini`). Change hardware settings here only.
   - `include/protocol.h`: HID report descriptor, report IDs, pack/parse. Pure C++, no Arduino deps.
   - `src/main.cpp`: wiring only (setup/loop). Keep it thin.
   - `src/ble_hid.cpp`: HID-over-GATT service on NimBLE, advertising, bonding, output-report queue.
-  - `src/buttons.cpp`: debounced GPIO buttons and hat. `src/imu.cpp`: `ImuSource` and `FakeImu`. `src/haptics.cpp`: `HapticDriver` and the stub.
-  - `test/test_logic/`: native unit tests (descriptor sizes, packing, parsing, debouncer).
+  - `src/buttons.cpp`: debounced GPIO buttons and hat. `src/haptics.cpp`: `HapticDriver` and the stub.
+  - `src/imu.cpp`: `ImuSource`, `FakeImu`, `createImu()`. `src/imu_qmi8658.cpp`: QMI8658 driver (gyro-bias calibration at boot). `include/orientation_filter.h`: Mahony fusion, axis remap, protocol sign conventions (pure, tested).
+  - `src/ui.cpp` + `src/touch_axs5106.cpp`: LCD status screen and two touch buttons (only when `HAS_LCD`; no-ops otherwise). `include/i2c_bus.h`: the I2C bus shared by IMU and touch.
+  - `test/test_logic/`: native unit tests (descriptor sizes, packing, parsing, debouncer, orientation filter signs).
 - `protocol/hid-report.md`: **single source of truth** for report byte layouts. The Unity C# layout mirrors it.
 - `tools/hid_probe.py`: hidapi tool to list, monitor, send haptics, dump the descriptor, and run a selftest.
 
 ## Commands (run from `firmware/`)
 
 ```sh
-pio run                              # build (default env, DEBUG logging on)
-pio run -t upload                    # flash over the board's "USB" port (USB-Serial/JTAG)
+pio run                              # build the default env (Waveshare board, DEBUG logging on)
+pio run -e esp32-c6-devkitc-1        # build for the DevKitC-1 (add -e to any command below)
+pio run -t upload                    # flash over the board's native USB port (USB-Serial/JTAG)
 pio device monitor                   # serial log (Ctrl+C to quit)
 pio run -t upload -t monitor         # flash, then monitor
 pio run -e release -t upload         # flash with logging compiled out (ECHO_DEBUG=0)
@@ -42,7 +46,7 @@ python tools/hid_probe.py descriptor        # descriptor as the host sees it vs.
 
 ## Verify a change
 
-1. `pio run`: must build with no warnings.
+1. `pio run -e waveshare-c6-lcd147 -e esp32-c6-devkitc-1 -e release`: all must build with no warnings.
 2. `pio test -e native`: must pass.
 3. `python tools/hid_probe.py selftest`: must pass.
 4. On hardware: follow the manual test steps in `README.md`.
@@ -65,4 +69,7 @@ After **any** descriptor change:
 - Logging goes through the `LOG(tag, fmt, ...)` macro in `include/log.h`, gated by `ECHO_DEBUG`.
 - Pure logic (anything testable without hardware) goes in header-only files under `include/` with tests in `test/test_logic/`.
 - Haptics must stop on disconnect (failsafe in `main.cpp`). Keep that behaviour when replacing the stub driver.
-- The real IMU driver is a TODO: implement `ImuSource`, add an `IMU_DRIVER_*` value in `config.h`, and add a case in `createImu()`.
+- New IMU: implement `ImuSource` (feed `orientation::MahonyFilter`, map axes with `IMU_AXIS_MAP`), add an `IMU_DRIVER_*` value in `config.h`, and add a case in `createImu()`.
+- New board: add a `BOARD_*` profile in `config.h` and an env in `platformio.ini`. Boards must produce identical HID reports.
+- The I2C bus and the LCD are only touched from the loop task; keep it that way, or add locking.
+- Touch-button, IMU-axis and pin changes don't affect the HID descriptor, so there's no PID bump or re-pairing.

@@ -8,8 +8,10 @@
 static_assert(HAPTIC_MOTOR_COUNT >= 1 && HAPTIC_MOTOR_COUNT <= 8, "StubHapticDriver supports 1..8 motors");
 
 void StubHapticDriver::begin() {
-    pinMode(HAPTIC_STUB_PIN, OUTPUT);
-    digitalWrite(HAPTIC_STUB_PIN, LOW);
+    if (HAPTIC_STUB_PIN != NO_PIN) {
+        pinMode(HAPTIC_STUB_PIN, OUTPUT);
+        digitalWrite(HAPTIC_STUB_PIN, LOW);
+    }
     refreshOutputs();
 }
 
@@ -66,16 +68,18 @@ void StubHapticDriver::update(uint32_t nowMs) {
     if (changed) refreshOutputs();
 }
 
-void StubHapticDriver::refreshOutputs() {
+uint8_t StubHapticDriver::activeIntensity() const {
     uint8_t maxIntensity = 0;
-    bool any = false;
     for (uint8_t i = 0; i < HAPTIC_MOTOR_COUNT; i++) {
-        if (motors_[i].active) {
-            any = true;
-            if (motors_[i].intensity > maxIntensity) maxIntensity = motors_[i].intensity;
-        }
+        if (motors_[i].active && motors_[i].intensity > maxIntensity) maxIntensity = motors_[i].intensity;
     }
-    digitalWrite(HAPTIC_STUB_PIN, any ? HIGH : LOW);
+    return maxIntensity;
+}
+
+void StubHapticDriver::refreshOutputs() {
+    // Active motors always have intensity > 0 (intensity 0 is a stop command).
+    uint8_t maxIntensity = activeIntensity();
+    if (HAPTIC_STUB_PIN != NO_PIN) digitalWrite(HAPTIC_STUB_PIN, maxIntensity > 0 ? HIGH : LOW);
 #ifdef RGB_BUILTIN
     if (HAPTIC_STUB_USE_RGB_LED) {
         // Magenta, scaled down so full intensity isn't blinding.

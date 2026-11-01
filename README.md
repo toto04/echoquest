@@ -9,19 +9,69 @@ vendor-defined haptic commands from the game.
 - Host probe tool: [`tools/hid_probe.py`](tools/hid_probe.py)
 - Build, flash and dev notes: [`CLAUDE.md`](CLAUDE.md)
 
+## Supported boards
+
+| PlatformIO env | Board | Inputs | IMU |
+|---|---|---|---|
+| `waveshare-c6-lcd147` (default) | Waveshare ESP32-C6-Touch-LCD-1.47 | 2 on-screen touch buttons (HID buttons 1, 2) | onboard QMI8658A |
+| `esp32-c6-devkitc-1` | Espressif ESP32-C6-DevKitC-1 | 8 GPIO buttons + 4-way hat | `FakeImu` sine sweep |
+
+Both boards send the same HID reports, so hosts and Unity can't tell them apart.
+
 ## Quick start
 
 ```sh
 cd firmware
-pio run -t upload -t monitor     # plug into the DevKitC-1 port labelled "USB"
+pio run -t upload -t monitor                          # Waveshare board (default env)
+pio run -e esp32-c6-devkitc-1 -t upload -t monitor    # DevKitC-1 ("USB" port)
 ```
 
-`pio run` downloads the pinned pioarduino platform and NimBLE-Arduino on the first run.
+`pio run` downloads the pinned pioarduino platform and libraries on the first run.
 
-## Default wiring (ESP32-C6-DevKitC-1)
+## Waveshare ESP32-C6-Touch-LCD-1.47
 
-All pins live in `firmware/include/config.h`. Buttons connect between the pin
-and GND; internal pull-ups are used.
+Everything is onboard; nothing needs wiring. The screen (landscape) shows:
+
+```
+EchoQuest-55A2                         CONNECTED   <- name, BLE state
+Y   12.3 P   -4.5 R    0.8                         <- yaw / pitch / roll (deg)
+[==========haptic bar==========                ]   <- magenta while a haptic command plays
++-----------------+  +-----------------+
+|        A        |  |        B        |           <- touch buttons = HID buttons 1 and 2
++-----------------+  +-----------------+
+```
+
+The BLE state reads ADVERTISING (no host), PAIRING (connected, input not yet
+subscribed) or CONNECTED (reports flowing).
+
+- **Keep the board still for about 1 s after reset.** The firmware measures gyro bias then.
+  If it moved, the log says `WARNING: board moved during calibration`, and yaw drifts.
+- **Yaw is 0 at boot** and drifts slowly, because there's no magnetometer.
+  Pitch and roll are absolute, measured against gravity.
+- **Pins in use:** LCD SPI 1/2/14/15/22, backlight 23, I2C 18/19 (IMU 0x6B, touch 0x63), touch RST/INT 20/21.
+  GPIO 7 on the header is the haptic stub output (HIGH while active).
+- **Clear pairings:** hold BOOT for 3 s. The serial log prints `bond-clear button down`
+  when you press it. If it doesn't, change `BOND_CLEAR_PIN` to 8 in `config.h`
+  (see the comment there).
+
+### IMU axes check (once per board design)
+
+The sensor's mounting orientation on the PCB isn't documented, so check the
+signs once. Lay the board flat, screen up, text readable:
+
+| Motion | Expected on screen / in `hid_probe.py monitor` |
+|---|---|
+| Rotate clockwise (seen from above) | yaw increases |
+| Lift the top edge of the screen | pitch goes positive |
+| Lower the right edge | roll goes positive |
+
+If an axis is wrong, edit `IMU_AXIS_MAP` in `firmware/include/config.h`.
+For example, `{-2, +1, +3}` means body X = −sensor Y and body Y = +sensor X.
+After changing it, check all three rows again. No re-pairing is needed; the HID layout is unchanged.
+
+## ESP32-C6-DevKitC-1 wiring
+
+Buttons connect between the pin and GND (internal pull-ups).
 
 | Function | GPIO |
 |---|---|
@@ -30,10 +80,9 @@ and GND; internal pull-ups are used.
 | Haptic stub output (HIGH while active) | 5 |
 | Haptic stub LED | onboard RGB LED (GPIO 8), magenta |
 | Clear pairings (hold 3 s) | 9 (BOOT button) |
-| IMU I2C SDA / SCL (reserved) | 6 / 7 |
 
-With nothing wired, the controller still works: buttons read released, the
-hat reads centered, and `FakeImu` sweeps yaw, pitch and roll as slow sine waves.
+With nothing wired, it still works: buttons read released, the hat reads
+centered, and `FakeImu` sweeps yaw, pitch and roll as slow sine waves.
 
 ## Manual test steps
 
@@ -41,18 +90,23 @@ hat reads centered, and `FakeImu` sweeps yaw, pitch and roll as slow sine waves.
 
 ```sh
 cd firmware
-pio run -t upload
+pio run -t upload            # add -e esp32-c6-devkitc-1 for the DevKitC-1
 pio device monitor
 ```
 
-Expected output (the name suffix depends on the board's MAC):
+Expected output on the Waveshare board (the name suffix depends on the MAC):
 
 ```
 [   0.200] boot: EchoQuest controller, protocol 1.0, VID 0x1209 PID 0x0001
-[   0.201] boot: IMU: FakeImu (sine sweep)
-[   0.260] ble: advertising as "EchoQuest-55A2" (VID 0x1209 PID 0x0001, 0 bond(s) stored)
-[   1.200] input: btn=0x0000 hat=0 yaw=  56.10 pitch= 36.33 roll=  17.07 | tx=0 (no host) | 00 00 00 ...
+[   0.950] touch: AXS5106L ready
+[   0.950] ui: LCD ready (320x172), touch ok
+[   2.120] imu: gyro bias 0.31 -0.12 0.05 dps over 200 samples (spread 0.9 dps)
+[   2.120] boot: IMU: QMI8658 + Mahony
+[   2.190] ble: advertising as "EchoQuest-55A2" (VID 0x1209 PID 0x0001, 0 bond(s) stored)
+[   3.200] input: btn=0x0000 hat=0 yaw=   0.02 pitch=  0.41 roll=  -0.33 | tx=0 (no host) | ...
 ```
+
+On the DevKitC-1 there are no `touch`/`ui`/`imu` lines, and the IMU line reads `FakeImu (sine sweep)`.
 
 Keep the monitor open for the steps below.
 
@@ -61,30 +115,30 @@ Keep the monitor open for the steps below.
 1. Settings → Bluetooth & devices → Add device → Bluetooth.
 2. Select `EchoQuest-XXXX`. There's no PIN; pairing completes on its own.
 3. The serial log shows `ble: connected`, `ble: secured: encrypted=yes bonded=yes`,
-   and `ble: host enabled input notifications`. The `input:` lines change from
-   `(no host)` to a `tx=` count of about 100/s.
-4. Optional: run `joy.cpl` (Game Controllers) → Properties. Buttons light up,
-   the POV hat follows the D-pad, and the X/Y/Z axes sweep slowly.
+   and `ble: host enabled input notifications`. The screen status turns green
+   (CONNECTED), and the `input:` lines show a `tx=` count instead of `(no host)`.
+4. Optional: run `joy.cpl` (Game Controllers) → Properties. Buttons 1/2 light up
+   when you touch A/B, and X/Y/Z follow yaw/pitch/roll.
 
 ### 1b. Pair on macOS
 
 1. System Settings → Bluetooth. `EchoQuest-XXXX` appears under Nearby Devices → Connect.
-2. The serial log shows the same three `ble:` lines as on Windows.
+2. Same serial and screen feedback as on Windows.
 
 Only one host can be connected at a time. To move the controller to another
 computer, disconnect it on the first one (or switch that computer's Bluetooth off).
 
 ### 2. Check input with hid_probe.py
 
-From the repo root, on the paired computer:
+From the repo root, on the paired computer (see `CLAUDE.md` for venv setup):
 
 ```sh
-pip install -r tools/requirements.txt
 python tools/hid_probe.py list          # should list 1209:0001 usage 0x0001/0x05
-python tools/hid_probe.py monitor       # yaw/pitch/roll sweep; press buttons to see B1..B8, hat N..NW
+python tools/hid_probe.py monitor       # touch A/B -> B1/B2; tilt and turn the board -> yaw/pitch/roll
 python tools/hid_probe.py descriptor    # macOS: should say MATCHES protocol/hid-report.md
 ```
 
+Pressing A and B together should show `B1 B2`; the touch controller reports two points.
 Compare a `monitor --raw` line with the hex at the end of a serial `input:` line.
 They should match, except that the host line starts with the report ID `01`.
 
@@ -109,7 +163,8 @@ For `haptic 0 200 500` the serial log shows:
 [  42.601] haptic: motor 0 done
 ```
 
-GPIO 5 goes HIGH and the onboard RGB LED glows magenta for 500 ms.
+Waveshare: the haptic bar fills magenta to about 80% (200/255) for 500 ms, and GPIO 7 goes HIGH.
+DevKitC-1: GPIO 5 goes HIGH and the RGB LED glows magenta.
 Disconnecting the host during a long command stops all motors (`haptic: all motors STOP`).
 
 ## Troubleshooting
@@ -119,4 +174,11 @@ Disconnecting the host during a long command stops all motors (`haptic: all moto
   Bluetooth settings, and pair again.
 - **The host won't reconnect, or pairing fails, after reflashing:** hold BOOT for 3 s to
   clear the controller's bonds, remove the device on the host, and pair again.
-- **Serial port missing:** use the "USB" port (not "UART"). To force download mode, hold BOOT and tap RESET.
+- **Yaw keeps creeping:** reset the board while it's lying still. Some
+  drift is expected without a magnetometer.
+- **`touch: AXS5106L not responding` or `imu: QMI8658 not responding`:** both share
+  I2C on GPIO 18/19. Check that nothing external is connected to those header pins.
+- **Screen colors look inverted or red/blue are swapped:** the panel init follows
+  Waveshare's driver; see `JD9853_INIT` and the `ips` flag in `firmware/src/ui.cpp`.
+- **Serial port missing:** use the board's native USB port. To force download
+  mode, hold BOOT and tap RESET.

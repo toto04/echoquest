@@ -4,6 +4,7 @@
 #include <map>
 
 #include "debouncer.h"
+#include "orientation_filter.h"
 #include "protocol.h"
 
 using namespace protocol;
@@ -161,6 +162,73 @@ void test_debouncer_millis_wraparound() {
     TEST_ASSERT_TRUE(db.update(true, 4));  // 10 ms later across the wrap
 }
 
+// ---- Orientation filter ------------------------------------------------------
+// Body frame: X forward, Y left, Z up. A still accelerometer reads "up".
+static const float D2R = orientation::DEG_TO_RAD_F;
+
+void test_orientation_flat_is_zero() {
+    orientation::MahonyFilter f;
+    f.initFromAccel(0, 0, 1);
+    orientation::Euler e = f.euler();
+    TEST_ASSERT_FLOAT_WITHIN(0.01f, 0, e.yawDeg);
+    TEST_ASSERT_FLOAT_WITHIN(0.01f, 0, e.pitchDeg);
+    TEST_ASSERT_FLOAT_WITHIN(0.01f, 0, e.rollDeg);
+}
+
+void test_orientation_nose_up_is_positive_pitch() {
+    // Nose up 30 deg: "up" gains a +X (forward) component.
+    orientation::MahonyFilter f;
+    f.initFromAccel(sinf(30 * D2R), 0, cosf(30 * D2R));
+    orientation::Euler e = f.euler();
+    TEST_ASSERT_FLOAT_WITHIN(0.1f, 30, e.pitchDeg);
+    TEST_ASSERT_FLOAT_WITHIN(0.1f, 0, e.rollDeg);
+}
+
+void test_orientation_right_down_is_positive_roll() {
+    // Right side down 20 deg: the left side rises, "up" gains a +Y (left) component.
+    orientation::MahonyFilter f;
+    f.initFromAccel(0, sinf(20 * D2R), cosf(20 * D2R));
+    orientation::Euler e = f.euler();
+    TEST_ASSERT_FLOAT_WITHIN(0.1f, 20, e.rollDeg);
+    TEST_ASSERT_FLOAT_WITHIN(0.1f, 0, e.pitchDeg);
+}
+
+void test_orientation_turn_right_is_positive_yaw() {
+    // Turning right = clockwise from above = negative rotation about Z-up.
+    orientation::MahonyFilter f(1.0f);
+    f.initFromAccel(0, 0, 1);
+    for (int i = 0; i < 100; i++) f.update(0, 0, -90 * D2R, 0, 0, 1, 0.01f);   // 1 s at -90 deg/s
+    TEST_ASSERT_FLOAT_WITHIN(0.5f, 90, f.euler().yawDeg);
+}
+
+void test_orientation_converges_to_accel() {
+    // Start flat, then hold the board nose-up 30 deg with no rotation reported:
+    // the accelerometer correction must pull pitch to 30.
+    orientation::MahonyFilter f(2.0f);
+    f.initFromAccel(0, 0, 1);
+    for (int i = 0; i < 1000; i++) f.update(0, 0, 0, sinf(30 * D2R), 0, cosf(30 * D2R), 0.01f);
+    TEST_ASSERT_FLOAT_WITHIN(0.5f, 30, f.euler().pitchDeg);
+}
+
+void test_orientation_gyro_pitch_matches_accel_sign() {
+    // Gyro and accel must agree on direction: rotating nose-up via the gyro
+    // (negative rate about Y-left) gives positive pitch, same as the accel test.
+    orientation::MahonyFilter f(0.0f);   // gyro only
+    f.initFromAccel(0, 0, 1);
+    for (int i = 0; i < 100; i++) f.update(0, -30 * D2R, 0, 0, 0, 0, 0.01f);
+    TEST_ASSERT_FLOAT_WITHIN(0.5f, 30, f.euler().pitchDeg);
+}
+
+void test_remap_axes() {
+    const int8_t map[3] = {-2, +1, +3};
+    const float in[3] = {1, 2, 3};
+    float out[3];
+    orientation::remapAxes(map, in, out);
+    TEST_ASSERT_EQUAL_FLOAT(-2, out[0]);
+    TEST_ASSERT_EQUAL_FLOAT(1, out[1]);
+    TEST_ASSERT_EQUAL_FLOAT(3, out[2]);
+}
+
 int main() {
     UNITY_BEGIN();
     RUN_TEST(test_descriptor_matches_report_sizes);
@@ -173,5 +241,12 @@ int main() {
     RUN_TEST(test_haptic_stop_semantics);
     RUN_TEST(test_debouncer_ignores_bounce);
     RUN_TEST(test_debouncer_millis_wraparound);
+    RUN_TEST(test_orientation_flat_is_zero);
+    RUN_TEST(test_orientation_nose_up_is_positive_pitch);
+    RUN_TEST(test_orientation_right_down_is_positive_roll);
+    RUN_TEST(test_orientation_turn_right_is_positive_yaw);
+    RUN_TEST(test_orientation_converges_to_accel);
+    RUN_TEST(test_orientation_gyro_pitch_matches_accel_sign);
+    RUN_TEST(test_remap_axes);
     return UNITY_END();
 }

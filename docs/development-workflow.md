@@ -88,14 +88,30 @@ Working rules for Unity:
 - Installing an Editor, updating the CLI (`unity self-update`) and filing Unity
   bug reports (`unity bug`, which uploads logs) need the human's go-ahead.
 
+Commands that proved useful (Editor commands are addressed as `<group>.<name>`
+or `<group> <name>`; `unity command --query <word>` finds them):
+
+```sh
+export UNITY_PROJECT_PATH=$PWD/unity/EchoQuestTest    # target this project's Editor
+unity status --until-ready                            # wait for the Editor
+unity command recompile; unity command recompile_status --result-only
+unity command eval --code 'return UnityEngine.InputSystem.InputSystem.devices.Count;' --result-only
+unity command eval --code 'EchoQuest.Editor.TestSceneBuilder.Build();'
+unity command editor.playmode start                   # and editor.playmode stop
+unity command capture game_view --output-path /tmp/game.png
+unity command console get --tail 20
+```
+
+To confirm Play mode is really running (not frozen), read `Time.frameCount`
+twice with `eval` and check it increased.
+
 Environment as of 2026-11-04: Unity CLI 1.0.0-beta.13 (beta.16 available),
-signed in with a Unity Personal license, Unity Hub installed, **no Editor
-installed yet**.
+Unity Personal license, Unity Hub, Unity Editor **6000.6.8f1** (arm64).
 
 ## Git
 
 - `main` is the only branch for now. Commits use conventional prefixes (`feat:`, `docs:`, `fix:`).
 - Agents commit and push only when asked.
 - Generated folders (`.pio/`, Unity `Library/`, `Temp/`, Python venvs) are never committed.
-- See [unity-test-scene.md](unity-test-scene.md#repository-setup) for the
-  `.gitignore` fix needed before a Unity project is added.
+- Unity projects keep their own `.gitignore`; see
+  [unity-test-scene.md](unity-test-scene.md#repository-setup) for what to check before committing.

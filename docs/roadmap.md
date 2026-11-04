@@ -12,6 +12,7 @@ Last updated: 2026-11-04.
 | Protocol v1.0 | [`protocol/hid-report.md`](../protocol/hid-report.md), 98-byte descriptor, PID `0x0001` | Native tests check that descriptor bit counts match the report sizes; probe self-test |
 | Host probe tool | `tools/hid_probe.py`: list, monitor, haptic, descriptor, selftest | Self-test passes; used against real hardware |
 | DevKitC-1 profile | 8 GPIO buttons, 4-way hat, `FakeImu`, RGB LED haptic stand-in | Hardware-tested |
+| Unity test scene | `unity/EchoQuestTest` (Unity 6000.6.8f1): custom Input System layout for the controller, a critter that mirrors orientation, A = colour, B = hop | Runs in the Editor with the real controller on macOS; decoded values checked against raw report bytes |
 | Waveshare ESP32-C6-Touch-LCD-1.47 profile | Real QMI8658A IMU with Mahony fusion, LCD status screen, 2 touch buttons, default env | Builds; orientation signs unit-tested. Hardware checklist in the [README](../README.md#imu-axes-check-once-per-board-design) |
 
 ### Known gaps and things to check on hardware
@@ -25,35 +26,36 @@ Last updated: 2026-11-04.
   shows a bar on the LCD. Pattern IDs 1–255 are reserved but play as constant.
 - **VID/PID are in the pid.codes test range.** A real PID is needed before any
   distribution.
-- **Repo `.gitignore` is not ready for a Unity project.** It ignores `*.meta`
-  and `**/Packages/*`, which Unity projects must commit, and its Unity rules are
-  anchored to the repo root. Must be fixed before the Unity project is
-  committed (see [unity-test-scene.md](unity-test-scene.md#repository-setup)).
+- **Unity test scene: signs and feel not yet confirmed by hand** (see
+  [unity-test-scene.md](unity-test-scene.md#done-when)).
 
 ## Next milestones
 
-### 1. Unity test scene (next)
+### 1. Unity test scene (done, pending hand check)
 
 A small, playful Unity scene that proves the controller works end to end
 inside Unity: an object that rotates with the controller's orientation and
 reacts to the two buttons. Details: [unity-test-scene.md](unity-test-scene.md).
 
 Exit criteria:
-- The controller is detected by the Unity Input System on macOS (and ideally Windows).
-- Buttons 1–2 and yaw/pitch/roll are read with correct signs and scale.
-- Findings about how Unity exposes the device are written down, since they
-  shape the real game's input layer.
+- [x] The controller is detected by the Unity Input System on macOS. Windows not tried yet.
+- [x] Buttons and yaw/pitch/roll decode with the correct scale.
+- [ ] Signs confirmed by hand (turning right turns the critter right, and so on).
+- [x] Findings about how Unity exposes the device are written down
+  ([unity-test-scene.md](unity-test-scene.md#how-unity-sees-the-controller-findings-2026-11-04-macos)).
 
 ### 2. Haptics from Unity
 
 Send output report ID 2 from Unity (through the Input System if it can send
 HID output reports on our platforms, otherwise through a small native or
-hidapi-based plugin). Exit: a Unity button press makes the controller's haptic
+hidapi-based plugin). Unity reports `outputReportSize 9` for the device, as
+documented, which is a good sign. Exit: a Unity button press makes the controller's haptic
 stub fire, as `hid_probe.py haptic` does today.
 
 ### 3. Unity input layer for the game
 
-A reusable C# module that mirrors `protocol/hid-report.md`: device detection,
+A reusable C# module that mirrors `protocol/hid-report.md`, growing out of the
+test scene's `EchoQuestController` layout: device detection,
 decoded state (buttons, orientation in degrees), yaw recentering, haptic
 commands, and connection/disconnection events that the game can turn into sound.
 

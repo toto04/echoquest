@@ -2,11 +2,13 @@
 
 **Protocol version 1.0.** This document is the single source of truth for the
 controller's HID reports. The firmware (`firmware/include/protocol.h`), the
-probe tool (`tools/hid_probe.py`) and the Unity C# layout all mirror it.
+probe tool (`tools/hid_probe.py`) and the Unity C# layout
+(`unity/EchoQuestTest/Assets/EchoQuest/Scripts/EchoQuestController.cs`) all mirror it.
 
 ## Rules for changing this protocol
 
-1. Change this document first, then `protocol.h`, `hid_probe.py`, and the Unity layout.
+1. Change this document first, then `protocol.h`, `hid_probe.py`, and the Unity layout
+   (`EchoQuestController.cs`: struct offsets and `ProductId`).
 2. **Bump `DEVICE_PID`** in `firmware/include/config.h` whenever the report
    descriptor changes in any way. Windows caches descriptors per VID/PID and
    will keep decoding with the old layout otherwise.

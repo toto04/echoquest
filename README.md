@@ -8,6 +8,7 @@ vendor-defined haptic commands from the game.
 - Firmware: [`firmware/`](firmware/) (ESP32-C6, PlatformIO, Arduino core 3.x, NimBLE)
 - Report layout: [`protocol/hid-report.md`](protocol/hid-report.md)
 - Host probe tool: [`tools/hid_probe.py`](tools/hid_probe.py)
+- Unity test scene: [`unity/EchoQuestTest/`](unity/EchoQuestTest/), see [`docs/unity-test-scene.md`](docs/unity-test-scene.md#running-it)
 - Build, flash and dev notes: [`CLAUDE.md`](CLAUDE.md)
 
 ## Supported boards

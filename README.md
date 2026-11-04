@@ -4,6 +4,7 @@ A Bluetooth LE gamepad for an audio-only Unity game for blind children.
 It appears to the OS as a standard HID gamepad (HID over GATT) and accepts
 vendor-defined haptic commands from the game.
 
+- Project docs (idea, architecture, roadmap, workflow): [`docs/`](docs/README.md)
 - Firmware: [`firmware/`](firmware/) (ESP32-C6, PlatformIO, Arduino core 3.x, NimBLE)
 - Report layout: [`protocol/hid-report.md`](protocol/hid-report.md)
 - Host probe tool: [`tools/hid_probe.py`](tools/hid_probe.py)

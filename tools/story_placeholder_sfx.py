@@ -180,83 +180,98 @@ def save(name, x, peak_db=-3.0):
     print(f"{name}.wav  {len(x) / SR:.1f}s")
 
 
+def tom(vel=0.8):
+    """A floor tom: BUM."""
+    n = int(0.6 * SR)
+    out, ph = [], 0.0
+    for i in range(n):
+        t = i / SR
+        f = 70 + 60 * math.exp(-t / 0.05)
+        ph += 2 * math.pi * f / SR
+        out.append(vel * math.exp(-t / 0.22) * math.sin(ph))
+    hit = biquad([random.uniform(-1, 1) * math.exp(-i / (0.02 * SR)) for i in range(int(0.08 * SR))], "lp", 900)
+    return mix(out, hit, 0, 0.5 * vel)
+
+
+def triangle(vel=0.5, dur=2.5):
+    """A triangle: DIN. Inharmonic metal partials with a long ring."""
+    n = int(dur * SR)
+    out = [0.0] * n
+    for ratio, amp in zip((1.0, 2.76, 5.40, 8.93, 13.3), (1.0, 0.7, 0.5, 0.35, 0.25)):
+        w = 2 * math.pi * 1250 * ratio / SR
+        tau = 1.6 / ratio ** 0.4
+        ph = random.random() * 2 * math.pi
+        for i in range(n):
+            out[i] += amp * vel * math.exp(-i / (tau * SR)) * math.sin(w * i + ph)
+    click = biquad([random.uniform(-1, 1) * math.exp(-i / (0.001 * SR)) for i in range(int(0.006 * SR))], "hp", 4000)
+    return mix(out, click, 0, 0.3 * vel)
+
+
+def flute(freq, dur, vel=0.5, breath=0.08):
+    """A flute-like tone: soft attack, gentle vibrato, a little breath noise."""
+    n = int(dur * SR)
+    out, ph = [], 0.0
+    attack, release = 0.07, min(0.15, dur / 3)
+    env = []
+    for i in range(n):
+        t = i / SR
+        vib = 12 * math.sin(2 * math.pi * 5.2 * t) * min(1.0, max(0.0, (t - 0.25) / 0.3))
+        ph += 2 * math.pi * freq * 2 ** (vib / 1200) / SR
+        e = min(1.0, t / attack) * min(1.0, max(0.0, (dur - t) / release))
+        env.append(e)
+        out.append(vel * e * (math.sin(ph) + 0.22 * math.sin(2 * ph) + 0.1 * math.sin(3 * ph) + 0.04 * math.sin(4 * ph)))
+    air = biquad([random.uniform(-1, 1) for _ in range(n)], "bp", min(freq * 2, 8000), 2.0)
+    for i in range(n):
+        out[i] += breath * vel * env[i] * air[i]
+    return out
+
+
+_CACHE = {}
+
+
+def cached(fn, *args, **kw):
+    """Instruments are expensive in pure Python: reuse identical notes."""
+    key = (fn.__name__, args, tuple(sorted(kw.items())))
+    if key not in _CACHE:
+        _CACHE[key] = fn(*args, **kw)
+    return _CACHE[key]
+
+
 NOTE = {"C3": 130.81, "G3": 196.0, "C4": 261.63, "D#4": 311.13, "E4": 329.63, "G4": 392.0,
-        "A4": 440.0, "C5": 523.25, "E5": 659.25, "G5": 783.99}
+        "A4": 440.0, "C5": 523.25, "D5": 587.33, "E5": 659.25, "G5": 783.99}
 
 # The recurring theme of the chapter: three notes, rhythm "TA... TA-TA" (scene 3 asks the child to repeat it).
 THEME = [(0.0, "G4"), (1.2, "C5"), (1.5, "E5")]
 BAR = 2.4
+BEAT = BAR / 4
+# The flute's answer to the theme, alternating every bar: (time in bar, note, length).
+FLUTE_LINE = [[(0.0, "E5", 0.55), (0.6, "G5", 0.55), (1.2, "E5", 0.55), (1.8, "D5", 0.55)],
+              [(0.0, "C5", 1.1), (1.2, "D5", 0.55), (1.8, "E5", 0.55)]]
 
 
 def theme(notes=3, vel=0.7):
     out = silence(BAR + 1.5)
     for t, n in THEME[:notes]:
-        mix(out, piano(NOTE[n], 1.6, vel), t)
+        mix(out, cached(piano, NOTE[n], 1.6, vel), t)
     return out
 
 
-def band_bar(piano_notes=3, with_kick=True, with_bells=True):
-    out = theme(piano_notes)
-    mix(out, piano(NOTE["C3"], 2.4, 0.35), 0.0)
-    if with_kick:
-        for k in range(4):
-            mix(out, kick(0.7), k * 0.6, 0.8)
-    if with_bells:
-        mix(out, fade(load("bells", 0.83, 2.0), 0.01, 0.4), 1.2, 0.35)
+def add_bar(out, at, bar_index=0, piano_notes=3, bass=True, drum=True, tri=True, flt=True, first_beat=0):
+    """Mix one bar of the band into `out` at time `at`. `first_beat` skips the drum's first beats."""
+    mix(out, theme(piano_notes), at)
+    if bass:
+        mix(out, cached(piano, NOTE["C3"], 2.4, 0.35), at)
+    if drum:
+        for k in range(first_beat, 4):
+            mix(out, cached(tom, 0.8 if k % 2 == 0 else 0.5), at + k * BEAT, 0.7)
+    if tri:
+        for t in (BEAT, 3 * BEAT):
+            mix(out, cached(triangle, 0.4), at + t, 0.3)
+    if flt:
+        for t, n, d in FLUTE_LINE[bar_index % 2]:
+            mix(out, cached(flute, NOTE[n], d, 0.4), at + t, 0.5)
     return out
 
-
-# p00_sfx_01: room ambience, someone tries a few piano notes in the distance. MISSING: footsteps, door, murmurs.
-x = fade(load("seat"), 0.3, 0.8)
-for t, n, v in [(1.6, "A4", 0.3), (2.5, "A4", 0.25), (3.4, "E5", 0.3), (4.6, "C4", 0.25)]:
-    mix(x, piano(NOTE[n], 1.8, v), t, 3.0)
-save("p00_sfx_01", fade(x, 0, 0.5), -6)
-
-# p00_sfx_02: three funny, slightly out-of-tune notes.
-x = silence(2.6)
-for t, f, v in [(0.0, NOTE["E4"] * 0.97, 0.6), (0.35, NOTE["D#4"] * 1.03, 0.6), (0.75, NOTE["G3"] * 0.95, 0.8)]:
-    mix(x, piano(f, 1.6, v, damp=0.25 if t < 0.7 else None), t)
-save("p00_sfx_02", x)
-
-save("p00_sfx_03", piano(NOTE["C4"], 4.5, 0.45), -6)  # one soft long note
-x = silence(1.4)  # three short notes
-for t in (0.0, 0.3, 0.6):
-    mix(x, piano(NOTE["C5"], 0.8, 0.6, damp=0.15), t)
-save("p00_sfx_04", x)
-save("p00_sfx_05", piano(NOTE["G5"], 3.0, 0.2), -12)  # very delicate
-x = silence(3.0)  # energetic chord (level is set in Unity, not here)
-for n in ("C3", "C4", "E4", "G4"):
-    mix(x, piano(NOTE[n], 3.0, 1.0), 0.0, 0.5)
-save("p00_sfx_06", x, -3)
-
-# p00_sfx_07: one clap in a big room (the reverb comes from Unity). MISSING: footsteps.
-save("p00_sfx_07", mix(silence(1.0), clap(), 0.05), -4)
-save("p00_sfx_08", mix(mix(silence(1.4), clap(), 0.05), clap(), 0.6), -4)  # two claps
-
-# p00_sfx_09: a small object falls. MISSING: throat clearing.
-save("p00_sfx_09", mix(silence(0.6), load("drop")), -6)
-save("p00_sfx_10", fade(load("rummage", 0.0, 4.5), 0.05, 0.8), -6)  # rummaging through objects
-
-# p00_sfx_12: TAC, TAC... TOC! (two wooden hits, then a lower one)
-hit = fade(load("stick", 0.60, 0.90), 0.002, 0.05)
-toc = resample(fade(load("stick", 1.28, 1.58), 0.002, 0.05), 0.7)
-save("p00_sfx_12", mix(mix(mix(silence(1.6), hit, 0.0), hit, 0.32, 0.9), toc, 0.95, 1.1), -3)
-
-# p00_sfx_13: the orchestra plays the theme twice: piano, a deep beat and a tinkle.
-x = silence(0)
-mix(x, band_bar(with_bells=False), 0.0)
-mix(x, band_bar(), BAR)
-save("p00_sfx_13", fade(x, 0, 1.2), -3)
-
-# p00_sfx_14: a gust of wind crosses the room, light at first, then more insistent (never deafening).
-storm = biquad(biquad(load("storm", 0.0, 8.0), "lp", 1200), "hp", 120)
-save("p00_sfx_14", fade(ramp(storm, 0.15, 0.7), 2.5, 1.2), -6)
-
-# p00_sfx_15: FFFF... a door bangs softly, papers flutter.
-x = mix(silence(2.6), load("whoosh"), 0.0)
-mix(x, fade(load("woodhit30", 1.9, 3.4), 0.003, 0.6), 0.55, 0.35)
-mix(x, load("pages"), 0.8, 1.6)
-save("p00_sfx_15", x, -4)
 
 def broken_theme(intensity=1.0):
     """The theme after the wind has stolen it: out of tune, sagging, the last note gone.
@@ -268,24 +283,125 @@ def broken_theme(intensity=1.0):
     return out
 
 
-# p00_sfx_16: wind again; the band loses instruments one by one, then the piano falls apart.
-x = silence(0)
-mix(x, band_bar(), 0.0)
-mix(x, band_bar(with_bells=False), BAR)
-mix(x, broken_theme(0.6), 2 * BAR)
-mix(x, load("whoosh"), 0.9 * BAR, 0.8)
-mix(x, load("whoosh"), 1.9 * BAR, 0.8)
-save("p00_sfx_16", fade(x, 0, 0.8), -3)
+def cue(n):
+    return f"p00_sfx_{n:02d}"
 
-# p00_sfx_17: the piano tries the theme: two wrong notes, a stuck key, then a pause that is too long.
-# Also loops under the narrator ("la canzone continua, ma non è più la stessa").
-save("p00_sfx_17", mix(silence(BAR + 2.8), broken_theme(1.0)), -6)
 
-# p00_sfx_18: musical silence, only a light wind (loopable bed).
-bed = biquad(biquad(load("storm", 8.0, 16.0), "lp", 600), "hp", 100)
-save("p00_sfx_18", fade(bed, 1.0, 1.0), -14)
+def wanted(n):
+    return not ONLY or cue(n) in ONLY
 
-# p00_sfx_19: the wind leaves quickly, a last whistle.
-x = mix(silence(2.0), load("whoosh"), 0.0)
-mix(x, whistle(), 0.45, 0.25)
-save("p00_sfx_19", fade(x, 0, 0.6), -4)
+
+# --- Cues. Numbers follow capitolo_01_suoni.csv. ----------------------------------------------
+
+if wanted(1):  # room ambience, someone tries a few piano notes in the distance. MISSING: footsteps, door, murmurs.
+    x = fade(load("seat"), 0.3, 0.8)
+    for t, n, v in [(1.6, "A4", 0.3), (2.5, "A4", 0.25), (3.4, "E5", 0.3), (4.6, "C4", 0.25)]:
+        mix(x, piano(NOTE[n], 1.8, v), t, 3.0)
+    save(cue(1), fade(x, 0, 0.5), -6)
+
+if wanted(2):  # three funny, slightly out-of-tune piano notes
+    x = silence(2.6)
+    for t, f, v in [(0.0, NOTE["E4"] * 0.97, 0.6), (0.35, NOTE["D#4"] * 1.03, 0.6), (0.75, NOTE["G3"] * 0.95, 0.8)]:
+        mix(x, piano(f, 1.6, v, damp=0.25 if t < 0.7 else None), t)
+    save(cue(2), x)
+
+# "Un suono può essere lungo / corto / delicato / forte": a different instrument for each.
+if wanted(3):
+    save(cue(3), mix(silence(3.8), flute(NOTE["C5"], 3.5, 0.5)), -6)  # long: flute
+if wanted(4):
+    x = silence(1.4)  # short: three drum hits
+    for t in (0.0, 0.3, 0.6):
+        mix(x, tom(0.7), t)
+    save(cue(4), x, -3)
+if wanted(5):
+    save(cue(5), triangle(0.3, 3.0), -12)  # delicate: one soft triangle touch
+if wanted(6):
+    x = silence(3.2)  # loud: everybody together
+    for n in ("C3", "C4", "E4", "G4"):
+        mix(x, piano(NOTE[n], 3.0, 1.0), 0.0, 0.5)
+    mix(x, tom(1.0), 0.0, 0.9)
+    mix(x, triangle(0.6), 0.0, 0.4)
+    mix(x, flute(NOTE["C5"], 1.6, 0.6), 0.0, 0.6)
+    save(cue(6), x, -3)
+
+if wanted(7):  # one clap in a big room (the reverb comes from Unity). MISSING: footsteps.
+    save(cue(7), mix(silence(1.0), clap(), 0.05), -4)
+if wanted(8):  # two claps
+    save(cue(8), mix(mix(silence(1.4), clap(), 0.05), clap(), 0.6), -4)
+
+# "C'è chi fa bum bum / din din / suoni delicati / tutti insieme".
+if wanted(9):
+    save(cue(9), mix(mix(silence(1.4), tom(0.9), 0.0), tom(0.9), 0.5), -3)  # BUM, BUM
+if wanted(10):
+    save(cue(10), mix(mix(silence(3.0), triangle(0.5), 0.0), triangle(0.5), 0.6), -6)  # DIN, DIN
+if wanted(11):
+    x = silence(2.4)  # a whispering flute
+    for t, n, d in [(0.0, "E5", 0.5), (0.5, "D5", 0.5), (1.0, "C5", 1.2)]:
+        mix(x, flute(NOTE[n], d, 0.25, breath=0.2), t)
+    save(cue(11), x, -10)
+if wanted(12):
+    save(cue(12), fade(add_bar(silence(0), 0.0), 0, 1.0), -4)  # all together for a moment
+
+if wanted(13):  # a small object falls. MISSING: throat clearing.
+    save(cue(13), mix(silence(0.6), load("drop")), -6)
+if wanted(14):  # rummaging through objects
+    save(cue(14), fade(load("rummage", 0.0, 4.5), 0.05, 0.8), -6)
+# 15: laughter in the distance. MISSING.
+if wanted(16):  # TAC, TAC... TOC! (two wooden hits, then a lower one)
+    hit = fade(load("stick", 0.60, 0.90), 0.002, 0.05)
+    toc = resample(fade(load("stick", 1.28, 1.58), 0.002, 0.05), 0.7)
+    save(cue(16), mix(mix(mix(silence(1.6), hit, 0.0), hit, 0.32, 0.9), toc, 0.95, 1.1), -3)
+
+if wanted(17):
+    # The orchestra's song, built up under the narrator, who starts 3 s in (regia: attesa 3).
+    # Narrator times (p00_narr_05) -> song time = narrator time + 3:
+    #   "Prima senti un suono" ~1 s (piano alone) · "poi ne arriva un altro" ~3 s (drum at 6.0)
+    #   "e un altro ancora" ~5 s (triangle at 8.4) · "Ogni strumento..." ~7 s (flute and bass at 9.6)
+    #   "La musica continua a crescere" ~15 s (more layers at 16.8, louder up to 20.5)
+    # Then the full band keeps playing (looping) until the wind ruins it.
+    length = 80.0
+    x = silence(length + 2)
+    bars = int(length / BAR)
+    for b in range(bars):
+        at = b * BAR
+        add_bar(x, at, b,
+                bass=at >= 9.6,
+                drum=at + 3 * BEAT >= 6.0, first_beat=max(0, math.ceil((6.0 - at) / BEAT - 1e-6)) if at < 6.0 else 0,
+                tri=at + BEAT >= 8.4 - 1e-6 and at >= 7.2,
+                flt=at >= 9.6)
+        if at >= 16.8:  # growing: chords on every bar and extra triangle
+            for n in ("C4", "E4", "G4"):
+                mix(x, cached(piano, NOTE[n], 2.0, 0.4), at, 0.35)
+            for k in (0, 2):
+                mix(x, cached(triangle, 0.3), at + k * BEAT, 0.2)
+    for i in range(len(x)):  # crescendo: 0.45 until 9.6 s, full at 20.5 s
+        t = i / SR
+        x[i] *= 0.45 + 0.55 * min(1.0, max(0.0, (t - 9.6) / (20.5 - 9.6)))
+    save(cue(17), fade(x[:int(length * SR)], 0, 2.0), -3)
+
+if wanted(18):  # a gust of wind crosses the room, light at first, then more insistent (never deafening)
+    storm = biquad(biquad(load("storm", 0.0, 8.0), "lp", 1200), "hp", 120)
+    save(cue(18), fade(ramp(storm, 0.15, 0.7), 2.5, 1.2), -6)
+if wanted(19):  # FFFF... a door bangs softly, papers flutter
+    x = mix(silence(2.6), load("whoosh"), 0.0)
+    mix(x, fade(load("woodhit30", 1.9, 3.4), 0.003, 0.6), 0.55, 0.35)
+    mix(x, load("pages"), 0.8, 1.6)
+    save(cue(19), x, -4)
+if wanted(20):  # wind again; the band loses instruments one by one, then the piano falls apart
+    x = silence(0)
+    add_bar(x, 0.0, 0)
+    add_bar(x, BAR, 1, tri=False, flt=False)
+    mix(x, broken_theme(0.6), 2 * BAR)
+    mix(x, load("whoosh"), 0.9 * BAR, 0.8)
+    mix(x, load("whoosh"), 1.9 * BAR, 0.8)
+    save(cue(20), fade(x, 0, 0.8), -3)
+if wanted(21):  # the piano tries the theme: two wrong notes, a stuck key, a pause that is too long
+    # Also loops under the narrator ("la canzone continua, ma non è più la stessa").
+    save(cue(21), mix(silence(BAR + 2.8), broken_theme(1.0)), -6)
+if wanted(22):  # musical silence, only a light wind (loopable bed)
+    bed = biquad(biquad(load("storm", 8.0, 16.0), "lp", 600), "hp", 100)
+    save(cue(22), fade(bed, 1.0, 1.0), -14)
+if wanted(23):  # the wind leaves quickly, a last whistle
+    x = mix(silence(2.0), load("whoosh"), 0.0)
+    mix(x, whistle(), 0.45, 0.25)
+    save(cue(23), fade(x, 0, 0.6), -4)

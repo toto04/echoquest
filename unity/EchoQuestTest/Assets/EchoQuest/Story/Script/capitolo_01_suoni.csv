@@ -1,130 +1,134 @@
 id,sezione,ramo,descrizione,dentro_battuta,file_audio,stato,riga_copione
 p00_sfx_01,p00,,"Silenzio iniziale. Lentamente si sentono piccoli rumori: qualcuno cammina su un pavimento, una porta si apre, alcune persone parlano sottovoce. In lontananza si sente un pianoforte che prova qualche nota.",,p00_sfx_01.wav,presente,12
 p00_sfx_02,p00,,"Tre note buffe di pianoforte, volutamente un po' stonate.",,p00_sfx_02.wav,presente,28
-p00_sfx_03,p00,,Una nota morbida di pianoforte che risuona lentamente.,p00_narr_02,p00_sfx_03.wav,presente,40
-p00_sfx_04,p00,,Tre note brevi.,p00_narr_02,p00_sfx_04.wav,presente,44
-p00_sfx_05,p00,,Una nota molto delicata.,p00_narr_02,p00_sfx_05.wav,presente,48
-p00_sfx_06,p00,,"Un accordo energico, a volume controllato.",p00_narr_02,p00_sfx_06.wav,presente,52
+p00_sfx_03,p00,,Una nota lunga e morbida di flauto che si spegne lentamente.,p00_narr_02,p00_sfx_03.wav,presente,40
+p00_sfx_04,p00,,Tre colpi brevi di tamburo.,p00_narr_02,p00_sfx_04.wav,presente,44
+p00_sfx_05,p00,,Un tocco delicatissimo di triangolo.,p00_narr_02,p00_sfx_05.wav,presente,48
+p00_sfx_06,p00,,"Un accordo energico di tutti gli strumenti insieme (pianoforte, tamburo, triangolo, flauto), a volume controllato.",p00_narr_02,p00_sfx_06.wav,presente,52
 p00_sfx_07,p00,,Si sentono passi in una stanza grande. Un battito di mani produce una piccola eco.,,p00_sfx_07.wav,presente,64
 p00_sfx_08,p00,,Due battiti di mani con una breve riverberazione.,p00_narr_03,p00_sfx_08.wav,presente,72
-p00_sfx_09,p00,,Si sente qualcuno schiarirsi la voce. Un piccolo oggetto cade a terra.,,p00_sfx_09.wav,presente,88
-p00_sfx_10,p00,,Piccoli passi affrettati. Qualcuno fruga tra degli oggetti.,,p00_sfx_10.wav,presente,98
-p00_sfx_11,p00,,Qualcuno ride in lontananza.,,,da trovare,112
-p00_sfx_12,p00,,"Tre colpetti distintivi sul leggio: TAC, TAC... TOC!",,p00_sfx_12.wav,presente,118
-p00_sfx_13,p00,,"L'orchestra inizia una melodia semplice e allegra. Il pianoforte apre con tre note riconoscibili, poi si aggiungono un ritmo profondo e un tintinnio. La musica è armoniosa, non troppo complessa.",,p00_sfx_13.wav,presente,136
-p00_sfx_14,p00,,"Un soffio di vento attraversa la stanza. All'inizio è leggero, poi diventa più insistente. Il vento non deve mai essere assordante.",,p00_sfx_14.wav,presente,154
-p00_sfx_15,p00,,FFFFFFFF... Una porta sbatte piano. Alcuni fogli si muovono.,,p00_sfx_15.wav,presente,162
-p00_sfx_16,p00,,"Il vento soffia nuovamente. La melodia perde uno strumento. Poi un altro. Rimane il pianoforte, che suona soltanto le prime due note della frase musicale.",,p00_sfx_16.wav,presente,184
-p00_sfx_17,p00,,"Il pianoforte prova la melodia iniziale. Si sentono due note, poi una pausa troppo lunga.",,p00_sfx_17.wav,presente,198
-p00_sfx_18,p00,,Silenzio musicale. Resta il rumore leggero del vento.,,p00_sfx_18.wav,presente,208
-p00_sfx_19,p00,,Il vento si allontana velocemente. Si sente un ultimo fischio.,,p00_sfx_19.wav,presente,236
-s01_sfx_01,s01,,"Nella sala della musica si sentono alcuni passi veloci. Qualcuno cammina avanti e indietro, fermandosi ogni tanto per borbottare qualcosa. In lontananza il pianoforte prova una breve sequenza di note, ma si interrompe prima di terminarla. Il soffio di Sbuffo, ormai lontano, svanisce.",,,da trovare,270
-s01_sfx_02,s01,,Un piccolo oggetto cade sul pavimento. TAC!,,,da trovare,288
-s01_sfx_03,s01,,Il Maestro si china per raccogliere la bacchetta. Un piccolo verso di fatica.,,,da trovare,296
-s01_sfx_04,s01,,"Tre note di pianoforte tentano di formare una melodia, ma questa si interrompe.",,,da trovare,316
-s01_sfx_05,s01,,I passi del Maestro si fermano.,,,da trovare,330
-s01_sfx_06,s01,,Due note buffe di pianoforte.,,,da trovare,354
-s01_sfx_07,s01,,La bacchetta cade nuovamente a terra.,,,da trovare,368
-s01_sfx_08,s01,,"Il Maestro raccoglie la bacchetta e si schiarisce la voce, assumendo un tono importante.",,,da trovare,376
-s01_sfx_09,s01,,"Tre colpetti sul leggio: TAC, TAC... TOC!",,,da trovare,390
-s01_sfx_10,s01,,"TAC, TAC... TOC!",,,da trovare,408
-s01_sfx_11,s01,,"Il pianoforte prova una breve frase musicale, ma si interrompe.",,,da trovare,426
-s01_sfx_12,s01,,Un solo colpo morbido di tamburo.,,,da trovare,446
-s01_sfx_13,s01,,Una piccola campanella suona una volta.,,,da trovare,454
-s01_sfx_14,s01,,"Il pianoforte suona tre note, dalla più grave alla più acuta.",,,da trovare,462
-s01_sfx_15,s01,,"Il tamburo suona lentamente due colpi regolari. Dopo qualche secondo il pianoforte aggiunge due note, poi una campanella tintinna alla fine. Non è la canzone rubata, ma una breve dimostrazione improvvisata. Durata circa 8–10 secondi.",,,da trovare,474
-s01_sfx_16,s01,,La bacchetta sfiora il leggio.,,,da trovare,518
-s01_sfx_17,s01,,Tre battiti di mani lenti e regolari.,,,da trovare,553
-s01_sfx_18,s01,,"Due battiti ravvicinati, una pausa e un terzo battito.",,,da trovare,571
-s01_sfx_19,s01,,Tre passi lenti e regolari.,,,da trovare,607
-s01_sfx_20,s01,,Una breve sequenza di passi più veloci.,,,da trovare,619
-s01_sfx_21,s01,,"TAC, TAC... TOC!",,,da trovare,639
-s01_sfx_22,s01,,"Il Maestro ripete il proprio ritmo. Subito dopo, una breve frase di pianoforte imita i tre colpi. È una prova spontanea, non la canzone smarrita.",,,da trovare,653
-s01_sfx_23,s01,,Il pianoforte suona due note allegre.,,,da trovare,669
-s01_sfx_24,s01,,In lontananza un soffio di vento attraversa la stanza. Una porta scricchiola leggermente.,,,da trovare,680
-s01_sfx_25,s01,,Il vento soffia ancora per qualche secondo e poi si calma.,,,da trovare,690
-s01_sfx_26,s01,,Il Maestro sospira.,,,da trovare,728
-s01_sfx_27,s01,,"Un soffio breve richiama quello del prologo, senza far credere che Sbuffo sia di nuovo nella stanza.",,,da trovare,758
-s01_sfx_28,s01,,"Il pianoforte suona due note, seguite da un silenzio dove dovrebbe arrivare la terza.",,,da trovare,770
-s01_sfx_29,s01,,"Un breve ricordo sonoro della musica udita nel prologo: tre note complete, con un leggero effetto di memoria. Non è un'esecuzione dal vivo del pianoforte nel presente.",,,da trovare,780
-s01_sfx_30,s01,,Il pianoforte dal vivo esegue solo le prime due note della frase; la terza manca.,,,da trovare,786
-s01_sfx_31,s01,,Il pianoforte riprova la sequenza incompleta.,,,da trovare,826
-s01_sfx_32,s01,,Il Maestro fa due passi veloci verso la porta e si arresta.,,,da trovare,866
-s01_sfx_33,s01,,"Parte di corsa, inciampa leggermente dopo due passi e si ferma.",,,da trovare,872
-s01_sfx_34,s01,,Il pianoforte suona due note morbide e incoraggianti.,,,da trovare,892
-s01_sfx_35,s01,,Due note allegre di pianoforte.,,,da trovare,940
-s01_sfx_36,s01,,Una nota di pianoforte.,s01_maes_39,,da trovare,964
-s01_sfx_37,s01,,Una seconda nota si aggiunge alla prima.,s01_maes_39,,da trovare,968
-s01_sfx_38,s01,,"Un tamburo accompagna delicatamente le due note in un esempio nuovo, non nella melodia del concerto.",,,da trovare,972
-s01_sfx_39,s01,,"I suoni si fermano, lasciando un breve silenzio.",,,da trovare,978
-s01_sfx_40,s01,,Una breve sequenza di tre note dolci introduce il momento.,,,da trovare,999
-s01_sfx_41,s01,,"Il Maestro prova a spingere qualcosa di pesante per un istante, poi si ferma.",,,da trovare,1013
-s01_sfx_42,s01,,"Quattro piccoli segnali sonori di esempio, ben separati. Non devono ancora rappresentare quattro strumenti da imparare.",,,da trovare,1059
-s01_sfx_43,s01,,"Breve segnale di conferma, morbido e riconoscibile.",,,da trovare,1091
-s01_sfx_44,s01,,"Una piccola melodia di pianoforte risuona in lontananza, ma si arresta prima dell'ultima nota della canzone.",,,da trovare,1119
-s01_sfx_45,s01,A,"Si sente prima un breve ricordo della frase musicale completa, chiaramente distinto dal presente; poi la frase eseguita ora dal pianoforte, senza l'ultima nota. Pausa fra le due versioni.",,,da trovare,1181
-s01_sfx_46,s01,B,"Il Maestro comincia a camminare. I passi si muovono nella sala. Ogni tanto si sentono piccoli rumori di strumenti che provano singoli suoni, ma nessuno esegue il brano del concerto.",,,da trovare,1210
-s01_sfx_47,s01,B,"Il pianoforte prova ancora una volta a suonare la propria parte della canzone: due note, poi silenzio.",,,da trovare,1228
-s01_sfx_48,s01,B,Il pianoforte suona una singola nota grave che risuona lentamente.,,,da trovare,1254
-s01_sfx_49,s01,B,"TAC, TAC... TOC!",,,da trovare,1272
-s01_sfx_50,s01,B,Alcune note morbide di pianoforte introducono la scena successiva. La frase rimane diversa da quella incompleta rubata da Sbuffo.,,,da trovare,1280
-s02_sfx_01,s02,,"Passi lenti nella sala. Il rumore del vento diminuisce. Si sentono poche note di pianoforte, prima una nota grave, poi una più acuta.",,,da trovare,1286
-s02_sfx_02,s02,,"Una breve frase di pianoforte, delicata, con note ben distinguibili.",,,da trovare,1300
-s02_sfx_03,s02,,Due note buffe.,,,da trovare,1320
-s02_sfx_04,s02,,Un singolo tasto di pianoforte premuto. Il suono viene lasciato risuonare.,,,da trovare,1344
-s02_sfx_05,s02,,Una nota più acuta.,,,da trovare,1356
-s02_sfx_06,s02,,"Due note alternate, una grave e una acuta, con una pausa tra loro.",,,da trovare,1372
-s02_sfx_07,s02,,"Il pianoforte esegue una breve scala, dal grave all'acuto.",,,da trovare,1384
-s02_sfx_08,s02,,Piccolo motivo comico.,,,da trovare,1406
-s02_sfx_09,s02,,Tre note suonate delicatamente.,,,da trovare,1420
-s02_sfx_10,s02,,"Le stesse tre note suonate con maggiore intensità, senza alzare eccessivamente il volume complessivo.",,,da trovare,1426
-s02_sfx_11,s02,,"Il pianoforte tenta ancora la melodia dell'inizio, ma questa volta si interrompe.",,,da trovare,1440
-s02_sfx_12,s02,,"Tre note di pianoforte, con un ritmo chiaramente riconoscibile.",,,da trovare,1452
-s02_sfx_13,s02,,"La stessa frase, ma manca l'ultima nota. Segue una pausa lunga.",,,da trovare,1458
-s02_sfx_14,s02,,"Prima una nota profonda, poi una nota più acuta. Pausa abbastanza lunga perché siano distinguibili.",,,da trovare,1496
-s02_sfx_15,s02,,Ripetizione della nota grave.,s02_maes_14,,da trovare,1502
-s02_sfx_16,s02,,Ripetizione della nota acuta.,s02_maes_14,,da trovare,1506
-s02_sfx_17,s02,A,"Tre note gravi di pianoforte, lente e morbide.",s02_maes_15,,da trovare,1524
-s02_sfx_18,s02,A,I tre colpi ritmati del Maestro vengono accompagnati da tre note gravi.,s02_maes_15,,da trovare,1534
-s02_sfx_19,s02,B,"Tre note acute di pianoforte, leggere e ben separate.",s02_maes_16,,da trovare,1550
-s02_sfx_20,s02,B,I tre colpi ritmati del Maestro vengono accompagnati da tre note acute.,s02_maes_16,,da trovare,1560
-s03_sfx_01,s03,,"Il vento torna a farsi sentire, inizialmente lontano.",,,da trovare,1572
-s03_sfx_02,s03,,La bacchetta cade a terra.,,,da trovare,1630
-s03_sfx_03,s03,,"Sbuffo si allontana. Resta un breve frammento musicale, molto debole, quasi come una traccia da seguire.",,,da trovare,1666
-s03_sfx_04,s03,,"TAC, TAC... TOC!",,,da trovare,1682
-s03_sfx_05,s03,,Nota di pianoforte.,,,da trovare,1708
-s03_sfx_06,s03,,Una seconda nota.,,,da trovare,1722
-s03_sfx_07,s03,,"Il pianoforte suona una nota, lascia una pausa, poi suona altre due note vicine.",,,da trovare,1740
-s03_sfx_08,s03,,"La stessa sequenza, identica.",,,da trovare,1758
-s03_sfx_09,s03,,Un breve segnale musicale di inizio.,,,da trovare,1772
-s03_sfx_10,s03,A,"Il pianoforte riproduce la sequenza del bambino, poi ripete la frase musicale completa. La nota mancante torna a sentirsi.",,,da trovare,1782
-s03_sfx_11,s03,A,Il pianoforte suona di nuovo il piccolo motivo completo.,,,da trovare,1796
-s03_sfx_12,s03,A,La musica cresce leggermente. Il pianoforte esegue una piccola melodia di festeggiamento.,,,da trovare,1808
-s03_sfx_13,s03,B,Il pianoforte ripete dolcemente la sequenza incompleta. Nessun suono brusco o punitivo.,,,da trovare,1830
-s03_sfx_14,s03,B,"Il pianoforte suona la stessa sequenza, più lenta.",,,da trovare,1848
-s03_sfx_15,s03,B,"Quando il bambino completa la sequenza con l'aiuto del Maestro, il pianoforte recupera la frase.",,,da trovare,1872
-s04_sfx_01,s04,,"Il pianoforte suona la melodia appena recuperata, questa volta completa. La frase sonora è quella riconoscibile dall'inizio del gioco.",,,da trovare,1890
-s04_sfx_02,s04,,Un leggero suono di campanella si aggiunge per un momento al pianoforte.,,,da trovare,1908
-s04_sfx_03,s04,,"Un altro tintinnio, breve e delicato.",,,da trovare,1920
-s04_sfx_04,s04,,Il Maestro batte le mani seguendo lentamente il pianoforte.,,,da trovare,1932
-s04_sfx_05,s04,,"Per qualche secondo, pianoforte e campanella suonano insieme.",,,da trovare,1954
-s04_sfx_06,s04,,Piccola fanfara comica di pianoforte.,,,da trovare,1978
-s04_sfx_07,s04,,"Il Maestro applaude, prima normalmente, poi troppo velocemente, perdendo il ritmo.",,,da trovare,1990
-s04_sfx_08,s04,,Un leggero soffio torna a muoversi nella sala.,,,da trovare,2002
-s04_sfx_09,s04,,Il vento soffia intorno alla sala senza coprire la voce del Maestro.,,,da trovare,2056
-s04_sfx_10,s04,,"Soffio prolungato, seguito da un piccolo colpo d'aria buffo.",,,da trovare,2070
-s04_sfx_11,s04,,"Il vento si allontana, lasciando dietro di sé un fischio che pian piano svanisce.",,,da trovare,2096
-s04_sfx_12,s04,,"TAC, TAC... TOC!",,,da trovare,2128
-s05_sfx_01,s05,,Il pianoforte continua a suonare delicatamente. Il Maestro si ferma e ascolta.,,,da trovare,2144
-s05_sfx_02,s05,,"Un suono profondo di tamburo, ripetuto due volte.",,,da trovare,2158
-s05_sfx_03,s05,,Il tamburo ripete due colpi.,,,da trovare,2174
-s05_sfx_04,s05,,Un tintinnio chiaro e prolungato di campanella.,,,da trovare,2182
-s05_sfx_05,s05,,"I due strumenti vengono riprodotti uno dopo l'altro, separati da una pausa.",,,da trovare,2194
-s05_sfx_06,s05,,Riproduzione alternata del tamburo e della campanella.,,,da trovare,2222
-s05_sfx_07,s05,A,Due battiti profondi che si ripetono sempre più lontano.,s05_maes_06,,da trovare,2238
-s05_sfx_08,s05,B,"Tre tintinnii, uno dopo l'altro.",s05_maes_07,,da trovare,2254
-e00_sfx_01,e00,,"La melodia recuperata del pianoforte torna, lenta e riconoscibile. Il Maestro la accompagna battendo leggermente il tempo.",,,da trovare,2264
-e00_sfx_02,e00,,"Il vento emette un piccolo fischio lontano, quasi musicale.",,,da trovare,2294
-e00_sfx_03,e00,,"TAC, TAC... TOC!",e00_maes_01,,da trovare,2328
-e00_sfx_04,e00,,La bacchetta cade nuovamente.,,,da trovare,2338
-e00_sfx_05,e00,,"Piccola risata, poi il pianoforte suona il tema principale. La musica sfuma gradualmente.",,,da trovare,2348
+p00_sfx_09,p00,,"Due colpi di tamburo: BUM, BUM.",p00_narr_03,p00_sfx_09.wav,presente,78
+p00_sfx_10,p00,,"Due tocchi di triangolo: DIN, DIN.",p00_narr_03,p00_sfx_10.wav,presente,82
+p00_sfx_11,p00,,"Un flauto suona piano poche note, come un sussurro.",p00_narr_03,p00_sfx_11.wav,presente,86
+p00_sfx_12,p00,,"Tamburo, triangolo, flauto e pianoforte suonano insieme per un attimo.",p00_narr_03,p00_sfx_12.wav,presente,90
+p00_sfx_13,p00,,Si sente qualcuno schiarirsi la voce. Un piccolo oggetto cade a terra.,,p00_sfx_13.wav,presente,96
+p00_sfx_14,p00,,Piccoli passi affrettati. Qualcuno fruga tra degli oggetti.,,p00_sfx_14.wav,presente,106
+p00_sfx_15,p00,,Qualcuno ride in lontananza.,,,da trovare,120
+p00_sfx_16,p00,,"Tre colpetti distintivi sul leggio: TAC, TAC... TOC!",,p00_sfx_16.wav,presente,126
+p00_sfx_17,p00,,"L'orchestra inizia una melodia semplice e allegra. Il pianoforte apre con tre note riconoscibili, poi si aggiungono uno alla volta il tamburo, il triangolo e il flauto, mentre il Narratore li descrive. La musica cresce davvero fino all'arrivo del vento. È armoniosa, non troppo complessa.",,p00_sfx_17.wav,presente,144
+p00_sfx_18,p00,,"Un soffio di vento attraversa la stanza. All'inizio è leggero, poi diventa più insistente. Il vento non deve mai essere assordante.",,p00_sfx_18.wav,presente,162
+p00_sfx_19,p00,,FFFFFFFF... Una porta sbatte piano. Alcuni fogli si muovono.,,p00_sfx_19.wav,presente,170
+p00_sfx_20,p00,,"Il vento soffia nuovamente. La melodia perde uno strumento. Poi un altro. Rimane il pianoforte, che suona soltanto le prime due note della frase musicale.",,p00_sfx_20.wav,presente,192
+p00_sfx_21,p00,,"Il pianoforte prova la melodia iniziale. Si sentono due note, poi una pausa troppo lunga.",,p00_sfx_21.wav,presente,206
+p00_sfx_22,p00,,Silenzio musicale. Resta il rumore leggero del vento.,,p00_sfx_22.wav,presente,216
+p00_sfx_23,p00,,Il vento si allontana velocemente. Si sente un ultimo fischio.,,p00_sfx_23.wav,presente,244
+s01_sfx_01,s01,,"Nella sala della musica si sentono alcuni passi veloci. Qualcuno cammina avanti e indietro, fermandosi ogni tanto per borbottare qualcosa. In lontananza il pianoforte prova una breve sequenza di note, ma si interrompe prima di terminarla. Il soffio di Sbuffo, ormai lontano, svanisce.",,,da trovare,278
+s01_sfx_02,s01,,Un piccolo oggetto cade sul pavimento. TAC!,,,da trovare,296
+s01_sfx_03,s01,,Il Maestro si china per raccogliere la bacchetta. Un piccolo verso di fatica.,,,da trovare,304
+s01_sfx_04,s01,,"Tre note di pianoforte tentano di formare una melodia, ma questa si interrompe.",,,da trovare,324
+s01_sfx_05,s01,,I passi del Maestro si fermano.,,,da trovare,338
+s01_sfx_06,s01,,Due note buffe di pianoforte.,,,da trovare,362
+s01_sfx_07,s01,,La bacchetta cade nuovamente a terra.,,,da trovare,376
+s01_sfx_08,s01,,"Il Maestro raccoglie la bacchetta e si schiarisce la voce, assumendo un tono importante.",,,da trovare,384
+s01_sfx_09,s01,,"Tre colpetti sul leggio: TAC, TAC... TOC!",,,da trovare,398
+s01_sfx_10,s01,,"TAC, TAC... TOC!",,,da trovare,416
+s01_sfx_11,s01,,"Il pianoforte prova una breve frase musicale, ma si interrompe.",,,da trovare,434
+s01_sfx_12,s01,,Un solo colpo morbido di tamburo.,,,da trovare,454
+s01_sfx_13,s01,,Una piccola campanella suona una volta.,,,da trovare,462
+s01_sfx_14,s01,,"Il pianoforte suona tre note, dalla più grave alla più acuta.",,,da trovare,470
+s01_sfx_15,s01,,"Il tamburo suona lentamente due colpi regolari. Dopo qualche secondo il pianoforte aggiunge due note, poi una campanella tintinna alla fine. Non è la canzone rubata, ma una breve dimostrazione improvvisata. Durata circa 8–10 secondi.",,,da trovare,482
+s01_sfx_16,s01,,La bacchetta sfiora il leggio.,,,da trovare,526
+s01_sfx_17,s01,,Tre battiti di mani lenti e regolari.,,,da trovare,561
+s01_sfx_18,s01,,"Due battiti ravvicinati, una pausa e un terzo battito.",,,da trovare,579
+s01_sfx_19,s01,,Tre passi lenti e regolari.,,,da trovare,615
+s01_sfx_20,s01,,Una breve sequenza di passi più veloci.,,,da trovare,627
+s01_sfx_21,s01,,"TAC, TAC... TOC!",,,da trovare,647
+s01_sfx_22,s01,,"Il Maestro ripete il proprio ritmo. Subito dopo, una breve frase di pianoforte imita i tre colpi. È una prova spontanea, non la canzone smarrita.",,,da trovare,661
+s01_sfx_23,s01,,Il pianoforte suona due note allegre.,,,da trovare,677
+s01_sfx_24,s01,,In lontananza un soffio di vento attraversa la stanza. Una porta scricchiola leggermente.,,,da trovare,688
+s01_sfx_25,s01,,Il vento soffia ancora per qualche secondo e poi si calma.,,,da trovare,698
+s01_sfx_26,s01,,Il Maestro sospira.,,,da trovare,736
+s01_sfx_27,s01,,"Un soffio breve richiama quello del prologo, senza far credere che Sbuffo sia di nuovo nella stanza.",,,da trovare,766
+s01_sfx_28,s01,,"Il pianoforte suona due note, seguite da un silenzio dove dovrebbe arrivare la terza.",,,da trovare,778
+s01_sfx_29,s01,,"Un breve ricordo sonoro della musica udita nel prologo: tre note complete, con un leggero effetto di memoria. Non è un'esecuzione dal vivo del pianoforte nel presente.",,,da trovare,788
+s01_sfx_30,s01,,Il pianoforte dal vivo esegue solo le prime due note della frase; la terza manca.,,,da trovare,794
+s01_sfx_31,s01,,Il pianoforte riprova la sequenza incompleta.,,,da trovare,834
+s01_sfx_32,s01,,Il Maestro fa due passi veloci verso la porta e si arresta.,,,da trovare,874
+s01_sfx_33,s01,,"Parte di corsa, inciampa leggermente dopo due passi e si ferma.",,,da trovare,880
+s01_sfx_34,s01,,Il pianoforte suona due note morbide e incoraggianti.,,,da trovare,900
+s01_sfx_35,s01,,Due note allegre di pianoforte.,,,da trovare,948
+s01_sfx_36,s01,,Una nota di pianoforte.,s01_maes_39,,da trovare,972
+s01_sfx_37,s01,,Una seconda nota si aggiunge alla prima.,s01_maes_39,,da trovare,976
+s01_sfx_38,s01,,"Un tamburo accompagna delicatamente le due note in un esempio nuovo, non nella melodia del concerto.",,,da trovare,980
+s01_sfx_39,s01,,"I suoni si fermano, lasciando un breve silenzio.",,,da trovare,986
+s01_sfx_40,s01,,Una breve sequenza di tre note dolci introduce il momento.,,,da trovare,1007
+s01_sfx_41,s01,,"Il Maestro prova a spingere qualcosa di pesante per un istante, poi si ferma.",,,da trovare,1021
+s01_sfx_42,s01,,"Quattro piccoli segnali sonori di esempio, ben separati. Non devono ancora rappresentare quattro strumenti da imparare.",,,da trovare,1067
+s01_sfx_43,s01,,"Breve segnale di conferma, morbido e riconoscibile.",,,da trovare,1099
+s01_sfx_44,s01,,"Una piccola melodia di pianoforte risuona in lontananza, ma si arresta prima dell'ultima nota della canzone.",,,da trovare,1127
+s01_sfx_45,s01,A,"Si sente prima un breve ricordo della frase musicale completa, chiaramente distinto dal presente; poi la frase eseguita ora dal pianoforte, senza l'ultima nota. Pausa fra le due versioni.",,,da trovare,1189
+s01_sfx_46,s01,B,"Il Maestro comincia a camminare. I passi si muovono nella sala. Ogni tanto si sentono piccoli rumori di strumenti che provano singoli suoni, ma nessuno esegue il brano del concerto.",,,da trovare,1218
+s01_sfx_47,s01,B,"Il pianoforte prova ancora una volta a suonare la propria parte della canzone: due note, poi silenzio.",,,da trovare,1220
+s01_sfx_48,s01,B,Il pianoforte suona una singola nota grave che risuona lentamente.,,,da trovare,1246
+s01_sfx_49,s01,B,"TAC, TAC... TOC!",,,da trovare,1264
+s01_sfx_50,s01,B,Alcune note morbide di pianoforte introducono la scena successiva. La frase rimane diversa da quella incompleta rubata da Sbuffo.,,,da trovare,1272
+s02_sfx_01,s02,,"Passi lenti nella sala. Il rumore del vento diminuisce. Si sentono poche note di pianoforte, prima una nota grave, poi una più acuta.",,,da trovare,1278
+s02_sfx_02,s02,,"Una breve frase di pianoforte, delicata, con note ben distinguibili.",,,da trovare,1292
+s02_sfx_03,s02,,Due note buffe.,,,da trovare,1312
+s02_sfx_04,s02,,Un singolo tasto di pianoforte premuto. Il suono viene lasciato risuonare.,,,da trovare,1336
+s02_sfx_05,s02,,Una nota più acuta.,,,da trovare,1348
+s02_sfx_06,s02,,"Due note alternate, una grave e una acuta, con una pausa tra loro.",,,da trovare,1364
+s02_sfx_07,s02,,"Il pianoforte esegue una breve scala, dal grave all'acuto.",,,da trovare,1376
+s02_sfx_08,s02,,Piccolo motivo comico.,,,da trovare,1398
+s02_sfx_09,s02,,Tre note suonate delicatamente.,,,da trovare,1412
+s02_sfx_10,s02,,"Le stesse tre note suonate con maggiore intensità, senza alzare eccessivamente il volume complessivo.",,,da trovare,1418
+s02_sfx_11,s02,,"Il pianoforte tenta ancora la melodia dell'inizio, ma questa volta si interrompe.",,,da trovare,1432
+s02_sfx_12,s02,,"Tre note di pianoforte, con un ritmo chiaramente riconoscibile.",,,da trovare,1444
+s02_sfx_13,s02,,"La stessa frase, ma manca l'ultima nota. Segue una pausa lunga.",,,da trovare,1450
+s02_sfx_14,s02,,"Prima una nota profonda, poi una nota più acuta. Pausa abbastanza lunga perché siano distinguibili.",,,da trovare,1488
+s02_sfx_15,s02,,Ripetizione della nota grave.,s02_maes_14,,da trovare,1494
+s02_sfx_16,s02,,Ripetizione della nota acuta.,s02_maes_14,,da trovare,1498
+s02_sfx_17,s02,A,"Tre note gravi di pianoforte, lente e morbide.",s02_maes_15,,da trovare,1516
+s02_sfx_18,s02,A,I tre colpi ritmati del Maestro vengono accompagnati da tre note gravi.,s02_maes_15,,da trovare,1526
+s02_sfx_19,s02,B,"Tre note acute di pianoforte, leggere e ben separate.",s02_maes_16,,da trovare,1542
+s02_sfx_20,s02,B,I tre colpi ritmati del Maestro vengono accompagnati da tre note acute.,s02_maes_16,,da trovare,1552
+s03_sfx_01,s03,,"Il vento torna a farsi sentire, inizialmente lontano.",,,da trovare,1564
+s03_sfx_02,s03,,La bacchetta cade a terra.,,,da trovare,1622
+s03_sfx_03,s03,,"Sbuffo si allontana. Resta un breve frammento musicale, molto debole, quasi come una traccia da seguire.",,,da trovare,1658
+s03_sfx_04,s03,,"TAC, TAC... TOC!",,,da trovare,1674
+s03_sfx_05,s03,,Nota di pianoforte.,,,da trovare,1700
+s03_sfx_06,s03,,Una seconda nota.,,,da trovare,1714
+s03_sfx_07,s03,,"Il pianoforte suona una nota, lascia una pausa, poi suona altre due note vicine.",,,da trovare,1732
+s03_sfx_08,s03,,"La stessa sequenza, identica.",,,da trovare,1750
+s03_sfx_09,s03,,Un breve segnale musicale di inizio.,,,da trovare,1764
+s03_sfx_10,s03,A,"Il pianoforte riproduce la sequenza del bambino, poi ripete la frase musicale completa. La nota mancante torna a sentirsi.",,,da trovare,1774
+s03_sfx_11,s03,A,Il pianoforte suona di nuovo il piccolo motivo completo.,,,da trovare,1788
+s03_sfx_12,s03,A,La musica cresce leggermente. Il pianoforte esegue una piccola melodia di festeggiamento.,,,da trovare,1800
+s03_sfx_13,s03,B,Il pianoforte ripete dolcemente la sequenza incompleta. Nessun suono brusco o punitivo.,,,da trovare,1822
+s03_sfx_14,s03,B,"Il pianoforte suona la stessa sequenza, più lenta.",,,da trovare,1840
+s03_sfx_15,s03,B,"Quando il bambino completa la sequenza con l'aiuto del Maestro, il pianoforte recupera la frase.",,,da trovare,1864
+s04_sfx_01,s04,,"Il pianoforte suona la melodia appena recuperata, questa volta completa. La frase sonora è quella riconoscibile dall'inizio del gioco.",,,da trovare,1882
+s04_sfx_02,s04,,Un leggero suono di campanella si aggiunge per un momento al pianoforte.,,,da trovare,1900
+s04_sfx_03,s04,,"Un altro tintinnio, breve e delicato.",,,da trovare,1912
+s04_sfx_04,s04,,Il Maestro batte le mani seguendo lentamente il pianoforte.,,,da trovare,1924
+s04_sfx_05,s04,,"Per qualche secondo, pianoforte e campanella suonano insieme.",,,da trovare,1946
+s04_sfx_06,s04,,Piccola fanfara comica di pianoforte.,,,da trovare,1970
+s04_sfx_07,s04,,"Il Maestro applaude, prima normalmente, poi troppo velocemente, perdendo il ritmo.",,,da trovare,1982
+s04_sfx_08,s04,,Un leggero soffio torna a muoversi nella sala.,,,da trovare,1994
+s04_sfx_09,s04,,Il vento soffia intorno alla sala senza coprire la voce del Maestro.,,,da trovare,2048
+s04_sfx_10,s04,,"Soffio prolungato, seguito da un piccolo colpo d'aria buffo.",,,da trovare,2062
+s04_sfx_11,s04,,"Il vento si allontana, lasciando dietro di sé un fischio che pian piano svanisce.",,,da trovare,2088
+s04_sfx_12,s04,,"TAC, TAC... TOC!",,,da trovare,2120
+s05_sfx_01,s05,,Il pianoforte continua a suonare delicatamente. Il Maestro si ferma e ascolta.,,,da trovare,2136
+s05_sfx_02,s05,,"Un suono profondo di tamburo, ripetuto due volte.",,,da trovare,2150
+s05_sfx_03,s05,,Il tamburo ripete due colpi.,,,da trovare,2166
+s05_sfx_04,s05,,Un tintinnio chiaro e prolungato di campanella.,,,da trovare,2174
+s05_sfx_05,s05,,"I due strumenti vengono riprodotti uno dopo l'altro, separati da una pausa.",,,da trovare,2186
+s05_sfx_06,s05,,Riproduzione alternata del tamburo e della campanella.,,,da trovare,2214
+s05_sfx_07,s05,A,Due battiti profondi che si ripetono sempre più lontano.,s05_maes_06,,da trovare,2230
+s05_sfx_08,s05,B,"Tre tintinnii, uno dopo l'altro.",s05_maes_07,,da trovare,2246
+e00_sfx_01,e00,,"La melodia recuperata del pianoforte torna, lenta e riconoscibile. Il Maestro la accompagna battendo leggermente il tempo.",,,da trovare,2256
+e00_sfx_02,e00,,"Il vento emette un piccolo fischio lontano, quasi musicale.",,,da trovare,2286
+e00_sfx_03,e00,,"TAC, TAC... TOC!",e00_maes_01,,da trovare,2320
+e00_sfx_04,e00,,La bacchetta cade nuovamente.,,,da trovare,2330
+e00_sfx_05,e00,,"Piccola risata, poi il pianoforte suona il tema principale. La musica sfuma gradualmente.",,,da trovare,2340

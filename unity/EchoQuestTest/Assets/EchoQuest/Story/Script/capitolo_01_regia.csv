@@ -1,31 +1,39 @@
-id,x,y,z,a_x,a_y,a_z,secondi_movimento,volume,filtro_hz,attesa,ripeti,fino_a,sottofondo,pausa_dopo,note
+id,x,y,z,a_x,a_y,a_z,secondi_movimento,volume,filtro_hz,attesa,ripeti,fino_a,sottofondo,pausa_dopo,scelte,note
 # Regia del capitolo 1. Tu sei al centro (0;0;0) e guardi in avanti: x = destra (negativo = sinistra); z = davanti; y = altezza. Unità circa in metri.
 # Una riga per personaggio (narr maes lont vent) vale per tutte le sue battute; una riga con l'ID di una battuta o di un suono vale solo per quello.
 # x/y/z vuoti = non spaziale (dentro la testa). a_x/a_y/a_z = punto di arrivo se si sposta. attesa = secondi prima che parta la cosa successiva (vuoto = alla fine del file).
 # ripeti = sì per un suono che continua in loop (sottofondo) finché non parte l'elemento scritto in fino_a. sottofondo (su una battuta) = suono in loop sotto quella battuta. pausa_dopo = secondi di silenzio dopo.
-narr,,,,,,,,1,,,,,,,Narratore: dentro la testa e senza eco della sala
-maes,2,0,3,,,,,1,,,,,,,Maestro Battuta: davanti a destra sul suo podio
-lont,-5,0,8,,,,,1,3500,,,,,,Il Maestro fuori scena: lontano davanti a sinistra
-vent,-6,1.5,3,6,1.5,3,,1,,,,,,,Sbuffo: passa da sinistra a destra mentre parla
-sfx,0,0,5,,,,,1,,,,,,,Posizione dei suoni che non hanno una riga
-p00_narr_06,,,,,,,,1,,,,,p00_sfx_17,,"«La canzone continua, ma non è più la stessa»: sotto, il pianoforte che non riesce a finire"
-p00_narr_07,,,,,,,,1,,,,,p00_sfx_17,,"«È rimasta una canzone incompleta»: sotto, di nuovo la canzone spezzata"
-p00_sfx_01,4,0,10,,,,,0.8,,,,,,,La sala si sveglia: rumori e un pianoforte lontano
-p00_sfx_02,3,0,5,,,,,0.9,,,,,,,Il pianoforte davanti a destra
-p00_sfx_03,3,0,5,,,,,0.8,,,,,,,
-p00_sfx_04,3,0,5,,,,,0.9,,,,,,,
-p00_sfx_05,3,0,5,,,,,0.6,,,,,,,Nota molto delicata
-p00_sfx_06,3,0,5,,,,,1,,,,,,,
-p00_sfx_07,0,0,8,,,,,0.9,,,,,,,Battito di mani nella sala grande
-p00_sfx_08,-2,0,5,,,,,0.9,,,,,,,
-p00_sfx_09,-5,0,8,,,,,0.8,,,,,,,Nello stesso posto della voce lontana
-p00_sfx_10,-5,0,8,,,,,0.8,,,,,,,
-p00_sfx_11,6,0,12,,,,,0.7,,,,,,,Risata lontana (manca il file)
-p00_sfx_12,2,0,3,,,,,1,,,,,,,La bacchetta sul leggio del Maestro
-p00_sfx_13,0,0,7,,,,,0.8,,3,sì,p00_sfx_16,,,"L'orchestra suona e continua sotto il Narratore («Ascolta…») finché il vento non la rovina"
-p00_sfx_14,-10,1.5,6,-2,1.5,3,,0.7,,3,,,,,Il vento entra da sinistra e il Maestro parla sopra
-p00_sfx_15,5,0,6,,,,,0.9,,,,,,,La porta è a destra
-p00_sfx_16,0,0,7,,,,,0.9,,,,,,,
-p00_sfx_17,3,0,5,,,,,0.9,,,,,,,
-p00_sfx_18,0,2,2,,,,,0.5,,1,sì,p00_sfx_19,,,Vento leggero di sottofondo finché Sbuffo non scappa
-p00_sfx_19,1,1.5,3,12,1.5,20,2,0.9,,,,,,,Il vento scappa in fondo a destra
+# scelte (su un'interazione) = quale pulsante porta a quale ramo: 1=B;2=A vuol dire indice -> ramo B e medio -> ramo A.
+# Strumenti nella sala (per coerenza tra i suoni): pianoforte davanti a destra (3;0;5) - tamburo a sinistra (-3;0;5) - triangolo a destra in alto (2;1;4) - flauto davanti (0;0;6).
+narr,,,,,,,,1,,,,,,,,Narratore: dentro la testa e senza eco della sala
+maes,2,0,3,,,,,1,,,,,,,,Maestro Battuta: davanti a destra sul suo podio
+lont,-5,0,8,,,,,1,3500,,,,,,,Il Maestro fuori scena: lontano davanti a sinistra
+vent,-6,1.5,3,6,1.5,3,,1,,,,,,,,Sbuffo: passa da sinistra a destra mentre parla
+sfx,0,0,5,,,,,1,,,,,,,,Posizione dei suoni che non hanno una riga
+p00_narr_06,,,,,,,,1,,,,,p00_sfx_21,,,"«La canzone continua, ma non è più la stessa»: sotto, il pianoforte che non riesce a finire"
+p00_narr_07,,,,,,,,1,,,,,p00_sfx_21,,,"«È rimasta una canzone incompleta»: sotto, di nuovo la canzone spezzata"
+p00_sfx_01,4,0,10,,,,,0.8,,,,,,,,La sala si sveglia: rumori e un pianoforte lontano
+p00_sfx_02,3,0,5,,,,,0.9,,,,,,,,Il pianoforte davanti a destra
+p00_sfx_03,0,0,6,,,,,0.8,,,,,,,,«lungo»: flauto
+p00_sfx_04,-3,0,5,,,,,0.9,,,,,,,,«corto»: tamburo
+p00_sfx_05,2,1,4,,,,,0.6,,,,,,,,«delicato»: triangolo
+p00_sfx_06,0,0,6,,,,,1,,,,,,,,«forte»: tutti insieme
+p00_sfx_07,0,0,8,,,,,0.9,,,,,,,,Battito di mani nella sala grande
+p00_sfx_08,-2,0,5,,,,,0.9,,,,,,,,
+p00_sfx_09,-3,0,5,,,,,1,,,,,,,,«bum bum»: tamburo a sinistra
+p00_sfx_10,2,1,4,,,,,0.8,,,,,,,,«din din»: triangolo a destra
+p00_sfx_11,0,0,6,,,,,0.8,,,,,,,,«suoni delicati»: flauto
+p00_sfx_12,0,0,6,,,,,0.9,,,,,,,,«tutti insieme»
+p00_sfx_13,-5,0,8,,,,,0.8,,,,,,,,Nello stesso posto della voce lontana
+p00_sfx_14,-5,0,8,,,,,0.8,,,,,,,,
+p00_sfx_15,6,0,12,,,,,0.7,,,,,,,,Risata lontana (manca il file)
+p00_sfx_16,2,0,3,,,,,1,,,,,,,,La bacchetta sul leggio del Maestro
+p00_sfx_17,0,0,6,,,,,0.9,,3,sì,p00_sfx_20,,,,"La canzone si costruisce sotto il Narratore («poi ne arriva un altro…») e cresce davvero, finché il vento non la rovina"
+p00_sfx_18,-10,1.5,6,-2,1.5,3,,0.7,,3,,,,,,Il vento entra da sinistra e il Maestro parla sopra
+p00_sfx_19,5,0,6,,,,,0.9,,,,,,,,La porta è a destra
+p00_sfx_20,0,0,7,,,,,0.9,,,,,,,,
+p00_sfx_21,3,0,5,,,,,0.9,,,,,,,,
+p00_sfx_22,0,2,2,,,,,0.5,,1,sì,p00_sfx_23,,,,Vento leggero di sottofondo finché Sbuffo non scappa
+p00_sfx_23,1,1.5,3,12,1.5,20,2,0.9,,,,,,,,Il vento scappa in fondo a destra
+s01_int_02,,,,,,,,,,,,,,,1=B;2=A,"Indice = andare subito al pianoforte (ramo B), medio = riascoltare la canzone (ramo A)"
+s01_int_03,,,,,,,,,,,,,,,1=B,Dopo aver riascoltato: indice = andare al pianoforte

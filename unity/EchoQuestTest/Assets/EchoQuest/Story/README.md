@@ -140,21 +140,33 @@ Le voci per ora **non sono coerenti**, perché ogni registrazione ha usato una s
 
 ## Suoni (prologo)
 
-18 suoni su 19 ci sono, ma sono **provvisori** (`Audio/Sfx/`). Manca `p00_sfx_11` (risata in lontananza).
+22 suoni su 23 ci sono, ma sono **provvisori** (`Audio/Sfx/`). Manca `p00_sfx_15` (risata in lontananza).
+I numeri seguono `capitolo_01_suoni.csv`: se nel copione si aggiunge un `[AUDIO]`, quelli dopo scalano
+e i file vanno rinominati (è successo aggiungendo i suoni `09`–`12`).
+
+Nella sala ci sono quattro strumenti, sempre negli stessi posti (vedi la regia): **pianoforte** davanti a
+destra, **tamburo** a sinistra, **triangolo** a destra in alto, **flauto** davanti. Quando il Narratore nomina
+un suono (lungo, corto, delicato, forte, «bum bum», «din din», «suoni delicati», «tutti insieme») lo si
+sente davvero, con uno strumento diverso ogni volta (`03`–`06`, `09`–`12`).
 
 - Presi dal bundle Sonniss GDC 2026, parte 1 (licenza royalty-free, uso nei giochi consentito senza
-  attribuzione; vietato rivenderli così come sono o usarli per addestrare AI): vento (`14`, `15`, `18`,
-  `19`), porta e fogli (`15`), oggetto che cade (`09`), frugare (`10`), colpi di bacchetta (`12`),
-  sedia che scricchiola (`01`), campanelli (`13`, `16`).
-- **Sintetizzati** come segnaposto, perché nel bundle non ci sono: tutte le note di pianoforte
-  (`01`–`06`, `13`, `16`, `17`), gli applausi (`07`, `08`), la cassa e il fischio del vento (`19`).
+  attribuzione; vietato rivenderli così come sono o usarli per addestrare AI): vento (`18`, `19`, `22`,
+  `23`), porta e fogli (`19`), oggetto che cade (`13`), frugare (`14`), colpi di bacchetta (`16`),
+  sedia che scricchiola (`01`).
+- **Sintetizzati** come segnaposto: pianoforte, tamburo, triangolo, flauto, applausi (`07`, `08`) e il
+  fischio del vento (`23`).
 - Mancano ancora dentro i suoni composti: passi, porta che si apre e voci sottovoce (`01`), passi (`07`),
-  qualcuno che si schiarisce la voce (`09`).
+  qualcuno che si schiarisce la voce (`13`).
 
-Il **tema musicale** del capitolo (pianoforte, `13`, `16`, `17`) è di tre note, Sol–Do–Mi, con il ritmo
-«TA… TA-TA»: lo stesso che il bambino deve ripetere nella Scena 3. È un motivo nostro, non una canzone
-esistente. Dopo che il vento lo ruba (`16`, `17`) diventa stonato e "storto": le prime due note calanti e
-tremolanti, e al posto dell'ultima un tasto che si inceppa.
+Il **tema musicale** del capitolo è di tre note, Sol–Do–Mi, con il ritmo «TA… TA-TA»: lo stesso che il
+bambino deve ripetere nella Scena 3. È un motivo nostro, non una canzone esistente.
+- `17` è la canzone dell'orchestra e **si costruisce sotto il Narratore**: prima solo il pianoforte, poi
+  entra il tamburo («poi ne arriva un altro»), il triangolo («e un altro ancora»), il flauto e il basso
+  («ogni strumento…»), e cresce davvero di volume (circa +10 dB) fino a «la musica continua a crescere».
+  Poi continua piena, in loop, finché il vento non la rovina (`20`). I tempi sono allineati alla
+  battuta `p00_narr_05`: se la si rigenera, vanno ricontrollati in `tools/story_placeholder_sfx.py`.
+- Dopo che il vento la ruba (`20`, `21`) diventa stonata e "storta": le prime due note calanti e tremolanti,
+  e al posto dell'ultima un tasto che si inceppa.
 
 I suoni provvisori si rigenerano con `tools/story_placeholder_sfx.py` (istruzioni in testa al file).
 

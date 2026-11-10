@@ -403,7 +403,15 @@ namespace EchoQuest.Story
             WaitingChoice = false;
             if (m_Choice < 0) yield break;
 
-            // A choice picks branch A, B, ... if the following lines have branches.
+            // The staging can say which button leads where ("scelte": 1=B;2=A). Otherwise button 1
+            // picks branch A, button 2 branch B, ... if the following lines have that branch.
+            var choices = StagingFor(item).Choices;
+            if (choices.Count > 0)
+            {
+                if (choices.TryGetValue(m_Choice + 1, out var mapped)) BranchChoice = mapped;
+                else { m_Repeat = true; yield break; }  // a button with no meaning here: ask again
+                yield break;
+            }
             string letter = ((char)('A' + m_Choice)).ToString();
             for (int i = index + 1; i < list.Count && list[i].Kind != StoryItemKind.Convergence; i++)
             {

@@ -1,5 +1,6 @@
-// Builds the intro scene (Story/Scenes/Intro.unity: the prologue, section p00) from code, like TestSceneBuilder:
-// change this file, not the .unity file. Menu: EchoQuest > Rebuild Story Scene,
+// Builds the story scenes from code, like TestSceneBuilder: Story/Scenes/Intro.unity (the prologue,
+// section p00) and Story/Scenes/Scena1.unity (section s01). They differ only in the section they play.
+// Change this file, not the .unity files. Menu: EchoQuest > Rebuild Story Scenes,
 // or `unity command eval --code 'EchoQuest.Editor.StorySceneBuilder.Build();'`.
 using System.Collections.Generic;
 using EchoQuest.Story;
@@ -14,13 +15,20 @@ namespace EchoQuest.Editor
     {
         private const string Root = "Assets/EchoQuest/Story";
         private const string ScenePath = Root + "/Scenes/Intro.unity";
+        private const string Scene1Path = Root + "/Scenes/Scena1.unity";
         private const string MaterialsPath = Root + "/Materials";
         private const string AudioPath = Root + "/Audio";
         private const string SequencePath = Root + "/Script/capitolo_01_sequenza.csv";
         private const string StagingPath = Root + "/Script/capitolo_01_regia.csv";
 
-        [MenuItem("EchoQuest/Rebuild Story Scene")]
+        [MenuItem("EchoQuest/Rebuild Story Scenes")]
         public static void Build()
+        {
+            BuildSection("s01", Scene1Path, "EchoQuest · Scena 1");
+            BuildSection("p00", ScenePath, "EchoQuest · Intro");   // last, so it stays open
+        }
+
+        public static void BuildSection(string section, string scenePath, string title)
         {
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
@@ -75,7 +83,7 @@ namespace EchoQuest.Editor
             player.sequence = AssetDatabase.LoadAssetAtPath<TextAsset>(SequencePath);
             player.staging = AssetDatabase.LoadAssetAtPath<TextAsset>(StagingPath);
             player.clips = FindClips();
-            player.section = "p00";
+            player.section = section;
             player.listener = listenerGo.transform;
             player.characterMarker = GetMaterial("StoryMarkerCharacter", new Color(1.00f, 0.62f, 0.20f));
             player.distantMarker = GetMaterial("StoryMarkerDistant", new Color(0.65f, 0.45f, 0.25f));
@@ -84,14 +92,15 @@ namespace EchoQuest.Editor
             var hud = storyGo.AddComponent<StoryHud>();
             hud.player = player;
             hud.recorder = recorder;
+            hud.title = title;
 
             if (player.sequence == null) Debug.LogError("[Story] Missing " + SequencePath + ": run tools/story_extract.py");
             if (player.staging == null) Debug.LogError("[Story] Missing " + StagingPath);
 
             EnsureFolder(Root + "/Scenes");
-            EditorSceneManager.SaveScene(scene, ScenePath);
-            AddToBuildSettings(ScenePath);
-            Debug.Log($"[Story] Built {ScenePath} with {player.clips.Length} clips");
+            EditorSceneManager.SaveScene(scene, scenePath);
+            AddToBuildSettings(scenePath);
+            Debug.Log($"[Story] Built {scenePath} ({section}) with {player.clips.Length} clips");
         }
 
         private static AudioClip[] FindClips()

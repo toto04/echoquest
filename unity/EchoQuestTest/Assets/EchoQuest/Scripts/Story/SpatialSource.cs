@@ -14,7 +14,9 @@ namespace EchoQuest.Story
         /// <summary>Multiplies the staging volume; the player lowers it under voices (ducking).</summary>
         public float TargetGain { get; set; } = 1f;
 
-        private const float GainSpeed = 3f;   // gain units per second, for ducking
+        // Ducking speeds, in gain units per second: duck quickly when someone starts speaking,
+        // come back slowly, so short pauses between sentences don't make the music pump.
+        private const float DuckSpeed = 3f, ReleaseSpeed = 0.5f;
         private float m_Volume, m_Gain = 1f, m_Fade = 1f, m_FadeSeconds;
         private bool m_FadingOut;
 
@@ -98,7 +100,8 @@ namespace EchoQuest.Story
             }
             if (m_Lowpass != null) UpdateLowpass();
 
-            m_Gain = Mathf.MoveTowards(m_Gain, TargetGain, GainSpeed * Time.deltaTime);
+            float speed = TargetGain < m_Gain ? DuckSpeed : ReleaseSpeed;
+            m_Gain = Mathf.MoveTowards(m_Gain, TargetGain, speed * Time.deltaTime);
             if (m_FadingOut)
             {
                 m_Fade -= Time.deltaTime / m_FadeSeconds;

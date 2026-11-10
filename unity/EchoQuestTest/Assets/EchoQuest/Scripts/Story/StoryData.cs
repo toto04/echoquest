@@ -39,6 +39,9 @@ namespace EchoQuest.Story
         public string Until = "";      // sounds: the looping bed fades out when this item starts
         public string Bed = "";        // voices: a sound that loops underneath this line
         public float? PauseAfter;      // silence after this item; null = the player's defaults
+        /// <summary>Interactions: which button leads to which branch, e.g. "1=B;2=A" (1 = index finger).
+        /// Empty = button 1 picks branch A, button 2 branch B, and so on.</summary>
+        public Dictionary<int, string> Choices = new Dictionary<int, string>();
         public string Key = "(default)";
 
         public static readonly StagingEntry Default = new StagingEntry { Position = new Vector3(0, 0, 4) };
@@ -107,7 +110,21 @@ namespace EchoQuest.Story
                     Until = Get("fino_a"),
                     Bed = Get("sottofondo"),
                     PauseAfter = Num("pausa_dopo"),
+                    Choices = ParseChoices(Get("scelte")),
                 };
+            }
+            return map;
+        }
+
+        // "1=B;2=A" -> {1: "B", 2: "A"}
+        private static Dictionary<int, string> ParseChoices(string text)
+        {
+            var map = new Dictionary<int, string>();
+            foreach (var pair in text.Split(';', ' '))
+            {
+                var kv = pair.Split('=');
+                if (kv.Length == 2 && int.TryParse(kv[0].Trim(), out var button) && kv[1].Trim().Length > 0)
+                    map[button] = kv[1].Trim().ToUpperInvariant();
             }
             return map;
         }

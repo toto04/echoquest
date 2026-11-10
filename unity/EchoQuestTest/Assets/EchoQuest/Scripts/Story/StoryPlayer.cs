@@ -42,6 +42,10 @@ namespace EchoQuest.Story
         public float pauseOnSpeakerChange = 1.2f;
         [Tooltip("Silence before and after a sound played inside a voice line.")]
         public float pauseAroundInlineSound = 0.3f;
+        [Tooltip("Silence after a sound, before the next line.")]
+        public float pauseAfterSound = 0.4f;
+        [Tooltip("Silence after a line that ends with a question: time for the child to think.")]
+        public float pauseAfterQuestion = 1.4f;
         [Tooltip("Background beds drop to this gain while someone speaks.")]
         [Range(0f, 1f)] public float duckGain = 0.35f;
         public float bedFadeSeconds = 1.5f;
@@ -74,6 +78,8 @@ namespace EchoQuest.Story
         // voice ids whose audio is inside another line's recording (e.g. p00_narr_02_03_a covers p00_narr_03)
         private readonly HashSet<string> m_CoveredByPrevious = new HashSet<string>();
         private readonly Dictionary<string, AudioClip> m_Sounds = new Dictionary<string, AudioClip>();
+        // Every clip by its file name, for extra beds named in the staging (e.g. x_vento_alberi).
+        private readonly Dictionary<string, AudioClip> m_ClipsByName = new Dictionary<string, AudioClip>();
         private readonly List<SpatialSource> m_Foreground = new List<SpatialSource>();
         // Looping background sounds, with the id of the item that ends them.
         private readonly List<(SpatialSource source, string until)> m_Beds = new List<(SpatialSource, string)>();
@@ -109,6 +115,7 @@ namespace EchoQuest.Story
             foreach (var clip in clips)
             {
                 if (clip == null) continue;
+                m_ClipsByName[clip.name] = clip;
                 var v = VoiceName.Match(clip.name);
                 if (v.Success && v.Groups["ch"].Value != "sfx")
                 {
@@ -278,8 +285,12 @@ namespace EchoQuest.Story
                 if (repeat) { pendingPause = 0f; continue; }
 
                 var itemStaging = StagingFor(item);
-                pendingPause = itemStaging.PauseAfter ??
-                               (item.Kind == StoryItemKind.Voice ? pauseAfterLine : 0f);
+                if (itemStaging.PauseAfter.HasValue) pendingPause = itemStaging.PauseAfter.Value;
+                else if (item.Kind == StoryItemKind.Voice)
+                    pendingPause = EndsWithQuestion(item.Text) ? pauseAfterQuestion : pauseAfterLine;
+                else if (item.Kind == StoryItemKind.Sound)
+                    pendingPause = itemStaging.Loop || itemStaging.Wait.HasValue ? 0f : pauseAfterSound;
+                else pendingPause = 0f;
                 previous = item;
                 index++;
             }
@@ -346,7 +357,7 @@ namespace EchoQuest.Story
         private SpatialSource StartLineBed(string soundId)
         {
             if (string.IsNullOrEmpty(soundId)) return null;
-            if (!m_Sounds.TryGetValue(soundId, out var clip))
+            if (!m_Sounds.TryGetValue(soundId, out var clip) && !m_ClipsByName.TryGetValue(soundId, out clip))
             {
                 Debug.Log($"[Story] Missing background sound {soundId}");
                 return null;
@@ -420,6 +431,13 @@ namespace EchoQuest.Story
         }
 
         private bool Interrupted => m_Skip || m_Repeat;
+
+        // "...Hai sentito?" / "...vero?»" -> true (stage directions like [PAUSA] are ignored).
+        private static bool EndsWithQuestion(string text)
+        {
+            var t = Regex.Replace(text ?? "", @"\[[^\]]*\]", "").TrimEnd(' ', '.', '»', '"', '!', '…');
+            return t.EndsWith("?");
+        }
 
         private IEnumerator Wait(float seconds)
         {

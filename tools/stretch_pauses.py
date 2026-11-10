@@ -9,6 +9,9 @@ The untouched recordings are kept in --originals-dir (moved there the first time
 processed copies are always rebuilt from them, so running the script again is safe and
 changing --extra simply redoes everything.
 
+Questions: with --question-extra (and --whisper-model) the gap after every "?" gets that much
+extra silence instead, so a listener has time to think about the question.
+
 Usage (from the repo root):
     V=unity/EchoQuestTest/Assets/EchoQuest/Story/Audio/Voice
     python3 tools/stretch_pauses.py --voice-dir $V --originals-dir $V/_originali --chars narr
@@ -68,11 +71,24 @@ def find_pauses(x: array.array, rate: int, threshold_db: float, min_pause: float
     return [(a, b) for a, b in runs if (b - a) / rate >= min_pause]
 
 
-def stretch(x: array.array, rate: int, pauses: list[tuple[int, int]], extra: float) -> array.array:
+def question_ends(path: Path, model: str) -> list[float]:
+    """Times (s) where a word ending with '?' ends, from whisper's word timestamps."""
+    res = subprocess.run(["whisper-cli", "-m", model, "-l", "it", "-np", "-ml", "1", "-sow", "-t", "8", str(path)],
+                         capture_output=True, text=True)
+    ends = []
+    for line in res.stdout.splitlines():
+        m = re.match(r"\[(\d+):(\d+):([\d.]+) --> (\d+):(\d+):([\d.]+)\]\s*(.*)", line.strip())
+        if m and "?" in m.group(7):
+            ends.append(int(m.group(4)) * 3600 + int(m.group(5)) * 60 + float(m.group(6)))
+    return ends
+
+
+def stretch(x: array.array, rate: int, pauses: list[tuple[int, int, float]]) -> array.array:
+    """pauses: (start, end, seconds to add) in samples/seconds."""
     out = array.array("h")
     pos = 0
-    add = int(extra * rate)
-    for a, b in pauses:
+    for a, b, extra in pauses:
+        add = int(extra * rate)
         mid = (a + b) // 2
         out.extend(x[pos:mid])
         # Repeat a slice of the pause itself (centred), as many times as needed.
@@ -105,7 +121,12 @@ def main() -> None:
     p.add_argument("--min-pause", type=float, default=0.28, help="only gaps at least this long (s) are lengthened")
     p.add_argument("--extra", type=float, default=0.35, help="seconds added to each such gap")
     p.add_argument("--threshold-db", type=float, default=-38.0, help="level below which audio counts as silence")
+    p.add_argument("--question-extra", type=float, default=0.0,
+                   help="seconds added after a question inside a line (needs whisper-cli and --whisper-model)")
+    p.add_argument("--whisper-model", help="path to a whisper.cpp ggml model, for --question-extra")
     args = p.parse_args()
+    if args.question_extra > 0 and not args.whisper_model:
+        p.error("--question-extra needs --whisper-model")
 
     chars = {c.strip() for c in args.chars.split(",") if c.strip()}
     args.originals_dir.mkdir(parents=True, exist_ok=True)
@@ -129,11 +150,24 @@ def main() -> None:
         if not (orig.is_file() and orig.suffix.lower() in AUDIO_EXTS and m and m.group(1) in chars):
             continue
         x, rate = decode(orig)
-        pauses = find_pauses(x, rate, args.threshold_db, args.min_pause)
-        y = stretch(x, rate, pauses, args.extra)
+        plan = [(a, b, args.extra) for a, b in find_pauses(x, rate, args.threshold_db, args.min_pause)]
+        questions = 0
+        if args.question_extra > 0:
+            # Any gap (even a short one) right after a question gets the longer pause.
+            gaps = find_pauses(x, rate, args.threshold_db, 0.08)
+            for q in question_ends(orig, args.whisper_model):
+                near = [g for g in gaps if q - 0.3 <= g[0] / rate <= q + 0.6]
+                if not near:
+                    continue
+                g = min(near, key=lambda g: abs(g[0] / rate - q))
+                plan = [p for p in plan if (p[0], p[1]) != g] + [(g[0], g[1], max(args.extra, args.question_extra))]
+                questions += 1
+            plan.sort()
+        y = stretch(x, rate, plan)
         write_wav(args.voice_dir / (orig.stem + ".wav"), y, rate)
         total += 1
-        print(f"{orig.stem}: {len(pauses)} pauses lengthened, {len(x) / rate:.1f}s -> {len(y) / rate:.1f}s")
+        print(f"{orig.stem}: {len(plan)} pauses lengthened ({questions} after questions), "
+              f"{len(x) / rate:.1f}s -> {len(y) / rate:.1f}s")
     print(f"{total} files written to {args.voice_dir}")
 
 

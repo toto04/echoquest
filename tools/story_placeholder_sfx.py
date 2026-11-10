@@ -15,12 +15,18 @@ bundle has nothing suitable. The piano theme is our own three-note motif, not an
     seat    FOLYProp_Sitting Down, Creaky Seat, Squeaks 3
     bells   MAGMisc_Magic Christmas Bells 2
     woodhit30  WOODImpt_Wooden Hit, Dark, Heavy Hit, Vampire's Prison (first 30 s)
+    drag    METLFric_Large Metal Box, Drag, Geofon (first 12 s)
+and these Kenney CC0 sounds (kenney.nl: RPG Audio, Impact Sounds, Interface Sounds), converted the
+same way and prefixed with k_: footstep_wood_000-004, creak1-3, confirmation_001, bookFlip1-3,
+cloth1-4, impactWood_light_000-004, impactSoft_medium_000-004.
 
-Usage: python3 tools/story_placeholder_sfx.py <mono_dir> <out_dir> [cue ...]
-With cue numbers (e.g. 16 17) only those files are written.
+Usage: python3 tools/story_placeholder_sfx.py <mono_dir> <out_dir> [what ...]
+`what` can be a section (p00, s01), a cue id (s01_sfx_05) or a prologue cue number (16).
+Without it, everything is written.
 """
 import math
 import random
+import re
 import struct
 import sys
 import wave
@@ -28,7 +34,14 @@ from array import array
 
 SR = 48000
 MONO, OUT = sys.argv[1], sys.argv[2]
-ONLY = {f"p00_sfx_{int(c):02d}" for c in sys.argv[3:]}
+ONLY, ONLY_SECTIONS = set(), set()
+for _arg in sys.argv[3:]:
+    if re.fullmatch(r"[a-z]\d\d", _arg):
+        ONLY_SECTIONS.add(_arg)
+    elif re.fullmatch(r"[a-z]\d\d_sfx_\d\d|x_\w+", _arg):
+        ONLY.add(_arg)
+    else:
+        ONLY.add(f"p00_sfx_{int(_arg):02d}")
 random.seed(4)
 
 
@@ -168,8 +181,14 @@ def normalize(x, peak_db=-3.0):
     return [s * g for s in x]
 
 
+def selected(name):
+    if not ONLY and not ONLY_SECTIONS:
+        return True
+    return name in ONLY or name[:3] in ONLY_SECTIONS
+
+
 def save(name, x, peak_db=-3.0):
-    if ONLY and name not in ONLY:
+    if not selected(name):
         return
     x = normalize(x, peak_db)
     with wave.open(f"{OUT}/{name}.wav", "wb") as w:
@@ -288,7 +307,7 @@ def cue(n):
 
 
 def wanted(n):
-    return not ONLY or cue(n) in ONLY
+    return selected(cue(n))
 
 
 # --- Cues. Numbers follow capitolo_01_suoni.csv. ----------------------------------------------
@@ -405,3 +424,248 @@ if wanted(23):  # the wind leaves quickly, a last whistle
     x = mix(silence(2.0), load("whoosh"), 0.0)
     mix(x, whistle(), 0.45, 0.25)
     save(cue(23), fade(x, 0, 0.6), -4)
+
+
+# === Scene 1 (s01) ============================================================================
+
+
+def bell(vel=0.5, freq=1568.0, dur=2.0):
+    """A small hand bell ("campanella"): brighter and more harmonic than the triangle."""
+    n = int(dur * SR)
+    out = [0.0] * n
+    for ratio, amp, tau in ((1.0, 1.0, 0.9), (2.0, 0.5, 0.6), (2.76, 0.35, 0.4), (5.4, 0.2, 0.2)):
+        w = 2 * math.pi * freq * ratio / SR
+        ph = random.random() * 2 * math.pi
+        for i in range(n):
+            out[i] += vel * amp * math.exp(-i / (tau * SR)) * math.sin(w * i + ph)
+    return out
+
+
+def breath(dur=1.3, f0=1300, f1=600, vel=0.5, voiced=0.0, pitch=130):
+    """A breathy exhale (a sigh); with `voiced` > 0 a hummed effort sound. Placeholder only."""
+    n = int(dur * SR)
+    noise = [random.uniform(-1, 1) for _ in range(n)]
+    out, ph = [], 0.0
+    lo = biquad(noise, "bp", (f0 + f1) / 2, 0.8)
+    for i in range(n):
+        t = i / n
+        env = min(1.0, t / 0.12) * (1 - t) ** 1.5
+        ph += 2 * math.pi * pitch * (1 - 0.15 * t) / SR
+        saw = 2 * ((ph / (2 * math.pi)) % 1) - 1
+        out.append(vel * env * (lo[i] + voiced * saw))
+    return biquad(biquad(out, "lp", 3000), "hp", 120)
+
+
+def steps(times, variants=5, vel=1.0):
+    """Footsteps on a wooden stage at the given times (Kenney footstep_wood)."""
+    end = (times[-1] if times else 0) + 0.6
+    out = silence(end)
+    for k, t in enumerate(times):
+        mix(out, load(f"k_footstep_wood_{k % variants:03d}"), t, vel)
+    return out
+
+
+def tac_tac_toc():
+    hit = fade(load("stick", 0.60, 0.90), 0.002, 0.05)
+    toc = resample(fade(load("stick", 1.28, 1.58), 0.002, 0.05), 0.7)
+    return mix(mix(mix(silence(1.6), hit, 0.0), hit, 0.32, 0.9), toc, 0.95, 1.1)
+
+
+def stick_drop(variant=0):
+    """The baton falls: a light wooden hit and a small bounce."""
+    out = silence(1.0)
+    mix(out, load(f"k_impactWood_light_{variant:03d}"), 0.0)
+    mix(out, load(f"k_impactWood_light_{(variant + 2) % 5:03d}"), 0.18, 0.35)
+    return out
+
+
+def memory(x):
+    """Turns a phrase into a memory: muffled, with soft echoes, slightly wavering."""
+    y = biquad(x, "lp", 2200)
+    out = y + silence(1.6)
+    for delay, g in ((0.23, 0.35), (0.47, 0.2), (0.71, 0.1)):
+        mix(out, y, delay, g)
+    return out
+
+
+def phrase(notes, vel=0.6, dur=1.4):
+    """Piano notes [(time, note or freq, optional damp)]."""
+    end = max(t for t, *_ in notes) + dur + 0.3
+    out = silence(end)
+    for t, n, *rest in notes:
+        f = NOTE[n] if isinstance(n, str) else n
+        mix(out, piano(f, dur, vel, damp=rest[0] if rest else None), t)
+    return out
+
+
+NOTE.update({"C2": 65.41, "E3": 164.81, "A3": 220.0, "G3": 196.0, "B4": 493.88, "A5": 880.0, "C6": 1046.5})
+
+
+def cue1(n):
+    return f"s01_sfx_{n:02d}"
+
+
+def wanted1(n):
+    return selected(cue1(n))
+
+
+if wanted1(1):  # pacing steps, the piano trying in the distance, Sbuffo's breath fading away
+    x = steps([0.0, 0.55, 1.1, 1.65, 2.2, 3.4, 3.95, 4.5, 5.05])
+    mix(x, biquad(phrase([(0.0, "G4"), (1.2, "C5"), (1.5, "E5", 0.07)], 0.4), "lp", 1800), 2.6, 0.5)
+    mix(x, fade(biquad(load("storm", 2.0, 5.0), "lp", 700), 0.05, 2.5), 0.0, 0.35)
+    save(cue1(1), fade(x, 0, 0.5), -4)
+if wanted1(2):
+    save(cue1(2), stick_drop(0), -4)  # TAC! the baton falls
+if wanted1(3):  # bending down to pick it up, a little effort sound
+    x = mix(silence(1.6), load("k_cloth1"), 0.0, 0.8)
+    mix(x, breath(0.5, 500, 400, 0.6, voiced=0.5, pitch=120), 0.35)
+    mix(x, load("k_impactWood_light_004"), 1.1, 0.3)
+    save(cue1(3), x, -6)
+if wanted1(4):  # three piano notes try the melody, then stop
+    save(cue1(4), phrase([(0.0, "G4"), (1.2, "C5"), (1.5, "E5", 0.06)]), -4)
+if wanted1(5):  # the Maestro's steps slow down and stop
+    save(cue1(5), steps([0.0, 0.6, 1.4], vel=0.9), -6)
+if wanted1(6):  # two funny piano notes
+    save(cue1(6), phrase([(0.0, NOTE["E4"] * 1.04, 0.2), (0.35, NOTE["G3"] * 0.96)], 0.7), -4)
+if wanted1(7):
+    save(cue1(7), stick_drop(1), -4)  # the baton falls again
+if wanted1(8):  # picks up the baton (the "ehm, ehm" is in the voice line)
+    x = mix(silence(1.2), load("k_cloth2"), 0.0, 0.8)
+    mix(x, load("k_impactWood_light_003"), 0.6, 0.4)
+    save(cue1(8), x, -6)
+for n in (9, 10, 21, 49):
+    if wanted1(n):
+        save(cue1(n), tac_tac_toc(), -3)
+if wanted1(11):  # a short piano phrase that breaks off
+    save(cue1(11), phrase([(0.0, "G4"), (1.2, "C5", 0.12)]), -4)
+if wanted1(12):
+    save(cue1(12), mix(silence(1.0), tom(0.6)), -6)  # one soft drum hit
+if wanted1(13):
+    save(cue1(13), bell(0.5), -6)  # a small bell, once
+if wanted1(14):
+    save(cue1(14), phrase([(0.0, "C3"), (0.7, "C4"), (1.4, "C5")]), -4)  # low, middle, high
+if wanted1(15):  # a tiny improvised demo: drum, then two piano notes, then a bell (~9 s)
+    x = silence(9.5)
+    for k in range(7):
+        mix(x, tom(0.7), k * 1.2, 0.8)
+    for t in (2.4, 3.6, 4.8, 6.0):
+        mix(x, piano(NOTE["E4"], 1.2, 0.5), t)
+        mix(x, piano(NOTE["G4"], 1.2, 0.5), t + 0.6)
+    mix(x, bell(0.5), 7.2, 0.7)
+    save(cue1(15), fade(x, 0, 1.0), -3)
+if wanted1(16):  # the baton brushes the music stand
+    x = mix(silence(0.8), load("k_impactWood_light_002"), 0.0, 0.4)
+    mix(x, biquad([random.uniform(-1, 1) * math.sin(math.pi * i / 9600) for i in range(9600)], "bp", 3000, 1.0), 0.05, 0.15)
+    save(cue1(16), x, -10)
+if wanted1(17):  # TA... TA... TA: three slow, regular claps
+    x = silence(2.6)
+    for t in (0.0, 1.0, 2.0):
+        mix(x, clap(), t)
+    save(cue1(17), x, -4)
+if wanted1(18):  # TA-TA... TA!
+    x = silence(2.0)
+    for t in (0.0, 0.3, 1.2):
+        mix(x, clap(), t)
+    save(cue1(18), x, -4)
+if wanted1(19):
+    save(cue1(19), steps([0.0, 0.9, 1.8]), -4)  # TUM... TUM... TUM: three slow steps
+if wanted1(20):
+    save(cue1(20), steps([0.24 * k for k in range(9)]), -4)  # running: faster steps
+if wanted1(22):  # the Maestro's rhythm, then the piano imitates it
+    x = tac_tac_toc() + silence(1.6)
+    mix(x, phrase([(0.0, "G4", 0.15), (0.32, "G4", 0.15), (0.95, "C4")], 0.6), 1.8)
+    save(cue1(22), x, -3)
+if wanted1(23):
+    save(cue1(23), phrase([(0.0, "C5", 0.18), (0.25, "E5", 0.3)], 0.6), -4)  # two cheerful notes
+if wanted1(24):  # a breath of wind far away, a door creaks a little
+    x = fade(biquad(load("storm", 4.0, 8.0), "lp", 900), 1.0, 1.5)
+    mix(x, load("k_creak1"), 1.6, 0.6)
+    save(cue1(24), x, -8)
+if wanted1(25):  # the wind blows a few more seconds, then calms down
+    save(cue1(25), fade(ramp(biquad(load("storm", 9.0, 14.0), "lp", 800), 0.8, 0.1), 0.6, 2.0), -8)
+if wanted1(26):
+    save(cue1(26), breath(1.4, 1400, 500, 0.6), -8)  # a sigh (synthesised placeholder)
+if wanted1(27):  # a short gust that recalls the prologue, but far away
+    save(cue1(27), mix(silence(1.4), biquad(load("whoosh"), "lp", 1500)), -10)
+if wanted1(28):  # two notes, then silence where the third should be
+    save(cue1(28), phrase([(0.0, "G4"), (1.2, "C5")]) + silence(1.5), -4)
+if wanted1(29):  # the memory of the complete phrase
+    save(cue1(29), memory(phrase([(0.0, "G4"), (1.2, "C5"), (1.5, "E5")], 0.55)), -6)
+if wanted1(30):  # the live piano: only the first two notes
+    save(cue1(30), phrase([(0.0, "G4"), (1.2, "C5")]) + silence(1.0), -4)
+if wanted1(31):  # the piano tries again and again, hesitating, and never finds the third note
+    x = silence(0)
+    for k, (at, vel) in enumerate(((0.0, 0.6), (3.0, 0.5), (6.2, 0.4))):
+        mix(x, phrase([(0.0, "G4"), (1.25 + 0.1 * k, "C5")], vel), at)
+        mix(x, piano(NOTE["E5"], 0.4, 0.2 * vel, cents=-60 * k, damp=0.05), at + 1.85 + 0.1 * k)
+    save(cue1(31), x + silence(0.8), -4)
+if wanted1(32):  # two quick steps towards the door, then a stop
+    save(cue1(32), steps([0.0, 0.3], vel=1.0), -4)
+if wanted1(33):  # starts running, stumbles after two steps and stops
+    x = steps([0.0, 0.22, 0.44])
+    mix(x, load("k_cloth3"), 0.5, 0.8)
+    mix(x, load("k_impactSoft_medium_000"), 0.6, 0.8)
+    mix(x, load("k_footstep_wood_003"), 0.95, 0.6)
+    save(cue1(33), x + silence(0.4), -4)
+if wanted1(34):
+    save(cue1(34), phrase([(0.0, "E4"), (0.6, "G4")], 0.4, 2.0), -6)  # two soft, encouraging notes
+if wanted1(35):
+    save(cue1(35), phrase([(0.0, "G4", 0.2), (0.25, "C5", 0.3)], 0.6), -4)  # two cheerful notes
+if wanted1(36):
+    save(cue1(36), piano(NOTE["C4"], 1.8, 0.6), -4)  # one note
+if wanted1(37):  # a second note joins the first
+    save(cue1(37), mix(piano(NOTE["C4"], 2.2, 0.55), piano(NOTE["E4"], 2.0, 0.55), 0.4), -4)
+if wanted1(38):  # a drum gently accompanies the two notes
+    x = silence(3.6)
+    for k in range(3):
+        mix(x, piano(NOTE["C4"], 1.2, 0.45), k * 1.2)
+        mix(x, piano(NOTE["E4"], 1.2, 0.45), k * 1.2 + 0.6)
+        mix(x, tom(0.5), k * 1.2, 0.7)
+    save(cue1(38), fade(x, 0, 0.6), -4)
+if wanted1(39):  # the sounds stop, a short silence
+    save(cue1(39), mix(silence(1.2), phrase([(0.0, "C4", 0.08), (0.0, "E4", 0.08)], 0.4, 0.4)), -12)
+if wanted1(40):
+    save(cue1(40), phrase([(0.0, "E5"), (0.5, "D5"), (1.0, "C5")], 0.4, 1.6), -6)  # three sweet notes
+if wanted1(41):  # trying to push something heavy for a moment
+    x = fade(load("drag", 0.4, 2.0), 0.05, 0.3)
+    mix(x, breath(0.7, 500, 400, 0.6, voiced=0.6, pitch=115), 0.2, 0.8)
+    save(cue1(41), x + silence(0.3), -6)
+if wanted1(42):  # four little, well separated signals
+    x = silence(4.2)
+    mix(x, piano(NOTE["C5"], 0.8, 0.5, damp=0.4), 0.0)
+    mix(x, tom(0.6), 1.0)
+    mix(x, triangle(0.3, 1.0), 2.0, 0.6)
+    mix(x, flute(NOTE["G5"], 0.5, 0.4), 3.0)
+    save(cue1(42), x, -4)
+if wanted1(43):
+    save(cue1(43), load("k_confirmation_001") + silence(0.2), -6)  # soft confirmation (Kenney)
+if wanted1(44):  # a little piano melody in the distance, stopping before the last note
+    save(cue1(44), biquad(phrase([(0.0, "G4"), (1.2, "C5")], 0.45), "lp", 2000) + silence(1.0), -8)
+if wanted1(45):  # memory of the full phrase, a pause, then the live piano without the last note
+    x = memory(phrase([(0.0, "G4"), (1.2, "C5"), (1.5, "E5")], 0.55))
+    x += silence(1.2)
+    x += phrase([(0.0, "G4"), (1.2, "C5")]) + silence(1.2)
+    save(cue1(45), x, -5)
+if wanted1(46):  # walking across the room; here and there an instrument tries a single sound
+    x = steps([0.6 * k for k in range(12)], vel=0.9)
+    mix(x, tom(0.3), 1.5, 0.5)
+    mix(x, triangle(0.2, 1.2), 3.6, 0.4)
+    mix(x, flute(NOTE["A4"], 0.6, 0.3), 5.0, 0.5)
+    mix(x, piano(NOTE["D5"], 1.0, 0.3), 6.2, 0.6)
+    save(cue1(46), fade(x, 0, 0.8), -4)
+if wanted1(47):  # the piano tries its part once more: two notes, then silence
+    save(cue1(47), phrase([(0.0, "G4"), (1.2, "C5")]) + silence(1.5), -4)
+if wanted1(48):
+    save(cue1(48), piano(NOTE["C2"], 5.0, 0.7), -4)  # a single low note that rings on
+if wanted1(50):  # soft notes lead into the next scene (not the stolen phrase)
+    save(cue1(50), fade(phrase([(0.0, "C4"), (0.5, "E4"), (1.0, "G4"), (1.5, "A4"), (2.2, "G4")], 0.4, 2.0), 0, 1.0), -6)
+
+# Extra beds for the regia (not cues in the script).
+if selected("x_vento_alberi"):  # wind among the trees, under the Maestro talking about Sbuffo
+    save("x_vento_alberi", fade(biquad(biquad(load("storm", 0.0, 12.0), "lp", 900), "hp", 150), 1.5, 1.5), -14)
+if selected("x_fogli_vento"):  # papers flying in the wind
+    x = fade(biquad(load("storm", 12.0, 18.0), "lp", 1100), 0.8, 0.8)
+    for t, k in ((0.4, 1), (1.3, 2), (2.1, 3), (3.4, 1), (4.6, 2)):
+        mix(x, load(f"k_bookFlip{k}"), t, 1.4)
+    mix(x, load("pages"), 2.6, 1.2)
+    save("x_fogli_vento", x, -8)

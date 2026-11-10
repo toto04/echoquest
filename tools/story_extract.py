@@ -236,6 +236,8 @@ def attach_sfx_files(items: list[Item], sfx_dir: Path | None) -> None:
     for path in sorted(sfx_dir.iterdir()):
         if path.suffix.lower() not in AUDIO_EXTS:
             continue
+        if path.stem.startswith("x_"):
+            continue  # extra beds used only by the staging (e.g. x_vento_alberi)
         m = SFX_FILE_RE.match(path.stem)
         if m and m.group(1) in by_id:
             by_id[m.group(1)].files.append(path.name)

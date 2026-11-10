@@ -37,3 +37,59 @@ p00_sfx_22,0,2,2,,,,,0.5,,1,sì,p00_sfx_23,,,,Vento leggero di sottofondo finch�
 p00_sfx_23,1,1.5,3,12,1.5,20,2,0.9,,,,,,,,Il vento scappa in fondo a destra
 s01_int_02,,,,,,,,,,,,,,,1=B;2=A,"Indice = andare subito al pianoforte (ramo B), medio = riascoltare la canzone (ramo A)"
 s01_int_03,,,,,,,,,,,,,,,1=B,Dopo aver riascoltato: indice = andare al pianoforte
+# --- Scena 1 ---
+s01_maes_27,2,0,3,,,,,1,,,,,x_vento_alberi,,,"«Sbuffo… quando soffia tra gli alberi»: sotto, il vento tra gli alberi"
+s01_maes_29,2,0,3,,,,,1,,,,,x_fogli_vento,,,"«Ha fatto volare i fogli…»: sotto, fogli che volano nel vento"
+s01_maes_34,2,0,3,,,,,1,,,,,s01_sfx_31,,,"«Povero pianoforte, ci sta provando ancora»: sotto, il pianoforte che riprova"
+x_vento_alberi,-4,1.5,8,,,,,0.6,,,,,,,,Vento tra gli alberi (sottofondo)
+x_fogli_vento,0,1,4,,,,,0.8,,,,,,,,Fogli che volano (sottofondo)
+s01_sfx_01,-4,0,4,4,0,4,,0.9,,,,,,,,Il Maestro cammina avanti e indietro
+s01_sfx_02,2,-0.5,2.5,,,,,1,,,,,,,,La bacchetta cade vicino al Maestro
+s01_sfx_03,2,0,3,,,,,0.9,,,,,,,,
+s01_sfx_04,3,0,5,,,,,0.9,,,,,,,,Pianoforte
+s01_sfx_05,2,0,3,,,,,0.9,,,,,,,,
+s01_sfx_06,3,0,5,,,,,0.9,,,,,,,,
+s01_sfx_07,2,-0.5,2.5,,,,,1,,,,,,,,
+s01_sfx_08,2,0,3,,,,,0.9,,,,,,,,
+s01_sfx_09,2,0,3,,,,,1,,,,,,,,Bacchetta sul leggio
+s01_sfx_10,2,0,3,,,,,1,,,,,,,,
+s01_sfx_11,3,0,5,,,,,0.9,,,,,,,,
+s01_sfx_12,-3,0,5,,,,,0.9,,,,,,,,Tamburo a sinistra
+s01_sfx_13,2,1,4,,,,,0.8,,,,,,,,Campanella a destra in alto
+s01_sfx_14,3,0,5,,,,,0.9,,,,,,,,
+s01_sfx_15,0,0,6,,,,,0.9,,,,,,,,
+s01_sfx_16,2,0,3,,,,,0.8,,,,,,,,
+s01_sfx_17,2,0,3,,,,,1,,,,,,,,Il Maestro batte le mani
+s01_sfx_18,2,0,3,,,,,1,,,,,,,,
+s01_sfx_19,2,0,3,-1,0,3,,1,,,,,,,,Passi lenti
+s01_sfx_20,-2,0,3,3,0,3,,1,,,,,,,,Passi veloci
+s01_sfx_21,2,0,3,,,,,1,,,,,,,,
+s01_sfx_22,2,0,3,,,,,1,,,,,,,,
+s01_sfx_23,3,0,5,,,,,0.9,,,,,,,,
+s01_sfx_24,6,1,12,,,,,0.8,,,,,,,,Vento lontano e porta che scricchiola
+s01_sfx_25,-6,1,10,6,1,10,,0.7,,,,,,,,
+s01_sfx_26,2,0,3,,,,,0.8,,,,,,,,Sospiro
+s01_sfx_27,-8,1,14,,,,,0.7,,,,,,,,
+s01_sfx_28,3,0,5,,,,,0.9,,,,,,,,
+s01_sfx_29,,,,,,,,0.8,,,,,,,,Ricordo: dentro la testa
+s01_sfx_30,3,0,5,,,,,0.9,,,,,,,,
+s01_sfx_31,3,0,5,,,,,0.9,,,,,,,,
+s01_sfx_32,2,0,3,4,0,5,,1,,,,,,,,Due passi verso la porta
+s01_sfx_33,3,0,4,5,0,6,,1,,,,,,,,Corsa e inciampo
+s01_sfx_34,3,0,5,,,,,0.8,,,,,,,,
+s01_sfx_35,3,0,5,,,,,0.9,,,,,,,,
+s01_sfx_36,3,0,5,,,,,0.9,,,,,,,,
+s01_sfx_37,3,0,5,,,,,0.9,,,,,,,,
+s01_sfx_38,0,0,6,,,,,0.9,,,,,,,,
+s01_sfx_39,0,0,6,,,,,0.6,,,,,,,,
+s01_sfx_40,3,0,5,,,,,0.8,,,,,,,,
+s01_sfx_41,-2,0,4,,,,,0.9,,,,,,,,
+s01_sfx_42,0,0,5,,,,,0.9,,,,,,,,
+s01_sfx_43,,,,,,,,0.8,,,,,,,,Conferma: dentro la testa
+s01_sfx_44,5,0,12,,,,,0.8,,,,,,,,Pianoforte lontano
+s01_sfx_45,3,0,5,,,,,0.9,,,,,,,,
+s01_sfx_46,2,0,3,3,0,5,,0.9,,,,,,,,Si cammina verso il pianoforte
+s01_sfx_47,3,0,5,,,,,0.9,,,,,,,,
+s01_sfx_48,3,0,5,,,,,0.9,,,,,,,,
+s01_sfx_49,2,0,3,,,,,1,,,,,,,,
+s01_sfx_50,3,0,5,,,,,0.8,,,,,,,,

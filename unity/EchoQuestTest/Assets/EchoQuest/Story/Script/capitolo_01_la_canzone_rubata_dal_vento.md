@@ -447,6 +447,10 @@ Devi sapere che io dirigo un'orchestra.
 
 Sai che cos'è un'orchestra?
 
+*[PAUSA]*
+
+Beh, te lo spiego lo stesso.
+
 È un gruppo di persone che suonano strumenti musicali diversi.
 
 Alcuni strumenti producono suoni profondi.

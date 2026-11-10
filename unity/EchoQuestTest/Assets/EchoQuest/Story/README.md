@@ -170,6 +170,25 @@ bambino deve ripetere nella Scena 3. È un motivo nostro, non una canzone esiste
 
 I suoni provvisori si rigenerano con `tools/story_placeholder_sfx.py` (istruzioni in testa al file).
 
+## Scena 1 (`s01`, scena `Story/Scenes/Scena1.unity`)
+
+- **Voci**: 54 battute, tutte registrate con la voce di Antonio Farina (Maestro), divise dalle 5 registrazioni
+  in `Audio/Voice/_da_dividere/` (ignorate dalla scena). In `s01_maes_11` è inserita la registrazione
+  separata «Beh, te lo spiego lo stesso», dopo la domanda «Sai che cos'è un'orchestra?».
+- **Pause**: anche nelle battute del Maestro le pause tra le frasi sono allungate, e dopo ogni domanda
+  dentro una battuta c'è quasi un secondo in più (`tools/stretch_pauses.py --chars narr,maes --question-extra 0.9`).
+  Dopo una battuta che finisce con una domanda il gioco aspetta 1,4 s, dopo un suono 0,4 s.
+- **Suoni**: tutti i 50, provvisori.
+  - Passi su legno, porta che scricchiola, suono di conferma, pagine, tessuto, colpi su legno e tonfi:
+    pacchetti Kenney (kenney.nl, licenza **CC0**: uso libero, anche senza citare).
+  - Vento e cassa trascinata: bundle Sonniss.
+  - Pianoforte, tamburo, campanella, triangolo, flauto, applausi: sintetizzati.
+  - **Sospiro e verso di fatica** del Maestro (`26`, `03`, `41`): sintetizzati e poco credibili: meglio
+    generarli con ElevenLabs (effetti sonori o con la voce del Maestro) e sostituire i file.
+- **Sottofondi** (regia): vento tra gli alberi sotto `s01_maes_27`, fogli che volano sotto `s01_maes_29`
+  (file extra `Audio/Sfx/x_vento_alberi.wav`, `x_fogli_vento.wav`), il pianoforte che riprova sotto `s01_maes_34`.
+- **Scelta**: indice = andare al pianoforte, medio = riascoltare (colonna `scelte` della regia).
+
 Il copione completo (versione con la Scena 1 estesa) dura circa **30 minuti** di parlato (stima basata sul ritmo del Narratore,
 circa 15 caratteri al secondo), più musica e suoni. Per il primo test conviene ridurlo
 (vedi le note in fondo al copione).

@@ -79,18 +79,40 @@ def question_ends(path: Path, model: str) -> list[float]:
     for line in res.stdout.splitlines():
         m = re.match(r"\[(\d+):(\d+):([\d.]+) --> (\d+):(\d+):([\d.]+)\]\s*(.*)", line.strip())
         if m and "?" in m.group(7):
-            ends.append(int(m.group(4)) * 3600 + int(m.group(5)) * 60 + float(m.group(6)))
+            start = int(m.group(1)) * 3600 + int(m.group(2)) * 60 + float(m.group(3))
+            end = int(m.group(4)) * 3600 + int(m.group(5)) * 60 + float(m.group(6))
+            ends.append((start, end))
     return ends
 
 
+def quietest(x: array.array, rate: int, a: float, b: float) -> int:
+    """Sample index of the quietest 20 ms between a and b seconds."""
+    lo, hi = max(0, int(a * rate)), min(len(x), int(b * rate))
+    win, hop = max(1, rate // 50), max(1, rate // 200)
+    if hi - lo <= win:
+        return (lo + hi) // 2
+    best = min(range(lo, hi - win, hop), key=lambda i: sum(abs(v) for v in x[i:i + win]))
+    return best + win // 2
+
+
 def stretch(x: array.array, rate: int, pauses: list[tuple[int, int, float]]) -> array.array:
-    """pauses: (start, end, seconds to add) in samples/seconds."""
+    """pauses: (start, end, seconds to add), start/end in samples."""
     out = array.array("h")
     pos = 0
     for a, b, extra in pauses:
         add = int(extra * rate)
         mid = (a + b) // 2
         out.extend(x[pos:mid])
+        if b - a < rate // 20:
+            # No real gap (the voice ran on): insert plain silence, with tiny fades so it doesn't click.
+            fade = min(len(out), rate // 200)
+            for k in range(fade):
+                out[-1 - k] = int(out[-1 - k] * k / fade)
+            out.extend(array.array("h", [0]) * add)
+            tail = x[mid:mid + fade]
+            out.extend(array.array("h", (int(v * k / max(1, fade)) for k, v in enumerate(tail))))
+            pos = mid + len(tail)
+            continue
         # Repeat a slice of the pause itself (centred), as many times as needed.
         half = max(1, (b - a) // 4)
         fill = x[mid - half:mid + half] or array.array("h", [0])
@@ -155,11 +177,18 @@ def main() -> None:
         if args.question_extra > 0:
             # Any gap (even a short one) right after a question gets the longer pause.
             gaps = find_pauses(x, rate, args.threshold_db, 0.08)
-            for q in question_ends(orig, args.whisper_model):
-                near = [g for g in gaps if q - 0.3 <= g[0] / rate <= q + 0.6]
-                if not near:
-                    continue
-                g = min(near, key=lambda g: abs(g[0] / rate - q))
+            for qs, qe in question_ends(orig, args.whisper_model):
+                # whisper often stretches the last word's end into the pause: look from the
+                # second half of the word to a little after it.
+                lo_t = qs + 0.5 * (qe - qs)
+                near = [g for g in gaps if lo_t <= g[0] / rate <= qe + 0.6]
+                if near:
+                    g = min(near, key=lambda g: g[0])
+                else:
+                    if qe >= len(x) / rate - 0.3:
+                        continue  # the question ends the file: the player pauses after it
+                    p0 = quietest(x, rate, qe - 0.4, qe + 0.3)
+                    g = (p0, p0)
                 plan = [p for p in plan if (p[0], p[1]) != g] + [(g[0], g[1], max(args.extra, args.question_extra))]
                 questions += 1
             plan.sort()

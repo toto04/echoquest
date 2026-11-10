@@ -47,8 +47,8 @@ CHARACTER_CODES = {
     "VOCE LONTANA": "lont",
 }
 
-# "## Scena 1 — Titolo" or "## 1. Titolo"
-SECTION_RE = re.compile(r"^##\s+(Prologo|(?:Scena\s+)?(\d+)(?=[\s.—:-])|Epilogo)")
+# "## Scena 1 — Titolo", "## 1. Titolo" or "# EchoQuest — Scena 2: Titolo"
+SECTION_RE = re.compile(r"^##?\s+(?:[^#\n]*?\b)?(Prologo|(?:Scena\s+)?(\d+)(?=[\s.—:-])|Epilogo)")
 STOP_RE = re.compile(r"^##\s+Note di sviluppo")
 SUBHEADING_RE = re.compile(r"^(#{3,4})\s+(.*)$")
 # "### Ramo A — ..." names the branch; "### Se il bambino sceglie ..." gets the next letter.

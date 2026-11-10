@@ -44,255 +44,294 @@ ordine,sezione,ramo,tipo,id,personaggio,testo,dentro_battuta,file_audio,riga_cop
 43,p00,,voce,p00_maes_08,MAESTRO BATTUTA,"Quel vento maleducato! Prima interrompe il concerto, poi si porta via i suoni e infine se ne va senza nemmeno salutare! [PAUSA] Almeno poteva dire buongiorno.",,p00_maes_08_a.wav p00_maes_08_b.wav,246
 44,p00,,voce,p00_narr_07,NARRATORE,"E così, nella sala della musica, è rimasta una canzone incompleta. Gli strumenti sono ancora tutti lì. Possono ancora produrre dei suoni. Ma qualcosa manca. Come quando qualcuno comincia a raccontarti una storia e si ferma proprio sul più bello. Come andrà a finire? E soprattutto... Come si fa a ritrovare una canzone?",,p00_narr_07_a.wav p00_narr_07_b.wav,256
 45,s01,,suono,s01_sfx_01,,"Nella sala della musica si sentono alcuni passi veloci. Qualcuno cammina avanti e indietro, fermandosi ogni tanto per borbottare qualcosa. In lontananza il pianoforte prova una breve sequenza di note, ma si interrompe prima di terminarla. Il soffio di Sbuffo, ormai lontano, svanisce.",,,278
-46,s01,,voce,s01_maes_01,MAESTRO BATTUTA,Mmmh... Vediamo un po'... Un suono qui... Un suono là... Due note che mancano... Un ritmo completamente scompigliato... E una bacchetta che continua a cadermi dalle mani!,,,280
+46,s01,,voce,s01_maes_01,MAESTRO BATTUTA,Mmmh... Vediamo un po'... Un suono qui... Un suono là... Due note che mancano... Un ritmo completamente scompigliato... E una bacchetta che continua a cadermi dalle mani!,,s01_maes_01_a.wav,280
 47,s01,,suono,s01_sfx_02,,Un piccolo oggetto cade sul pavimento. TAC!,,,296
-48,s01,,voce,s01_maes_02,MAESTRO BATTUTA,"Oh, insomma! Ma oggi proprio niente vuole funzionare?!",,,298
+48,s01,,voce,s01_maes_02,MAESTRO BATTUTA,"Oh, insomma! Ma oggi proprio niente vuole funzionare?!",,s01_maes_02_a.wav,298
 49,s01,,suono,s01_sfx_03,,Il Maestro si china per raccogliere la bacchetta. Un piccolo verso di fatica.,,,304
-50,s01,,voce,s01_maes_03,MAESTRO BATTUTA,"Ecco fatto. Adesso, se solo riuscissi a capire da dove cominciare... [PAUSA BREVE] Ah! Il pianoforte! No, aspetta... Prima il tamburo? Oppure...",,,306
+50,s01,,voce,s01_maes_03,MAESTRO BATTUTA,"Ecco fatto. Adesso, se solo riuscissi a capire da dove cominciare... [PAUSA BREVE] Ah! Il pianoforte! No, aspetta... Prima il tamburo? Oppure...",,s01_maes_03_a.wav,306
 51,s01,,suono,s01_sfx_04,,"Tre note di pianoforte tentano di formare una melodia, ma questa si interrompe.",,,324
-52,s01,,voce,s01_maes_04,MAESTRO BATTUTA,"No, no, no! Non è possibile! Manca proprio quella nota! [PAUSA] Un momento...",,,326
+52,s01,,voce,s01_maes_04,MAESTRO BATTUTA,"No, no, no! Non è possibile! Manca proprio quella nota! [PAUSA] Un momento...",,s01_maes_04_a.wav,326
 53,s01,,suono,s01_sfx_05,,I passi del Maestro si fermano.,,,338
-54,s01,,voce,s01_maes_05,MAESTRO BATTUTA,Ma... C'è qualcuno? [PAUSA BREVE] Oh! E tu?! Da quanto tempo sei qui? Non mi dire che hai ascoltato tutto! Anche la parte in cui cercavo la bacchetta? [PAUSA] Anche la parte della carota?!,,,340
+54,s01,,voce,s01_maes_05,MAESTRO BATTUTA,Ma... C'è qualcuno? [PAUSA BREVE] Oh! E tu?! Da quanto tempo sei qui? Non mi dire che hai ascoltato tutto! Anche la parte in cui cercavo la bacchetta? [PAUSA] Anche la parte della carota?!,,s01_maes_05_a.wav,340
 55,s01,,suono,s01_sfx_06,,Due note buffe di pianoforte.,,,362
-56,s01,,voce,s01_maes_06,MAESTRO BATTUTA,"Oh, cielo. Che figura. Ti assicuro che normalmente sono una persona molto seria. Serissima! Sono talmente serio che...",,,364
+56,s01,,voce,s01_maes_06,MAESTRO BATTUTA,"Oh, cielo. Che figura. Ti assicuro che normalmente sono una persona molto seria. Serissima! Sono talmente serio che...",,s01_maes_06_a.wav,364
 57,s01,,suono,s01_sfx_07,,La bacchetta cade nuovamente a terra.,,,376
-58,s01,,voce,s01_maes_07,MAESTRO BATTUTA,... Facciamo che ricominciamo.,,,378
+58,s01,,voce,s01_maes_07,MAESTRO BATTUTA,... Facciamo che ricominciamo.,,s01_maes_07_a.wav,378
 59,s01,,suono,s01_sfx_08,,"Il Maestro raccoglie la bacchetta e si schiarisce la voce, assumendo un tono importante.",,,384
-60,s01,,voce,s01_maes_08,MAESTRO BATTUTA,"Ehm, ehm! Permettimi di presentarmi come si deve. Io sono il Maestro Battuta! Direttore di questa orchestra! Grande appassionato di musica, esperto di strumenti e, a quanto pare, pessimo custode di bacchette.",,,386
+60,s01,,voce,s01_maes_08,MAESTRO BATTUTA,"Ehm, ehm! Permettimi di presentarmi come si deve. Io sono il Maestro Battuta! Direttore di questa orchestra! Grande appassionato di musica, esperto di strumenti e, a quanto pare, pessimo custode di bacchette.",,s01_maes_08_a.wav,386
 61,s01,,suono,s01_sfx_09,,"Tre colpetti sul leggio: TAC, TAC... TOC!",,,398
-62,s01,,voce,s01_maes_09,MAESTRO BATTUTA,"Ahhh! Questo è molto meglio. Sai, prima di ogni concerto do sempre tre colpetti con la bacchetta. TAC, TAC... TOC! È il mio modo per dire ai musicisti: «Eccomi, ascoltatemi! Stiamo per cominciare!» Quando senti questi tre colpetti, puoi riconoscermi anche prima che io dica una parola. Proprio così!",,,400
+62,s01,,voce,s01_maes_09,MAESTRO BATTUTA,"Ahhh! Questo è molto meglio. Sai, prima di ogni concerto do sempre tre colpetti con la bacchetta. TAC, TAC... TOC! È il mio modo per dire ai musicisti: «Eccomi, ascoltatemi! Stiamo per cominciare!» Quando senti questi tre colpetti, puoi riconoscermi anche prima che io dica una parola. Proprio così!",,s01_maes_09_a.wav,400
 63,s01,,suono,s01_sfx_10,,"TAC, TAC... TOC!",,,416
-64,s01,,voce,s01_maes_10,MAESTRO BATTUTA,"Quello sono io! [PAUSA] Beh, adesso che ci siamo presentati... Immagino che tu ti stia chiedendo che cosa stia succedendo qui. E fai bene! Perché, a essere sinceri, me lo sto chiedendo anch'io.",,,418
+64,s01,,voce,s01_maes_10,MAESTRO BATTUTA,"Quello sono io! [PAUSA] Beh, adesso che ci siamo presentati... Immagino che tu ti stia chiedendo che cosa stia succedendo qui. E fai bene! Perché, a essere sinceri, me lo sto chiedendo anch'io.",,s01_maes_10_a.wav,418
 65,s01,,suono,s01_sfx_11,,"Il pianoforte prova una breve frase musicale, ma si interrompe.",,,434
-66,s01,,voce,s01_maes_11,MAESTRO BATTUTA,Hai sentito? Ecco. Questo è il nostro problema. Ma forse è meglio se comincio dall'inizio. Devi sapere che io dirigo un'orchestra. Sai che cos'è un'orchestra? È un gruppo di persone che suonano strumenti musicali diversi. Alcuni strumenti producono suoni profondi.,,,436
+66,s01,,voce,s01_maes_11,MAESTRO BATTUTA,Hai sentito? Ecco. Questo è il nostro problema. Ma forse è meglio se comincio dall'inizio. Devi sapere che io dirigo un'orchestra. Sai che cos'è un'orchestra? È un gruppo di persone che suonano strumenti musicali diversi. Alcuni strumenti producono suoni profondi.,,s01_maes_11_a.wav,436
 67,s01,,suono,s01_sfx_12,,Un solo colpo morbido di tamburo.,,,454
-68,s01,,voce,s01_maes_12,MAESTRO BATTUTA,Come questo! Altri producono suoni più squillanti.,,,456
+68,s01,,voce,s01_maes_12,MAESTRO BATTUTA,Come questo! Altri producono suoni più squillanti.,,s01_maes_12_a.wav,456
 69,s01,,suono,s01_sfx_13,,Una piccola campanella suona una volta.,,,462
-70,s01,,voce,s01_maes_13,MAESTRO BATTUTA,Come quest'altro! E altri ancora possono produrre tanti suoni diversi.,,,464
+70,s01,,voce,s01_maes_13,MAESTRO BATTUTA,Come quest'altro! E altri ancora possono produrre tanti suoni diversi.,,s01_maes_13_a.wav,464
 71,s01,,suono,s01_sfx_14,,"Il pianoforte suona tre note, dalla più grave alla più acuta.",,,470
-72,s01,,voce,s01_maes_14,MAESTRO BATTUTA,"Ma la cosa più interessante sai qual è? Che questi strumenti possono suonare insieme! Per fortuna, Sbuffo non ha portato via ogni suono. I musicisti riescono ancora a farne qualcuno, e possiamo perfino provare un piccolo ritmo. È la nostra canzone del concerto che adesso non riusciamo più a completare. Aspetta: ti faccio sentire un esempio semplicissimo.",,,472
+72,s01,,voce,s01_maes_14,MAESTRO BATTUTA,"Ma la cosa più interessante sai qual è? Che questi strumenti possono suonare insieme! Per fortuna, Sbuffo non ha portato via ogni suono. I musicisti riescono ancora a farne qualcuno, e possiamo perfino provare un piccolo ritmo. È la nostra canzone del concerto che adesso non riusciamo più a completare. Aspetta: ti faccio sentire un esempio semplicissimo.",,s01_maes_14_a.wav,472
 73,s01,,suono,s01_sfx_15,,"Il tamburo suona lentamente due colpi regolari. Dopo qualche secondo il pianoforte aggiunge due note, poi una campanella tintinna alla fine. Non è la canzone rubata, ma una breve dimostrazione improvvisata. Durata circa 8–10 secondi.",,,482
-74,s01,,voce,s01_maes_15,MAESTRO BATTUTA,"Hai sentito? All'inizio c'era soltanto il tamburo. Poi è arrivato il pianoforte. E infine la campanella. Ognuno produceva un suono diverso. Eppure, per qualche istante, hanno suonato insieme! Questa è una delle cose che amo di più della musica. Da soli, gli strumenti possono essere bellissimi. Ma quando imparano ad ascoltarsi e a suonare insieme... Beh... Possono creare qualcosa che da soli non riuscirebbero a fare!",,,484
-75,s01,,voce,s01_maes_16,MAESTRO BATTUTA,Il mio compito è proprio questo. Aiutare tutti a suonare insieme. Io ascolto ogni strumento. Do un segnale quando deve cominciare. Un altro quando deve fermarsi. Faccio capire quando suonare piano. E quando suonare con più energia! E per farlo uso la mia fidata bacchetta.,,,508
+74,s01,,voce,s01_maes_15,MAESTRO BATTUTA,"Hai sentito? All'inizio c'era soltanto il tamburo. Poi è arrivato il pianoforte. E infine la campanella. Ognuno produceva un suono diverso. Eppure, per qualche istante, hanno suonato insieme! Questa è una delle cose che amo di più della musica. Da soli, gli strumenti possono essere bellissimi. Ma quando imparano ad ascoltarsi e a suonare insieme... Beh... Possono creare qualcosa che da soli non riuscirebbero a fare!",,s01_maes_15_a.wav,484
+75,s01,,voce,s01_maes_16,MAESTRO BATTUTA,Il mio compito è proprio questo. Aiutare tutti a suonare insieme. Io ascolto ogni strumento. Do un segnale quando deve cominciare. Un altro quando deve fermarsi. Faccio capire quando suonare piano. E quando suonare con più energia! E per farlo uso la mia fidata bacchetta.,,s01_maes_16_a.wav,508
 76,s01,,suono,s01_sfx_16,,La bacchetta sfiora il leggio.,,,526
-77,s01,,voce,s01_maes_17,MAESTRO BATTUTA,"Ma attenzione! La bacchetta non produce la musica. Sono gli strumenti a produrla. Io li aiuto a seguire la stessa canzone. E, soprattutto, lo stesso ritmo. [PAUSA BREVE] Oh! Forse non ti ho ancora spiegato che cos'è un ritmo!",,,528
-78,s01,,voce,s01_maes_18,MAESTRO BATTUTA,Allora. Facciamo un piccolo esperimento. Non serve nessuno strumento musicale. Non serve nemmeno la mia bacchetta! Ci bastano le mani. Ascolta.,,,547
+77,s01,,voce,s01_maes_17,MAESTRO BATTUTA,"Ma attenzione! La bacchetta non produce la musica. Sono gli strumenti a produrla. Io li aiuto a seguire la stessa canzone. E, soprattutto, lo stesso ritmo. [PAUSA BREVE] Oh! Forse non ti ho ancora spiegato che cos'è un ritmo!",,s01_maes_17_a.wav,528
+78,s01,,voce,s01_maes_18,MAESTRO BATTUTA,Allora. Facciamo un piccolo esperimento. Non serve nessuno strumento musicale. Non serve nemmeno la mia bacchetta! Ci bastano le mani. Ascolta.,,s01_maes_18_a.wav,547
 79,s01,,suono,s01_sfx_17,,Tre battiti di mani lenti e regolari.,,,561
-80,s01,,voce,s01_maes_19,MAESTRO BATTUTA,TA... TA... TA... Hai sentito? Ho battuto le mani tre volte. E tra un battito e l'altro ho aspettato sempre lo stesso tempo. Ora ascolta quest'altro.,,,563
+80,s01,,voce,s01_maes_19,MAESTRO BATTUTA,TA... TA... TA... Hai sentito? Ho battuto le mani tre volte. E tra un battito e l'altro ho aspettato sempre lo stesso tempo. Ora ascolta quest'altro.,,s01_maes_19_a.wav,563
 81,s01,,suono,s01_sfx_18,,"Due battiti ravvicinati, una pausa e un terzo battito.",,,579
-82,s01,,voce,s01_maes_20,MAESTRO BATTUTA,"TA-TA... TA! [PAUSA] Ti sembrano uguali? Anche questa volta ho battuto le mani tre volte. Ma ho cambiato il momento in cui arrivano i suoni. Prima due vicini. Poi una piccola pausa. E infine un altro battito. Questo è uno dei modi con cui possiamo creare un ritmo! Possiamo mettere i suoni vicini. Possiamo allontanarli. Possiamo lasciare delle pause. E possiamo ripeterli. È un po' come quando cammini. Se fai un passo dopo l'altro, lentamente...",,,581
+82,s01,,voce,s01_maes_20,MAESTRO BATTUTA,"TA-TA... TA! [PAUSA] Ti sembrano uguali? Anche questa volta ho battuto le mani tre volte. Ma ho cambiato il momento in cui arrivano i suoni. Prima due vicini. Poi una piccola pausa. E infine un altro battito. Questo è uno dei modi con cui possiamo creare un ritmo! Possiamo mettere i suoni vicini. Possiamo allontanarli. Possiamo lasciare delle pause. E possiamo ripeterli. È un po' come quando cammini. Se fai un passo dopo l'altro, lentamente...",,s01_maes_20_a.wav,581
 83,s01,,suono,s01_sfx_19,,Tre passi lenti e regolari.,,,615
-84,s01,,voce,s01_maes_21,MAESTRO BATTUTA,TUM... TUM... TUM... Ma se cominci a correre...,,,617
+84,s01,,voce,s01_maes_21,MAESTRO BATTUTA,TUM... TUM... TUM... Ma se cominci a correre...,,s01_maes_21_a.wav,617
 85,s01,,suono,s01_sfx_20,,Una breve sequenza di passi più veloci.,,,627
-86,s01,,voce,s01_maes_22,MAESTRO BATTUTA,Tum-tum-tum-tum-tum! Il tempo tra i passi cambia. E cambia anche quello che senti. La musica può fare qualcosa di simile! [PAUSA BREVE] Vuoi sentire il ritmo che preferisco? È semplicissimo. Ascolta.,,,629
+86,s01,,voce,s01_maes_22,MAESTRO BATTUTA,Tum-tum-tum-tum-tum! Il tempo tra i passi cambia. E cambia anche quello che senti. La musica può fare qualcosa di simile! [PAUSA BREVE] Vuoi sentire il ritmo che preferisco? È semplicissimo. Ascolta.,,s01_maes_22_a.wav,629
 87,s01,,suono,s01_sfx_21,,"TAC, TAC... TOC!",,,647
-88,s01,,voce,s01_maes_23,MAESTRO BATTUTA,"TAC, TAC... TOC! Proprio lui! Il suono della mia bacchetta! Due colpi vicini e un terzo dopo una piccola pausa. Lo uso così spesso che ormai tutti i musicisti mi riconoscono.",,,649
+88,s01,,voce,s01_maes_23,MAESTRO BATTUTA,"TAC, TAC... TOC! Proprio lui! Il suono della mia bacchetta! Due colpi vicini e un terzo dopo una piccola pausa. Lo uso così spesso che ormai tutti i musicisti mi riconoscono.",,s01_maes_23_a.wav,649
 89,s01,,suono,s01_sfx_22,,"Il Maestro ripete il proprio ritmo. Subito dopo, una breve frase di pianoforte imita i tre colpi. È una prova spontanea, non la canzone smarrita.",,,661
-90,s01,,voce,s01_maes_24,MAESTRO BATTUTA,"Oh! Hai sentito? Il pianoforte ha appena ripetuto il mio ritmo! Che meraviglia! [PAUSA] E pensare che, con tutto quello che è appena successo, riesce ancora a fare qualche piccolo scherzo.",,,663
+90,s01,,voce,s01_maes_24,MAESTRO BATTUTA,"Oh! Hai sentito? Il pianoforte ha appena ripetuto il mio ritmo! Che meraviglia! [PAUSA] E pensare che, con tutto quello che è appena successo, riesce ancora a fare qualche piccolo scherzo.",,s01_maes_24_a.wav,663
 91,s01,,suono,s01_sfx_23,,Il pianoforte suona due note allegre.,,,677
-92,s01,,voce,s01_maes_25,MAESTRO BATTUTA,"Eheheh! Va bene, va bene. Adesso torniamo seri.",,,679
+92,s01,,voce,s01_maes_25,MAESTRO BATTUTA,"Eheheh! Va bene, va bene. Adesso torniamo seri.",,s01_maes_25_a.wav,679
 93,s01,,suono,s01_sfx_24,,In lontananza un soffio di vento attraversa la stanza. Una porta scricchiola leggermente.,,,688
-94,s01,,voce,s01_maes_26,MAESTRO BATTUTA,Ecco... Hai sentito? Questo è il rumore che non volevo più sentire.,,,690
+94,s01,,voce,s01_maes_26,MAESTRO BATTUTA,Ecco... Hai sentito? Questo è il rumore che non volevo più sentire.,,s01_maes_26_a.wav,690
 95,s01,,suono,s01_sfx_25,,Il vento soffia ancora per qualche secondo e poi si calma.,,,698
-96,s01,,voce,s01_maes_27,MAESTRO BATTUTA,"Sbuffo. Quel vento dispettoso. Sai, normalmente il vento non mi dispiace. Quando fa caldo, una leggera brezza può essere piacevole. E quando soffia tra gli alberi, può produrre dei suoni molto interessanti. Ma Sbuffo... Oh, Sbuffo è tutta un'altra storia! Sbuffa quando è contento. Sbuffa quando è arrabbiato. Sbuffa quando è annoiato. E quando qualcuno gli chiede gentilmente di smetterla... Beh... Sbuffa ancora più forte! Una volta ha soffiato talmente tanto da farmi volare via tutti i fogli della musica. Ci ho messo tre giorni a rimetterli in ordine. Tre giorni! E sapessi quante volte ho dovuto ricominciare da capo!",,,700
+96,s01,,voce,s01_maes_27,MAESTRO BATTUTA,"Sbuffo. Quel vento dispettoso. Sai, normalmente il vento non mi dispiace. Quando fa caldo, una leggera brezza può essere piacevole. E quando soffia tra gli alberi, può produrre dei suoni molto interessanti. Ma Sbuffo... Oh, Sbuffo è tutta un'altra storia! Sbuffa quando è contento. Sbuffa quando è arrabbiato. Sbuffa quando è annoiato. E quando qualcuno gli chiede gentilmente di smetterla... Beh... Sbuffa ancora più forte! Una volta ha soffiato talmente tanto da farmi volare via tutti i fogli della musica. Ci ho messo tre giorni a rimetterli in ordine. Tre giorni! E sapessi quante volte ho dovuto ricominciare da capo!",,s01_maes_27_a.wav,700
 97,s01,,suono,s01_sfx_26,,Il Maestro sospira.,,,736
-98,s01,,voce,s01_maes_28,MAESTRO BATTUTA,"Ma quello era successo tempo fa. Oggi ha combinato qualcosa di molto peggio. Anzi, è successo proprio adesso, pochi istanti fa! Hai ascoltato la musica all'inizio? Quando tutti gli strumenti stavano suonando insieme? Era una canzone che stavamo preparando da tanto tempo. Ogni musicista aveva imparato la propria parte. Sapevamo quali note suonare. Quando suonarle. Quando aspettare. E quando lasciare spazio agli altri strumenti. Era tutto pronto. Poi è arrivato Sbuffo.",,,738
+98,s01,,voce,s01_maes_28,MAESTRO BATTUTA,"Ma quello era successo tempo fa. Oggi ha combinato qualcosa di molto peggio. Anzi, è successo proprio adesso, pochi istanti fa! Hai ascoltato la musica all'inizio? Quando tutti gli strumenti stavano suonando insieme? Era una canzone che stavamo preparando da tanto tempo. Ogni musicista aveva imparato la propria parte. Sapevamo quali note suonare. Quando suonarle. Quando aspettare. E quando lasciare spazio agli altri strumenti. Era tutto pronto. Poi è arrivato Sbuffo.",,s01_maes_28_a.wav,738
 99,s01,,suono,s01_sfx_27,,"Un soffio breve richiama quello del prologo, senza far credere che Sbuffo sia di nuovo nella stanza.",,,766
-100,s01,,voce,s01_maes_29,MAESTRO BATTUTA,"Ha cominciato a soffiare dappertutto. Ha fatto volare i fogli. Ha interrotto i musicisti. E, non so proprio come, si è portato via alcuni pezzi della nostra canzone!",,,768
+100,s01,,voce,s01_maes_29,MAESTRO BATTUTA,"Ha cominciato a soffiare dappertutto. Ha fatto volare i fogli. Ha interrotto i musicisti. E, non so proprio come, si è portato via alcuni pezzi della nostra canzone!",,s01_maes_29_a.wav,768
 101,s01,,suono,s01_sfx_28,,"Il pianoforte suona due note, seguite da un silenzio dove dovrebbe arrivare la terza.",,,778
-102,s01,,voce,s01_maes_30,MAESTRO BATTUTA,"Ascolta. Mi ricordo benissimo com'era quella piccola frase prima che arrivasse il vento. Erano tre note, una dopo l'altra.",,,780
+102,s01,,voce,s01_maes_30,MAESTRO BATTUTA,"Ascolta. Mi ricordo benissimo com'era quella piccola frase prima che arrivasse il vento. Erano tre note, una dopo l'altra.",,s01_maes_30_a.wav,780
 103,s01,,suono,s01_sfx_29,,"Un breve ricordo sonoro della musica udita nel prologo: tre note complete, con un leggero effetto di memoria. Non è un'esecuzione dal vivo del pianoforte nel presente.",,,788
-104,s01,,voce,s01_maes_31,MAESTRO BATTUTA,"E adesso, quando il pianoforte prova a suonare la stessa parte della nostra canzone, senti cosa succede.",,,790
+104,s01,,voce,s01_maes_31,MAESTRO BATTUTA,"E adesso, quando il pianoforte prova a suonare la stessa parte della nostra canzone, senti cosa succede.",,s01_maes_31_a.wav,790
 105,s01,,suono,s01_sfx_30,,Il pianoforte dal vivo esegue solo le prime due note della frase; la terza manca.,,,794
-106,s01,,voce,s01_maes_32,MAESTRO BATTUTA,Hai sentito? Manca l'ultimo suono! Il pianoforte è ancora qui. I suoi tasti funzionano. E riesce ancora a suonare tante note. Ma quel pezzo della nostra canzone non riesce più a completarlo. È un po' come quando qualcuno comincia a dirti una frase... «C'era una volta un piccolo...»,,,796
-107,s01,,voce,s01_maes_33,MAESTRO BATTUTA,"Un piccolo cosa?! Un gatto? Un cane? Un panino?! Non lo sappiamo! La frase si è interrotta! Ecco, con la musica può succedere qualcosa di simile. Se manca un pezzo, manca una parte di ciò che volevamo ascoltare.",,,816
+106,s01,,voce,s01_maes_32,MAESTRO BATTUTA,Hai sentito? Manca l'ultimo suono! Il pianoforte è ancora qui. I suoi tasti funzionano. E riesce ancora a suonare tante note. Ma quel pezzo della nostra canzone non riesce più a completarlo. È un po' come quando qualcuno comincia a dirti una frase... «C'era una volta un piccolo...»,,s01_maes_32_a.wav,796
+107,s01,,voce,s01_maes_33,MAESTRO BATTUTA,"Un piccolo cosa?! Un gatto? Un cane? Un panino?! Non lo sappiamo! La frase si è interrotta! Ecco, con la musica può succedere qualcosa di simile. Se manca un pezzo, manca una parte di ciò che volevamo ascoltare.",,s01_maes_33_a.wav,816
 108,s01,,suono,s01_sfx_31,,Il pianoforte riprova la sequenza incompleta.,,,834
-109,s01,,voce,s01_maes_34,MAESTRO BATTUTA,"Oh, povero pianoforte. Ci sta provando ancora. Ma quel pezzo non torna. [PAUSA] E sai qual è la cosa peggiore? Sbuffo non ha portato via soltanto un pezzo della parte del pianoforte. Ha sparpagliato tanti pezzi della nostra canzone! A uno strumento manca una frase. A un altro manca il ritmo che doveva suonare. E un altro non riesce più a ritrovare il momento in cui entrare nella canzone. Gli strumenti possono ancora far sentire i loro suoni, come hai ascoltato poco fa. Ma la canzone che stavamo suonando tutti insieme è rimasta incompleta. E se non facciamo qualcosa... Il concerto non potrà ricominciare! [PAUSA BREVE] È successo così in fretta che non ho nemmeno capito dove siano finiti quei pezzi. Un momento prima stavo dirigendo l'orchestra. Un momento dopo Sbuffo è fuggito via e tutti si sono fermati!",,,836
+109,s01,,voce,s01_maes_34,MAESTRO BATTUTA,"Oh, povero pianoforte. Ci sta provando ancora. Ma quel pezzo non torna. [PAUSA] E sai qual è la cosa peggiore? Sbuffo non ha portato via soltanto un pezzo della parte del pianoforte. Ha sparpagliato tanti pezzi della nostra canzone! A uno strumento manca una frase. A un altro manca il ritmo che doveva suonare. E un altro non riesce più a ritrovare il momento in cui entrare nella canzone. Gli strumenti possono ancora far sentire i loro suoni, come hai ascoltato poco fa. Ma la canzone che stavamo suonando tutti insieme è rimasta incompleta. E se non facciamo qualcosa... Il concerto non potrà ricominciare! [PAUSA BREVE] È successo così in fretta che non ho nemmeno capito dove siano finiti quei pezzi. Un momento prima stavo dirigendo l'orchestra. Un momento dopo Sbuffo è fuggito via e tutti si sono fermati!",,s01_maes_34_a.wav,836
 110,s01,,suono,s01_sfx_32,,Il Maestro fa due passi veloci verso la porta e si arresta.,,,874
-111,s01,,voce,s01_maes_35,MAESTRO BATTUTA,Potrei mettermi a correre dietro a lui...,,,876
+111,s01,,voce,s01_maes_35,MAESTRO BATTUTA,Potrei mettermi a correre dietro a lui...,,s01_maes_35_a.wav,876
 112,s01,,suono,s01_sfx_33,,"Parte di corsa, inciampa leggermente dopo due passi e si ferma.",,,880
-113,s01,,voce,s01_maes_36,MAESTRO BATTUTA,...o forse sarebbe meglio di no. E soprattutto... Non posso ascoltare tutti gli strumenti nello stesso momento. [PAUSA] Avrei proprio bisogno di qualcuno che mi aiuti a cominciare. Qualcuno che abbia voglia di ascoltare. Di scoprire nuovi suoni. Di provare anche quando qualcosa sembra difficile.,,,882
+113,s01,,voce,s01_maes_36,MAESTRO BATTUTA,...o forse sarebbe meglio di no. E soprattutto... Non posso ascoltare tutti gli strumenti nello stesso momento. [PAUSA] Avrei proprio bisogno di qualcuno che mi aiuti a cominciare. Qualcuno che abbia voglia di ascoltare. Di scoprire nuovi suoni. Di provare anche quando qualcosa sembra difficile.,,s01_maes_36_a.wav,882
 114,s01,,suono,s01_sfx_34,,Il pianoforte suona due note morbide e incoraggianti.,,,900
-115,s01,,voce,s01_maes_37,MAESTRO BATTUTA,"Ehi... Aspetta un momento. Forse... Forse ho appena trovato la persona giusta! [PAUSA BREVE] Tu! Sì, proprio tu! Che ne dici? Ti andrebbe di aiutarmi a recuperare la nostra musica?",,,902
-116,s01,,voce,s01_maes_38,MAESTRO BATTUTA,"Aspetta, aspetta! Prima che tu risponda... Devo spiegarti una cosa importante. Non devi essere un musicista per aiutarmi. Non devi conoscere già il pianoforte. Non devi sapere leggere le note. E non devi aver mai suonato uno strumento in vita tua. Potremo scoprire tutto insieme. Io ti racconterò come sono fatti gli strumenti. Ti farò ascoltare i loro suoni. Ti spiegherò come funzionano. E quando avrai imparato a riconoscerli, potrai provare a suonarli anche tu!",,,922
+115,s01,,voce,s01_maes_37,MAESTRO BATTUTA,"Ehi... Aspetta un momento. Forse... Forse ho appena trovato la persona giusta! [PAUSA BREVE] Tu! Sì, proprio tu! Che ne dici? Ti andrebbe di aiutarmi a recuperare la nostra musica?",,s01_maes_37_a.wav,902
+116,s01,,voce,s01_maes_38,MAESTRO BATTUTA,"Aspetta, aspetta! Prima che tu risponda... Devo spiegarti una cosa importante. Non devi essere un musicista per aiutarmi. Non devi conoscere già il pianoforte. Non devi sapere leggere le note. E non devi aver mai suonato uno strumento in vita tua. Potremo scoprire tutto insieme. Io ti racconterò come sono fatti gli strumenti. Ti farò ascoltare i loro suoni. Ti spiegherò come funzionano. E quando avrai imparato a riconoscerli, potrai provare a suonarli anche tu!",,s01_maes_38_a.wav,922
 117,s01,,suono,s01_sfx_35,,Due note allegre di pianoforte.,,,948
-118,s01,,voce,s01_maes_39,MAESTRO BATTUTA,"Il nostro viaggio funzionerà così. Incontreremo uno strumento alla volta. Lo ascolteremo. Scopriremo che cosa lo rende speciale. E poi cercheremo di aiutarlo a ritrovare la parte della canzone che Sbuffo gli ha portato via. A volte dovremo riconoscere un suono. Altre volte dovremo ricordare un ritmo. E qualche volta dovremo provare a suonare insieme. Ogni volta che aiuteremo uno strumento, recupereremo un nuovo pezzo della nostra canzone. E piano piano... [s01_sfx_36] Un suono alla volta... [s01_sfx_37] Un ritmo alla volta...",,,950
+118,s01,,voce,s01_maes_39,MAESTRO BATTUTA,"Il nostro viaggio funzionerà così. Incontreremo uno strumento alla volta. Lo ascolteremo. Scopriremo che cosa lo rende speciale. E poi cercheremo di aiutarlo a ritrovare la parte della canzone che Sbuffo gli ha portato via. A volte dovremo riconoscere un suono. Altre volte dovremo ricordare un ritmo. E qualche volta dovremo provare a suonare insieme. Ogni volta che aiuteremo uno strumento, recupereremo un nuovo pezzo della nostra canzone. E piano piano... [s01_sfx_36] Un suono alla volta... [s01_sfx_37] Un ritmo alla volta...",,s01_maes_39_p1_a.wav s01_maes_39_p2_a.wav s01_maes_39_p3_a.wav,950
 119,s01,,suono,s01_sfx_36,,Una nota di pianoforte.,s01_maes_39,,972
 120,s01,,suono,s01_sfx_37,,Una seconda nota si aggiunge alla prima.,s01_maes_39,,976
 121,s01,,suono,s01_sfx_38,,"Un tamburo accompagna delicatamente le due note in un esempio nuovo, non nella melodia del concerto.",,,980
-122,s01,,voce,s01_maes_40,MAESTRO BATTUTA,La nostra orchestra potrà tornare a suonare la sua canzone!,,,982
+122,s01,,voce,s01_maes_40,MAESTRO BATTUTA,La nostra orchestra potrà tornare a suonare la sua canzone!,,s01_maes_40_a.wav,982
 123,s01,,suono,s01_sfx_39,,"I suoni si fermano, lasciando un breve silenzio.",,,986
-124,s01,,voce,s01_maes_41,MAESTRO BATTUTA,"E chissà. Magari, durante il viaggio, scopriremo anche perché Sbuffo ha deciso di rubare tutta quella musica. Perché, a pensarci bene... Non capisco proprio perché abbia voluto farlo. [PAUSA] Ma questo lo scopriremo più avanti. Per adesso... Abbiamo una canzone da recuperare!",,,988
+124,s01,,voce,s01_maes_41,MAESTRO BATTUTA,"E chissà. Magari, durante il viaggio, scopriremo anche perché Sbuffo ha deciso di rubare tutta quella musica. Perché, a pensarci bene... Non capisco proprio perché abbia voluto farlo. [PAUSA] Ma questo lo scopriremo più avanti. Per adesso... Abbiamo una canzone da recuperare!",,s01_maes_41_a.wav,988
 125,s01,,suono,s01_sfx_40,,Una breve sequenza di tre note dolci introduce il momento.,,,1007
-126,s01,,voce,s01_maes_42,MAESTRO BATTUTA,"Oh, cielo! Quasi dimenticavo! Come facciamo a suonare insieme, se tu non hai uno strumento? Non posso mica chiederti di portarti dietro un pianoforte! Sarebbe un tantino scomodo.",,,1009
+126,s01,,voce,s01_maes_42,MAESTRO BATTUTA,"Oh, cielo! Quasi dimenticavo! Come facciamo a suonare insieme, se tu non hai uno strumento? Non posso mica chiederti di portarti dietro un pianoforte! Sarebbe un tantino scomodo.",,s01_maes_42_a.wav,1009
 127,s01,,suono,s01_sfx_41,,"Il Maestro prova a spingere qualcosa di pesante per un istante, poi si ferma.",,,1021
-128,s01,,voce,s01_maes_43,MAESTRO BATTUTA,"Ecco. Decisamente scomodo. Ma per fortuna... Abbiamo qualcosa di molto più piccolo! [PAUSA] Hai tra le mani un oggetto che useremo per fare musica insieme. Si chiama Tocco. È piccolo abbastanza da stare nel palmo della tua mano. Prova a esplorarlo con calma, usando le dita. Scorri sulla sua superficie e cerca i pulsanti.",,,1023
-129,s01,,voce,s01_maes_44,MAESTRO BATTUTA,"Ce ne sono quattro. Uno per il dito indice. Uno per il medio. Uno per l'anulare. E uno per il mignolo. Quattro dita. Quattro pulsanti. E, quando avremo conosciuto tutti gli strumenti... Quattro strumenti da poter suonare!",,,1047
+128,s01,,voce,s01_maes_43,MAESTRO BATTUTA,"Ecco. Decisamente scomodo. Ma per fortuna... Abbiamo qualcosa di molto più piccolo! [PAUSA] Hai tra le mani un oggetto che useremo per fare musica insieme. Si chiama Tocco. È piccolo abbastanza da stare nel palmo della tua mano. Prova a esplorarlo con calma, usando le dita. Scorri sulla sua superficie e cerca i pulsanti.",,s01_maes_43_a.wav,1023
+129,s01,,voce,s01_maes_44,MAESTRO BATTUTA,"Ce ne sono quattro. Uno per il dito indice. Uno per il medio. Uno per l'anulare. E uno per il mignolo. Quattro dita. Quattro pulsanti. E, quando avremo conosciuto tutti gli strumenti... Quattro strumenti da poter suonare!",,s01_maes_44_a.wav,1047
 130,s01,,suono,s01_sfx_42,,"Quattro piccoli segnali sonori di esempio, ben separati. Non devono ancora rappresentare quattro strumenti da imparare.",,,1067
-131,s01,,voce,s01_maes_45,MAESTRO BATTUTA,"Ma non preoccuparti! Non dobbiamo imparare a usarli tutti subito. Cominceremo con uno solo. E io sarò qui ad aiutarti. Tocco ci permetterà di partecipare alla musica. Quando ci sarà da scegliere tra due possibilità, ti dirò quale pulsante usare. E quando arriverà il momento di suonare, i pulsanti faranno sentire i suoni degli strumenti che avremo conosciuto. Ma prima... Proviamo a capire come funziona. [PAUSA] Metti il dito indice sul primo pulsante. Prenditi tutto il tempo che ti serve. Quando sei pronto, premilo una volta.",,,1069
+131,s01,,voce,s01_maes_45,MAESTRO BATTUTA,"Ma non preoccuparti! Non dobbiamo imparare a usarli tutti subito. Cominceremo con uno solo. E io sarò qui ad aiutarti. Tocco ci permetterà di partecipare alla musica. Quando ci sarà da scegliere tra due possibilità, ti dirò quale pulsante usare. E quando arriverà il momento di suonare, i pulsanti faranno sentire i suoni degli strumenti che avremo conosciuto. Ma prima... Proviamo a capire come funziona. [PAUSA] Metti il dito indice sul primo pulsante. Prenditi tutto il tempo che ti serve. Quando sei pronto, premilo una volta.",,s01_maes_45_a.wav,1069
 132,s01,,interazione,s01_int_01,,"Il sistema attende la pressione del pulsante dell'indice. In assenza di input, il Maestro ripete l'istruzione con calma; nessun timeout punitivo.",,,1097
 133,s01,,suono,s01_sfx_43,,"Breve segnale di conferma, morbido e riconoscibile.",,,1099
-134,s01,,voce,s01_maes_46,MAESTRO BATTUTA,"Oh! Hai sentito?! Quel suono ci dice che hai premuto il pulsante! Magnifico! Adesso sappiamo come usare il nostro Tocco per risponderci. [PAUSA] E sai una cosa? Credo che ti piacerà moltissimo quello che faremo con questo piccolo oggetto. Perché tra poco non sentirai soltanto un suono di conferma. Potrai far suonare un pianoforte! E poi altri strumenti! E quando ne conosceremo abbastanza, potrai provare a farli suonare insieme.",,,1101
+134,s01,,voce,s01_maes_46,MAESTRO BATTUTA,"Oh! Hai sentito?! Quel suono ci dice che hai premuto il pulsante! Magnifico! Adesso sappiamo come usare il nostro Tocco per risponderci. [PAUSA] E sai una cosa? Credo che ti piacerà moltissimo quello che faremo con questo piccolo oggetto. Perché tra poco non sentirai soltanto un suono di conferma. Potrai far suonare un pianoforte! E poi altri strumenti! E quando ne conosceremo abbastanza, potrai provare a farli suonare insieme.",,s01_maes_46_a.wav,1101
 135,s01,,suono,s01_sfx_44,,"Una piccola melodia di pianoforte risuona in lontananza, ma si arresta prima dell'ultima nota della canzone.",,,1127
-136,s01,,voce,s01_maes_47,MAESTRO BATTUTA,Oh! Hai sentito? Credo proprio che qualcuno abbia ascoltato la nostra conversazione. Il pianoforte! Ci sta chiamando! Ma prima di andare... C'è ancora una piccola cosa che devo chiederti.,,,1129
-137,s01,,voce,s01_maes_48,MAESTRO BATTUTA,"Allora, giovane musicista. Abbiamo una missione. Abbiamo un'orchestra da aiutare. Abbiamo un vento molto, molto fastidioso da inseguire. E adesso abbiamo anche Tocco! Direi che siamo quasi pronti. Ma voglio lasciare a te la decisione. Vuoi andare subito a conoscere il pianoforte? Oppure preferisci ascoltare ancora una volta il pezzo di canzone che Sbuffo ha interrotto? Puoi scegliere tu. Se vuoi incontrare subito il pianoforte, premi il pulsante sotto il tuo indice. Se invece vuoi ascoltare ancora la canzone, premi quello sotto il medio. Non avere fretta. Io sono qui.",,,1147
+136,s01,,voce,s01_maes_47,MAESTRO BATTUTA,Oh! Hai sentito? Credo proprio che qualcuno abbia ascoltato la nostra conversazione. Il pianoforte! Ci sta chiamando! Ma prima di andare... C'è ancora una piccola cosa che devo chiederti.,,s01_maes_47_a.wav,1129
+137,s01,,voce,s01_maes_48,MAESTRO BATTUTA,"Allora, giovane musicista. Abbiamo una missione. Abbiamo un'orchestra da aiutare. Abbiamo un vento molto, molto fastidioso da inseguire. E adesso abbiamo anche Tocco! Direi che siamo quasi pronti. Ma voglio lasciare a te la decisione. Vuoi andare subito a conoscere il pianoforte? Oppure preferisci ascoltare ancora una volta il pezzo di canzone che Sbuffo ha interrotto? Puoi scegliere tu. Se vuoi incontrare subito il pianoforte, premi il pulsante sotto il tuo indice. Se invece vuoi ascoltare ancora la canzone, premi quello sotto il medio. Non avere fretta. Io sono qui.",,s01_maes_48_a.wav,1147
 138,s01,,interazione,s01_int_02,,Due alternative. Entrambe conducono al pianoforte. Il secondo ramo permette di riascoltare e poi scegliere nuovamente. Nessuna scelta è sbagliata.,,,1177
-139,s01,A,voce,s01_maes_49,MAESTRO BATTUTA,"Ottima idea! A volte, prima di provare a sistemare qualcosa, è utile ascoltare bene cosa manca. Ascoltiamo insieme.",,,1181
+139,s01,A,voce,s01_maes_49,MAESTRO BATTUTA,"Ottima idea! A volte, prima di provare a sistemare qualcosa, è utile ascoltare bene cosa manca. Ascoltiamo insieme.",,s01_maes_49_a.wav,1181
 140,s01,A,suono,s01_sfx_45,,"Si sente prima un breve ricordo della frase musicale completa, chiaramente distinto dal presente; poi la frase eseguita ora dal pianoforte, senza l'ultima nota. Pausa fra le due versioni.",,,1189
-141,s01,A,voce,s01_maes_50,MAESTRO BATTUTA,"Hai sentito? Nella seconda versione manca proprio l'ultima nota. Ora sappiamo che cosa dobbiamo cercare. Quando vuoi andare a conoscere il pianoforte, premi il pulsante sotto il tuo indice.",,,1191
+141,s01,A,voce,s01_maes_50,MAESTRO BATTUTA,"Hai sentito? Nella seconda versione manca proprio l'ultima nota. Ora sappiamo che cosa dobbiamo cercare. Quando vuoi andare a conoscere il pianoforte, premi il pulsante sotto il tuo indice.",,s01_maes_50_a.wav,1191
 142,s01,A,interazione,s01_int_03,,Il gioco attende la conferma; eventualmente ripete la consegna.,,,1201
-143,s01,B,voce,s01_maes_51,MAESTRO BATTUTA,"Oh, che entusiasmo! Mi piace! Allora andiamo subito! Il pianoforte ci aspetta. E credo proprio che abbia tantissime cose interessanti da raccontarci!",,,1205
+143,s01,B,voce,s01_maes_51,MAESTRO BATTUTA,"Oh, che entusiasmo! Mi piace! Allora andiamo subito! Il pianoforte ci aspetta. E credo proprio che abbia tantissime cose interessanti da raccontarci!",,s01_maes_51_a.wav,1205
 144,s01,B,suono,s01_sfx_46,,"Il Maestro comincia a camminare. I passi si muovono nella sala. Ogni tanto si sentono piccoli rumori di strumenti che provano singoli suoni, ma nessuno esegue il brano del concerto.",,,1218
 145,s01,B,suono,s01_sfx_47,,"Il pianoforte prova ancora una volta a suonare la propria parte della canzone: due note, poi silenzio.",,,1220
-146,s01,B,voce,s01_maes_52,MAESTRO BATTUTA,"Eccolo! Hai sentito? È proprio qui, vicino a noi. [PAUSA] Sai, il pianoforte è uno strumento davvero interessante. Può produrre suoni profondi... Suoni acuti... Suoni delicati... E suoni molto energici! Ma non voglio raccontarti tutto subito. Altrimenti che gusto ci sarebbe a scoprirlo insieme?",,,1222
+146,s01,B,voce,s01_maes_52,MAESTRO BATTUTA,"Eccolo! Hai sentito? È proprio qui, vicino a noi. [PAUSA] Sai, il pianoforte è uno strumento davvero interessante. Può produrre suoni profondi... Suoni acuti... Suoni delicati... E suoni molto energici! Ma non voglio raccontarti tutto subito. Altrimenti che gusto ci sarebbe a scoprirlo insieme?",,s01_maes_52_a.wav,1222
 147,s01,B,suono,s01_sfx_48,,Il pianoforte suona una singola nota grave che risuona lentamente.,,,1246
-148,s01,B,voce,s01_maes_53,MAESTRO BATTUTA,"Oh! Hai sentito questo suono? È il pianoforte che ci saluta. Mi sa che è contento di avere qualcuno che lo ascolti. [PAUSA] Bene, giovane musicista. Pronto a conoscere il nostro primo strumento?",,,1248
+148,s01,B,voce,s01_maes_53,MAESTRO BATTUTA,"Oh! Hai sentito questo suono? È il pianoforte che ci saluta. Mi sa che è contento di avere qualcuno che lo ascolti. [PAUSA] Bene, giovane musicista. Pronto a conoscere il nostro primo strumento?",,s01_maes_53_a.wav,1248
 149,s01,B,suono,s01_sfx_49,,"TAC, TAC... TOC!",,,1264
-150,s01,B,voce,s01_maes_54,MAESTRO BATTUTA,Allora... Che la musica abbia inizio!,,,1266
+150,s01,B,voce,s01_maes_54,MAESTRO BATTUTA,Allora... Che la musica abbia inizio!,,s01_maes_54_a.wav,1266
 151,s01,B,suono,s01_sfx_50,,Alcune note morbide di pianoforte introducono la scena successiva. La frase rimane diversa da quella incompleta rubata da Sbuffo.,,,1272
-152,s02,,suono,s02_sfx_01,,"Passi lenti nella sala. Il rumore del vento diminuisce. Si sentono poche note di pianoforte, prima una nota grave, poi una più acuta.",,,1278
-153,s02,,voce,s02_narr_01,NARRATORE,"Tu e il Maestro Battuta attraversate la sala della musica. Gli altri strumenti sono silenziosi, ma ogni tanto qualcuno prova a suonare. Da una parte si sente un piccolo tintinnio. Da un'altra parte un colpo profondo. E davanti a voi c'è un suono diverso da tutti gli altri.",,,1280
-154,s02,,suono,s02_sfx_02,,"Una breve frase di pianoforte, delicata, con note ben distinguibili.",,,1292
-155,s02,,voce,s02_maes_01,MAESTRO BATTUTA,"Eccoci! Questo è il pianoforte. È uno degli strumenti più importanti della nostra orchestra. E, tra noi, è anche uno dei più pesanti. Una volta ho provato a spostarlo da solo. Non te lo consiglio. Il pianoforte non si è mosso di un centimetro. Io invece ho passato il resto della giornata a lamentarmi della schiena.",,,1294
-156,s02,,suono,s02_sfx_03,,Due note buffe.,,,1312
-157,s02,,voce,s02_maes_02,MAESTRO BATTUTA,"Ma torniamo alla musica. Il pianoforte è uno strumento molto interessante. Ha tanti tasti, uno accanto all'altro. Quando un pianista preme un tasto, dentro lo strumento si muove un piccolo martelletto. No, non un martello gigante come quello che si usa per piantare i chiodi. Un martelletto piccolo piccolo, fatto apposta per suonare. Questo martelletto colpisce una corda. La corda comincia a vibrare, cioè a muoversi molto velocemente avanti e indietro. E quella vibrazione produce il suono che senti. Ascolta.",,,1314
-158,s02,,suono,s02_sfx_04,,Un singolo tasto di pianoforte premuto. Il suono viene lasciato risuonare.,,,1336
-159,s02,,voce,s02_maes_03,MAESTRO BATTUTA,"Dooooong... Hai sentito? È un suono che continua per un po', anche dopo che il tasto è stato premuto. Ora senti quest'altro.",,,1338
-160,s02,,suono,s02_sfx_05,,Una nota più acuta.,,,1348
-161,s02,,voce,s02_maes_04,MAESTRO BATTUTA,Ding! Sono entrambi suoni di pianoforte. Ma non sono uguali. Il primo è più profondo. Il secondo è più acuto. Prova ad ascoltarli uno dopo l'altro.,,,1350
-162,s02,,suono,s02_sfx_06,,"Due note alternate, una grave e una acuta, con una pausa tra loro.",,,1364
-163,s02,,voce,s02_maes_05,MAESTRO BATTUTA,"Quando un suono è grave, può ricordare una voce molto profonda. Quando è acuto, può ricordare una voce più sottile. E il pianoforte può produrre tantissimi suoni diversi, da quelli molto gravi a quelli molto acuti. È come avere tante voci dentro un unico strumento.",,,1366
-164,s02,,suono,s02_sfx_07,,"Il pianoforte esegue una breve scala, dal grave all'acuto.",,,1376
-165,s02,,voce,s02_maes_06,MAESTRO BATTUTA,"Hai sentito come cambiano? È bellissimo, vero? E pensa che tutto questo succede semplicemente premendo dei tasti! [PAUSA] Oh! Mi è venuta in mente una cosa. Sai perché si chiama proprio pianoforte? No, non perché è un piano particolarmente forte che non si riesce a spostare! Anche se, a giudicare dalla mia schiena, potrebbe essere quello il motivo.",,,1378
-166,s02,,suono,s02_sfx_08,,Piccolo motivo comico.,,,1398
-167,s02,,voce,s02_maes_07,MAESTRO BATTUTA,"Si chiama così perché può suonare sia piano, cioè delicatamente, sia forte, cioè con un suono più deciso. Molto tempo fa, più di trecento anni fa, un costruttore di strumenti italiano di nome Bartolomeo Cristofori inventò il pianoforte. Voleva creare uno strumento capace di produrre suoni delicati e suoni forti a seconda di come venivano premuti i tasti. E ci riuscì. Ascolta la differenza.",,,1400
-168,s02,,suono,s02_sfx_09,,Tre note suonate delicatamente.,,,1412
-169,s02,,voce,s02_maes_08,MAESTRO BATTUTA,Questo è il pianoforte che suona piano.,,,1414
-170,s02,,suono,s02_sfx_10,,"Le stesse tre note suonate con maggiore intensità, senza alzare eccessivamente il volume complessivo.",,,1418
-171,s02,,voce,s02_maes_09,MAESTRO BATTUTA,E questo è il pianoforte che suona forte. Quale ti è piaciuto di più? Puoi anche pensarci senza rispondere. Non c'è una risposta giusta. La musica può piacere in tanti modi diversi.,,,1420
-172,s02,,suono,s02_sfx_11,,"Il pianoforte tenta ancora la melodia dell'inizio, ma questa volta si interrompe.",,,1432
-173,s02,,voce,s02_maes_10,MAESTRO BATTUTA,"Oh. Ecco il nostro problema. Il pianoforte riesce ancora a produrre i suoi suoni, ma Sbuffo si è portato via un pezzo della canzone che doveva suonare. Senti come dovrebbe cominciare.",,,1434
-174,s02,,suono,s02_sfx_12,,"Tre note di pianoforte, con un ritmo chiaramente riconoscibile.",,,1444
-175,s02,,voce,s02_maes_11,MAESTRO BATTUTA,E ora senti quello che è rimasto.,,,1446
-176,s02,,suono,s02_sfx_13,,"La stessa frase, ma manca l'ultima nota. Segue una pausa lunga.",,,1450
-177,s02,,voce,s02_maes_12,MAESTRO BATTUTA,"Manca qualcosa, vero? È come se qualcuno dicesse... «C'era una volta un piccolo...» E poi non finisse mai la frase! Un piccolo cosa?! Un gatto? Un cane? Un panino? Non lo sapremo mai! [PAUSA BREVE] Beh, a meno che non troviamo la parte mancante. E credo proprio che tu possa aiutarci.",,,1452
-178,s02,,voce,s02_maes_13,MAESTRO BATTUTA,"Prima di cominciare, però, vorrei farti scegliere una cosa. Il pianoforte ha tanti suoni e possiamo partire da quello che preferisci. Ascolta questi due.",,,1480
-179,s02,,suono,s02_sfx_14,,"Prima una nota profonda, poi una nota più acuta. Pausa abbastanza lunga perché siano distinguibili.",,,1488
-180,s02,,voce,s02_maes_14,MAESTRO BATTUTA,"Il primo è un suono grave e profondo. [s02_sfx_15] Il secondo è un suono acuto, più sottile. [s02_sfx_16] Da quale vuoi cominciare? Dal suono profondo oppure da quello acuto?",,,1490
-181,s02,,suono,s02_sfx_15,,Ripetizione della nota grave.,s02_maes_14,,1494
-182,s02,,suono,s02_sfx_16,,Ripetizione della nota acuta.,s02_maes_14,,1498
-183,s02,,interazione,s02_int_01,,"MODALITÀ SCELTA: il Maestro può indicare vocalmente indice = suono profondo, medio = suono acuto. Questa mappatura è una proposta da validare sul Sasso.",,,1504
-184,s02,A,voce,s02_maes_15,MAESTRO BATTUTA,"Oh, ottima scelta! Hai scelto il suono profondo. Ascolta ancora. [s02_sfx_17] A me questi suoni fanno venire voglia di camminare lentamente. Uno... Due... Tre... [s02_sfx_18] Senti come sembrano andare d'accordo? Allora useremo questa voce del pianoforte per la nostra prima prova!",,,1508
-185,s02,A,suono,s02_sfx_17,,"Tre note gravi di pianoforte, lente e morbide.",s02_maes_15,,1516
-186,s02,A,suono,s02_sfx_18,,I tre colpi ritmati del Maestro vengono accompagnati da tre note gravi.,s02_maes_15,,1526
-187,s02,B,voce,s02_maes_16,MAESTRO BATTUTA,"Ah, hai scelto il suono acuto! Mi piace! Ascolta ancora. [s02_sfx_19] A me questi suoni fanno pensare a dei piccoli passi veloci. Tic! Tic! Tic! [s02_sfx_20] Che suono interessante! Allora useremo questa voce del pianoforte per la nostra prima prova!",,,1534
-188,s02,B,suono,s02_sfx_19,,"Tre note acute di pianoforte, leggere e ben separate.",s02_maes_16,,1542
-189,s02,B,suono,s02_sfx_20,,I tre colpi ritmati del Maestro vengono accompagnati da tre note acute.,s02_maes_16,,1552
-190,s02,,convergenza,s02_int_02,,Entrambi i rami proseguono dalla Scena 3; la preferenza grave/acuto determina i campioni sonori della prima sfida.,,,1558
-191,s03,,suono,s03_sfx_01,,"Il vento torna a farsi sentire, inizialmente lontano.",,,1564
-192,s03,,voce,s03_vent_01,VENTO,Fffffffff... Eeeeehi! Maestro Battutaaaaa!,,,1566
-193,s03,,voce,s03_maes_01,MAESTRO BATTUTA,"Oh, no. Ancora tu.",,,1574
-194,s03,,voce,s03_vent_02,VENTO,Che state facendo? State forse cercando i suoni che ho preso?,,,1580
-195,s03,,voce,s03_maes_02,MAESTRO BATTUTA,Sbuffo! Restituisci subito quella musica! Non è tua!,,,1586
-196,s03,,voce,s03_vent_03,VENTO,Ahahah! Ormai è troppo tardi! Ho portato via i vostri suoni e li ho sparpagliati dappertutto! Non riuscirete mai a rimetterli insieme!,,,1594
-197,s03,,voce,s03_maes_03,MAESTRO BATTUTA,Questo lo vedremo.,,,1604
-198,s03,,voce,s03_vent_04,VENTO,"Oh, davvero? E come pensate di fare? Con quella tua ridicola bacchetta?",,,1608
-199,s03,,voce,s03_maes_04,MAESTRO BATTUTA,"Prima di tutto, la mia bacchetta non è ridicola. È molto elegante.",,,1616
-200,s03,,suono,s03_sfx_02,,La bacchetta cade a terra.,,,1622
-201,s03,,voce,s03_maes_05,MAESTRO BATTUTA,...quando riesco a tenerla in mano. E poi non sono solo! Ho qualcuno che mi sta aiutando!,,,1624
-202,s03,,voce,s03_vent_05,VENTO,Qualcuno? Chi?,,,1632
-203,s03,,voce,s03_maes_06,MAESTRO BATTUTA,Un nuovo musicista! E credo proprio che sarà capace di sorprenderci!,,,1638
-204,s03,,voce,s03_vent_06,VENTO,"Ahahah! Vedremo! Se volete recuperare il primo pezzo della canzone, dovrete ricordare come suonava. Ma io ho mescolato tutto! Buona fortuna! Ffffffffff!",,,1644
-205,s03,,suono,s03_sfx_03,,"Sbuffo si allontana. Resta un breve frammento musicale, molto debole, quasi come una traccia da seguire.",,,1658
-206,s03,,voce,s03_maes_07,MAESTRO BATTUTA,Maleducato come sempre! Ma hai sentito cosa ha detto? Ha mescolato i suoni. E questo significa che non dobbiamo cercare soltanto le note. Dobbiamo anche ritrovare il loro ritmo. E per fortuna...,,,1660
-207,s03,,suono,s03_sfx_04,,"TAC, TAC... TOC!",,,1674
-208,s03,,voce,s03_maes_08,MAESTRO BATTUTA,"Io conosco qualcuno che ha proprio un piccolo strumento tra le mani! [PAUSA] Sì, sto parlando di te! Ti va di provare? Non preoccuparti, cominciamo con qualcosa di semplice. Ricordi il Sasso? Ora useremo il pulsante sotto il tuo indice. Quando lo premi, sentirai un suono di pianoforte. Proviamo? Premilo una volta.",,,1676
-209,s03,,interazione,s03_int_01,,Il pulsante del pianoforte riproduce un campione del registro scelto prima.,,,1698
-210,s03,,suono,s03_sfx_05,,Nota di pianoforte.,,,1700
-211,s03,,voce,s03_maes_09,MAESTRO BATTUTA,Eccolo! L'hai sentito? Questa volta la nota l'hai fatta suonare tu! Adesso prova a premerlo ancora.,,,1702
-212,s03,,interazione,s03_int_02,,Seconda pressione.,,,1712
-213,s03,,suono,s03_sfx_06,,Una seconda nota.,,,1714
-214,s03,,voce,s03_maes_10,MAESTRO BATTUTA,Benissimo! Adesso ascolta una cosa. Ti farò sentire una piccola sequenza musicale. Una sequenza è semplicemente un gruppo di suoni che vengono uno dopo l'altro. Prima ascolta. Poi proverai a ripeterla. Pronto?,,,1716
-215,s03,,suono,s03_sfx_07,,"Il pianoforte suona una nota, lascia una pausa, poi suona altre due note vicine.",,,1732
-216,s03,,voce,s03_maes_11,MAESTRO BATTUTA,TA... TA-TA! Hai sentito? Prima un suono. Poi un piccolo silenzio. E infine due suoni vicini. Facciamolo ancora.,,,1734
-217,s03,,suono,s03_sfx_08,,"La stessa sequenza, identica.",,,1750
-218,s03,,voce,s03_maes_12,MAESTRO BATTUTA,"TA... TA-TA! Ora tocca a te. Quando senti il mio segnale, prova a ripetere lo stesso ritmo usando il pulsante del pianoforte. Ricorda: un suono... una pausa... e due suoni!",,,1752
-219,s03,,suono,s03_sfx_09,,Un breve segnale musicale di inizio.,,,1764
-220,s03,,voce,s03_maes_13,MAESTRO BATTUTA,Vai!,,,1766
-221,s03,,interazione,s03_int_03,,"Il bambino ripete il ritmo sul Sasso. Il sistema concede una tolleranza ampia e valuta la struttura, non la precisione assoluta.",,,1770
-222,s03,A,suono,s03_sfx_10,,"Il pianoforte riproduce la sequenza del bambino, poi ripete la frase musicale completa. La nota mancante torna a sentirsi.",,,1774
-223,s03,A,voce,s03_maes_14,MAESTRO BATTUTA,Aspetta! Aspetta un momento! L'hai sentito?! La nota! È tornata!,,,1776
-224,s03,A,suono,s03_sfx_11,,Il pianoforte suona di nuovo il piccolo motivo completo.,,,1788
-225,s03,A,voce,s03_maes_15,MAESTRO BATTUTA,Hai sentito che differenza? Prima mancava un pezzo. Adesso la frase è completa! Sei riuscito a ritrovare il ritmo!,,,1790
-226,s03,A,suono,s03_sfx_12,,La musica cresce leggermente. Il pianoforte esegue una piccola melodia di festeggiamento.,,,1800
-227,s03,A,voce,s03_maes_16,MAESTRO BATTUTA,"È incredibile! Sai, ho diretto tantissimi concerti nella mia vita. Ho ascoltato musicisti molto bravi. Ho sentito strumenti di ogni tipo. Eppure non avevo mai recuperato una parte di canzone con un piccolo Sasso! Direi che è un giorno da ricordare. [PAUSA] Anche perché, se non lo ricordo, sicuramente Sbuffo me lo rinfaccerà per il resto della vita.",,,1802
-228,s03,B,suono,s03_sfx_13,,Il pianoforte ripete dolcemente la sequenza incompleta. Nessun suono brusco o punitivo.,,,1822
-229,s03,B,voce,s03_maes_17,MAESTRO BATTUTA,Mmmh... Ci siamo quasi! Credo che il vento abbia ancora un po' confuso il nostro ritmo. Ma non fa niente. Possiamo riprovare insieme. Questa volta lo faccio più lentamente. Ascolta.,,,1824
-230,s03,B,suono,s03_sfx_14,,"Il pianoforte suona la stessa sequenza, più lenta.",,,1840
-231,s03,B,voce,s03_maes_18,MAESTRO BATTUTA,Uno... Pausa... Due... Tre! Visto? Non dobbiamo andare veloci. La cosa importante è ascoltare quando arriva ogni suono. Proviamo insieme. Io ti accompagno e tu premi il pulsante.,,,1842
-232,s03,B,interazione,s03_int_04,,"Secondo tentativo con accompagnamento ritmico. Se necessario, il sistema semplifica ulteriormente e non blocca definitivamente la progressione.",,,1862
-233,s03,B,suono,s03_sfx_15,,"Quando il bambino completa la sequenza con l'aiuto del Maestro, il pianoforte recupera la frase.",,,1864
-234,s03,B,voce,s03_maes_19,MAESTRO BATTUTA,Eccola! La nota è tornata! Abbiamo trovato il ritmo giusto! Hai sentito che cosa siamo riusciti a fare insieme?,,,1866
-235,s03,,convergenza,s03_int_05,,Entrambi i rami proseguono nella Scena 4.,,,1876
-236,s04,,suono,s04_sfx_01,,"Il pianoforte suona la melodia appena recuperata, questa volta completa. La frase sonora è quella riconoscibile dall'inizio del gioco.",,,1882
-237,s04,,voce,s04_narr_01,NARRATORE,"Il pianoforte torna a suonare. Le sue note si susseguono senza interrompersi. Prima una. Poi un'altra. Poi un'altra ancora. La piccola frase musicale che il vento aveva spezzato è finalmente completa. E mentre il pianoforte continua a suonare, qualcosa di nuovo accade.",,,1884
-238,s04,,suono,s04_sfx_02,,Un leggero suono di campanella si aggiunge per un momento al pianoforte.,,,1900
-239,s04,,voce,s04_maes_01,MAESTRO BATTUTA,Oh! Hai sentito? Non era il pianoforte! Qualcun altro ha provato a suonare con noi!,,,1902
-240,s04,,suono,s04_sfx_03,,"Un altro tintinnio, breve e delicato.",,,1912
-241,s04,,voce,s04_maes_02,MAESTRO BATTUTA,"Una campanella! Evidentemente è contenta di sentire di nuovo la musica. È una buona notizia! Significa che, quando recuperiamo un pezzo della canzone, anche gli altri strumenti possono cominciare a ritrovare il loro posto.",,,1914
-242,s04,,suono,s04_sfx_04,,Il Maestro batte le mani seguendo lentamente il pianoforte.,,,1924
-243,s04,,voce,s04_maes_03,MAESTRO BATTUTA,"TA... TA-TA! Senti? Ora possiamo accompagnare il pianoforte anche battendo le mani. E pensa cosa succederà quando ritroveremo tutti gli altri suoni! Avremo ritmi diversi. Strumenti diversi. Suoni profondi, delicati, squillanti e forti. E potremo combinarli per creare una musica sempre più ricca!",,,1926
-244,s04,,suono,s04_sfx_05,,"Per qualche secondo, pianoforte e campanella suonano insieme.",,,1946
-245,s04,,voce,s04_maes_04,MAESTRO BATTUTA,"Ma sai qual è la cosa che mi rende più felice? Non è soltanto aver ritrovato quella nota. È che adesso anche tu conosci il pianoforte. Sai che ha dei tasti. Sai che dentro ci sono corde che vibrano. Hai ascoltato i suoi suoni gravi e acuti. E hai imparato a farlo suonare con il tuo Sasso. Quindi, tecnicamente... [PAUSA DRAMMATICA] Sei appena diventato un musicista della nostra orchestra!",,,1948
-246,s04,,suono,s04_sfx_06,,Piccola fanfara comica di pianoforte.,,,1970
-247,s04,,voce,s04_maes_05,MAESTRO BATTUTA,"Complimenti! Normalmente dovrei consegnarti un diploma. Ma Sbuffo ha portato via anche i miei fogli. Quindi, per il momento, dovrai accontentarti di un applauso.",,,1972
-248,s04,,suono,s04_sfx_07,,"Il Maestro applaude, prima normalmente, poi troppo velocemente, perdendo il ritmo.",,,1982
-249,s04,,voce,s04_maes_06,MAESTRO BATTUTA,Oh. Scusa. Mi sono lasciato trasportare.,,,1984
-250,s04,,suono,s04_sfx_08,,Un leggero soffio torna a muoversi nella sala.,,,1994
-251,s04,,voce,s04_vent_01,VENTO,Fffffffff...,,,1996
-252,s04,,voce,s04_maes_07,MAESTRO BATTUTA,Non ci posso credere. Ancora?!,,,2000
-253,s04,,voce,s04_vent_02,VENTO,Ehi! Che cosa state facendo?!,,,2006
-254,s04,,voce,s04_maes_08,MAESTRO BATTUTA,Stiamo suonando. Non si sente?,,,2012
-255,s04,,voce,s04_vent_03,VENTO,Ma... Ma quella è la nota che avevo preso io!,,,2018
-256,s04,,voce,s04_maes_09,MAESTRO BATTUTA,Esattamente! L'abbiamo recuperata.,,,2024
-257,s04,,voce,s04_vent_04,VENTO,Non vale! L'avevo nascosta benissimo!,,,2030
-258,s04,,voce,s04_maes_10,MAESTRO BATTUTA,Forse non abbastanza.,,,2036
-259,s04,,voce,s04_vent_05,VENTO,Tanto non riuscirete a recuperarle tutte! Ce ne sono tantissime! E sono sparse dappertutto!,,,2040
-260,s04,,suono,s04_sfx_09,,Il vento soffia intorno alla sala senza coprire la voce del Maestro.,,,2048
-261,s04,,voce,s04_vent_06,VENTO,E comunque... Non capisco perché vi piaccia tanto suonare tutti insieme. Io faccio un sacco di rumore anche da solo! Ascoltate! FFFFFFFFFFFFFFFF!,,,2050
-262,s04,,suono,s04_sfx_10,,"Soffio prolungato, seguito da un piccolo colpo d'aria buffo.",,,2062
-263,s04,,voce,s04_maes_11,MAESTRO BATTUTA,"Sì, Sbuffo. Sappiamo che sei molto bravo a soffiare.",,,2064
-264,s04,,voce,s04_vent_07,VENTO,Allora perché non ascoltate me?!,,,2070
-265,s04,,voce,s04_maes_12,MAESTRO BATTUTA,"Sbuffo, aspetta...",,,2076
-266,s04,,voce,s04_vent_08,VENTO,Non importa! Non riavrete gli altri suoni! Fffffffff!,,,2080
-267,s04,,suono,s04_sfx_11,,"Il vento si allontana, lasciando dietro di sé un fischio che pian piano svanisce.",,,2088
-268,s04,,voce,s04_narr_02,NARRATORE,"Per un momento, il Maestro Battuta non dice niente. Il pianoforte continua a suonare piano. Ma il Maestro sembra pensieroso.",,,2090
-269,s04,,voce,s04_maes_13,MAESTRO BATTUTA,"Mmmh... Hai sentito cosa ha detto? «Perché non ascoltate me?» Strano. Non avevo mai sentito Sbuffo parlare così. Di solito entra, soffia, combina guai e scappa via. [PAUSA] Forse c'è qualcosa che non sappiamo. Ma per adesso dobbiamo continuare a recuperare la nostra canzone. E, a quanto pare, abbiamo ancora parecchio lavoro da fare.",,,2098
-270,s04,,suono,s04_sfx_12,,"TAC, TAC... TOC!",,,2120
-271,s04,,voce,s04_maes_14,MAESTRO BATTUTA,"Bene, giovane musicista! Pronto per la prossima avventura? Questa volta, però, non sarò io a decidere da quale strumento partire. Sarai tu a scegliere.",,,2122
-272,s05,,suono,s05_sfx_01,,Il pianoforte continua a suonare delicatamente. Il Maestro si ferma e ascolta.,,,2136
-273,s05,,voce,s05_maes_01,MAESTRO BATTUTA,Aspetta... Sento qualcosa. Anzi... Sento due cose diverse. Ascolta anche tu.,,,2138
-274,s05,,suono,s05_sfx_02,,"Un suono profondo di tamburo, ripetuto due volte.",,,2150
-275,s05,,voce,s05_maes_02,MAESTRO BATTUTA,Questo è un tamburo. È uno strumento che produce suono quando viene colpita una superficie tesa. Hai sentito il suo suono? Bum... Bum... Sembra quasi chiamarci.,,,2152
-276,s05,,suono,s05_sfx_03,,Il tamburo ripete due colpi.,,,2166
-277,s05,,voce,s05_maes_03,MAESTRO BATTUTA,Ma aspetta. C'è anche qualcos'altro.,,,2168
-278,s05,,suono,s05_sfx_04,,Un tintinnio chiaro e prolungato di campanella.,,,2174
-279,s05,,voce,s05_maes_04,MAESTRO BATTUTA,"Questa invece è una campanella. Hai sentito quanto è diverso il suo suono da quello del tamburo? Il tamburo fa un suono profondo. La campanella produce un suono più squillante, che continua a risuonare per un momento.",,,2176
-280,s05,,suono,s05_sfx_05,,"I due strumenti vengono riprodotti uno dopo l'altro, separati da una pausa.",,,2186
-281,s05,,voce,s05_maes_05,MAESTRO BATTUTA,"Credo che entrambi abbiano bisogno del nostro aiuto. Ma non possiamo andare da tutti e due nello stesso momento. Quindi... La decisione spetta a te! Quale vuoi conoscere per primo? Vuoi seguire il suono profondo del tamburo? Oppure preferisci il tintinnio della campanella? Ascoltali ancora, se vuoi. Prenditi tutto il tempo che ti serve. Non esiste una scelta sbagliata. La nostra canzone avrà bisogno di entrambi, prima o poi. Ma sarai tu a decidere l'ordine in cui incontrarli.",,,2188
-282,s05,,suono,s05_sfx_06,,Riproduzione alternata del tamburo e della campanella.,,,2214
-283,s05,,interazione,s05_int_01,,Il bambino sceglie la prossima tappa. I comandi di selezione e ripetizione dell'ascolto dovranno essere spiegati a voce e verificati nel test del controller.,,,2216
-284,s05,A,voce,s05_maes_06,MAESTRO BATTUTA,Il tamburo! Ottima idea! Quel suono profondo sembra davvero volerci raccontare qualcosa. E ho la sensazione che ci aspetti una sfida molto interessante. [s05_sfx_07] Andiamo a scoprire che cosa è successo al suo ritmo!,,,2220
-285,s05,A,suono,s05_sfx_07,,Due battiti profondi che si ripetono sempre più lontano.,s05_maes_06,,2230
-286,s05,B,voce,s05_maes_07,MAESTRO BATTUTA,La campanella! Una scelta interessante! Hai sentito come continua a risuonare dopo ogni colpo? Sono curioso di scoprire quale parte della canzone abbia perduto. [s05_sfx_08] Andiamo a sentire cosa vuole raccontarci!,,,2236
-287,s05,B,suono,s05_sfx_08,,"Tre tintinnii, uno dopo l'altro.",s05_maes_07,,2246
-288,s05,,convergenza,s05_int_02,,La scelta stabilisce l'ordine delle tappe successive. Entrambe sono valide e nessuna viene persa.,,,2250
-289,e00,,suono,e00_sfx_01,,"La melodia recuperata del pianoforte torna, lenta e riconoscibile. Il Maestro la accompagna battendo leggermente il tempo.",,,2256
-290,e00,,voce,e00_narr_01,NARRATORE,"La vostra prima avventura è appena terminata. Avete conosciuto il Maestro Battuta. Avete scoperto il pianoforte. Avete ascoltato le sue note profonde e quelle più acute. E, soprattutto, avete aiutato l'orchestra a ritrovare il primo pezzo della sua canzone. Ma il viaggio è appena cominciato. Il vento Sbuffo ha sparpagliato tanti altri suoni. Alcuni saranno facili da riconoscere. Altri saranno completamente nuovi. E ogni volta che ne ritroverete uno, la musica dell'orchestra diventerà un po' più completa. Chissà quanti strumenti incontrerete. Chissà quali ritmi imparerete. E chissà perché Sbuffo desidera così tanto che tutti ascoltino soltanto lui.",,,2258
-291,e00,,suono,e00_sfx_02,,"Il vento emette un piccolo fischio lontano, quasi musicale.",,,2286
-292,e00,,voce,e00_maes_01,MAESTRO BATTUTA,"Ehi! Prima di andare! Devo dirti una cosa. Oggi hai fatto qualcosa di importante. Non hai semplicemente premuto un pulsante. Hai ascoltato. Hai scelto. Hai provato. E hai aiutato uno strumento a ritrovare il suo posto nella musica. Ricordati una cosa: in un'orchestra non dobbiamo essere tutti uguali. Ognuno ha un suono diverso. Ed è proprio questo che rende la musica interessante. [PAUSA] Ah! E se durante il viaggio senti... [e00_sfx_03] ...allora sono io! Il Maestro Battuta! Sempre pronto ad aiutarti! E, possibilmente, a non perdere più la bacchetta.",,,2288
-293,e00,,suono,e00_sfx_03,,"TAC, TAC... TOC!",e00_maes_01,,2320
-294,e00,,suono,e00_sfx_04,,La bacchetta cade nuovamente.,,,2330
-295,e00,,voce,e00_maes_02,MAESTRO BATTUTA,... Non dire niente. Ti prego.,,,2332
-296,e00,,suono,e00_sfx_05,,"Piccola risata, poi il pianoforte suona il tema principale. La musica sfuma gradualmente.",,,2340
-297,e00,,voce,e00_narr_02,NARRATORE,La prima nota è tornata. Ma la canzone ha ancora bisogno di te. Il viaggio di EchoQuest continua...,,,2342
+152,s02,,suono,s02_sfx_01,,"Risuonano le ultime note morbide con cui si è conclusa la Scena 1. Una di esse rimane nell'aria per un istante, poi sfuma. Non ricominciano i passi: il Maestro e il bambino sono già arrivati davanti al pianoforte.",,,1276
+153,s02,,voce,s02_narr_01,NARRATORE,"L'ultima nota del pianoforte rimane nell'aria per qualche secondo. Poi tutto torna tranquillo. Il Maestro Battuta si ferma accanto allo strumento. Per una volta non corre, non borbotta e non perde la bacchetta. Sta ascoltando.",,,1278
+154,s02,,suono,s02_sfx_02,,"Una nota grave, singola. Poi una seconda nota, più acuta.",,,1288
+155,s02,,voce,s02_maes_01,MAESTRO BATTUTA,"Eccoci qui. Questo è il pianoforte. Hai sentito? Ci ha fatto ascoltare due suoni diversi. Prima uno profondo... [s02_sfx_03] ...e poi uno più sottile. [s02_sfx_04] È sempre lo stesso strumento. Eppure può avere voci molto diverse. [PAUSA BREVE] Sai, quando dirigo l'orchestra, riconosco il pianoforte anche se non è l'unico a suonare. A volte lo sento appena, perché sta accompagnando gli altri con delicatezza. Altre volte sembra avere tantissime cose da dire!",,,1290
+156,s02,,suono,s02_sfx_03,,La nota grave viene ripetuta.,s02_maes_01,,1300
+157,s02,,suono,s02_sfx_04,,La nota acuta viene ripetuta.,s02_maes_01,,1304
+158,s02,,suono,s02_sfx_05,,"Una brevissima frase allegra di pianoforte, distinta dalla melodia rubata.",,,1314
+159,s02,,voce,s02_maes_02,MAESTRO BATTUTA,"Oh! Ecco, appunto. Mi sa che oggi ha proprio voglia di parlare.",,,1316
+160,s02,,suono,s02_sfx_06,,"Due note scherzose, come una risposta.",,,1322
+161,s02,,voce,s02_maes_03,MAESTRO BATTUTA,"D'accordo, d'accordo! Gli presento subito il nostro nuovo musicista. [Rivolgendosi al bambino, con tono complice.] Non farci caso. A volte mi comporto come se gli strumenti mi rispondessero. È il mio modo di ascoltarli con attenzione. E adesso ascoltiamo questo pianoforte insieme.",,,1324
+162,s02,,voce,s02_maes_04,MAESTRO BATTUTA,"Ti racconto come funziona. Davanti a chi suona il pianoforte c'è una lunga fila di tasti, uno accanto all'altro. Un tasto è un pezzo che puoi premere con un dito, un po' come il pulsante di Tocco che abbiamo appena provato. Ma sul pianoforte ce ne sono molti di più! Quando un pianista preme un tasto, succede una cosa curiosa. Il dito preme il tasto... [s02_sfx_07] ...e dentro il pianoforte si muove un martelletto. Un martelletto! [PAUSA] No, no, non immaginare qualcuno che lavora con un grande martello da muratore dentro il pianoforte! Non ci starebbe nemmeno. È un martelletto piccolo, fatto apposta per questo strumento. Ha una parte morbida che colpisce una corda. E quando una corda viene colpita, comincia a vibrare. Vibrare significa muoversi avanti e indietro molto, molto in fretta. È proprio da quel movimento che nasce il suono. Ascolta.",,,1334
+163,s02,,suono,s02_sfx_07,,"Il piccolo rumore meccanico di un tasto premuto, molto discreto.",s02_maes_04,,1346
+164,s02,,suono,s02_sfx_08,,Una nota di pianoforte viene suonata e lasciata risuonare senza sovrapporle altri suoni.,,,1366
+165,s02,,voce,s02_maes_05,MAESTRO BATTUTA,"Prima c'è il momento in cui premiamo il tasto... Poi il suono comincia... E continua ancora un pochino. [PAUSA PER L'ASCOLTO DELLA CODA DELLA NOTA] Non è la bacchetta a produrlo, e nemmeno il mio «TAC, TAC... TOC!». Sono il tasto, il martelletto e la corda che lavorano insieme. Tre piccoli passaggi per far nascere una nota!",,,1368
+166,s02,,suono,s02_sfx_09,,"Un'altra nota semplice, suonata con la stessa intensità.",,,1384
+167,s02,,voce,s02_maes_06,MAESTRO BATTUTA,"Non serve ricordare ogni parola adesso. La cosa importante è questa: premi un tasto, una corda vibra, senti un suono. Ed è così che il pianoforte può farci ascoltare tantissime note.",,,1386
+168,s02,,suono,s02_sfx_10,,Il pianoforte suona una nota grave. Silenzio breve. Poi una nota acuta. Nessuna voce parla sopra le note.,,,1393
+169,s02,,voce,s02_maes_07,MAESTRO BATTUTA,Voglio farti sentire una cosa. Ascolta bene questi due suoni.,,,1395
+170,s02,,suono,s02_sfx_11,,"Ripetizione della nota grave e della nota acuta, uguale volume percepito e uguale durata fra i due esempi, per non confondere altezza e intensità.",,,1401
+171,s02,,voce,s02_maes_08,MAESTRO BATTUTA,"Il primo è grave. Un suono grave è un suono profondo, come una voce molto bassa. [s02_sfx_12] Il secondo è acuto. Un suono acuto è più sottile, come una voce che sale di tono. [s02_sfx_13] Sul pianoforte possiamo trovare sia suoni gravi sia suoni acuti. E anche tanti suoni che stanno nel mezzo. Senti come cambia il suono, poco alla volta.",,,1403
+172,s02,,suono,s02_sfx_12,,Nota grave.,s02_maes_08,,1409
+173,s02,,suono,s02_sfx_13,,Nota acuta.,s02_maes_08,,1415
+174,s02,,suono,s02_sfx_14,,"Cinque o sei note successive salgono gradualmente dal registro grave a quello acuto, senza accelerare e senza aumentare il volume.",,,1421
+175,s02,,voce,s02_maes_09,MAESTRO BATTUTA,"Oh, che meraviglia! È sempre il pianoforte, ma sembra quasi che la sua voce stia cambiando mentre ci parla. [PAUSA BREVE] E adesso facciamo il contrario.",,,1423
+176,s02,,suono,s02_sfx_15,,"Le stesse cinque o sei note vengono suonate in ordine inverso, sempre allo stesso tempo e volume.",,,1433
+177,s02,,voce,s02_maes_10,MAESTRO BATTUTA,"Hai sentito? Siamo tornati ai suoni più profondi. Sai qual è la cosa buffa? Io, quando cerco di fare una voce acuta, sembro una teiera che fischia!",,,1435
+178,s02,,voce,s02_maes_11,MAESTRO BATTUTA,Ehm. Direi che è meglio lasciar fare al pianoforte.,,,1445
+179,s02,,suono,s02_sfx_16,,Il pianoforte risponde con due note allegre.,,,1451
+180,s02,,voce,s02_maes_12,MAESTRO BATTUTA,"Adesso che hai conosciuto le sue voci, voglio raccontarti una piccola curiosità. Il pianoforte ha un nome davvero particolare. Piano-forte. Due parole messe insieme! Ma perché? [PAUSA BREVE] Perché può suonare piano, cioè delicatamente... [s02_sfx_17] ...oppure forte, cioè con un tocco più deciso.",,,1453
+181,s02,,suono,s02_sfx_17,,"Tre note di pianoforte eseguite con un tocco leggero, sempre chiaramente udibili.",s02_maes_12,,1469
+182,s02,,suono,s02_sfx_18,,"Le stesse tre note con un tocco più energico, senza picchi improvvisi di volume.",,,1473
+183,s02,,voce,s02_maes_13,MAESTRO BATTUTA,"Sono le stesse note. È cambiato il modo in cui sono state suonate. E attenzione: un suono grave non è per forza forte, e un suono acuto non è per forza piano. Queste sono due cose diverse. «Grave» e «acuto» ci raccontano che tipo di nota sentiamo. «Piano» e «forte» ci raccontano con quanta energia viene suonata.",,,1475
+184,s02,,suono,s02_sfx_19,,"Una nota grave delicata, poi una nota acuta decisa.",,,1487
+185,s02,,voce,s02_maes_14,MAESTRO BATTUTA,"Vedi? Possiamo mischiare le possibilità! [PAUSA] Più di trecento anni fa, in Italia, un artigiano di nome Bartolomeo Cristofori costruì uno dei primi pianoforti. Voleva creare uno strumento capace di passare dai suoni delicati a quelli più forti usando le mani sui tasti. Ed è da questa capacità che è nato il nome del nostro strumento.",,,1489
+186,s02,,suono,s02_sfx_20,,Una breve frase suonata prima delicatamente e poi con più energia.,,,1501
+187,s02,,voce,s02_maes_15,MAESTRO BATTUTA,"Piano... forte! Ora capisco perché a me piace così tanto: ha un nome che sembra già un'istruzione per suonare! [PAUSA BREVE] Oh, già. Parlavo io. Dovevo lasciare spazio al pianoforte. Suoni ancora qualcosa per noi?",,,1503
+188,s02,,suono,s02_sfx_21,,"Una breve frase musicale libera, allegra, chiaramente diversa dalla frase incompleta del concerto.",,,1515
+189,s02,,suono,s02_sfx_22,,"Dopo la frase allegra, il pianoforte prova spontaneamente a eseguire il motivo del concerto: prima nota, seconda nota... silenzio dove dovrebbe esserci la terza.",,,1517
+190,s02,,voce,s02_maes_16,MAESTRO BATTUTA,"Oh. Eccolo di nuovo. Il pezzo che manca. [PAUSA BREVE] Povero pianoforte. Può ancora suonare le sue note, come ci ha appena dimostrato. Ma quando prova a riprendere quella frase della canzone, dopo il secondo suono non sa più come continuare. E non è successo perché si è rotto. È successo pochi istanti fa, quando Sbuffo ha scompigliato la musica del concerto e si è portato via una parte della nostra canzone.",,,1519
+191,s02,,suono,s02_sfx_23,,"Brevissimo soffio lontano, come un ricordo di quanto è appena successo; non è il ritorno di Sbuffo.",,,1535
+192,s02,,voce,s02_maes_17,MAESTRO BATTUTA,"Ti ricordi il momento prima che arrivasse il vento? Il pianoforte aveva una piccola frase da suonare. Tre note, una dopo l'altra. Proviamo a riascoltarla come l'abbiamo sentita allora.",,,1537
+193,s02,,suono,s02_sfx_24,,"RICORDO SONORO. Riproduzione della frase completa del prologo, con tre note e un trattamento sonoro lieve che segnali che è un ricordo. Non è un'esecuzione dal vivo nel presente.",,,1547
+194,s02,,voce,s02_maes_18,MAESTRO BATTUTA,E ora ascolta che cosa riesce a riprendere della canzone del concerto.,,,1549
+195,s02,,suono,s02_sfx_25,,PRESENTE. Il pianoforte esegue le prime due note della stessa frase; al posto della terza c'è una pausa chiaramente udibile.,,,1553
+196,s02,,voce,s02_maes_19,MAESTRO BATTUTA,La prima c'è. La seconda anche. E poi... niente. Manca l'ultimo pezzo. [PAUSA] Però adesso sappiamo qualcosa di utile. Abbiamo ascoltato il pianoforte da vicino. Abbiamo sentito che può produrre note diverse. E abbiamo capito che il problema non sono i suoi tasti: è la parte della canzone da ricostruire. Quindi possiamo cominciare ad aiutarlo. Non dobbiamo inseguire una nota per tutta la stanza come se fosse una pallina che rotola!,,,1555
+197,s02,,suono,s02_sfx_26,,"Un piccolo suono comico, come se il Maestro si fosse accorto di aver detto una sciocchezza.",,,1575
+198,s02,,voce,s02_maes_20,MAESTRO BATTUTA,"Dobbiamo ascoltare, ricordare il ritmo e provare a rimettere i suoni al posto giusto. E sai qual è la cosa bella? Questa volta possiamo farlo insieme.",,,1577
+199,s02,,suono,s02_sfx_27,,"TAC, TAC... TOC!",,,1585
+200,s02,,voce,s02_maes_21,MAESTRO BATTUTA,"Ma prima di provare, c'è una decisione che voglio affidare a te.",,,1587
+201,s02,,voce,s02_maes_22,MAESTRO BATTUTA,"Il pianoforte ha tante note. Noi, per la prima prova, cominceremo con un solo suono. Così potrai concentrarti sull'ascolto e sul ritmo, senza dover imparare tutto insieme. Ma non voglio scegliere io ogni cosa. Ascolta ancora queste due possibilità.",,,1592
+202,s02,,suono,s02_sfx_28,,"Una nota grave di pianoforte. Pausa. Una nota acuta di pianoforte. La differenza deve essere nell'altezza della nota, non nel tempo o nel volume.",,,1602
+203,s02,,voce,s02_maes_23,MAESTRO BATTUTA,"Il primo è il suono grave e profondo. [s02_sfx_29] Il secondo è il suono acuto e sottile. [s02_sfx_30] Per la nostra prima prova, quale voce del pianoforte vuoi usare? Quella grave o quella acuta? Se vuoi il suono grave, premi il pulsante sotto il tuo indice. Se vuoi il suono acuto, premi il pulsante sotto il tuo medio. Prenditi il tempo che ti serve. Se vuoi riascoltarli, possiamo farlo di nuovo.",,,1604
+204,s02,,suono,s02_sfx_29,,Breve ripetizione della nota grave.,s02_maes_23,,1608
+205,s02,,suono,s02_sfx_30,,Breve ripetizione della nota acuta.,s02_maes_23,,1612
+206,s02,,interazione,s02_int_01,,"MODALITÀ SCELTA: indice → registro grave; medio → registro acuto. Se non arriva una risposta, una breve ripetizione dell'istruzione e dei due esempi. Non c'è risposta sbagliata e non c'è un limite di tempo punitivo. La scelta memorizza `pianoRegister = grave | acuto`.",,,1624
+207,s02,A,suono,s02_sfx_31,,Breve conferma morbida. Una nota grave di pianoforte risuona da sola.,,,1628
+208,s02,A,voce,s02_maes_24,MAESTRO BATTUTA,"Hai scelto il suono grave! Sentilo ancora. [s02_sfx_32] Ha una voce profonda, vero? Bene. Sarà questa la voce del pianoforte che useremo nella prima prova con Tocco. Facciamogli fare tre piccoli suoni.",,,1630
+209,s02,A,suono,s02_sfx_32,,La stessa nota grave.,s02_maes_24,,1636
+210,s02,A,suono,s02_sfx_33,,"La stessa nota grave viene ripetuta tre volte, con il ritmo «TA-TA... TA» che il Maestro ha già presentato nella Scena 1.",,,1644
+211,s02,A,voce,s02_maes_25,MAESTRO BATTUTA,"Hai riconosciuto i miei tre colpetti? «TAC, TAC... TOC!» Il pianoforte li ha imitati! [s02_sfx_34] Non importa se la nota è profonda o sottile: possiamo suonare lo stesso ritmo con voci diverse. E adesso tocca a noi prepararci.",,,1646
+212,s02,A,suono,s02_sfx_34,,"TAC, TAC... TOC! del Maestro, breve e riconoscibile.",s02_maes_25,,1654
+213,s02,B,suono,s02_sfx_35,,Breve conferma morbida. Una nota acuta di pianoforte risuona da sola.,,,1662
+214,s02,B,voce,s02_maes_26,MAESTRO BATTUTA,"Hai scelto il suono acuto! Sentilo ancora. [s02_sfx_36] Ha una voce più sottile, vero? Bene. Sarà questa la voce del pianoforte che useremo nella prima prova con Tocco. Facciamogli fare tre piccoli suoni.",,,1664
+215,s02,B,suono,s02_sfx_36,,La stessa nota acuta.,s02_maes_26,,1670
+216,s02,B,suono,s02_sfx_37,,"La stessa nota acuta viene ripetuta tre volte, con il ritmo «TA-TA... TA» che il Maestro ha già presentato nella Scena 1.",,,1678
+217,s02,B,voce,s02_maes_27,MAESTRO BATTUTA,"Hai riconosciuto i miei tre colpetti? «TAC, TAC... TOC!» Il pianoforte li ha imitati! [s02_sfx_38] Non importa se la nota è profonda o sottile: possiamo suonare lo stesso ritmo con voci diverse. E adesso tocca a noi prepararci.",,,1680
+218,s02,B,suono,s02_sfx_38,,"TAC, TAC... TOC! del Maestro, breve e riconoscibile.",s02_maes_27,,1688
+219,s02,,convergenza,s02_int_02,,"I due rami proseguono qui. Da questo punto in avanti, le note dimostrative di pianoforte usano il registro scelto dal bambino.",,,1694
+220,s02,,suono,s02_sfx_39,,"Il pianoforte ripete il suono scelto, una volta sola, come per confermare di aver capito.",,,1696
+221,s02,,voce,s02_maes_28,MAESTRO BATTUTA,"Senti? Il nostro pianoforte è pronto. E anche Tocco è pronto. Tra poco il pulsante sotto il tuo indice farà suonare proprio questa voce del pianoforte. Quando saremo nella prova musicale, useremo quel pulsante per fare i suoni; per scegliere tra due possibilità, invece, ti darò io le istruzioni di volta in volta. Non c'è bisogno di ricordare tutto subito. Io ti accompagnerò, un passo alla volta. [PAUSA BREVE] Sai, una cosa del pianoforte mi piace più di tutte. Può fare tanti suoni diversi. Ma per creare una frase musicale non basta averli a disposizione. Bisogna anche ascoltare quando arrivano. Una nota... Un'altra... Una pausa... E poi il momento giusto per continuare.",,,1698
+222,s02,,suono,s02_sfx_40,,Il pianoforte suona due note e lascia volutamente la pausa della frase incompleta. Nessuna terza nota nel presente.,,,1728
+223,s02,,voce,s02_maes_29,MAESTRO BATTUTA,Ecco il nostro prossimo compito. La parte che Sbuffo ha portato via non è ancora tornata. Però adesso conosciamo il pianoforte e abbiamo scelto la voce con cui provare a ricostruirla. Direi che possiamo iniziare davvero.,,,1730
+224,s02,,suono,s02_sfx_41,,"TAC, TAC... TOC!",,,1738
+225,s02,,voce,s02_maes_30,MAESTRO BATTUTA,"Sei pronto a fare musica insieme a me? Ascolteremo un piccolo ritmo e proveremo a ripeterlo con Tocco. Se non viene subito, lo ripetiamo più lentamente. I musicisti fanno così: ascoltano, provano e riprovano. E io, credimi, ne so qualcosa. Una volta ho sbagliato l'attacco di un concerto e ho cominciato a dirigere quando l'orchestra aveva già finito!",,,1740
+226,s02,,suono,s02_sfx_42,,Due note comiche del pianoforte.,,,1750
+227,s02,,voce,s02_maes_31,MAESTRO BATTUTA,"Va bene, va bene, non raccontiamolo a tutti. [PAUSA BREVE] Un respiro... Un momento di ascolto... E poi cominciamo.",,,1752
+228,s02,,suono,s02_sfx_43,,"Il pianoforte ripete una volta il suono scelto. Breve pausa, quindi un segnale sonoro distintivo prepara l'avvio della Scena 3.",,,1764
+229,s02,,voce,s02_narr_02,NARRATORE,Il primo strumento del viaggio è pronto a suonare con te. La canzone dell'orchestra è ancora incompleta. Ma adesso sai da dove cominciare.,,,1766
+230,s03,,suono,s03_sfx_01,,"Il vento torna a farsi sentire, inizialmente lontano.",,,1780
+231,s03,,voce,s03_vent_01,VENTO,Fffffffff... Eeeeehi! Maestro Battutaaaaa!,,,1782
+232,s03,,voce,s03_maes_01,MAESTRO BATTUTA,"Oh, no. Ancora tu.",,,1790
+233,s03,,voce,s03_vent_02,VENTO,Che state facendo? State forse cercando i suoni che ho preso?,,,1796
+234,s03,,voce,s03_maes_02,MAESTRO BATTUTA,Sbuffo! Restituisci subito quella musica! Non è tua!,,,1802
+235,s03,,voce,s03_vent_03,VENTO,Ahahah! Ormai è troppo tardi! Ho portato via i vostri suoni e li ho sparpagliati dappertutto! Non riuscirete mai a rimetterli insieme!,,,1810
+236,s03,,voce,s03_maes_03,MAESTRO BATTUTA,Questo lo vedremo.,,,1820
+237,s03,,voce,s03_vent_04,VENTO,"Oh, davvero? E come pensate di fare? Con quella tua ridicola bacchetta?",,,1824
+238,s03,,voce,s03_maes_04,MAESTRO BATTUTA,"Prima di tutto, la mia bacchetta non è ridicola. È molto elegante.",,,1832
+239,s03,,suono,s03_sfx_02,,La bacchetta cade a terra.,,,1838
+240,s03,,voce,s03_maes_05,MAESTRO BATTUTA,...quando riesco a tenerla in mano. E poi non sono solo! Ho qualcuno che mi sta aiutando!,,,1840
+241,s03,,voce,s03_vent_05,VENTO,Qualcuno? Chi?,,,1848
+242,s03,,voce,s03_maes_06,MAESTRO BATTUTA,Un nuovo musicista! E credo proprio che sarà capace di sorprenderci!,,,1854
+243,s03,,voce,s03_vent_06,VENTO,"Ahahah! Vedremo! Se volete recuperare il primo pezzo della canzone, dovrete ricordare come suonava. Ma io ho mescolato tutto! Buona fortuna! Ffffffffff!",,,1860
+244,s03,,suono,s03_sfx_03,,"Sbuffo si allontana. Resta un breve frammento musicale, molto debole, quasi come una traccia da seguire.",,,1874
+245,s03,,voce,s03_maes_07,MAESTRO BATTUTA,Maleducato come sempre! Ma hai sentito cosa ha detto? Ha mescolato i suoni. E questo significa che non dobbiamo cercare soltanto le note. Dobbiamo anche ritrovare il loro ritmo. E per fortuna...,,,1876
+246,s03,,suono,s03_sfx_04,,"TAC, TAC... TOC!",,,1890
+247,s03,,voce,s03_maes_08,MAESTRO BATTUTA,"Io conosco qualcuno che ha proprio un piccolo strumento tra le mani! [PAUSA] Sì, sto parlando di te! Ti va di provare? Non preoccuparti, cominciamo con qualcosa di semplice. Ricordi il Sasso? Ora useremo il pulsante sotto il tuo indice. Quando lo premi, sentirai un suono di pianoforte. Proviamo? Premilo una volta.",,,1892
+248,s03,,interazione,s03_int_01,,Il pulsante del pianoforte riproduce un campione del registro scelto prima.,,,1914
+249,s03,,suono,s03_sfx_05,,Nota di pianoforte.,,,1916
+250,s03,,voce,s03_maes_09,MAESTRO BATTUTA,Eccolo! L'hai sentito? Questa volta la nota l'hai fatta suonare tu! Adesso prova a premerlo ancora.,,,1918
+251,s03,,interazione,s03_int_02,,Seconda pressione.,,,1928
+252,s03,,suono,s03_sfx_06,,Una seconda nota.,,,1930
+253,s03,,voce,s03_maes_10,MAESTRO BATTUTA,Benissimo! Adesso ascolta una cosa. Ti farò sentire una piccola sequenza musicale. Una sequenza è semplicemente un gruppo di suoni che vengono uno dopo l'altro. Prima ascolta. Poi proverai a ripeterla. Pronto?,,,1932
+254,s03,,suono,s03_sfx_07,,"Il pianoforte suona una nota, lascia una pausa, poi suona altre due note vicine.",,,1948
+255,s03,,voce,s03_maes_11,MAESTRO BATTUTA,TA... TA-TA! Hai sentito? Prima un suono. Poi un piccolo silenzio. E infine due suoni vicini. Facciamolo ancora.,,,1950
+256,s03,,suono,s03_sfx_08,,"La stessa sequenza, identica.",,,1966
+257,s03,,voce,s03_maes_12,MAESTRO BATTUTA,"TA... TA-TA! Ora tocca a te. Quando senti il mio segnale, prova a ripetere lo stesso ritmo usando il pulsante del pianoforte. Ricorda: un suono... una pausa... e due suoni!",,,1968
+258,s03,,suono,s03_sfx_09,,Un breve segnale musicale di inizio.,,,1980
+259,s03,,voce,s03_maes_13,MAESTRO BATTUTA,Vai!,,,1982
+260,s03,,interazione,s03_int_03,,"Il bambino ripete il ritmo sul Sasso. Il sistema concede una tolleranza ampia e valuta la struttura, non la precisione assoluta.",,,1986
+261,s03,A,suono,s03_sfx_10,,"Il pianoforte riproduce la sequenza del bambino, poi ripete la frase musicale completa. La nota mancante torna a sentirsi.",,,1990
+262,s03,A,voce,s03_maes_14,MAESTRO BATTUTA,Aspetta! Aspetta un momento! L'hai sentito?! La nota! È tornata!,,,1992
+263,s03,A,suono,s03_sfx_11,,Il pianoforte suona di nuovo il piccolo motivo completo.,,,2004
+264,s03,A,voce,s03_maes_15,MAESTRO BATTUTA,Hai sentito che differenza? Prima mancava un pezzo. Adesso la frase è completa! Sei riuscito a ritrovare il ritmo!,,,2006
+265,s03,A,suono,s03_sfx_12,,La musica cresce leggermente. Il pianoforte esegue una piccola melodia di festeggiamento.,,,2016
+266,s03,A,voce,s03_maes_16,MAESTRO BATTUTA,"È incredibile! Sai, ho diretto tantissimi concerti nella mia vita. Ho ascoltato musicisti molto bravi. Ho sentito strumenti di ogni tipo. Eppure non avevo mai recuperato una parte di canzone con un piccolo Sasso! Direi che è un giorno da ricordare. [PAUSA] Anche perché, se non lo ricordo, sicuramente Sbuffo me lo rinfaccerà per il resto della vita.",,,2018
+267,s03,B,suono,s03_sfx_13,,Il pianoforte ripete dolcemente la sequenza incompleta. Nessun suono brusco o punitivo.,,,2038
+268,s03,B,voce,s03_maes_17,MAESTRO BATTUTA,Mmmh... Ci siamo quasi! Credo che il vento abbia ancora un po' confuso il nostro ritmo. Ma non fa niente. Possiamo riprovare insieme. Questa volta lo faccio più lentamente. Ascolta.,,,2040
+269,s03,B,suono,s03_sfx_14,,"Il pianoforte suona la stessa sequenza, più lenta.",,,2056
+270,s03,B,voce,s03_maes_18,MAESTRO BATTUTA,Uno... Pausa... Due... Tre! Visto? Non dobbiamo andare veloci. La cosa importante è ascoltare quando arriva ogni suono. Proviamo insieme. Io ti accompagno e tu premi il pulsante.,,,2058
+271,s03,B,interazione,s03_int_04,,"Secondo tentativo con accompagnamento ritmico. Se necessario, il sistema semplifica ulteriormente e non blocca definitivamente la progressione.",,,2078
+272,s03,B,suono,s03_sfx_15,,"Quando il bambino completa la sequenza con l'aiuto del Maestro, il pianoforte recupera la frase.",,,2080
+273,s03,B,voce,s03_maes_19,MAESTRO BATTUTA,Eccola! La nota è tornata! Abbiamo trovato il ritmo giusto! Hai sentito che cosa siamo riusciti a fare insieme?,,,2082
+274,s03,,convergenza,s03_int_05,,Entrambi i rami proseguono nella Scena 4.,,,2092
+275,s04,,suono,s04_sfx_01,,"Il pianoforte suona la melodia appena recuperata, questa volta completa. La frase sonora è quella riconoscibile dall'inizio del gioco.",,,2098
+276,s04,,voce,s04_narr_01,NARRATORE,"Il pianoforte torna a suonare. Le sue note si susseguono senza interrompersi. Prima una. Poi un'altra. Poi un'altra ancora. La piccola frase musicale che il vento aveva spezzato è finalmente completa. E mentre il pianoforte continua a suonare, qualcosa di nuovo accade.",,,2100
+277,s04,,suono,s04_sfx_02,,Un leggero suono di campanella si aggiunge per un momento al pianoforte.,,,2116
+278,s04,,voce,s04_maes_01,MAESTRO BATTUTA,Oh! Hai sentito? Non era il pianoforte! Qualcun altro ha provato a suonare con noi!,,,2118
+279,s04,,suono,s04_sfx_03,,"Un altro tintinnio, breve e delicato.",,,2128
+280,s04,,voce,s04_maes_02,MAESTRO BATTUTA,"Una campanella! Evidentemente è contenta di sentire di nuovo la musica. È una buona notizia! Significa che, quando recuperiamo un pezzo della canzone, anche gli altri strumenti possono cominciare a ritrovare il loro posto.",,,2130
+281,s04,,suono,s04_sfx_04,,Il Maestro batte le mani seguendo lentamente il pianoforte.,,,2140
+282,s04,,voce,s04_maes_03,MAESTRO BATTUTA,"TA... TA-TA! Senti? Ora possiamo accompagnare il pianoforte anche battendo le mani. E pensa cosa succederà quando ritroveremo tutti gli altri suoni! Avremo ritmi diversi. Strumenti diversi. Suoni profondi, delicati, squillanti e forti. E potremo combinarli per creare una musica sempre più ricca!",,,2142
+283,s04,,suono,s04_sfx_05,,"Per qualche secondo, pianoforte e campanella suonano insieme.",,,2162
+284,s04,,voce,s04_maes_04,MAESTRO BATTUTA,"Ma sai qual è la cosa che mi rende più felice? Non è soltanto aver ritrovato quella nota. È che adesso anche tu conosci il pianoforte. Sai che ha dei tasti. Sai che dentro ci sono corde che vibrano. Hai ascoltato i suoi suoni gravi e acuti. E hai imparato a farlo suonare con il tuo Sasso. Quindi, tecnicamente... [PAUSA DRAMMATICA] Sei appena diventato un musicista della nostra orchestra!",,,2164
+285,s04,,suono,s04_sfx_06,,Piccola fanfara comica di pianoforte.,,,2186
+286,s04,,voce,s04_maes_05,MAESTRO BATTUTA,"Complimenti! Normalmente dovrei consegnarti un diploma. Ma Sbuffo ha portato via anche i miei fogli. Quindi, per il momento, dovrai accontentarti di un applauso.",,,2188
+287,s04,,suono,s04_sfx_07,,"Il Maestro applaude, prima normalmente, poi troppo velocemente, perdendo il ritmo.",,,2198
+288,s04,,voce,s04_maes_06,MAESTRO BATTUTA,Oh. Scusa. Mi sono lasciato trasportare.,,,2200
+289,s04,,suono,s04_sfx_08,,Un leggero soffio torna a muoversi nella sala.,,,2210
+290,s04,,voce,s04_vent_01,VENTO,Fffffffff...,,,2212
+291,s04,,voce,s04_maes_07,MAESTRO BATTUTA,Non ci posso credere. Ancora?!,,,2216
+292,s04,,voce,s04_vent_02,VENTO,Ehi! Che cosa state facendo?!,,,2222
+293,s04,,voce,s04_maes_08,MAESTRO BATTUTA,Stiamo suonando. Non si sente?,,,2228
+294,s04,,voce,s04_vent_03,VENTO,Ma... Ma quella è la nota che avevo preso io!,,,2234
+295,s04,,voce,s04_maes_09,MAESTRO BATTUTA,Esattamente! L'abbiamo recuperata.,,,2240
+296,s04,,voce,s04_vent_04,VENTO,Non vale! L'avevo nascosta benissimo!,,,2246
+297,s04,,voce,s04_maes_10,MAESTRO BATTUTA,Forse non abbastanza.,,,2252
+298,s04,,voce,s04_vent_05,VENTO,Tanto non riuscirete a recuperarle tutte! Ce ne sono tantissime! E sono sparse dappertutto!,,,2256
+299,s04,,suono,s04_sfx_09,,Il vento soffia intorno alla sala senza coprire la voce del Maestro.,,,2264
+300,s04,,voce,s04_vent_06,VENTO,E comunque... Non capisco perché vi piaccia tanto suonare tutti insieme. Io faccio un sacco di rumore anche da solo! Ascoltate! FFFFFFFFFFFFFFFF!,,,2266
+301,s04,,suono,s04_sfx_10,,"Soffio prolungato, seguito da un piccolo colpo d'aria buffo.",,,2278
+302,s04,,voce,s04_maes_11,MAESTRO BATTUTA,"Sì, Sbuffo. Sappiamo che sei molto bravo a soffiare.",,,2280
+303,s04,,voce,s04_vent_07,VENTO,Allora perché non ascoltate me?!,,,2286
+304,s04,,voce,s04_maes_12,MAESTRO BATTUTA,"Sbuffo, aspetta...",,,2292
+305,s04,,voce,s04_vent_08,VENTO,Non importa! Non riavrete gli altri suoni! Fffffffff!,,,2296
+306,s04,,suono,s04_sfx_11,,"Il vento si allontana, lasciando dietro di sé un fischio che pian piano svanisce.",,,2304
+307,s04,,voce,s04_narr_02,NARRATORE,"Per un momento, il Maestro Battuta non dice niente. Il pianoforte continua a suonare piano. Ma il Maestro sembra pensieroso.",,,2306
+308,s04,,voce,s04_maes_13,MAESTRO BATTUTA,"Mmmh... Hai sentito cosa ha detto? «Perché non ascoltate me?» Strano. Non avevo mai sentito Sbuffo parlare così. Di solito entra, soffia, combina guai e scappa via. [PAUSA] Forse c'è qualcosa che non sappiamo. Ma per adesso dobbiamo continuare a recuperare la nostra canzone. E, a quanto pare, abbiamo ancora parecchio lavoro da fare.",,,2314
+309,s04,,suono,s04_sfx_12,,"TAC, TAC... TOC!",,,2336
+310,s04,,voce,s04_maes_14,MAESTRO BATTUTA,"Bene, giovane musicista! Pronto per la prossima avventura? Questa volta, però, non sarò io a decidere da quale strumento partire. Sarai tu a scegliere.",,,2338
+311,s05,,suono,s05_sfx_01,,Il pianoforte continua a suonare delicatamente. Il Maestro si ferma e ascolta.,,,2352
+312,s05,,voce,s05_maes_01,MAESTRO BATTUTA,Aspetta... Sento qualcosa. Anzi... Sento due cose diverse. Ascolta anche tu.,,,2354
+313,s05,,suono,s05_sfx_02,,"Un suono profondo di tamburo, ripetuto due volte.",,,2366
+314,s05,,voce,s05_maes_02,MAESTRO BATTUTA,Questo è un tamburo. È uno strumento che produce suono quando viene colpita una superficie tesa. Hai sentito il suo suono? Bum... Bum... Sembra quasi chiamarci.,,,2368
+315,s05,,suono,s05_sfx_03,,Il tamburo ripete due colpi.,,,2382
+316,s05,,voce,s05_maes_03,MAESTRO BATTUTA,Ma aspetta. C'è anche qualcos'altro.,,,2384
+317,s05,,suono,s05_sfx_04,,Un tintinnio chiaro e prolungato di campanella.,,,2390
+318,s05,,voce,s05_maes_04,MAESTRO BATTUTA,"Questa invece è una campanella. Hai sentito quanto è diverso il suo suono da quello del tamburo? Il tamburo fa un suono profondo. La campanella produce un suono più squillante, che continua a risuonare per un momento.",,,2392
+319,s05,,suono,s05_sfx_05,,"I due strumenti vengono riprodotti uno dopo l'altro, separati da una pausa.",,,2402
+320,s05,,voce,s05_maes_05,MAESTRO BATTUTA,"Credo che entrambi abbiano bisogno del nostro aiuto. Ma non possiamo andare da tutti e due nello stesso momento. Quindi... La decisione spetta a te! Quale vuoi conoscere per primo? Vuoi seguire il suono profondo del tamburo? Oppure preferisci il tintinnio della campanella? Ascoltali ancora, se vuoi. Prenditi tutto il tempo che ti serve. Non esiste una scelta sbagliata. La nostra canzone avrà bisogno di entrambi, prima o poi. Ma sarai tu a decidere l'ordine in cui incontrarli.",,,2404
+321,s05,,suono,s05_sfx_06,,Riproduzione alternata del tamburo e della campanella.,,,2430
+322,s05,,interazione,s05_int_01,,Il bambino sceglie la prossima tappa. I comandi di selezione e ripetizione dell'ascolto dovranno essere spiegati a voce e verificati nel test del controller.,,,2432
+323,s05,A,voce,s05_maes_06,MAESTRO BATTUTA,Il tamburo! Ottima idea! Quel suono profondo sembra davvero volerci raccontare qualcosa. E ho la sensazione che ci aspetti una sfida molto interessante. [s05_sfx_07] Andiamo a scoprire che cosa è successo al suo ritmo!,,,2436
+324,s05,A,suono,s05_sfx_07,,Due battiti profondi che si ripetono sempre più lontano.,s05_maes_06,,2446
+325,s05,B,voce,s05_maes_07,MAESTRO BATTUTA,La campanella! Una scelta interessante! Hai sentito come continua a risuonare dopo ogni colpo? Sono curioso di scoprire quale parte della canzone abbia perduto. [s05_sfx_08] Andiamo a sentire cosa vuole raccontarci!,,,2452
+326,s05,B,suono,s05_sfx_08,,"Tre tintinnii, uno dopo l'altro.",s05_maes_07,,2462
+327,s05,,convergenza,s05_int_02,,La scelta stabilisce l'ordine delle tappe successive. Entrambe sono valide e nessuna viene persa.,,,2466
+328,e00,,suono,e00_sfx_01,,"La melodia recuperata del pianoforte torna, lenta e riconoscibile. Il Maestro la accompagna battendo leggermente il tempo.",,,2472
+329,e00,,voce,e00_narr_01,NARRATORE,"La vostra prima avventura è appena terminata. Avete conosciuto il Maestro Battuta. Avete scoperto il pianoforte. Avete ascoltato le sue note profonde e quelle più acute. E, soprattutto, avete aiutato l'orchestra a ritrovare il primo pezzo della sua canzone. Ma il viaggio è appena cominciato. Il vento Sbuffo ha sparpagliato tanti altri suoni. Alcuni saranno facili da riconoscere. Altri saranno completamente nuovi. E ogni volta che ne ritroverete uno, la musica dell'orchestra diventerà un po' più completa. Chissà quanti strumenti incontrerete. Chissà quali ritmi imparerete. E chissà perché Sbuffo desidera così tanto che tutti ascoltino soltanto lui.",,,2474
+330,e00,,suono,e00_sfx_02,,"Il vento emette un piccolo fischio lontano, quasi musicale.",,,2502
+331,e00,,voce,e00_maes_01,MAESTRO BATTUTA,"Ehi! Prima di andare! Devo dirti una cosa. Oggi hai fatto qualcosa di importante. Non hai semplicemente premuto un pulsante. Hai ascoltato. Hai scelto. Hai provato. E hai aiutato uno strumento a ritrovare il suo posto nella musica. Ricordati una cosa: in un'orchestra non dobbiamo essere tutti uguali. Ognuno ha un suono diverso. Ed è proprio questo che rende la musica interessante. [PAUSA] Ah! E se durante il viaggio senti... [e00_sfx_03] ...allora sono io! Il Maestro Battuta! Sempre pronto ad aiutarti! E, possibilmente, a non perdere più la bacchetta.",,,2504
+332,e00,,suono,e00_sfx_03,,"TAC, TAC... TOC!",e00_maes_01,,2536
+333,e00,,suono,e00_sfx_04,,La bacchetta cade nuovamente.,,,2546
+334,e00,,voce,e00_maes_02,MAESTRO BATTUTA,... Non dire niente. Ti prego.,,,2548
+335,e00,,suono,e00_sfx_05,,"Piccola risata, poi il pianoforte suona il tema principale. La musica sfuma gradualmente.",,,2556
+336,e00,,voce,e00_narr_02,NARRATORE,La prima nota è tornata. Ma la canzone ha ancora bisogno di te. Il viaggio di EchoQuest continua...,,,2558

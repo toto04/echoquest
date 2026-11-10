@@ -46,10 +46,14 @@ Y   12.3 P   -4.5 R    0.8                         <- yaw / pitch / roll (deg)
 The BLE state reads ADVERTISING (no host), PAIRING (connected, input not yet
 subscribed) or CONNECTED (reports flowing).
 
-- **Keep the board still for about 1 s after reset.** The firmware measures gyro bias then.
-  If it moved, the log says `WARNING: board moved during calibration`, and yaw drifts.
-- **Yaw is 0 at boot** and drifts slowly, because there's no magnetometer.
-  Pitch and roll are absolute, measured against gravity.
+- **Keep the board still for about 1 s after reset**, while the screen says
+  `Hold still: calibrating`. The firmware measures the gyro bias then, and retries
+  for a few seconds if the board moves.
+- **Yaw is 0 at boot.** Pitch and roll are absolute, measured against gravity.
+  There's no magnetometer, so yaw has no absolute reference. Whenever the board
+  rests (the dot right of the angles turns **green**), the firmware re-learns the
+  gyro bias and holds yaw, so it doesn't creep at rest. Some drift can still
+  build up while the board is moving.
 - **Pins in use:** LCD SPI 1/2/14/15/22, backlight 23, I2C 18/19 (IMU 0x6B, touch 0x63), touch RST/INT 20/21.
   GPIO 7 on the header is the haptic stub output (HIGH while active).
 - **Clear pairings:** hold BOOT for 3 s. The serial log prints `bond-clear button down`
@@ -102,7 +106,7 @@ Expected output on the Waveshare board (the name suffix depends on the MAC):
 [   0.200] boot: EchoQuest controller, protocol 1.0, VID 0x1209 PID 0x0001
 [   0.950] touch: AXS5106L ready
 [   0.950] ui: LCD ready (320x172), touch ok
-[   2.120] imu: gyro bias 0.31 -0.12 0.05 dps over 200 samples (spread 0.9 dps)
+[   2.420] imu: calibration 1: bias 0.31 -0.12 0.05 dps (spread 0.9 dps)
 [   2.120] boot: IMU: QMI8658 + Mahony
 [   2.190] ble: advertising as "EchoQuest-55A2" (VID 0x1209 PID 0x0001, 0 bond(s) stored)
 [   3.200] input: btn=0x0000 hat=0 yaw=   0.02 pitch=  0.41 roll=  -0.33 | tx=0 (no host) | ...
@@ -176,8 +180,11 @@ Disconnecting the host during a long command stops all motors (`haptic: all moto
   Bluetooth settings, and pair again.
 - **The host won't reconnect, or pairing fails, after reflashing:** hold BOOT for 3 s to
   clear the controller's bonds, remove the device on the host, and pair again.
-- **Yaw keeps creeping:** reset the board while it's lying still. Some
-  drift is expected without a magnetometer.
+- **Yaw keeps creeping:** put the board down for a couple of seconds; the dot
+  next to the angles should turn green and yaw should stop. If the dot never turns
+  green on a still board, check the once-per-second `imu:` log line (bias,
+  residual rate, |a|). Drift during motion is expected without a magnetometer;
+  recenter yaw on the host.
 - **`touch: AXS5106L not responding` or `imu: QMI8658 not responding`:** both share
   I2C on GPIO 18/19. Check that nothing external is connected to those header pins.
 - **Screen colors look inverted or red/blue are swapped:** the panel init follows

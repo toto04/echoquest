@@ -20,8 +20,9 @@ Last updated: 2026-11-04.
 - **Waveshare board checklist** (from the README): IMU axis signs
   (`IMU_AXIS_MAP`), touch-to-screen mapping, LCD colours and orientation, and
   whether the BOOT button is GPIO 9 or 8.
-- **Yaw drifts** (no magnetometer). Acceptable for now; revisit when the game's
-  use of yaw is known.
+- **Yaw can drift during motion** (no magnetometer). At rest it is held and the
+  gyro bias re-learned (fixed 2026-11-04: before that, yaw crept steadily even at
+  rest). Revisit when the game's use of yaw is known.
 - **Haptics are a stub.** No motor driver yet; the stub logs, toggles a GPIO and
   shows a bar on the LCD. Pattern IDs 1–255 are reserved but play as constant.
 - **VID/PID are in the pid.codes test range.** A real PID is needed before any

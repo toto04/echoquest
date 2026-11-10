@@ -66,6 +66,7 @@ One module per concern; `main.cpp` only wires them together:
 | `src/ble_hid.cpp` | HID-over-GATT service on NimBLE: advertising, Just Works bonding with LE Secure Connections, input notifications, output-report queue |
 | `src/buttons.cpp` + `include/debouncer.h` | Debounced GPIO buttons and hat; hold BOOT 3 s to erase pairings |
 | `src/imu.cpp`, `src/imu_qmi8658.cpp` | `ImuSource` interface; `FakeImu`; QMI8658 driver with gyro-bias calibration at boot |
+| `include/gyro_bias.h` | Stillness detection and continuous gyro-bias tracking (holds yaw at rest). Pure, unit-tested |
 | `include/orientation_filter.h` | Mahony 6-axis sensor fusion, axis remapping, protocol sign conventions. Pure, unit-tested |
 | `src/haptics.cpp` | `HapticDriver` interface and a stub that logs, drives a GPIO and shows activity |
 | `src/ui.cpp`, `src/touch_axs5106.cpp` | LCD status screen and two touch buttons (only on boards with an LCD; no-ops otherwise) |
@@ -80,7 +81,11 @@ enqueue. Everything else (I2C, LCD, haptics) runs in the Arduino `loop()` task.
   quaternion, then converted to yaw/pitch/roll in the protocol's conventions:
   yaw + = turning right, pitch + = nose up, roll + = right side down.
 - **Pitch and roll are absolute** (referenced to gravity). **Yaw is relative**:
-  0 at power-on, and it drifts slowly, because a 6-axis IMU has no magnetometer.
+  0 at power-on, with no absolute reference, because a 6-axis IMU has no magnetometer.
+  Any gyro bias error integrates straight into yaw (0.5 °/s of bias = 30° per
+  minute), so `include/gyro_bias.h` detects when the controller is at rest,
+  re-learns the bias there and stops integrating the gyro. Yaw then holds still
+  at rest; it can still drift slowly during motion.
   The game must recenter yaw itself if it needs a stable heading. Whether this
   is acceptable depends on game design (see [vision.md](vision.md#open-questions)).
 - Gyro bias is measured during the first ~1 s after boot, so the controller should

@@ -57,6 +57,7 @@ void setup() {
     buttons::begin();
     haptics.begin();
     if (!ui::begin()) LOG("boot", "UI started without touch");
+    ui::showMessage("Hold still: calibrating");
     if (!imu.begin()) LOG("boot", "IMU %s failed to start", imu.name());
     else LOG("boot", "IMU: %s", imu.name());
 

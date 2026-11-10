@@ -7,6 +7,7 @@
 namespace ui {
 bool begin() { return true; }
 void update(uint32_t, const View&) {}
+void showMessage(const char*) {}
 uint16_t buttonMask() { return 0; }
 }  // namespace ui
 
@@ -111,6 +112,7 @@ uint32_t lastTextMs = 0;
 uint8_t touchErrors = 0;
 int lastStatus = -1;
 uint8_t lastHaptic = 255;
+bool messageShown = false;
 
 void drawButton(const Button& b) {
     if (b.pressed) {
@@ -148,12 +150,18 @@ void drawStatus(const View& v) {
 }
 
 void drawAngles(const Orientation& o) {
+    if (messageShown) {
+        gfx->fillRect(0, ANGLES_Y, W, 16, COLOR_BG);
+        messageShown = false;
+    }
     char line[40];
     snprintf(line, sizeof(line), "Y%7.1f P%6.1f R%7.1f", o.yawDeg, o.pitchDeg, o.rollDeg);
     gfx->setTextSize(2);
     gfx->setTextColor(COLOR_TEXT, COLOR_BG);   // opaque background: no flicker
     gfx->setCursor(4, ANGLES_Y);
     gfx->print(line);
+    // Green dot: the IMU sees the board at rest (gyro bias being refined, yaw held).
+    gfx->fillCircle(W - 8, ANGLES_Y + 7, 4, o.still ? RGB565_GREEN : COLOR_DIM);
 }
 
 void drawHaptic(uint8_t intensity) {
@@ -228,6 +236,16 @@ void update(uint32_t nowMs, const View& view) {
         lastTextMs = nowMs;
         drawAngles(view.orientation);
     }
+}
+
+void showMessage(const char* text) {
+    if (!gfx) return;
+    gfx->fillRect(0, ANGLES_Y, W, 16, COLOR_BG);
+    gfx->setTextSize(2);
+    gfx->setTextColor(RGB565_YELLOW, COLOR_BG);
+    gfx->setCursor(4, ANGLES_Y);
+    gfx->print(text);
+    messageShown = true;
 }
 
 uint16_t buttonMask() { return mask; }

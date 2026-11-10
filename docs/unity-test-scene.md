@@ -36,8 +36,9 @@ first scene (see [roadmap.md](roadmap.md#2-haptics-from-unity)).
 | Hold A + B for 1 s, or press R | Recenter yaw (the critter faces the yellow marker) |
 | No controller: arrows, Q/E, 1, 2 | Keyboard fallback for yaw/pitch, roll, A, B |
 
-Yaw starts at 0 when the controller powers on and drifts slowly (no
-magnetometer), so recenter whenever the critter's heading is off.
+Yaw starts at 0 when the controller powers on. It holds still while the
+controller rests but can drift a little during motion (no magnetometer), so
+recenter whenever the critter's heading is off.
 
 ## Project layout
 

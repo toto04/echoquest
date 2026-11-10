@@ -12,7 +12,7 @@ This repo contains the controller firmware, the HID protocol spec, and host tool
   - `src/main.cpp`: wiring only (setup/loop). Keep it thin.
   - `src/ble_hid.cpp`: HID-over-GATT service on NimBLE, advertising, bonding, output-report queue.
   - `src/buttons.cpp`: debounced GPIO buttons and hat. `src/haptics.cpp`: `HapticDriver` and the stub.
-  - `src/imu.cpp`: `ImuSource`, `FakeImu`, `createImu()`. `src/imu_qmi8658.cpp`: QMI8658 driver (gyro-bias calibration at boot). `include/orientation_filter.h`: Mahony fusion, axis remap, protocol sign conventions (pure, tested).
+  - `src/imu.cpp`: `ImuSource`, `FakeImu`, `createImu()`. `src/imu_qmi8658.cpp`: QMI8658 driver (gyro-bias calibration at boot). `include/gyro_bias.h`: stillness detection + continuous bias tracking (pure, tested). `include/orientation_filter.h`: Mahony fusion, axis remap, protocol sign conventions (pure, tested).
   - `src/ui.cpp` + `src/touch_axs5106.cpp`: LCD status screen and two touch buttons (only when `HAS_LCD`; no-ops otherwise). `include/i2c_bus.h`: the I2C bus shared by IMU and touch.
   - `test/test_logic/`: native unit tests (descriptor sizes, packing, parsing, debouncer, orientation filter signs).
 - `docs/`: project vision, architecture and design decisions, roadmap, Unity test-scene plan, development workflow. Read `docs/README.md` for context; update `docs/roadmap.md` when a milestone moves.

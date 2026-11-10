@@ -22,6 +22,10 @@ bool begin();
 // Call every loop iteration; polls touch and redraws what changed (rate-limited).
 void update(uint32_t nowMs, const View& view);
 
+// Shows a one-line notice where the angles go (e.g. during IMU calibration).
+// The next angle refresh replaces it.
+void showMessage(const char* text);
+
 // HID button bits currently held via the on-screen buttons.
 uint16_t buttonMask();
 

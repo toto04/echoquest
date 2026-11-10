@@ -174,8 +174,13 @@ constexpr uint8_t QMI8658_I2C_ADDR = 0x6B;
 // negative = inverted. Check with the "IMU axes" steps in README.md and fix
 // here if, say, tilting the top edge up doesn't give positive pitch.
 constexpr int8_t IMU_AXIS_MAP[3] = {+1, +2, +3};
-// Gyro bias is measured at boot over this many samples; keep the board still.
+// Gyro bias is measured at boot over this many samples (~0.9 s) once the board
+// is still; up to IMU_CALIBRATION_ATTEMPTS windows are tried. After boot the
+// bias keeps being re-learned whenever the board rests (include/gyro_bias.h).
 constexpr uint16_t IMU_CALIBRATION_SAMPLES = 200;
+constexpr uint8_t IMU_CALIBRATION_ATTEMPTS = 6;
+// Max gyro spread (max - min, any axis) accepted for a still calibration window.
+constexpr float IMU_CALIBRATION_MAX_SPREAD_DPS = 3.0f;
 // Mahony filter gain: higher = pitch/roll follow the accelerometer faster
 // (less drift, more sensitive to shaking).
 constexpr float IMU_FILTER_KP = 1.0f;

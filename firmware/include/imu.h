@@ -5,12 +5,14 @@
 
 #include <stdint.h>
 
+#include "gyro_bias.h"
 #include "orientation_filter.h"
 
 struct Orientation {
     float yawDeg = 0;     // -180..180, positive = turn right (clockwise seen from above)
     float pitchDeg = 0;   // -90..90, positive = nose up
     float rollDeg = 0;    // -180..180, positive = right side down
+    bool still = false;   // diagnostic only (not sent): IMU detected the board at rest
 };
 
 class ImuSource {
@@ -32,8 +34,9 @@ class FakeImu : public ImuSource {
 
 class Qmi8658Imu : public ImuSource {
    public:
-    // Resets and configures the sensor, then measures gyro bias. The board
-    // must be still for ~1 s during begin().
+    // Resets and configures the sensor, then measures gyro bias. Waits up to
+    // a few seconds for the board to be still; the bias keeps being refined
+    // afterwards whenever the board rests (see gyro_bias.h).
     bool begin() override;
     bool read(uint32_t nowMs, Orientation& out) override;
     const char* name() const override { return "QMI8658 + Mahony"; }
@@ -42,9 +45,13 @@ class Qmi8658Imu : public ImuSource {
     // Raw sample converted to body frame: accel in g, gyro in deg/s.
     bool readSample(float accel[3], float gyroDps[3]);
 
+    // Waits for a new sample (up to timeoutMs). Returns false on timeout or I2C error.
+    bool waitSample(float accel[3], float gyroDps[3], uint32_t timeoutMs);
+
     orientation::MahonyFilter filter_;
-    float gyroBiasDps_[3] = {0, 0, 0};
+    orientation::GyroBiasTracker biasTracker_;
     uint32_t lastSampleUs_ = 0;
+    uint32_t lastLogMs_ = 0;
     bool ok_ = false;
     uint32_t errorCount_ = 0;
 };

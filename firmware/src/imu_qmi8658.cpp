@@ -29,9 +29,9 @@ constexpr uint8_t RESET_COMMAND = 0xB0;
 constexpr float ACCEL_LSB_PER_G = 8192.0f;   // +-4 g
 constexpr float GYRO_LSB_PER_DPS = 64.0f;    // +-512 dps
 
-// A still board shows less spread than this on every gyro axis.
-constexpr float CALIBRATION_MAX_SPREAD_DPS = 3.0f;
 constexpr uint32_t MAX_DT_US = 50000;   // ignore longer gaps (e.g. after a stall)
+// The gyro output settles after power-up; samples in this window are discarded.
+constexpr uint32_t GYRO_SETTLE_MS = 300;
 
 }  // namespace
 
@@ -71,47 +71,65 @@ bool Qmi8658Imu::begin() {
         LOG("imu", "QMI8658 configuration write failed");
         return false;
     }
-    delay(50);  // let the gyro settle after power-up
+    // Discard samples while the gyro settles after power-up.
+    float a[3], g[3];
+    for (uint32_t t0 = millis(); millis() - t0 < GYRO_SETTLE_MS;) waitSample(a, g, 20);
 
-    // Gyro bias: average over IMU_CALIBRATION_SAMPLES while still.
-    float sumG[3] = {0, 0, 0}, sumA[3] = {0, 0, 0};
-    float minG[3] = {1e9f, 1e9f, 1e9f}, maxG[3] = {-1e9f, -1e9f, -1e9f};
-    uint16_t n = 0;
-    uint32_t deadline = millis() + 3000;
-    while (n < IMU_CALIBRATION_SAMPLES && (int32_t)(millis() - deadline) < 0) {
-        uint8_t status = 0;
-        if (!i2c_bus::readRegs(QMI8658_I2C_ADDR, REG_STATUS0, &status, 1) || !(status & 0x02)) {
-            delayMicroseconds(500);
-            continue;
+    // Gyro bias: average a window of samples while the board is still. Retry a
+    // few windows if it moved; fall back to the stillest window. Any residual
+    // error is removed later by the bias tracker whenever the board rests.
+    float bestBias[3] = {0, 0, 0}, bestAccel[3] = {0, 0, 1};
+    float bestSpread = 1e9f;
+    for (uint8_t attempt = 0; attempt < IMU_CALIBRATION_ATTEMPTS; attempt++) {
+        float sumG[3] = {0, 0, 0}, sumA[3] = {0, 0, 0};
+        float minG[3] = {1e9f, 1e9f, 1e9f}, maxG[3] = {-1e9f, -1e9f, -1e9f};
+        uint16_t n = 0;
+        for (uint16_t tries = 0; n < IMU_CALIBRATION_SAMPLES && tries < IMU_CALIBRATION_SAMPLES * 2; tries++) {
+            if (!waitSample(a, g, 20)) continue;
+            for (int i = 0; i < 3; i++) {
+                sumA[i] += a[i];
+                sumG[i] += g[i];
+                if (g[i] < minG[i]) minG[i] = g[i];
+                if (g[i] > maxG[i]) maxG[i] = g[i];
+            }
+            n++;
         }
-        float a[3], g[3];
-        if (!readSample(a, g)) continue;
-        for (int i = 0; i < 3; i++) {
-            sumA[i] += a[i];
-            sumG[i] += g[i];
-            if (g[i] < minG[i]) minG[i] = g[i];
-            if (g[i] > maxG[i]) maxG[i] = g[i];
+        if (n < IMU_CALIBRATION_SAMPLES / 2) {
+            LOG("imu", "QMI8658 produced only %u samples during calibration", n);
+            return false;
         }
-        n++;
+        float spread = 0;
+        for (int i = 0; i < 3; i++)
+            if (maxG[i] - minG[i] > spread) spread = maxG[i] - minG[i];
+        if (spread < bestSpread) {
+            bestSpread = spread;
+            for (int i = 0; i < 3; i++) {
+                bestBias[i] = sumG[i] / n;
+                bestAccel[i] = sumA[i] / n;
+            }
+        }
+        LOG("imu", "calibration %u: bias %.2f %.2f %.2f dps (spread %.1f dps)%s", attempt + 1, sumG[0] / n,
+            sumG[1] / n, sumG[2] / n, spread, spread <= IMU_CALIBRATION_MAX_SPREAD_DPS ? "" : ", moving: retrying");
+        if (spread <= IMU_CALIBRATION_MAX_SPREAD_DPS) break;
     }
-    if (n < IMU_CALIBRATION_SAMPLES / 2) {
-        LOG("imu", "QMI8658 produced only %u samples during calibration", n);
-        return false;
+    if (bestSpread > IMU_CALIBRATION_MAX_SPREAD_DPS) {
+        LOG("imu", "WARNING: board never still during calibration; bias will be refined once it rests");
     }
-    float spread = 0;
-    for (int i = 0; i < 3; i++) {
-        gyroBiasDps_[i] = sumG[i] / n;
-        if (maxG[i] - minG[i] > spread) spread = maxG[i] - minG[i];
-    }
-    filter_.initFromAccel(sumA[0] / n, sumA[1] / n, sumA[2] / n);
-    LOG("imu", "gyro bias %.2f %.2f %.2f dps over %u samples (spread %.1f dps)", gyroBiasDps_[0], gyroBiasDps_[1],
-        gyroBiasDps_[2], n, spread);
-    if (spread > CALIBRATION_MAX_SPREAD_DPS) {
-        LOG("imu", "WARNING: board moved during calibration; yaw will drift. Reset it while still.");
-    }
+    biasTracker_.reset(bestBias);
+    filter_.initFromAccel(bestAccel[0], bestAccel[1], bestAccel[2]);
     lastSampleUs_ = micros();
     ok_ = true;
     return true;
+}
+
+bool Qmi8658Imu::waitSample(float accel[3], float gyroDps[3], uint32_t timeoutMs) {
+    for (uint32_t t0 = millis(); millis() - t0 < timeoutMs;) {
+        uint8_t status = 0;
+        if (!i2c_bus::readRegs(QMI8658_I2C_ADDR, REG_STATUS0, &status, 1)) return false;
+        if (status & 0x02) return readSample(accel, gyroDps);
+        delayMicroseconds(500);
+    }
+    return false;
 }
 
 bool Qmi8658Imu::read(uint32_t, Orientation& out) {
@@ -131,12 +149,29 @@ bool Qmi8658Imu::read(uint32_t, Orientation& out) {
     lastSampleUs_ = nowUs;
     if (dtUs > MAX_DT_US) dtUs = MAX_DT_US;
 
-    filter_.update((g[0] - gyroBiasDps_[0]) * orientation::DEG_TO_RAD_F,
-                   (g[1] - gyroBiasDps_[1]) * orientation::DEG_TO_RAD_F,
-                   (g[2] - gyroBiasDps_[2]) * orientation::DEG_TO_RAD_F, a[0], a[1], a[2], dtUs * 1e-6f);
+    const float dt = dtUs * 1e-6f;
+    // At rest: learn the bias and don't integrate the gyro, so yaw can't creep.
+    // The accelerometer still corrects pitch/roll.
+    const bool still = biasTracker_.update(g, a, dt);
+    const float* bias = biasTracker_.bias();
+    float rate[3];
+    for (int i = 0; i < 3; i++) rate[i] = still ? 0.0f : (g[i] - bias[i]) * orientation::DEG_TO_RAD_F;
+    filter_.update(rate[0], rate[1], rate[2], a[0], a[1], a[2], dt);
+
     orientation::Euler e = filter_.euler();
     out.yawDeg = e.yawDeg;
     out.pitchDeg = e.pitchDeg;
     out.rollDeg = e.rollDeg;
+    out.still = still;
+
+#if ECHO_DEBUG
+    const uint32_t nowMs = millis();
+    if (nowMs - lastLogMs_ >= LOG_INPUT_INTERVAL_MS) {
+        lastLogMs_ = nowMs;
+        LOG("imu", "%s bias %.3f %.3f %.3f dps | gyro-bias %.2f %.2f %.2f dps | |a| %.3f g",
+            still ? "STILL " : "moving", bias[0], bias[1], bias[2], g[0] - bias[0], g[1] - bias[1], g[2] - bias[2],
+            sqrtf(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]));
+    }
+#endif
     return true;
 }

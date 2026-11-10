@@ -4,6 +4,7 @@
 #include <map>
 
 #include "debouncer.h"
+#include "gyro_bias.h"
 #include "orientation_filter.h"
 #include "protocol.h"
 
@@ -229,6 +230,93 @@ void test_remap_axes() {
     TEST_ASSERT_EQUAL_FLOAT(3, out[2]);
 }
 
+// ---- Gyro bias tracking ------------------------------------------------------
+// Deterministic pseudo-noise in [-amp, amp].
+static float noise(uint32_t& seed, float amp) {
+    seed = seed * 1664525u + 1013904223u;
+    return ((seed >> 8) / 16777215.0f * 2.0f - 1.0f) * amp;
+}
+
+static const float DT = 1.0f / 224;   // QMI8658 ODR
+
+void test_bias_tracker_learns_bias_when_still() {
+    const float zero[3] = {0, 0, 0};
+    const float trueBias[3] = {0.8f, -0.5f, 1.2f};
+    orientation::GyroBiasTracker t;
+    t.reset(zero);
+    uint32_t seed = 1;
+    for (int i = 0; i < 224 * 8; i++) {   // 8 s at rest, gyro noise 0.3 dps
+        float g[3] = {trueBias[0] + noise(seed, 0.3f), trueBias[1] + noise(seed, 0.3f), trueBias[2] + noise(seed, 0.3f)};
+        float a[3] = {noise(seed, 0.01f), noise(seed, 0.01f), 1 + noise(seed, 0.01f)};
+        t.update(g, a, DT);
+    }
+    TEST_ASSERT_TRUE(t.still());
+    for (int i = 0; i < 3; i++) TEST_ASSERT_FLOAT_WITHIN(0.05f, trueBias[i], t.bias()[i]);
+}
+
+void test_bias_tracker_ignores_motion() {
+    const float bias0[3] = {0.2f, 0.2f, 0.2f};
+    orientation::GyroBiasTracker t;
+    t.reset(bias0);
+    for (int i = 0; i < 224 * 5; i++) {   // waving the controller: +-40 dps at 1.5 Hz
+        float w = 40 * sinf(2 * 3.14159f * 1.5f * i * DT);
+        float g[3] = {w, 0.5f * w, 0.2f};
+        float a[3] = {0.1f * sinf(i * 0.05f), 0, 1};
+        TEST_ASSERT_FALSE(t.update(g, a, DT));
+    }
+    for (int i = 0; i < 3; i++) TEST_ASSERT_EQUAL_FLOAT(bias0[i], t.bias()[i]);
+}
+
+void test_bias_tracker_ignores_slow_steady_turn() {
+    // A steady 15 dps turn is smooth but far from any plausible bias: not "still".
+    const float zero[3] = {0, 0, 0};
+    orientation::GyroBiasTracker t;
+    t.reset(zero);
+    for (int i = 0; i < 224 * 3; i++) {
+        float g[3] = {0, 0, -15};
+        float a[3] = {0, 0, 1};
+        t.update(g, a, DT);
+    }
+    TEST_ASSERT_FALSE(t.still());
+    TEST_ASSERT_EQUAL_FLOAT(0, t.bias()[2]);
+}
+
+void test_bias_tracker_needs_one_g() {
+    // Gyro quiet but accel far from 1 g (e.g. in free fall or being swung): not still.
+    const float zero[3] = {0, 0, 0};
+    orientation::GyroBiasTracker t;
+    t.reset(zero);
+    for (int i = 0; i < 224 * 2; i++) {
+        float g[3] = {0.5f, 0, 0};
+        float a[3] = {0, 0, 1.3f};
+        t.update(g, a, DT);
+    }
+    TEST_ASSERT_FALSE(t.still());
+}
+
+void test_still_board_does_not_drift_in_yaw() {
+    // End to end, as the QMI8658 driver does it: a still board, tilted, whose boot
+    // calibration left a 0.5 dps error on every axis. Without tracking this drifts
+    // ~30 deg/min in yaw; with it, yaw must stay put.
+    const float bootBias[3] = {0, 0, 0};
+    const float trueBias[3] = {0.5f, -0.5f, 0.5f};
+    const float a[3] = {sinf(20 * D2R), 0, cosf(20 * D2R)};   // nose up 20 deg
+    orientation::GyroBiasTracker t;
+    t.reset(bootBias);
+    orientation::MahonyFilter f(1.0f);
+    f.initFromAccel(a[0], a[1], a[2]);
+    uint32_t seed = 7;
+    for (int i = 0; i < 224 * 60; i++) {
+        float g[3] = {trueBias[0] + noise(seed, 0.3f), trueBias[1] + noise(seed, 0.3f), trueBias[2] + noise(seed, 0.3f)};
+        bool still = t.update(g, a, DT);
+        float r[3];
+        for (int k = 0; k < 3; k++) r[k] = still ? 0 : (g[k] - t.bias()[k]) * D2R;
+        f.update(r[0], r[1], r[2], a[0], a[1], a[2], DT);
+    }
+    TEST_ASSERT_FLOAT_WITHIN(0.5f, 0, f.euler().yawDeg);
+    TEST_ASSERT_FLOAT_WITHIN(0.5f, 20, f.euler().pitchDeg);
+}
+
 int main() {
     UNITY_BEGIN();
     RUN_TEST(test_descriptor_matches_report_sizes);
@@ -248,5 +336,10 @@ int main() {
     RUN_TEST(test_orientation_converges_to_accel);
     RUN_TEST(test_orientation_gyro_pitch_matches_accel_sign);
     RUN_TEST(test_remap_axes);
+    RUN_TEST(test_bias_tracker_learns_bias_when_still);
+    RUN_TEST(test_bias_tracker_ignores_motion);
+    RUN_TEST(test_bias_tracker_ignores_slow_steady_turn);
+    RUN_TEST(test_bias_tracker_needs_one_g);
+    RUN_TEST(test_still_board_does_not_drift_in_yaw);
     return UNITY_END();
 }

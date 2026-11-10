@@ -1,0 +1,13 @@
+id,sezione,ramo,tipo,descrizione,riga_copione
+s01_int_01,s01,,interazione,"Il sistema attende la pressione del pulsante dell'indice. In assenza di input, il Maestro ripete l'istruzione con calma; nessun timeout punitivo.",1089
+s01_int_02,s01,,interazione,Due alternative. Entrambe conducono al pianoforte. Il secondo ramo permette di riascoltare e poi scegliere nuovamente. Nessuna scelta è sbagliata.,1169
+s01_int_03,s01,A,interazione,Il gioco attende la conferma; eventualmente ripete la consegna.,1193
+s02_int_01,s02,,interazione,"MODALITÀ SCELTA: il Maestro può indicare vocalmente indice = suono profondo, medio = suono acuto. Questa mappatura è una proposta da validare sul Sasso.",1512
+s02_int_02,s02,,convergenza,Entrambi i rami proseguono dalla Scena 3; la preferenza grave/acuto determina i campioni sonori della prima sfida.,1566
+s03_int_01,s03,,interazione,Il pulsante del pianoforte riproduce un campione del registro scelto prima.,1706
+s03_int_02,s03,,interazione,Seconda pressione.,1720
+s03_int_03,s03,,interazione,"Il bambino ripete il ritmo sul Sasso. Il sistema concede una tolleranza ampia e valuta la struttura, non la precisione assoluta.",1778
+s03_int_04,s03,B,interazione,"Secondo tentativo con accompagnamento ritmico. Se necessario, il sistema semplifica ulteriormente e non blocca definitivamente la progressione.",1870
+s03_int_05,s03,,convergenza,Entrambi i rami proseguono nella Scena 4.,1884
+s05_int_01,s05,,interazione,Il bambino sceglie la prossima tappa. I comandi di selezione e ripetizione dell'ascolto dovranno essere spiegati a voce e verificati nel test del controller.,2224
+s05_int_02,s05,,convergenza,La scelta stabilisce l'ordine delle tappe successive. Entrambe sono valide e nessuna viene persa.,2258

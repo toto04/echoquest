@@ -1,13 +1,18 @@
 id,sezione,ramo,tipo,descrizione,riga_copione
-s01_int_01,s01,,interazione,"Il sistema attende la pressione del pulsante dell'indice. In assenza di input, il Maestro ripete l'istruzione con calma; nessun timeout punitivo.",1101
-s01_int_02,s01,,interazione,Due alternative. Entrambe conducono al pianoforte. Il secondo ramo permette di riascoltare e poi scegliere nuovamente. Nessuna scelta è sbagliata.,1181
-s01_int_03,s01,A,interazione,Il gioco attende la conferma; eventualmente ripete la consegna.,1205
-s02_int_01,s02,,interazione,"MODALITÀ SCELTA: indice → registro grave; medio → registro acuto. Se non arriva una risposta, una breve ripetizione dell'istruzione e dei due esempi. Non c'è risposta sbagliata e non c'è un limite di tempo punitivo. La scelta memorizza `pianoRegister = grave | acuto`.",1628
-s02_int_02,s02,,convergenza,"I due rami proseguono qui. Da questo punto in avanti, le note dimostrative di pianoforte usano il registro scelto dal bambino.",1698
-s03_int_01,s03,,interazione,Il pulsante del pianoforte riproduce un campione del registro scelto prima.,1918
-s03_int_02,s03,,interazione,Seconda pressione.,1932
-s03_int_03,s03,,interazione,"Il bambino ripete il ritmo sul Sasso. Il sistema concede una tolleranza ampia e valuta la struttura, non la precisione assoluta.",1990
-s03_int_04,s03,B,interazione,"Secondo tentativo con accompagnamento ritmico. Se necessario, il sistema semplifica ulteriormente e non blocca definitivamente la progressione.",2082
-s03_int_05,s03,,convergenza,Entrambi i rami proseguono nella Scena 4.,2096
-s05_int_01,s05,,interazione,Il bambino sceglie la prossima tappa. I comandi di selezione e ripetizione dell'ascolto dovranno essere spiegati a voce e verificati nel test del controller.,2436
-s05_int_02,s05,,convergenza,La scelta stabilisce l'ordine delle tappe successive. Entrambe sono valide e nessuna viene persa.,2470
+s01_int_01,s01,,interazione,Prova musicale: attendere una nuova pressione dell’indice.,364
+s01_int_02,s01,,interazione,Ripeti tre battiti regolari con il pulsante della nota sotto l’indice.,404
+s01_int_03,s01,,interazione,Ascolta i due esempi. Alla domanda «Ti sembrano uguali?» rispondi con Sì o No del pollice.,406
+s01_int_04,s01,,interazione,Ripeti il ritmo del Maestro: due colpi vicini e uno dopo la pausa.,434
+s01_int_05,s01,,interazione,Ascolta il pianoforte e premi l’indice nel momento della terza nota mancante.,472
+s01_int_06,s01,,interazione,Il Maestro chiede aiuto. Sì conferma; No apre un’attesa tranquilla.,514
+s01_int_07,s01,,interazione,"Alla domanda se andare al pianoforte: Sì porta al ramo B, No al riascolto A.",558
+s01_int_08,s01,A,interazione,"Dopo il riascolto, Sì va al pianoforte. No aspetta senza ripetere istruzioni.",572
+s02_int_01,s02,,interazione,"MODALITÀ SCELTA: indice → registro grave; medio → registro acuto. Se non arriva una risposta, una breve ripetizione dell'istruzione e dei due esempi. Non c'è risposta sbagliata e non c'è un limite di tempo punitivo. La scelta memorizza `pianoRegister = grave | acuto`.",960
+s02_int_02,s02,,convergenza,"I due rami proseguono qui. Da questo punto in avanti, le note dimostrative di pianoforte usano il registro scelto dal bambino.",1030
+s03_int_01,s03,,interazione,Il pulsante del pianoforte riproduce un campione del registro scelto prima.,1250
+s03_int_02,s03,,interazione,Seconda pressione.,1264
+s03_int_03,s03,,interazione,"Il bambino ripete il ritmo sul Sasso. Il sistema concede una tolleranza ampia e valuta la struttura, non la precisione assoluta.",1322
+s03_int_04,s03,B,interazione,"Secondo tentativo con accompagnamento ritmico. Se necessario, il sistema semplifica ulteriormente e non blocca definitivamente la progressione.",1414
+s03_int_05,s03,,convergenza,Entrambi i rami proseguono nella Scena 4.,1428
+s05_int_01,s05,,interazione,Il bambino sceglie la prossima tappa. I comandi di selezione e ripetizione dell'ascolto dovranno essere spiegati a voce e verificati nel test del controller.,1768
+s05_int_02,s05,,convergenza,La scelta stabilisce l'ordine delle tappe successive. Entrambe sono valide e nessuna viene persa.,1802

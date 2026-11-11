@@ -30,9 +30,10 @@ namespace EchoQuest.Story
         private Vector3 m_From, m_To;
         private float m_MoveSeconds, m_MoveTime;
         private bool m_Moves;
+        private double m_ScheduledStart;
 
         public void Init(StoryPlayer owner, Transform listener, AudioClip clip, StagingEntry staging, string label,
-            Material marker, bool isVoice = false, bool loop = false, float startGain = 1f)
+            Material marker, bool isVoice = false, bool loop = false, float startGain = 1f, double? scheduledStart = null)
         {
             m_Owner = owner;
             m_Listener = listener;
@@ -87,7 +88,9 @@ namespace EchoQuest.Story
             }
 
             m_Owner.Active.Add(this);
-            Source.Play();
+            m_ScheduledStart = scheduledStart ?? AudioSettings.dspTime;
+            if (scheduledStart.HasValue) Source.PlayScheduled(m_ScheduledStart);
+            else Source.Play();
         }
 
         private void Update()
@@ -109,7 +112,7 @@ namespace EchoQuest.Story
             }
             Source.volume = m_Volume * m_Gain * m_Fade;
 
-            if (!Source.isPlaying) Destroy(gameObject);
+            if (!Source.isPlaying && AudioSettings.dspTime >= m_ScheduledStart) Destroy(gameObject);
         }
 
         public void Stop()

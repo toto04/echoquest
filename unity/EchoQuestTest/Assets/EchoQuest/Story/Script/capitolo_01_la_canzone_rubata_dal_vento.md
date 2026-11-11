@@ -51,10 +51,6 @@ Oppure forte e deciso!
 
 *[AUDIO: Un accordo energico di tutti gli strumenti insieme (pianoforte, tamburo, triangolo, flauto), a volume controllato.]*
 
-E quando tanti strumenti suonano insieme, possono creare qualcosa di completamente nuovo.
-
-Proprio come succede nella sala della musica.
-
 Ah, già.
 
 Non ti ho ancora parlato della sala della musica.
@@ -279,57 +275,29 @@ Come si fa a ritrovare una canzone?
 
 **MAESTRO BATTUTA:**
 
-Mmmh...
-
-Vediamo un po'...
-
-Un suono qui...
-
-Un suono là...
-
-Due note che mancano...
-
-Un ritmo completamente scompigliato...
-
-E una bacchetta che continua a cadermi dalle mani!
+Mmmh... Vediamo un po'... Un suono qui... Un suono là... Due note che mancano... Un ritmo completamente scompigliato... E una bacchetta che continua a cadermi dalle mani!
 
 *[AUDIO: Un piccolo oggetto cade sul pavimento. TAC!]*
 
 **MAESTRO BATTUTA:**
 
-Oh, insomma!
-
-Ma oggi proprio niente vuole funzionare?!
+Oh, insomma! Ma oggi proprio niente vuole funzionare?!
 
 *[AUDIO: Il Maestro si china per raccogliere la bacchetta. Un piccolo verso di fatica.]*
 
 **MAESTRO BATTUTA:**
 
-Ecco fatto.
-
-Adesso, se solo riuscissi a capire da dove cominciare...
+Ecco fatto. Adesso, se solo riuscissi a capire da dove cominciare...
 
 *[PAUSA BREVE]*
 
-Ah!
-
-Il pianoforte!
-
-No, aspetta...
-
-Prima il tamburo?
-
-Oppure...
+Ah! Il pianoforte! No, aspetta... Prima il tamburo? Oppure...
 
 *[AUDIO: Tre note di pianoforte tentano di formare una melodia, ma questa si interrompe.]*
 
 **MAESTRO BATTUTA:**
 
-No, no, no!
-
-Non è possibile!
-
-Manca proprio quella nota!
+No, no, no! Non è possibile! Manca proprio quella nota!
 
 *[PAUSA]*
 
@@ -339,21 +307,11 @@ Un momento...
 
 **MAESTRO BATTUTA:**
 
-Ma...
-
-C'è qualcuno?
+Ma... C'è qualcuno?
 
 *[PAUSA BREVE]*
 
-Oh!
-
-E tu?!
-
-Da quanto tempo sei qui?
-
-Non mi dire che hai ascoltato tutto!
-
-Anche la parte in cui cercavo la bacchetta?
+Oh! E tu?! Da quanto tempo sei qui? Non mi dire che hai ascoltato tutto! Anche la parte in cui cercavo la bacchetta?
 
 *[PAUSA]*
 
@@ -363,55 +321,25 @@ Anche la parte della carota?!
 
 **MAESTRO BATTUTA:**
 
-Oh, cielo.
-
-Che figura.
-
-Ti assicuro che normalmente sono una persona molto seria.
-
-Serissima!
-
-Sono talmente serio che...
+Oh, cielo. Che figura. Ti assicuro che normalmente sono una persona molto seria. Serissima! Sono talmente serio che...
 
 *[AUDIO: La bacchetta cade nuovamente a terra.]*
 
 **MAESTRO BATTUTA:**
 
-...
-
-Facciamo che ricominciamo.
+... Facciamo che ricominciamo.
 
 *[AUDIO: Il Maestro raccoglie la bacchetta e si schiarisce la voce, assumendo un tono importante.]*
 
 **MAESTRO BATTUTA:**
 
-Ehm, ehm!
-
-Permettimi di presentarmi come si deve.
-
-Io sono il **Maestro Battuta**!
-
-Direttore di questa orchestra!
-
-Grande appassionato di musica, esperto di strumenti e, a quanto pare, pessimo custode di bacchette.
+Ehm, ehm! Permettimi di presentarmi come si deve. Io sono il Maestro Battuta! Direttore di questa orchestra! Grande appassionato di musica, esperto di strumenti e, a quanto pare, pessimo custode di bacchette.
 
 *[AUDIO: Tre colpetti sul leggio: TAC, TAC... TOC!]*
 
 **MAESTRO BATTUTA:**
 
-Ahhh!
-
-Questo è molto meglio.
-
-Sai, prima di ogni concerto do sempre tre colpetti con la bacchetta.
-
-TAC, TAC... TOC!
-
-È il mio modo per dire ai musicisti: «Eccomi, ascoltatemi! Stiamo per cominciare!»
-
-Quando senti questi tre colpetti, puoi riconoscermi anche prima che io dica una parola.
-
-Proprio così!
+Ahhh! Questo è molto meglio. Sai, prima di ogni concerto do sempre tre colpetti con la bacchetta. È il mio modo per dire ai musicisti: «Eccomi, ascoltatemi! Stiamo per cominciare!» Quando senti questi tre colpetti, puoi riconoscermi anche prima che io dica una parola. Proprio così!
 
 *[AUDIO: TAC, TAC... TOC!]*
 
@@ -419,212 +347,71 @@ Proprio così!
 
 Quello sono io!
 
-*[PAUSA]*
+**MAESTRO BATTUTA:**
 
-Beh, adesso che ci siamo presentati...
+Io ho la mia bacchetta. Tu, invece, hai qualcosa di speciale per fare musica insieme a me.
 
-Immagino che tu ti stia chiedendo che cosa stia succedendo qui.
+**MAESTRO BATTUTA:**
 
-E fai bene!
+Hai tra le mani un oggetto che useremo per fare musica insieme. Si chiama Tocco. È piccolo abbastanza da stare nel palmo della tua mano. Prova a esplorarlo con calma, usando le dita. Scorri sulla sua superficie e cerca i pulsanti.
 
-Perché, a essere sinceri, me lo sto chiedendo anch'io.
+**MAESTRO BATTUTA:**
 
----
+Ce ne sono quattro. Uno per il dito indice. Uno per il medio. Uno per l'anulare. E uno per il mignolo. Quattro dita. Quattro pulsanti. E, quando avremo conosciuto tutti gli strumenti... Quattro strumenti da poter suonare!
+
+*[AUDIO: Quattro piccoli segnali sonori di esempio, ben separati. Non devono ancora rappresentare quattro strumenti da imparare.]*
+
+*[INTERAZIONE: Prova musicale: attendere una nuova pressione dell’indice.]*
+
+**MAESTRO BATTUTA:**
+
+Ci sono anche due pulsanti per il pollice: Sì e No. Con questi puoi rispondere alle mie domande. I quattro pulsanti delle altre dita, invece, ci serviranno per suonare.
+
+**MAESTRO BATTUTA:**
+
+Beh, adesso che ci siamo presentati... Immagino che tu ti stia chiedendo che cosa stia succedendo qui. E fai bene! Perché, a essere sinceri, me lo sto chiedendo anch'io.
 
 *[AUDIO: Il pianoforte prova una breve frase musicale, ma si interrompe.]*
 
 **MAESTRO BATTUTA:**
 
-Hai sentito?
-
-Ecco.
-
-Questo è il nostro problema.
-
-Ma forse è meglio se comincio dall'inizio.
-
-Devi sapere che io dirigo un'orchestra.
-
-Sai che cos'è un'orchestra?
-
-*[PAUSA]*
-
-Beh, te lo spiego lo stesso.
-
-È un gruppo di persone che suonano strumenti musicali diversi.
-
-Alcuni strumenti producono suoni profondi.
-
-*[AUDIO: Un solo colpo morbido di tamburo.]*
+Hai sentito? Ecco. Questo è il nostro problema. Ma forse è meglio se comincio dall'inizio. Devi sapere che io dirigo un'orchestra.
 
 **MAESTRO BATTUTA:**
 
-Come questo!
-
-Altri producono suoni più squillanti.
-
-*[AUDIO: Una piccola campanella suona una volta.]*
-
-**MAESTRO BATTUTA:**
-
-Come quest'altro!
-
-E altri ancora possono produrre tanti suoni diversi.
-
-*[AUDIO: Il pianoforte suona tre note, dalla più grave alla più acuta.]*
-
-**MAESTRO BATTUTA:**
-
-Ma la cosa più interessante sai qual è?
-
-Che questi strumenti possono suonare insieme!
-
-Per fortuna, Sbuffo non ha portato via *ogni* suono. I musicisti riescono ancora a farne qualcuno, e possiamo perfino provare un piccolo ritmo. È la nostra canzone del concerto che adesso non riusciamo più a completare.
-
-Aspetta: ti faccio sentire un esempio semplicissimo.
-
-*[AUDIO: Il tamburo suona lentamente due colpi regolari. Dopo qualche secondo il pianoforte aggiunge due note, poi una campanella tintinna alla fine. Non è la canzone rubata, ma una breve dimostrazione improvvisata. Durata circa 8–10 secondi.]*
-
-**MAESTRO BATTUTA:**
-
-Hai sentito?
-
-All'inizio c'era soltanto il tamburo.
-
-Poi è arrivato il pianoforte.
-
-E infine la campanella.
-
-Ognuno produceva un suono diverso.
-
-Eppure, per qualche istante, hanno suonato insieme!
-
-Questa è una delle cose che amo di più della musica.
-
-Da soli, gli strumenti possono essere bellissimi.
-
-Ma quando imparano ad ascoltarsi e a suonare insieme...
-
-Beh...
-
-Possono creare qualcosa che da soli non riuscirebbero a fare!
-
-**MAESTRO BATTUTA:**
-
-Il mio compito è proprio questo.
-
-Aiutare tutti a suonare insieme.
-
-Io ascolto ogni strumento.
-
-Do un segnale quando deve cominciare.
-
-Un altro quando deve fermarsi.
-
-Faccio capire quando suonare piano.
-
-E quando suonare con più energia!
-
-E per farlo uso la mia fidata bacchetta.
+Io ascolto ogni strumento. Do un segnale quando deve cominciare. Un altro quando deve fermarsi. Faccio capire quando suonare piano. E quando suonare con più energia! E per farlo uso la mia fidata bacchetta.
 
 *[AUDIO: La bacchetta sfiora il leggio.]*
 
 **MAESTRO BATTUTA:**
 
-Ma attenzione!
-
-La bacchetta non produce la musica.
-
-Sono gli strumenti a produrla.
-
-Io li aiuto a seguire la stessa canzone.
-
-E, soprattutto, lo stesso ritmo.
+Ma attenzione! La bacchetta non produce la musica. Sono gli strumenti a produrla. Io li aiuto a seguire la stessa canzone. E, soprattutto, lo stesso ritmo.
 
 *[PAUSA BREVE]*
 
-Oh!
-
-Forse non ti ho ancora spiegato che cos'è un ritmo!
-
+Oh! Forse non ti ho ancora spiegato che cos'è un ritmo!
 
 **MAESTRO BATTUTA:**
 
-Allora.
-
-Facciamo un piccolo esperimento.
-
-Non serve nessuno strumento musicale.
-
-Non serve nemmeno la mia bacchetta!
-
-Ci bastano le mani.
-
-Ascolta.
+Allora. Facciamo un piccolo esperimento. Non serve nessuno strumento musicale. Non serve nemmeno la mia bacchetta! Ci bastano le mani. Ascolta.
 
 *[AUDIO: Tre battiti di mani lenti e regolari.]*
 
 **MAESTRO BATTUTA:**
 
-TA...
+Ho battuto le mani tre volte. E tra un battito e l'altro ho aspettato sempre lo stesso tempo.
 
-TA...
+*[INTERAZIONE: Ripeti tre battiti regolari con il pulsante della nota sotto l’indice.]*
 
-TA...
-
-Hai sentito?
-
-Ho battuto le mani tre volte.
-
-E tra un battito e l'altro ho aspettato sempre lo stesso tempo.
-
-Ora ascolta quest'altro.
-
-*[AUDIO: Due battiti ravvicinati, una pausa e un terzo battito.]*
+*[INTERAZIONE: Ascolta i due esempi. Alla domanda «Ti sembrano uguali?» rispondi con Sì o No del pollice.]*
 
 **MAESTRO BATTUTA:**
 
-TA-TA...
-
-TA!
-
-*[PAUSA]*
-
-Ti sembrano uguali?
-
-Anche questa volta ho battuto le mani tre volte.
-
-Ma ho cambiato il momento in cui arrivano i suoni.
-
-Prima due vicini.
-
-Poi una piccola pausa.
-
-E infine un altro battito.
-
-Questo è uno dei modi con cui possiamo creare un ritmo!
-
-Possiamo mettere i suoni vicini.
-
-Possiamo allontanarli.
-
-Possiamo lasciare delle pause.
-
-E possiamo ripeterli.
-
-È un po' come quando cammini.
-
-Se fai un passo dopo l'altro, lentamente...
+Anche questa volta ho battuto le mani tre volte. Ma ho cambiato il momento in cui arrivano i suoni. Prima due vicini. Poi una piccola pausa. E infine un altro battito. È un po' come quando cammini. Se fai un passo dopo l'altro, lentamente...
 
 *[AUDIO: Tre passi lenti e regolari.]*
 
 **MAESTRO BATTUTA:**
-
-TUM...
-
-TUM...
-
-TUM...
 
 Ma se cominci a correre...
 
@@ -632,47 +419,25 @@ Ma se cominci a correre...
 
 **MAESTRO BATTUTA:**
 
-Tum-tum-tum-tum-tum!
-
-Il tempo tra i passi cambia.
-
-E cambia anche quello che senti.
-
-La musica può fare qualcosa di simile!
+Il tempo tra i passi cambia. E cambia anche quello che senti. La musica può fare qualcosa di simile!
 
 *[PAUSA BREVE]*
 
-Vuoi sentire il ritmo che preferisco?
-
-È semplicissimo.
-
-Ascolta.
+Vuoi sentire il ritmo che preferisco? È semplicissimo. Ascolta.
 
 *[AUDIO: TAC, TAC... TOC!]*
 
 **MAESTRO BATTUTA:**
 
-TAC, TAC... TOC!
+Proprio lui! Il suono della mia bacchetta! Due colpi vicini e un terzo dopo una piccola pausa. Lo uso così spesso che ormai tutti i musicisti mi riconoscono.
 
-Proprio lui!
-
-Il suono della mia bacchetta!
-
-Due colpi vicini e un terzo dopo una piccola pausa.
-
-Lo uso così spesso che ormai tutti i musicisti mi riconoscono.
+*[INTERAZIONE: Ripeti il ritmo del Maestro: due colpi vicini e uno dopo la pausa.]*
 
 *[AUDIO: Il Maestro ripete il proprio ritmo. Subito dopo, una breve frase di pianoforte imita i tre colpi. È una prova spontanea, non la canzone smarrita.]*
 
 **MAESTRO BATTUTA:**
 
-Oh!
-
-Hai sentito?
-
-Il pianoforte ha appena ripetuto il mio ritmo!
-
-Che meraviglia!
+Il pianoforte ha appena ripetuto il mio ritmo! Che meraviglia!
 
 *[PAUSA]*
 
@@ -682,198 +447,51 @@ E pensare che, con tutto quello che è appena successo, riesce ancora a fare qua
 
 **MAESTRO BATTUTA:**
 
-Eheheh!
-
-Va bene, va bene.
-
-Adesso torniamo seri.
-
+Eheheh! Va bene, va bene. Adesso torniamo seri.
 
 *[AUDIO: In lontananza un soffio di vento attraversa la stanza. Una porta scricchiola leggermente.]*
 
 **MAESTRO BATTUTA:**
 
-Ecco...
-
-Hai sentito?
-
-Questo è il rumore che non volevo più sentire.
+Ecco... Questo è il rumore che non volevo più sentire.
 
 *[AUDIO: Il vento soffia ancora per qualche secondo e poi si calma.]*
 
 **MAESTRO BATTUTA:**
 
-Sbuffo.
-
-Quel vento dispettoso.
-
-Sai, normalmente il vento non mi dispiace.
-
-Quando fa caldo, una leggera brezza può essere piacevole.
-
-E quando soffia tra gli alberi, può produrre dei suoni molto interessanti.
-
-Ma Sbuffo...
-
-Oh, Sbuffo è tutta un'altra storia!
-
-Sbuffa quando è contento.
-
-Sbuffa quando è arrabbiato.
-
-Sbuffa quando è annoiato.
-
-E quando qualcuno gli chiede gentilmente di smetterla...
-
-Beh...
-
-Sbuffa ancora più forte!
-
-Una volta ha soffiato talmente tanto da farmi volare via tutti i fogli della musica.
-
-Ci ho messo tre giorni a rimetterli in ordine.
-
-Tre giorni!
-
-E sapessi quante volte ho dovuto ricominciare da capo!
+Sbuffo. Quel vento dispettoso. Sai, normalmente il vento non mi dispiace. Quando fa caldo, una leggera brezza può essere piacevole. E quando soffia tra gli alberi, può produrre dei suoni molto interessanti. Ma Sbuffo... Oh, Sbuffo è tutta un'altra storia! Sbuffa quando è contento. Sbuffa quando è arrabbiato. Sbuffa quando è annoiato. E quando qualcuno gli chiede gentilmente di smetterla... Beh... Sbuffa ancora più forte! Una volta ha soffiato talmente tanto da farmi volare via tutti i fogli della musica. Ci ho messo tre giorni a rimetterli in ordine. Tre giorni! E sapessi quante volte ho dovuto ricominciare da capo!
 
 *[AUDIO: Il Maestro sospira.]*
 
 **MAESTRO BATTUTA:**
 
-Ma quello era successo tempo fa.
+Ascolta. Mi ricordo benissimo com'era quella piccola frase prima che arrivasse il vento. Erano tre note, una dopo l'altra.
 
-Oggi ha combinato qualcosa di molto peggio.
+*[AUDIO: Un breve ricordo sonoro della musica udita nel prologo: tre note complete, con un leggero effetto di memoria. Non è un'esecuzione dal vivo del pianoforte nel presente.]*
 
-Anzi, è successo proprio adesso, pochi istanti fa!
-
-Hai ascoltato la musica all'inizio?
-
-Quando tutti gli strumenti stavano suonando insieme?
-
-Era una canzone che stavamo preparando da tanto tempo.
-
-Ogni musicista aveva imparato la propria parte.
-
-Sapevamo quali note suonare.
-
-Quando suonarle.
-
-Quando aspettare.
-
-E quando lasciare spazio agli altri strumenti.
-
-Era tutto pronto.
-
-Poi è arrivato Sbuffo.
-
-*[AUDIO: Un soffio breve richiama quello del prologo, senza far credere che Sbuffo sia di nuovo nella stanza.]*
+*[INTERAZIONE: Ascolta il pianoforte e premi l’indice nel momento della terza nota mancante.]*
 
 **MAESTRO BATTUTA:**
 
-Ha cominciato a soffiare dappertutto.
-
-Ha fatto volare i fogli.
-
-Ha interrotto i musicisti.
-
-E, non so proprio come, si è portato via alcuni pezzi della nostra canzone!
-
-*[AUDIO: Il pianoforte suona due note, seguite da un silenzio dove dovrebbe arrivare la terza.]*
+Il pianoforte è ancora qui. I suoi tasti funzionano. E riesce ancora a suonare tante note. Ma quel pezzo della nostra canzone non riesce più a completarlo. È un po' come quando qualcuno comincia a dirti una frase... «C'era una volta un piccolo...»
 
 **MAESTRO BATTUTA:**
 
-Ascolta.
-
-Mi ricordo benissimo com'era quella piccola frase prima che arrivasse il vento.
-
-Erano tre note, una dopo l'altra.
-
-*[AUDIO: Un breve *ricordo sonoro* della musica udita nel prologo: tre note complete, con un leggero effetto di memoria. Non è un'esecuzione dal vivo del pianoforte nel presente.]*
-
-**MAESTRO BATTUTA:**
-
-E adesso, quando il pianoforte prova a suonare la stessa parte della nostra canzone, senti cosa succede.
-
-*[AUDIO: Il pianoforte dal vivo esegue solo le prime due note della frase; la terza manca.]*
-
-**MAESTRO BATTUTA:**
-
-Hai sentito?
-
-Manca l'ultimo suono!
-
-Il pianoforte è ancora qui.
-
-I suoi tasti funzionano.
-
-E riesce ancora a suonare tante note.
-
-Ma quel pezzo della nostra canzone non riesce più a completarlo.
-
-È un po' come quando qualcuno comincia a dirti una frase...
-
-«C'era una volta un piccolo...»
-
-*[PAUSA LUNGA]*
-
-**MAESTRO BATTUTA:**
-
-Un piccolo cosa?!
-
-Un gatto?
-
-Un cane?
-
-Un panino?!
-
-Non lo sappiamo!
-
-La frase si è interrotta!
-
-Ecco, con la musica può succedere qualcosa di simile.
-
-Se manca un pezzo, manca una parte di ciò che volevamo ascoltare.
+Un piccolo cosa?! Un gatto? Un cane? Un panino?! Non lo sappiamo! La frase si è interrotta! Ecco, con la musica può succedere qualcosa di simile. Se manca un pezzo, manca una parte di ciò che volevamo ascoltare.
 
 *[AUDIO: Il pianoforte riprova la sequenza incompleta.]*
 
 **MAESTRO BATTUTA:**
 
-Oh, povero pianoforte.
-
-Ci sta provando ancora.
-
-Ma quel pezzo non torna.
+Oh, povero pianoforte. Ci sta provando ancora. Ma quel pezzo non torna.
 
 *[PAUSA]*
 
-E sai qual è la cosa peggiore?
-
-Sbuffo non ha portato via soltanto un pezzo della parte del pianoforte.
-
-Ha sparpagliato tanti pezzi della nostra canzone!
-
-A uno strumento manca una frase.
-
-A un altro manca il ritmo che doveva suonare.
-
-E un altro non riesce più a ritrovare il momento in cui entrare nella canzone.
-
-Gli strumenti possono ancora far sentire i loro suoni, come hai ascoltato poco fa.
-
-Ma la canzone che stavamo suonando tutti insieme è rimasta incompleta.
-
-E se non facciamo qualcosa...
-
-Il concerto non potrà ricominciare!
+E sai qual è la cosa peggiore? Sbuffo non ha portato via soltanto un pezzo della parte del pianoforte. Ha sparpagliato tanti pezzi della nostra canzone! A uno strumento manca una frase. A un altro manca il ritmo che doveva suonare. E un altro non riesce più a ritrovare il momento in cui entrare nella canzone. E se non facciamo qualcosa... Il concerto non potrà ricominciare!
 
 *[PAUSA BREVE]*
 
 È successo così in fretta che non ho nemmeno capito dove siano finiti quei pezzi.
-
-Un momento prima stavo dirigendo l'orchestra.
-
-Un momento dopo Sbuffo è fuggito via e tutti si sono fermati!
 
 *[AUDIO: Il Maestro fa due passi veloci verso la porta e si arresta.]*
 
@@ -885,93 +503,25 @@ Potrei mettermi a correre dietro a lui...
 
 **MAESTRO BATTUTA:**
 
-...o forse sarebbe meglio di no.
-
-E soprattutto...
-
-Non posso ascoltare tutti gli strumenti nello stesso momento.
+...o forse sarebbe meglio di no. E soprattutto... Non posso ascoltare tutti gli strumenti nello stesso momento.
 
 *[PAUSA]*
 
-Avrei proprio bisogno di qualcuno che mi aiuti a cominciare.
-
-Qualcuno che abbia voglia di ascoltare.
-
-Di scoprire nuovi suoni.
-
-Di provare anche quando qualcosa sembra difficile.
+Avrei proprio bisogno di qualcuno che mi aiuti a cominciare. Qualcuno che abbia voglia di ascoltare. Di scoprire nuovi suoni. Di provare anche quando qualcosa sembra difficile.
 
 *[AUDIO: Il pianoforte suona due note morbide e incoraggianti.]*
 
-**MAESTRO BATTUTA:**
-
-Ehi...
-
-Aspetta un momento.
-
-Forse...
-
-Forse ho appena trovato la persona giusta!
-
-*[PAUSA BREVE]*
-
-Tu!
-
-Sì, proprio tu!
-
-Che ne dici?
-
-Ti andrebbe di aiutarmi a recuperare la nostra musica?
+*[INTERAZIONE: Il Maestro chiede aiuto. Sì conferma; No apre un’attesa tranquilla.]*
 
 **MAESTRO BATTUTA:**
 
-Aspetta, aspetta!
-
-Prima che tu risponda...
-
-Devo spiegarti una cosa importante.
-
-Non devi essere un musicista per aiutarmi.
-
-Non devi conoscere già il pianoforte.
-
-Non devi sapere leggere le note.
-
-E non devi aver mai suonato uno strumento in vita tua.
-
-Potremo scoprire tutto insieme.
-
-Io ti racconterò come sono fatti gli strumenti.
-
-Ti farò ascoltare i loro suoni.
-
-Ti spiegherò come funzionano.
-
-E quando avrai imparato a riconoscerli, potrai provare a suonarli anche tu!
+Potremo scoprire tutto insieme. Io ti racconterò come sono fatti gli strumenti. Ti farò ascoltare i loro suoni. Ti spiegherò come funzionano. E quando avrai imparato a riconoscerli, potrai provare a suonarli anche tu!
 
 *[AUDIO: Due note allegre di pianoforte.]*
 
 **MAESTRO BATTUTA:**
 
-Il nostro viaggio funzionerà così.
-
-Incontreremo uno strumento alla volta.
-
-Lo ascolteremo.
-
-Scopriremo che cosa lo rende speciale.
-
-E poi cercheremo di aiutarlo a ritrovare la parte della canzone che Sbuffo gli ha portato via.
-
-A volte dovremo riconoscere un suono.
-
-Altre volte dovremo ricordare un ritmo.
-
-E qualche volta dovremo provare a suonare insieme.
-
-Ogni volta che aiuteremo uno strumento, recupereremo un nuovo pezzo della nostra canzone.
-
-E piano piano...
+Il nostro viaggio funzionerà così. Incontreremo uno strumento alla volta. Lo ascolteremo. Scopriremo che cosa lo rende speciale. E poi cercheremo di aiutarlo a ritrovare la parte della canzone che Sbuffo gli ha portato via. A volte dovremo riconoscere un suono. Altre volte dovremo ricordare un ritmo. E qualche volta dovremo provare a suonare insieme. Ogni volta che aiuteremo uno strumento, recupereremo un nuovo pezzo della nostra canzone. E piano piano...
 
 *[AUDIO: Una nota di pianoforte.]*
 
@@ -991,233 +541,41 @@ La nostra orchestra potrà tornare a suonare la sua canzone!
 
 **MAESTRO BATTUTA:**
 
-E chissà.
-
-Magari, durante il viaggio, scopriremo anche perché Sbuffo ha deciso di rubare tutta quella musica.
-
-Perché, a pensarci bene...
-
-Non capisco proprio perché abbia voluto farlo.
+E chissà. Magari, durante il viaggio, scopriremo anche perché Sbuffo ha deciso di rubare tutta quella musica. Perché, a pensarci bene... Non capisco proprio perché abbia voluto farlo.
 
 *[PAUSA]*
 
-Ma questo lo scopriremo più avanti.
-
-Per adesso...
-
-Abbiamo una canzone da recuperare!
-
+Ma questo lo scopriremo più avanti. Per adesso... Abbiamo una canzone da recuperare!
 
 *[AUDIO: Una breve sequenza di tre note dolci introduce il momento.]*
-
-**MAESTRO BATTUTA:**
-
-Oh, cielo!
-
-Quasi dimenticavo!
-
-Come facciamo a suonare insieme, se tu non hai uno strumento?
-
-Non posso mica chiederti di portarti dietro un pianoforte!
-
-Sarebbe un tantino scomodo.
-
-*[AUDIO: Il Maestro prova a spingere qualcosa di pesante per un istante, poi si ferma.]*
-
-**MAESTRO BATTUTA:**
-
-Ecco.
-
-Decisamente scomodo.
-
-Ma per fortuna...
-
-Abbiamo qualcosa di molto più piccolo!
-
-*[PAUSA]*
-
-Hai tra le mani un oggetto che useremo per fare musica insieme.
-
-Si chiama **Tocco**.
-
-È piccolo abbastanza da stare nel palmo della tua mano.
-
-Prova a esplorarlo con calma, usando le dita.
-
-Scorri sulla sua superficie e cerca i pulsanti.
-
-*[PAUSA PER L'ESPLORAZIONE TATTILE — tempo flessibile, senza sollecitare subito una risposta.]*
-
-**MAESTRO BATTUTA:**
-
-Ce ne sono quattro.
-
-Uno per il dito indice.
-
-Uno per il medio.
-
-Uno per l'anulare.
-
-E uno per il mignolo.
-
-Quattro dita.
-
-Quattro pulsanti.
-
-E, quando avremo conosciuto tutti gli strumenti...
-
-Quattro strumenti da poter suonare!
-
-*[AUDIO: Quattro piccoli segnali sonori di esempio, ben separati. Non devono ancora rappresentare quattro strumenti da imparare.]*
-
-**MAESTRO BATTUTA:**
-
-Ma non preoccuparti!
-
-Non dobbiamo imparare a usarli tutti subito.
-
-Cominceremo con uno solo.
-
-E io sarò qui ad aiutarti.
-
-Tocco ci permetterà di partecipare alla musica.
-
-Quando ci sarà da scegliere tra due possibilità, ti dirò quale pulsante usare.
-
-E quando arriverà il momento di suonare, i pulsanti faranno sentire i suoni degli strumenti che avremo conosciuto.
-
-Ma prima...
-
-Proviamo a capire come funziona.
-
-*[PAUSA]*
-
-Metti il dito indice sul primo pulsante.
-
-Prenditi tutto il tempo che ti serve.
-
-Quando sei pronto, premilo una volta.
-
-*[INTERAZIONE: Il sistema attende la pressione del pulsante dell'indice. In assenza di input, il Maestro ripete l'istruzione con calma; nessun timeout punitivo.]*
-
-*[AUDIO: Breve segnale di conferma, morbido e riconoscibile.]*
-
-**MAESTRO BATTUTA:**
-
-Oh!
-
-Hai sentito?!
-
-Quel suono ci dice che hai premuto il pulsante!
-
-Magnifico!
-
-Adesso sappiamo come usare il nostro Tocco per risponderci.
-
-*[PAUSA]*
-
-E sai una cosa?
-
-Credo che ti piacerà moltissimo quello che faremo con questo piccolo oggetto.
-
-Perché tra poco non sentirai soltanto un suono di conferma.
-
-Potrai far suonare un pianoforte!
-
-E poi altri strumenti!
-
-E quando ne conosceremo abbastanza, potrai provare a farli suonare insieme.
 
 *[AUDIO: Una piccola melodia di pianoforte risuona in lontananza, ma si arresta prima dell'ultima nota della canzone.]*
 
 **MAESTRO BATTUTA:**
 
-Oh!
+Credo proprio che qualcuno abbia ascoltato la nostra conversazione. Il pianoforte! Ci sta chiamando! Ma prima di andare... C'è ancora una piccola cosa che devo chiederti.
 
-Hai sentito?
+*[INTERAZIONE: Alla domanda se andare al pianoforte: Sì porta al ramo B, No al riascolto A.]*
 
-Credo proprio che qualcuno abbia ascoltato la nostra conversazione.
-
-Il pianoforte!
-
-Ci sta chiamando!
-
-Ma prima di andare...
-
-C'è ancora una piccola cosa che devo chiederti.
-
----
+### Ramo A — Riascoltare la canzone
 
 **MAESTRO BATTUTA:**
 
-Allora, giovane musicista.
-
-Abbiamo una missione.
-
-Abbiamo un'orchestra da aiutare.
-
-Abbiamo un vento molto, molto fastidioso da inseguire.
-
-E adesso abbiamo anche Tocco!
-
-Direi che siamo quasi pronti.
-
-Ma voglio lasciare a te la decisione.
-
-Vuoi andare subito a conoscere il pianoforte?
-
-Oppure preferisci ascoltare ancora una volta il pezzo di canzone che Sbuffo ha interrotto?
-
-Puoi scegliere tu.
-
-Se vuoi incontrare subito il pianoforte, premi il pulsante sotto il tuo **indice**.
-
-Se invece vuoi ascoltare ancora la canzone, premi quello sotto il **medio**.
-
-Non avere fretta.
-
-Io sono qui.
-
-*[INTERAZIONE: Due alternative. Entrambe conducono al pianoforte. Il secondo ramo permette di riascoltare e poi scegliere nuovamente. Nessuna scelta è sbagliata.]*
-
-### Se il bambino sceglie di ascoltare nuovamente la canzone
-
-**MAESTRO BATTUTA:**
-
-Ottima idea!
-
-A volte, prima di provare a sistemare qualcosa, è utile ascoltare bene cosa manca.
-
-Ascoltiamo insieme.
+Ottima idea! A volte, prima di provare a sistemare qualcosa, è utile ascoltare bene cosa manca.
 
 *[AUDIO: Si sente prima un breve ricordo della frase musicale completa, chiaramente distinto dal presente; poi la frase eseguita ora dal pianoforte, senza l'ultima nota. Pausa fra le due versioni.]*
 
 **MAESTRO BATTUTA:**
 
-Hai sentito?
+Nella seconda versione manca proprio l'ultima nota. Ora sappiamo che cosa dobbiamo cercare.
 
-Nella seconda versione manca proprio l'ultima nota.
+*[INTERAZIONE: Dopo il riascolto, Sì va al pianoforte. No aspetta senza ripetere istruzioni.]*
 
-Ora sappiamo che cosa dobbiamo cercare.
-
-Quando vuoi andare a conoscere il pianoforte, premi il pulsante sotto il tuo indice.
-
-*[INTERAZIONE: Il gioco attende la conferma; eventualmente ripete la consegna.]*
-
-### Se il bambino sceglie di andare al pianoforte
+### Ramo B — Andare al pianoforte
 
 **MAESTRO BATTUTA:**
 
-Oh, che entusiasmo!
-
-Mi piace!
-
-Allora andiamo subito!
-
-Il pianoforte ci aspetta.
-
-E credo proprio che abbia tantissime cose interessanti da raccontarci!
-
+Oh, che entusiasmo! Mi piace! Allora andiamo subito! Il pianoforte ci aspetta. E credo proprio che abbia tantissime cose interessanti da raccontarci!
 
 *[AUDIO: Il Maestro comincia a camminare. I passi si muovono nella sala. Ogni tanto si sentono piccoli rumori di strumenti che provano singoli suoni, ma nessuno esegue il brano del concerto.]*
 
@@ -1225,53 +583,27 @@ E credo proprio che abbia tantissime cose interessanti da raccontarci!
 
 **MAESTRO BATTUTA:**
 
-Eccolo!
-
-Hai sentito?
-
-È proprio qui, vicino a noi.
+Eccolo! È proprio qui, vicino a noi.
 
 *[PAUSA]*
 
-Sai, il pianoforte è uno strumento davvero interessante.
-
-Può produrre suoni profondi...
-
-Suoni acuti...
-
-Suoni delicati...
-
-E suoni molto energici!
-
-Ma non voglio raccontarti tutto subito.
-
-Altrimenti che gusto ci sarebbe a scoprirlo insieme?
+Sai, il pianoforte è uno strumento davvero interessante. Ma non voglio raccontarti tutto subito. Altrimenti che gusto ci sarebbe a scoprirlo insieme?
 
 *[AUDIO: Il pianoforte suona una singola nota grave che risuona lentamente.]*
 
 **MAESTRO BATTUTA:**
 
-Oh!
-
-Hai sentito questo suono?
-
-È il pianoforte che ci saluta.
-
-Mi sa che è contento di avere qualcuno che lo ascolti.
+Oh! È il pianoforte che ci saluta. Mi sa che è contento di avere qualcuno che lo ascolti.
 
 *[PAUSA]*
 
-Bene, giovane musicista.
-
-Pronto a conoscere il nostro primo strumento?
+Bene, giovane musicista. Pronto a conoscere il nostro primo strumento?
 
 *[AUDIO: TAC, TAC... TOC!]*
 
 **MAESTRO BATTUTA:**
 
-Allora...
-
-Che la musica abbia inizio!
+Allora... Che la musica abbia inizio!
 
 *[AUDIO: Alcune note morbide di pianoforte introducono la scena successiva. La frase rimane diversa da quella incompleta rubata da Sbuffo.]*
 

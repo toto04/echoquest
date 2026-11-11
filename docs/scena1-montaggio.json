@@ -1,0 +1,872 @@
+{
+  "source_backup": "/tmp/echoquest-before-interactive-montage/Story",
+  "ids": {
+    "s01_sfx_01": "s01_sfx_01",
+    "s01_maes_01": "s01_maes_01",
+    "s01_sfx_02": "s01_sfx_02",
+    "s01_maes_02": "s01_maes_02",
+    "s01_sfx_03": "s01_sfx_03",
+    "s01_maes_03": "s01_maes_03",
+    "s01_sfx_04": "s01_sfx_04",
+    "s01_maes_04": "s01_maes_04",
+    "s01_sfx_05": "s01_sfx_05",
+    "s01_maes_05": "s01_maes_05",
+    "s01_sfx_06": "s01_sfx_06",
+    "s01_maes_06": "s01_maes_06",
+    "s01_sfx_07": "s01_sfx_07",
+    "s01_maes_07": "s01_maes_07",
+    "s01_sfx_08": "s01_sfx_08",
+    "s01_maes_08": "s01_maes_08",
+    "s01_sfx_09": "s01_sfx_09",
+    "s01_maes_09": "s01_maes_09",
+    "s01_sfx_10": "s01_sfx_10",
+    "s01_maes_10": "s01_maes_10",
+    "s01_maes_37": "s01_maes_12",
+    "s01_maes_38": "s01_maes_13",
+    "s01_sfx_37": "s01_sfx_11",
+    "s01_sfx_11": "s01_sfx_12",
+    "s01_maes_11": "s01_maes_16",
+    "s01_maes_12": "s01_maes_17",
+    "s01_sfx_12": "s01_sfx_13",
+    "s01_maes_13": "s01_maes_18",
+    "s01_maes_14": "s01_maes_19",
+    "s01_sfx_13": "s01_sfx_14",
+    "s01_maes_15": "s01_maes_20",
+    "s01_maes_16": "s01_maes_21",
+    "s01_sfx_15": "s01_sfx_15",
+    "s01_maes_17": "s01_maes_22",
+    "s01_sfx_16": "s01_sfx_16",
+    "s01_maes_18": "s01_maes_23",
+    "s01_sfx_17": "s01_sfx_17",
+    "s01_maes_19": "s01_maes_24",
+    "s01_sfx_18": "s01_sfx_18",
+    "s01_maes_20": "s01_maes_25",
+    "s01_sfx_19": "s01_sfx_19",
+    "s01_maes_21": "s01_maes_26",
+    "s01_sfx_20": "s01_sfx_20",
+    "s01_maes_22": "s01_maes_27",
+    "s01_sfx_21": "s01_sfx_21",
+    "s01_maes_23": "s01_maes_28",
+    "s01_sfx_22": "s01_sfx_22",
+    "s01_maes_24": "s01_maes_29",
+    "s01_sfx_24": "s01_sfx_23",
+    "s01_maes_26": "s01_maes_30",
+    "s01_maes_27": "s01_maes_31",
+    "s01_sfx_26": "s01_sfx_24",
+    "s01_maes_28": "s01_maes_32",
+    "s01_sfx_27": "s01_sfx_25",
+    "s01_maes_29": "s01_maes_33",
+    "s01_sfx_28": "s01_sfx_26",
+    "s01_maes_30": "s01_maes_34",
+    "s01_sfx_29": "s01_sfx_27",
+    "s01_maes_32": "s01_maes_35",
+    "s01_sfx_30": "s01_sfx_28",
+    "s01_maes_33": "s01_maes_36",
+    "s01_sfx_31": "s01_sfx_29",
+    "s01_sfx_32": "s01_sfx_30",
+    "s01_sfx_33": "s01_sfx_31",
+    "s01_maes_34": "s01_maes_37",
+    "s01_sfx_34": "s01_sfx_32",
+    "s01_maes_35": "s01_maes_38",
+    "s01_sfx_35": "s01_sfx_33",
+    "s01_sfx_39": "s01_sfx_34",
+    "s01_maes_41": "s01_maes_39",
+    "s01_maes_43": "s01_maes_40",
+    "s01_sfx_40": "s01_sfx_35",
+    "s01_maes_44": "s01_maes_41",
+    "s01_maes_45": "s01_maes_42",
+    "s01_sfx_41": "s01_sfx_36",
+    "s01_sfx_42": "s01_sfx_37",
+    "s01_maes_46": "s01_maes_43",
+    "s01_sfx_43": "s01_sfx_38",
+    "s01_maes_47": "s01_maes_44",
+    "s01_sfx_44": "s01_sfx_39",
+    "s01_maes_48": "s01_maes_45",
+    "s01_sfx_45": "s01_sfx_40"
+  },
+  "steps": [
+    {
+      "kind": "sound",
+      "old": "s01_sfx_01",
+      "key": "s01_sfx_01",
+      "text": "Nella sala della musica si sentono alcuni passi veloci. Qualcuno cammina avanti e indietro, fermandosi ogni tanto per borbottare qualcosa. In lontananza il pianoforte prova una breve sequenza di note, ma si interrompe prima di terminarla. Il soffio di Sbuffo, ormai lontano, svanisce.",
+      "new_id": "s01_sfx_01"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_01",
+      "key": "s01_maes_01",
+      "text": "Mmmh... Vediamo un po'... Un suono qui... Un suono là... Due note che mancano... Un ritmo completamente scompigliato... E una bacchetta che continua a cadermi dalle mani!",
+      "new_id": "s01_maes_01"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_02",
+      "key": "s01_sfx_02",
+      "text": "Un piccolo oggetto cade sul pavimento. TAC!",
+      "new_id": "s01_sfx_02"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_02",
+      "key": "s01_maes_02",
+      "text": "Oh, insomma! Ma oggi proprio niente vuole funzionare?!",
+      "new_id": "s01_maes_02"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_03",
+      "key": "s01_sfx_03",
+      "text": "Il Maestro si china per raccogliere la bacchetta. Un piccolo verso di fatica.",
+      "new_id": "s01_sfx_03"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_03",
+      "key": "s01_maes_03",
+      "text": "Ecco fatto. Adesso, se solo riuscissi a capire da dove cominciare... [PAUSA BREVE] Ah! Il pianoforte! No, aspetta... Prima il tamburo? Oppure...",
+      "new_id": "s01_maes_03"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_04",
+      "key": "s01_sfx_04",
+      "text": "Tre note di pianoforte tentano di formare una melodia, ma questa si interrompe.",
+      "new_id": "s01_sfx_04"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_04",
+      "key": "s01_maes_04",
+      "text": "No, no, no! Non è possibile! Manca proprio quella nota! [PAUSA] Un momento...",
+      "new_id": "s01_maes_04"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_05",
+      "key": "s01_sfx_05",
+      "text": "I passi del Maestro si fermano.",
+      "new_id": "s01_sfx_05"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_05",
+      "key": "s01_maes_05",
+      "text": "Ma... C'è qualcuno? [PAUSA BREVE] Oh! E tu?! Da quanto tempo sei qui? Non mi dire che hai ascoltato tutto! Anche la parte in cui cercavo la bacchetta? [PAUSA] Anche la parte della carota?!",
+      "new_id": "s01_maes_05"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_06",
+      "key": "s01_sfx_06",
+      "text": "Due note buffe di pianoforte.",
+      "new_id": "s01_sfx_06"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_06",
+      "key": "s01_maes_06",
+      "text": "Oh, cielo. Che figura. Ti assicuro che normalmente sono una persona molto seria. Serissima! Sono talmente serio che...",
+      "new_id": "s01_maes_06"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_07",
+      "key": "s01_sfx_07",
+      "text": "La bacchetta cade nuovamente a terra.",
+      "new_id": "s01_sfx_07"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_07",
+      "key": "s01_maes_07",
+      "text": "... Facciamo che ricominciamo.",
+      "new_id": "s01_maes_07"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_08",
+      "key": "s01_sfx_08",
+      "text": "Il Maestro raccoglie la bacchetta e si schiarisce la voce, assumendo un tono importante.",
+      "new_id": "s01_sfx_08"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_08",
+      "key": "s01_maes_08",
+      "text": "Ehm, ehm! Permettimi di presentarmi come si deve. Io sono il Maestro Battuta! Direttore di questa orchestra! Grande appassionato di musica, esperto di strumenti e, a quanto pare, pessimo custode di bacchette.",
+      "new_id": "s01_maes_08"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_09",
+      "key": "s01_sfx_09",
+      "text": "Tre colpetti sul leggio: TAC, TAC... TOC!",
+      "new_id": "s01_sfx_09"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_09",
+      "key": "s01_maes_09",
+      "text": "Ahhh! Questo è molto meglio. Sai, prima di ogni concerto do sempre tre colpetti con la bacchetta. È il mio modo per dire ai musicisti: «Eccomi, ascoltatemi! Stiamo per cominciare!» Quando senti questi tre colpetti, puoi riconoscermi anche prima che io dica una parola. Proprio così!",
+      "new_id": "s01_maes_09"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_10",
+      "key": "s01_sfx_10",
+      "text": "TAC, TAC... TOC!",
+      "new_id": "s01_sfx_10"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_10",
+      "key": "s01_maes_10",
+      "text": "Quello sono io!",
+      "new_id": "s01_maes_10"
+    },
+    {
+      "kind": "voice",
+      "old": null,
+      "key": "bridge",
+      "text": "Io ho la mia bacchetta. Tu, invece, hai qualcosa di speciale per fare musica insieme a me.",
+      "new_id": "s01_maes_11"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_37",
+      "key": "s01_maes_37",
+      "text": "Hai tra le mani un oggetto che useremo per fare musica insieme. Si chiama Tocco. È piccolo abbastanza da stare nel palmo della tua mano. Prova a esplorarlo con calma, usando le dita. Scorri sulla sua superficie e cerca i pulsanti.",
+      "new_id": "s01_maes_12"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_38",
+      "key": "s01_maes_38",
+      "text": "Ce ne sono quattro. Uno per il dito indice. Uno per il medio. Uno per l'anulare. E uno per il mignolo. Quattro dita. Quattro pulsanti. E, quando avremo conosciuto tutti gli strumenti... Quattro strumenti da poter suonare!",
+      "new_id": "s01_maes_13"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_37",
+      "key": "s01_sfx_37",
+      "text": "Quattro piccoli segnali sonori di esempio, ben separati. Non devono ancora rappresentare quattro strumenti da imparare.",
+      "new_id": "s01_sfx_11"
+    },
+    {
+      "kind": "interaction",
+      "old": null,
+      "key": "tocco",
+      "text": "Prova musicale: attendere una nuova pressione dell’indice.",
+      "config": {
+        "modalita": "conferma",
+        "consegna": "eq_s01_tocco_prova",
+        "pulsante": "indice",
+        "successo": "eq_s01_tocco_riuscito",
+        "suono_pulsante": "x_s01_pulsante"
+      },
+      "new_id": "s01_int_01"
+    },
+    {
+      "kind": "voice",
+      "old": null,
+      "key": "thumb_tutorial",
+      "text": "Ci sono anche due pulsanti per il pollice: Sì e No. Con questi puoi rispondere alle mie domande. I quattro pulsanti delle altre dita, invece, ci serviranno per suonare.",
+      "new_id": "s01_maes_14"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_10",
+      "key": "return_story",
+      "text": "Beh, adesso che ci siamo presentati... Immagino che tu ti stia chiedendo che cosa stia succedendo qui. E fai bene! Perché, a essere sinceri, me lo sto chiedendo anch'io.",
+      "new_id": "s01_maes_15"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_11",
+      "key": "s01_sfx_11",
+      "text": "Il pianoforte prova una breve frase musicale, ma si interrompe.",
+      "new_id": "s01_sfx_12"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_11",
+      "key": "s01_maes_11",
+      "text": "Hai sentito? Ecco. Questo è il nostro problema. Ma forse è meglio se comincio dall'inizio. Devi sapere che io dirigo un'orchestra.",
+      "new_id": "s01_maes_16"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_12",
+      "key": "s01_maes_12",
+      "text": "Io ascolto ogni strumento. Do un segnale quando deve cominciare. Un altro quando deve fermarsi. Faccio capire quando suonare piano. E quando suonare con più energia! E per farlo uso la mia fidata bacchetta.",
+      "new_id": "s01_maes_17"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_12",
+      "key": "s01_sfx_12",
+      "text": "La bacchetta sfiora il leggio.",
+      "new_id": "s01_sfx_13"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_13",
+      "key": "s01_maes_13",
+      "text": "Ma attenzione! La bacchetta non produce la musica. Sono gli strumenti a produrla. Io li aiuto a seguire la stessa canzone. E, soprattutto, lo stesso ritmo. [PAUSA BREVE] Oh! Forse non ti ho ancora spiegato che cos'è un ritmo!",
+      "new_id": "s01_maes_18"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_14",
+      "key": "s01_maes_14",
+      "text": "Allora. Facciamo un piccolo esperimento. Non serve nessuno strumento musicale. Non serve nemmeno la mia bacchetta! Ci bastano le mani. Ascolta.",
+      "new_id": "s01_maes_19"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_13",
+      "key": "s01_sfx_13",
+      "text": "Tre battiti di mani lenti e regolari.",
+      "new_id": "s01_sfx_14"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_15",
+      "key": "s01_maes_15",
+      "text": "Ho battuto le mani tre volte. E tra un battito e l'altro ho aspettato sempre lo stesso tempo.",
+      "new_id": "s01_maes_20"
+    },
+    {
+      "kind": "interaction",
+      "old": null,
+      "key": "regular",
+      "text": "Ripeti tre battiti regolari con il pulsante della nota sotto l’indice.",
+      "config": {
+        "modalita": "ritmo",
+        "consegna": "eq_s01_extra_02_ritmo_regolare",
+        "successo": "eq_s01_extra_03_primo_ritmo",
+        "riprova": "eq_s01_extra_04_riprova",
+        "esempi": "x_s01_regolare",
+        "tempi": "0;1;2",
+        "suono_pulsante": "x_s01_pulsante"
+      },
+      "new_id": "s01_int_02"
+    },
+    {
+      "kind": "interaction",
+      "old": null,
+      "key": "compare",
+      "text": "Ascolta i due esempi. Alla domanda «Ti sembrano uguali?» rispondi con Sì o No del pollice.",
+      "config": {
+        "modalita": "confronto",
+        "consegna": "eq_s01_domanda_ritmi",
+        "successo": "eq_s01_extra_06_ritmi_diversi",
+        "riprova": "eq_s01_extra_04_riprova",
+        "esempi": "x_s01_regolare;x_s01_confronto"
+      },
+      "new_id": "s01_int_03"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_16",
+      "key": "s01_maes_16",
+      "text": "Anche questa volta ho battuto le mani tre volte. Ma ho cambiato il momento in cui arrivano i suoni. Prima due vicini. Poi una piccola pausa. E infine un altro battito. È un po' come quando cammini. Se fai un passo dopo l'altro, lentamente...",
+      "new_id": "s01_maes_21"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_15",
+      "key": "s01_sfx_15",
+      "text": "Tre passi lenti e regolari.",
+      "new_id": "s01_sfx_15"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_17",
+      "key": "s01_maes_17",
+      "text": "Ma se cominci a correre...",
+      "new_id": "s01_maes_22"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_16",
+      "key": "s01_sfx_16",
+      "text": "Una breve sequenza di passi più veloci.",
+      "new_id": "s01_sfx_16"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_18",
+      "key": "s01_maes_18",
+      "text": "Il tempo tra i passi cambia. E cambia anche quello che senti. La musica può fare qualcosa di simile! [PAUSA BREVE] Vuoi sentire il ritmo che preferisco? È semplicissimo. Ascolta.",
+      "new_id": "s01_maes_23"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_17",
+      "key": "s01_sfx_17",
+      "text": "TAC, TAC... TOC!",
+      "new_id": "s01_sfx_17"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_19",
+      "key": "s01_maes_19",
+      "text": "Proprio lui! Il suono della mia bacchetta! Due colpi vicini e un terzo dopo una piccola pausa. Lo uso così spesso che ormai tutti i musicisti mi riconoscono.",
+      "new_id": "s01_maes_24"
+    },
+    {
+      "kind": "interaction",
+      "old": null,
+      "key": "maestro",
+      "text": "Ripeti il ritmo del Maestro: due colpi vicini e uno dopo la pausa.",
+      "config": {
+        "modalita": "ritmo",
+        "consegna": "eq_s01_extra_07_ritmo_maestro",
+        "riprova": "eq_s01_extra_04_riprova",
+        "esempi": "x_s01_maestro",
+        "tempi": "0;0.32;0.95",
+        "suono_pulsante": "x_s01_pulsante"
+      },
+      "new_id": "s01_int_04"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_18",
+      "key": "s01_sfx_18",
+      "text": "Il Maestro ripete il proprio ritmo. Subito dopo, una breve frase di pianoforte imita i tre colpi. È una prova spontanea, non la canzone smarrita.",
+      "new_id": "s01_sfx_18"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_20",
+      "key": "s01_maes_20",
+      "text": "Il pianoforte ha appena ripetuto il mio ritmo! Che meraviglia! [PAUSA] E pensare che, con tutto quello che è appena successo, riesce ancora a fare qualche piccolo scherzo.",
+      "new_id": "s01_maes_25"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_19",
+      "key": "s01_sfx_19",
+      "text": "Il pianoforte suona due note allegre.",
+      "new_id": "s01_sfx_19"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_21",
+      "key": "s01_maes_21",
+      "text": "Eheheh! Va bene, va bene. Adesso torniamo seri.",
+      "new_id": "s01_maes_26"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_20",
+      "key": "s01_sfx_20",
+      "text": "In lontananza un soffio di vento attraversa la stanza. Una porta scricchiola leggermente.",
+      "new_id": "s01_sfx_20"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_22",
+      "key": "s01_maes_22",
+      "text": "Ecco... Questo è il rumore che non volevo più sentire.",
+      "new_id": "s01_maes_27"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_21",
+      "key": "s01_sfx_21",
+      "text": "Il vento soffia ancora per qualche secondo e poi si calma.",
+      "new_id": "s01_sfx_21"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_23",
+      "key": "s01_maes_23",
+      "text": "Sbuffo. Quel vento dispettoso. Sai, normalmente il vento non mi dispiace. Quando fa caldo, una leggera brezza può essere piacevole. E quando soffia tra gli alberi, può produrre dei suoni molto interessanti. Ma Sbuffo... Oh, Sbuffo è tutta un'altra storia! Sbuffa quando è contento. Sbuffa quando è arrabbiato. Sbuffa quando è annoiato. E quando qualcuno gli chiede gentilmente di smetterla... Beh... Sbuffa ancora più forte! Una volta ha soffiato talmente tanto da farmi volare via tutti i fogli della musica. Ci ho messo tre giorni a rimetterli in ordine. Tre giorni! E sapessi quante volte ho dovuto ricominciare da capo!",
+      "new_id": "s01_maes_28"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_22",
+      "key": "s01_sfx_22",
+      "text": "Il Maestro sospira.",
+      "new_id": "s01_sfx_22"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_24",
+      "key": "s01_maes_24",
+      "text": "Ascolta. Mi ricordo benissimo com'era quella piccola frase prima che arrivasse il vento. Erano tre note, una dopo l'altra.",
+      "new_id": "s01_maes_29"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_24",
+      "key": "s01_sfx_24",
+      "text": "Un breve ricordo sonoro della musica udita nel prologo: tre note complete, con un leggero effetto di memoria. Non è un'esecuzione dal vivo del pianoforte nel presente.",
+      "new_id": "s01_sfx_23"
+    },
+    {
+      "kind": "interaction",
+      "old": null,
+      "key": "missing",
+      "text": "Ascolta il pianoforte e premi l’indice nel momento della terza nota mancante.",
+      "config": {
+        "modalita": "nota",
+        "consegna": "eq_s01_extra_08_nota_mancante",
+        "successo": "eq_s01_extra_09_nota_trovata",
+        "riprova": "eq_s01_extra_04_riprova",
+        "esempi": "x_s01_nota_mancante",
+        "tempi": "0;1.2;1.5"
+      },
+      "new_id": "s01_int_05"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_26",
+      "key": "s01_maes_26",
+      "text": "Il pianoforte è ancora qui. I suoi tasti funzionano. E riesce ancora a suonare tante note. Ma quel pezzo della nostra canzone non riesce più a completarlo. È un po' come quando qualcuno comincia a dirti una frase... «C'era una volta un piccolo...»",
+      "new_id": "s01_maes_30"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_27",
+      "key": "s01_maes_27",
+      "text": "Un piccolo cosa?! Un gatto? Un cane? Un panino?! Non lo sappiamo! La frase si è interrotta! Ecco, con la musica può succedere qualcosa di simile. Se manca un pezzo, manca una parte di ciò che volevamo ascoltare.",
+      "new_id": "s01_maes_31"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_26",
+      "key": "s01_sfx_26",
+      "text": "Il pianoforte riprova la sequenza incompleta.",
+      "new_id": "s01_sfx_24"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_28",
+      "key": "s01_maes_28",
+      "text": "Oh, povero pianoforte. Ci sta provando ancora. Ma quel pezzo non torna. [PAUSA] E sai qual è la cosa peggiore? Sbuffo non ha portato via soltanto un pezzo della parte del pianoforte. Ha sparpagliato tanti pezzi della nostra canzone! A uno strumento manca una frase. A un altro manca il ritmo che doveva suonare. E un altro non riesce più a ritrovare il momento in cui entrare nella canzone. E se non facciamo qualcosa... Il concerto non potrà ricominciare! [PAUSA BREVE] È successo così in fretta che non ho nemmeno capito dove siano finiti quei pezzi.",
+      "new_id": "s01_maes_32"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_27",
+      "key": "s01_sfx_27",
+      "text": "Il Maestro fa due passi veloci verso la porta e si arresta.",
+      "new_id": "s01_sfx_25"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_29",
+      "key": "s01_maes_29",
+      "text": "Potrei mettermi a correre dietro a lui...",
+      "new_id": "s01_maes_33"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_28",
+      "key": "s01_sfx_28",
+      "text": "Parte di corsa, inciampa leggermente dopo due passi e si ferma.",
+      "new_id": "s01_sfx_26"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_30",
+      "key": "s01_maes_30",
+      "text": "...o forse sarebbe meglio di no. E soprattutto... Non posso ascoltare tutti gli strumenti nello stesso momento. [PAUSA] Avrei proprio bisogno di qualcuno che mi aiuti a cominciare. Qualcuno che abbia voglia di ascoltare. Di scoprire nuovi suoni. Di provare anche quando qualcosa sembra difficile.",
+      "new_id": "s01_maes_34"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_29",
+      "key": "s01_sfx_29",
+      "text": "Il pianoforte suona due note morbide e incoraggianti.",
+      "new_id": "s01_sfx_27"
+    },
+    {
+      "kind": "interaction",
+      "old": null,
+      "key": "help",
+      "text": "Il Maestro chiede aiuto. Sì conferma; No apre un’attesa tranquilla.",
+      "config": {
+        "modalita": "conferma",
+        "consegna": "eq_s01_domanda_aiuto",
+        "successo": "eq_s01_extra_11_grazie",
+        "attesa_no": "eq_s01_extra_14_attesa"
+      },
+      "new_id": "s01_int_06"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_32",
+      "key": "s01_maes_32",
+      "text": "Potremo scoprire tutto insieme. Io ti racconterò come sono fatti gli strumenti. Ti farò ascoltare i loro suoni. Ti spiegherò come funzionano. E quando avrai imparato a riconoscerli, potrai provare a suonarli anche tu!",
+      "new_id": "s01_maes_35"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_30",
+      "key": "s01_sfx_30",
+      "text": "Due note allegre di pianoforte.",
+      "new_id": "s01_sfx_28"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_33",
+      "key": "s01_maes_33",
+      "text": "Il nostro viaggio funzionerà così. Incontreremo uno strumento alla volta. Lo ascolteremo. Scopriremo che cosa lo rende speciale. E poi cercheremo di aiutarlo a ritrovare la parte della canzone che Sbuffo gli ha portato via. A volte dovremo riconoscere un suono. Altre volte dovremo ricordare un ritmo. E qualche volta dovremo provare a suonare insieme. Ogni volta che aiuteremo uno strumento, recupereremo un nuovo pezzo della nostra canzone. E piano piano... [s01_sfx_31] Un suono alla volta... [s01_sfx_32] Un ritmo alla volta...",
+      "new_id": "s01_maes_36"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_33",
+      "key": "s01_sfx_33",
+      "text": "Un tamburo accompagna delicatamente le due note in un esempio nuovo, non nella melodia del concerto.",
+      "new_id": "s01_sfx_31"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_34",
+      "key": "s01_maes_34",
+      "text": "La nostra orchestra potrà tornare a suonare la sua canzone!",
+      "new_id": "s01_maes_37"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_34",
+      "key": "s01_sfx_34",
+      "text": "I suoni si fermano, lasciando un breve silenzio.",
+      "new_id": "s01_sfx_32"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_35",
+      "key": "s01_maes_35",
+      "text": "E chissà. Magari, durante il viaggio, scopriremo anche perché Sbuffo ha deciso di rubare tutta quella musica. Perché, a pensarci bene... Non capisco proprio perché abbia voluto farlo. [PAUSA] Ma questo lo scopriremo più avanti. Per adesso... Abbiamo una canzone da recuperare!",
+      "new_id": "s01_maes_38"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_35",
+      "key": "s01_sfx_35",
+      "text": "Una breve sequenza di tre note dolci introduce il momento.",
+      "new_id": "s01_sfx_33"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_39",
+      "key": "s01_sfx_39",
+      "text": "Una piccola melodia di pianoforte risuona in lontananza, ma si arresta prima dell'ultima nota della canzone.",
+      "new_id": "s01_sfx_34"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_41",
+      "key": "s01_maes_41",
+      "text": "Credo proprio che qualcuno abbia ascoltato la nostra conversazione. Il pianoforte! Ci sta chiamando! Ma prima di andare... C'è ancora una piccola cosa che devo chiederti.",
+      "new_id": "s01_maes_39"
+    },
+    {
+      "kind": "interaction",
+      "old": null,
+      "key": "final_choice",
+      "text": "Alla domanda se andare al pianoforte: Sì porta al ramo B, No al riascolto A.",
+      "config": {
+        "modalita": "scelta",
+        "consegna": "eq_s01_extra_13_scelta_finale",
+        "scelte": "5=B;6=A"
+      },
+      "new_id": "s01_int_07"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_43",
+      "key": "s01_maes_43",
+      "text": "Ottima idea! A volte, prima di provare a sistemare qualcosa, è utile ascoltare bene cosa manca.",
+      "new_id": "s01_maes_40"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_40",
+      "key": "s01_sfx_40",
+      "text": "Si sente prima un breve ricordo della frase musicale completa, chiaramente distinto dal presente; poi la frase eseguita ora dal pianoforte, senza l'ultima nota. Pausa fra le due versioni.",
+      "new_id": "s01_sfx_35"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_44",
+      "key": "s01_maes_44",
+      "text": "Nella seconda versione manca proprio l'ultima nota. Ora sappiamo che cosa dobbiamo cercare.",
+      "new_id": "s01_maes_41"
+    },
+    {
+      "kind": "interaction",
+      "old": null,
+      "key": "after_replay",
+      "text": "Dopo il riascolto, Sì va al pianoforte. No aspetta senza ripetere istruzioni.",
+      "config": {
+        "modalita": "conferma",
+        "consegna": "eq_s01_extra_13_scelta_finale",
+        "attesa_no": "eq_s01_extra_14_attesa",
+        "scelte": "5=B"
+      },
+      "new_id": "s01_int_08"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_45",
+      "key": "s01_maes_45",
+      "text": "Oh, che entusiasmo! Mi piace! Allora andiamo subito! Il pianoforte ci aspetta. E credo proprio che abbia tantissime cose interessanti da raccontarci!",
+      "new_id": "s01_maes_42"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_41",
+      "key": "s01_sfx_41",
+      "text": "Il Maestro comincia a camminare. I passi si muovono nella sala. Ogni tanto si sentono piccoli rumori di strumenti che provano singoli suoni, ma nessuno esegue il brano del concerto.",
+      "new_id": "s01_sfx_36"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_42",
+      "key": "s01_sfx_42",
+      "text": "Il pianoforte prova ancora una volta a suonare la propria parte della canzone: due note, poi silenzio.",
+      "new_id": "s01_sfx_37"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_46",
+      "key": "s01_maes_46",
+      "text": "Eccolo! È proprio qui, vicino a noi. [PAUSA] Sai, il pianoforte è uno strumento davvero interessante. Ma non voglio raccontarti tutto subito. Altrimenti che gusto ci sarebbe a scoprirlo insieme?",
+      "new_id": "s01_maes_43"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_43",
+      "key": "s01_sfx_43",
+      "text": "Il pianoforte suona una singola nota grave che risuona lentamente.",
+      "new_id": "s01_sfx_38"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_47",
+      "key": "s01_maes_47",
+      "text": "Oh! È il pianoforte che ci saluta. Mi sa che è contento di avere qualcuno che lo ascolti. [PAUSA] Bene, giovane musicista. Pronto a conoscere il nostro primo strumento?",
+      "new_id": "s01_maes_44"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_44",
+      "key": "s01_sfx_44",
+      "text": "TAC, TAC... TOC!",
+      "new_id": "s01_sfx_39"
+    },
+    {
+      "kind": "voice",
+      "old": "s01_maes_48",
+      "key": "s01_maes_48",
+      "text": "Allora... Che la musica abbia inizio!",
+      "new_id": "s01_maes_45"
+    },
+    {
+      "kind": "sound",
+      "old": "s01_sfx_45",
+      "key": "s01_sfx_45",
+      "text": "Alcune note morbide di pianoforte introducono la scena successiva. La frase rimane diversa da quella incompleta rubata da Sbuffo.",
+      "new_id": "s01_sfx_40"
+    }
+  ],
+  "cuts_seconds": {
+    "10": [
+      [
+        1.125,
+        null
+      ]
+    ],
+    "37": [
+      [
+        6.005,
+        null
+      ]
+    ],
+    "15": [
+      [
+        0.84,
+        6.6
+      ]
+    ],
+    "16": [
+      [
+        1.15,
+        12.065
+      ],
+      [
+        22.17,
+        null
+      ]
+    ],
+    "20": [
+      [
+        1.825,
+        null
+      ]
+    ],
+    "26": [
+      [
+        1.405,
+        null
+      ]
+    ],
+    "32": [
+      [
+        14.24,
+        null
+      ]
+    ],
+    "44": [
+      [
+        0,
+        5.94
+      ]
+    ]
+  },
+  "boundary_seconds": {
+    "10": [
+      1.125
+    ],
+    "15": [
+      0.84,
+      6.6
+    ],
+    "16": [
+      1.15,
+      12.065,
+      22.17
+    ],
+    "20": [
+      1.825
+    ],
+    "26": [
+      1.405
+    ],
+    "32": [
+      14.24
+    ],
+    "37": [
+      6.005
+    ],
+    "39": [
+      19.88
+    ],
+    "40": [
+      4.34
+    ],
+    "44": [
+      5.94
+    ]
+  },
+  "decline_end_seconds": 4.944988662131519
+}

@@ -61,7 +61,7 @@ namespace EchoQuest.Story
             GUILayout.Label($"Suoni attivi: {voices}   ·   ramo scelto: {player.BranchChoice}", m_Small);
             if (recorder != null && recorder.IsRecording) GUILayout.Label("<color=#ff6666>● Registrazione in corso (F9 per fermare)</color>", m_Small);
             else if (recorder != null && !string.IsNullOrEmpty(recorder.LastFile)) GUILayout.Label("Ultima registrazione: " + recorder.LastFile, m_Small);
-            GUILayout.Label("Spazio pausa · R ripeti · N salta · Backspace da capo · ← → gira la testa · Home guarda avanti · 1–4 scelta · F9 registra", m_Small);
+            GUILayout.Label("1–4 note · Y Sì / N No nelle domande · N salta durante il parlato · Spazio pausa/conferma · R ripeti · Backspace da capo · ← → gira la testa · F9 registra", m_Small);
             GUILayout.EndVertical();
             GUILayout.EndArea();
         }

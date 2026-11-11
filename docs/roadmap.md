@@ -1,6 +1,6 @@
 # Roadmap and status
 
-Last updated: 2026-11-04.
+Last updated: 2026-11-11.
 
 ## Where we are
 
@@ -69,6 +69,25 @@ the first vibration patterns (pattern IDs 1+). Keep the disconnect failsafe.
 
 Once the game design questions in [vision.md](vision.md#open-questions) are
 answered: a first playable audio-only prototype.
+
+### Scene 1 participation (implemented 2026-11-11; listening check pending)
+
+The user approved the five Scene 1 changes: teach Tocco earlier, repeat two
+rhythms, answer the rhythm comparison, press at the missing note, and answer
+the Maestro's request for help. The optional Intro interaction is outside this scope.
+The player now supports confirmation, rhythm comparison, rhythm reproduction
+and a scheduled missing-note exercise. These are wired into the 93-item Scene 1; Yes/No use the thumb controls, separate from notes.
+
+- [x] Inspect the current sequence and identify reusable recordings.
+- [x] Prepare the implementation plan and 11 new lines, all with Antonio Farina.
+- [x] Import the [received lines](audio-da-completare-scena1.md) and shorten repeated button instructions.
+- [x] Separate note keys 1–4 from Yes/No (Y/N); leave physical thumb mapping unassigned until hardware testing.
+- [x] Implement interaction timing, retries and input handling, with pure-rule and Play-mode checks.
+- [x] Edit script/audio, regenerate CSVs/scenes and complete both final branches in Play tests.
+- [ ] Verify the complete flow in headphones with the controller.
+
+See [scena1-interattiva.md](scena1-interattiva.md) for behavior, audio texts,
+implementation decisions and acceptance checks. The current story has 93 items and has passed both route checks. Full listening and physical controller checks remain.
 
 ### Later
 

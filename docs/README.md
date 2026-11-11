@@ -9,6 +9,7 @@ Start here if you are new to the project, human or AI.
 | [roadmap.md](roadmap.md) | Where the project is now, what's been verified, and what comes next |
 | [unity-test-scene.md](unity-test-scene.md) | The next milestone: a small Unity scene to try the controller end to end, and how it will be built |
 | [development-workflow.md](development-workflow.md) | How we work: AI-assisted development with Claude Code, PlatformIO and the Unity CLI, and the rules for changes |
+| [music/](music/README.md) | Music composition guidelines for battles: the fixed four-note palette, writing calls and backing loops, the battle cue sheet, the snippet format and checks for AI agents, a worked example, and open questions |
 
 Reference material that lives elsewhere in the repo:
 

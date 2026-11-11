@@ -8,6 +8,7 @@ Start here if you are new to the project, human or AI.
 | [architecture.md](architecture.md) | How the pieces fit together: controller hardware, firmware, BLE HID protocol, host tools, Unity. Includes the design decisions and why we made them |
 | [roadmap.md](roadmap.md) | Where the project is now, what's been verified, and what comes next |
 | [unity-test-scene.md](unity-test-scene.md) | The next milestone: a small Unity scene to try the controller end to end, and how it will be built |
+| [scena1-interattiva.md](scena1-interattiva.md) | Five approved Scene 1 changes, reuse of existing recordings, new voice lines and gameplay verification |
 | [development-workflow.md](development-workflow.md) | How we work: AI-assisted development with Claude Code, PlatformIO and the Unity CLI, and the rules for changes |
 
 Reference material that lives elsewhere in the repo:

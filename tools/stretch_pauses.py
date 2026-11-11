@@ -3,14 +3,17 @@
 
 TTS voices (ElevenLabs) often read a paragraph a little too fast for young listeners.
 This finds the silent gaps inside each recording and makes the longer ones (sentence ends)
-even longer, by repeating a slice of the gap itself, so the background noise stays the same.
+even longer, by adding silence at the quietest point of each gap.
 
 The untouched recordings are kept in --originals-dir (moved there the first time), and the
 processed copies are always rebuilt from them, so running the script again is safe and
 changing --extra simply redoes everything.
 
-Questions: with --question-extra (and --whisper-model) the gap after every "?" gets that much
-extra silence instead, so a listener has time to think about the question.
+Questions: with --question-extra (and --whisper-model) the pause after every "?" gets that much
+extra silence instead, so a listener has time to think about the question. Only a real pause
+(--question-min-pause) is lengthened: when the voice runs straight on, nothing is inserted, because
+the quietest spot near a word boundary is often the closure before a consonant ("p", "t") and
+silence put there splits the word.
 
 Usage (from the repo root):
     V=unity/EchoQuestTest/Assets/EchoQuest/Story/Audio/Voice
@@ -23,6 +26,8 @@ from __future__ import annotations
 
 import argparse
 import array
+import csv
+import fnmatch
 import math
 import re
 import shutil
@@ -46,6 +51,23 @@ def decode(path: Path) -> tuple[array.array, int]:
     if sys.byteorder != "little":
         samples.byteswap()
     return samples, rate
+
+
+def lines_with_inner_question(sequence: Path) -> set[str]:
+    """Ids of voice lines with a "?" followed by more words (only these need whisper)."""
+    ids = set()
+    for row in csv.DictReader(open(sequence, encoding="utf-8")):
+        text = re.sub(r"\[[^\]]*\]", " ", row.get("testo", ""))
+        if re.search(r"\?[^?]*[A-Za-zÀ-ÿ]", text):
+            ids.add(row["id"])
+    return ids
+
+
+def line_ids(stem: str) -> list[str]:
+    """p00_narr_02_03_p1_a -> [p00_narr_02, p00_narr_03]"""
+    m = re.match(r"^([a-z]\d\d_[a-z]+_)(\d\d)(?:_(\d\d))?", stem)
+    first, last = int(m.group(2)), int(m.group(3) or m.group(2))
+    return [f"{m.group(1)}{n:02d}" for n in range(first, last + 1)]
 
 
 def find_pauses(x: array.array, rate: int, threshold_db: float, min_pause: float) -> list[tuple[int, int]]:
@@ -85,41 +107,34 @@ def question_ends(path: Path, model: str) -> list[float]:
     return ends
 
 
-def quietest(x: array.array, rate: int, a: float, b: float) -> int:
-    """Sample index of the quietest 20 ms between a and b seconds."""
-    lo, hi = max(0, int(a * rate)), min(len(x), int(b * rate))
-    win, hop = max(1, rate // 50), max(1, rate // 200)
-    if hi - lo <= win:
-        return (lo + hi) // 2
-    best = min(range(lo, hi - win, hop), key=lambda i: sum(abs(v) for v in x[i:i + win]))
+def quietest(x: array.array, a: int, b: int, win: int) -> int:
+    """Sample index at the centre of the quietest `win` samples between a and b."""
+    if b - a <= win:
+        return (a + b) // 2
+    hop = max(1, win // 4)
+    best = min(range(a, b - win, hop), key=lambda i: sum(abs(v) for v in x[i:i + win]))
     return best + win // 2
 
 
 def stretch(x: array.array, rate: int, pauses: list[tuple[int, int, float]]) -> array.array:
-    """pauses: (start, end, seconds to add), start/end in samples."""
+    """pauses: (start, end, seconds to add), start/end in samples.
+
+    The extra time is plain silence put at the quietest point of each pause, with short fades.
+    (Repeating a slice of the pause instead would also repeat any breath or word tail in it,
+    which sounds like the speaker puffing several times.)"""
     out = array.array("h")
     pos = 0
+    fade = max(1, rate // 100)  # 10 ms
     for a, b, extra in pauses:
-        add = int(extra * rate)
-        mid = (a + b) // 2
-        out.extend(x[pos:mid])
-        if b - a < rate // 20:
-            # No real gap (the voice ran on): insert plain silence, with tiny fades so it doesn't click.
-            fade = min(len(out), rate // 200)
-            for k in range(fade):
-                out[-1 - k] = int(out[-1 - k] * k / fade)
-            out.extend(array.array("h", [0]) * add)
-            tail = x[mid:mid + fade]
-            out.extend(array.array("h", (int(v * k / max(1, fade)) for k, v in enumerate(tail))))
-            pos = mid + len(tail)
-            continue
-        # Repeat a slice of the pause itself (centred), as many times as needed.
-        half = max(1, (b - a) // 4)
-        fill = x[mid - half:mid + half] or array.array("h", [0])
-        while add > 0 and len(fill) < add:
-            fill = fill + fill
-        out.extend(fill[:add])
-        pos = mid
+        p = max(pos + fade, quietest(x, a, b, max(1, rate // 50)))
+        seg = x[pos:p]
+        for k in range(min(fade, len(seg))):
+            seg[-1 - k] = int(seg[-1 - k] * k / fade)
+        out.extend(seg)
+        out.extend(array.array("h", [0]) * int(extra * rate))
+        tail = x[p:p + fade]
+        out.extend(array.array("h", (int(v * k / fade) for k, v in enumerate(tail))))
+        pos = p + len(tail)
     out.extend(x[pos:])
     return out
 
@@ -145,12 +160,19 @@ def main() -> None:
     p.add_argument("--threshold-db", type=float, default=-38.0, help="level below which audio counts as silence")
     p.add_argument("--question-extra", type=float, default=0.0,
                    help="seconds added after a question inside a line (needs whisper-cli and --whisper-model)")
+    p.add_argument("--question-min-pause", type=float, default=0.15,
+                   help="a pause after a question must be at least this long (s) to be lengthened")
     p.add_argument("--whisper-model", help="path to a whisper.cpp ggml model, for --question-extra")
+    p.add_argument("--sequence", type=Path,
+                   help="the sequenza CSV: whisper then runs only on lines with a question before their end")
+    p.add_argument("--only", action="append", default=[],
+                   help="only rebuild files whose name matches this pattern (e.g. 's01_maes_1*'); repeatable")
     args = p.parse_args()
     if args.question_extra > 0 and not args.whisper_model:
         p.error("--question-extra needs --whisper-model")
 
     chars = {c.strip() for c in args.chars.split(",") if c.strip()}
+    inner_q = lines_with_inner_question(args.sequence) if args.sequence else None
     args.originals_dir.mkdir(parents=True, exist_ok=True)
 
     # 1. Move new recordings of these characters into the originals folder.
@@ -171,24 +193,22 @@ def main() -> None:
         m = VOICE_RE.match(orig.stem)
         if not (orig.is_file() and orig.suffix.lower() in AUDIO_EXTS and m and m.group(1) in chars):
             continue
+        if args.only and not any(fnmatch.fnmatch(orig.stem, pat) for pat in args.only):
+            continue
         x, rate = decode(orig)
         plan = [(a, b, args.extra) for a, b in find_pauses(x, rate, args.threshold_db, args.min_pause)]
         questions = 0
-        if args.question_extra > 0:
-            # Any gap (even a short one) right after a question gets the longer pause.
-            gaps = find_pauses(x, rate, args.threshold_db, 0.08)
+        if args.question_extra > 0 and (inner_q is None or any(i in inner_q for i in line_ids(orig.stem))):
+            # A real pause right after a question gets the longer pause.
+            gaps = find_pauses(x, rate, args.threshold_db, args.question_min_pause)
             for qs, qe in question_ends(orig, args.whisper_model):
                 # whisper often stretches the last word's end into the pause: look from the
                 # second half of the word to a little after it.
                 lo_t = qs + 0.5 * (qe - qs)
                 near = [g for g in gaps if lo_t <= g[0] / rate <= qe + 0.6]
-                if near:
-                    g = min(near, key=lambda g: g[0])
-                else:
-                    if qe >= len(x) / rate - 0.3:
-                        continue  # the question ends the file: the player pauses after it
-                    p0 = quietest(x, rate, qe - 0.4, qe + 0.3)
-                    g = (p0, p0)
+                if not near:
+                    continue  # no pause (or the question ends the file: the player pauses after it)
+                g = min(near, key=lambda g: g[0])
                 plan = [p for p in plan if (p[0], p[1]) != g] + [(g[0], g[1], max(args.extra, args.question_extra))]
                 questions += 1
             plan.sort()

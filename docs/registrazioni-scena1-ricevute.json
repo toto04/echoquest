@@ -1,0 +1,186 @@
+[
+  {
+    "file": "eq_s01_extra_01_tocco.wav",
+    "source": "ElevenLabs_2026-11-11T10_35_58_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "c8c0d2611888240025f0bf6efd27f05cedb755649698c17a0003e4d0802ca586",
+    "duration_seconds": 6.4,
+    "status": "ricevuto",
+    "transcript": "Io ho la mia bacchetta. Tu invece hai qualcosa di speciale per fare musica insieme a me.",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-11T10_35_58_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "file": "eq_s01_extra_02_ritmo_regolare.wav",
+    "source": "ElevenLabs_2026-11-11T10_36_37_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "cb78767b2463d3eb082cfca0857d1a69921913701e8ca3ba7832c7f28da0c4d7",
+    "duration_seconds": 8.08,
+    "status": "ricevuto",
+    "transcript": "Adesso prova tu! Premi il pulsante sotto il dito indice tre volte, seguendo lo stesso ritmo. Prima ascolta, poi prova.",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-11T10_36_37_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4(1).mp3",
+      "ElevenLabs_2026-11-11T10_36_37_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "file": "eq_s01_extra_03_primo_ritmo.wav",
+    "source": "ElevenLabs_2026-11-11T10_37_00_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "ebe005a87c211c89d127f9d03358090377adab2b52ac04381b81bff869c42801",
+    "duration_seconds": 3.36,
+    "status": "ricevuto",
+    "transcript": "Vam fatto! Hai appena suonato il tuo primo ritmo!",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-11T10_37_00_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "file": "eq_s01_extra_04_riprova.wav",
+    "source": "ElevenLabs_2026-11-11T10_37_38_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "1adaccaf8202ed68e597e271d18ae29b1e2c9501808f54f37a0dbced6ef96e87",
+    "duration_seconds": 3.68,
+    "status": "ricevuto",
+    "transcript": "Riascoltiamo con calma, poi puoi ribrovare.",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-11T10_37_38_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "file": "eq_s01_extra_05_scelta_ritmi.wav",
+    "source": "ElevenLabs_2026-11-11T10_37_57_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "76439e8d91deea5ac132050e5eaa846e2dadfe2779a2e3502de5d52921a3ff8b",
+    "duration_seconds": 7.6,
+    "status": "archiviata: nella scena si usa una domanda naturale senza comando",
+    "transcript": "Se ti sembrano uguali, premi il pulsante sotto il dito indice. Se ti sembrano diversi, premi quello sotto il medio.",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-11T10_37_57_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4(1).mp3",
+      "ElevenLabs_2026-11-11T10_37_57_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "file": "eq_s01_extra_06_ritmi_diversi.wav",
+    "source": "ElevenLabs_2026-11-11T10_38_31_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "bc02819464707cb59a3d9972338e7207d05855675e2b2ab416a3431cbaeb568b",
+    "duration_seconds": 2.96,
+    "status": "ricevuto",
+    "transcript": "Esatto! Sono due ritmi diversi!",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-11T10_38_31_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "file": "eq_s01_extra_07_ritmo_maestro.wav",
+    "source": "ElevenLabs_2026-11-11T10_38_52_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "35885dc4df9ffe8ddf0ec5eea18a725e1fe0ff561f02b70f5029c49a4d1ea367",
+    "duration_seconds": 11.12,
+    "status": "ricevuto",
+    "transcript": "Adesso prova il mio ritmo. Premi il pulsante sotto il dito indice due volte vicine, poi aspetta un pochino e preni ancora una volta. Prima ascolta, poi prova.",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-11T10_38_52_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "file": "eq_s01_extra_08_nota_mancante.wav",
+    "source": "ElevenLabs_2026-11-11T10_39_23_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "b623230acb4f384c5794a7e4a3848fd4f9a84787a0a43cca3b698e87e1f0e573",
+    "duration_seconds": 6.96,
+    "status": "ricevuto",
+    "transcript": "Questa volta prova anche tu. Premi il pulsante sotto il dito indice nel momento in cui dovrebbe arrivare la terza nota.",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-11T10_39_23_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "file": "eq_s01_extra_09_nota_trovata.wav",
+    "source": "ElevenLabs_2026-11-11T10_39_44_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "2be3d89c06b88d5d7f254c9e67274e1303abd4907d2a535cac7dbadc714dab57",
+    "duration_seconds": 3.04,
+    "status": "ricevuto",
+    "transcript": "proprio lì, è lì che manca il suono.",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-11T10_39_44_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4(1).mp3",
+      "ElevenLabs_2026-11-11T10_39_44_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "file": "eq_s01_extra_10_aiuto.wav",
+    "source": "ElevenLabs_2026-11-11T10_40_39_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "f9719aef0637dac769dfa38a19ccfc3253b7e308dd7bc85b83666e982d7d7464",
+    "duration_seconds": 3.68,
+    "status": "archiviata: nella scena si usa una domanda naturale senza comando",
+    "transcript": "Se vuoi aiutarmi, premi il pulsante con il pollice.",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-11T10_40_39_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "file": "eq_s01_extra_11_grazie.wav",
+    "source": "ElevenLabs_2026-11-11T10_43_32_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "131cb94063c3b03a3ea4b1eba7540720d0da2aead3d3b81cfb0cec6d4831951c",
+    "duration_seconds": 2.96,
+    "status": "ricevuto",
+    "transcript": "È viva! Grazie per il tuo aiuto.",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-11T10_43_32_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "source": "ElevenLabs_2026-11-11T10_52_43_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "475930de2c2d2ada358d2578bc2437327a903768c785ada44797eb7ef5833f3b",
+    "duration_seconds": 7.6,
+    "status": "archiviata: consegna estesa non riprodotta",
+    "transcript": "Se ti sembrano uguali, premi il pulsante Si con il pollice. Se ti sembrano diversi, premi il pulsante No.",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-11T10_52_43_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "source": "ElevenLabs_2026-11-11T10_53_15_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "b33e6c2884d374da356b786ad66b5a9068985f7eae2a701c2b560d75d7b2a47c",
+    "duration_seconds": 5.52,
+    "status": "archiviata: consegna estesa non riprodotta",
+    "transcript": "Se vuoi aiutarmi, premi il pulsante sì. Se preferisci aspettare, premi no.",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-11T10_53_15_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "source": "ElevenLabs_2026-11-11T10_53_48_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "616b7589c1ae9e4499846913e2f6025e76b75caf4e4df7e41c34fd4d38b718b9",
+    "duration_seconds": 10.64,
+    "status": "montata",
+    "transcript": "Ci sono anche due pulsanti per il pollice, sì e no. Con questi puoi rispondere alle mie domande. I quattro pulsanti delle altre dita invece ci serviranno per suonare.",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-11T10_53_48_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "source": "ElevenLabs_2026-11-11T10_55_42_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "2e4f15a8b840b84a11a5464958635cbd390854ec3b7c9a6a42ede613837980b1",
+    "duration_seconds": 2.64,
+    "status": "montata",
+    "transcript": "Vuoi andare subito a conoscere il Piano Forte?",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-11T10_55_42_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "source": "ElevenLabs_2026-11-11T10_56_01_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "5787b850ace56749f2227ab82d9010d9ef6782652d4948be7727f34f90fa5502",
+    "duration_seconds": 7.44,
+    "status": "archiviata: prima variante della risposta d’attesa",
+    "transcript": "Va bene. Prenditi tutto il tempo che ti serve. Io resto qui. Quando vuoi cominciare, premiesse.",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-11T10_56_01_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "source": "ElevenLabs_2026-11-11T10_56_24_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "cdc33964ae22da4a534c79fcf762243113b708d3bcdb09594be0c053da2f4e97",
+    "duration_seconds": 7.52,
+    "status": "montata: risposta d’attesa accorciata dopo «Io resto qui»",
+    "transcript": "Va bene. Prenditi tutto il tempo che ti serve. Io resto qui. Quando vuoi cominciare, premisi.",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-11T10_56_24_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  }
+]

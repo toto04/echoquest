@@ -1,0 +1,15 @@
+file,personaggio,voce,uso,testo
+eq_s01_extra_01_tocco.wav,MAESTRO BATTUTA,Antonio Farina – Expressive and Warm,Raccordo verso Tocco,"Io ho la mia bacchetta. Tu, invece, hai qualcosa di speciale per fare musica insieme a me."
+eq_s01_extra_02_ritmo_regolare.wav,MAESTRO BATTUTA,Antonio Farina – Expressive and Warm,Istruzione per i tre battiti,"Adesso prova tu! Premi il pulsante sotto il dito indice tre volte, seguendo lo stesso ritmo. Prima ascolta, poi prova."
+eq_s01_extra_03_primo_ritmo.wav,MAESTRO BATTUTA,Antonio Farina – Expressive and Warm,Risposta al primo ritmo riuscito,Ben fatto! Hai appena suonato il tuo primo ritmo!
+eq_s01_extra_04_riprova.wav,MAESTRO BATTUTA,Antonio Farina – Expressive and Warm,Riascolto dopo un tentativo,Riascoltiamo con calma. Poi puoi riprovare.
+eq_s01_domanda_ritmi.wav,MAESTRO BATTUTA,Antonio Farina – Expressive and Warm,Domanda naturale per il confronto; ricavata dalla voce esistente,Ti sembrano uguali?
+eq_s01_extra_06_ritmi_diversi.wav,MAESTRO BATTUTA,Antonio Farina – Expressive and Warm,Risposta alla scelta «diversi»,Esatto! Sono due ritmi diversi!
+eq_s01_extra_07_ritmo_maestro.wav,MAESTRO BATTUTA,Antonio Farina – Expressive and Warm,Istruzione per TAC TAC… TOC,"Adesso prova il mio ritmo. Premi il pulsante sotto il dito indice due volte vicine, poi aspetta un pochino e premi ancora una volta. Prima ascolta, poi prova."
+eq_s01_extra_08_nota_mancante.wav,MAESTRO BATTUTA,Antonio Farina – Expressive and Warm,Istruzione prima delle due note,Questa volta prova anche tu. Premi il pulsante sotto il dito indice nel momento in cui dovrebbe arrivare la terza nota.
+eq_s01_extra_09_nota_trovata.wav,MAESTRO BATTUTA,Antonio Farina – Expressive and Warm,Risposta al momento giusto,Proprio lì! È lì che manca il suono.
+eq_s01_domanda_aiuto.wav,MAESTRO BATTUTA,Antonio Farina – Expressive and Warm,"Richiesta d’aiuto esistente, senza istruzioni Sì/No","Ehi... Aspetta un momento. Forse... Forse ho appena trovato la persona giusta! Tu! Sì, proprio tu! Che ne dici? Ti andrebbe di aiutarmi a recuperare la nostra musica?"
+eq_s01_extra_11_grazie.wav,MAESTRO BATTUTA,Antonio Farina – Expressive and Warm,Risposta alla conferma d'aiuto,Evviva! Grazie per il tuo aiuto!
+eq_s01_extra_12_pollice.wav,MAESTRO BATTUTA,Antonio Farina – Expressive and Warm,Presentare i due pulsanti del pollice,"Ci sono anche due pulsanti per il pollice: Sì e No. Con questi puoi rispondere alle mie domande. I quattro pulsanti delle altre dita, invece, ci serviranno per suonare."
+eq_s01_extra_13_scelta_finale.wav,MAESTRO BATTUTA,Antonio Farina – Expressive and Warm,Scelta finale con Sì/No,Vuoi andare subito a conoscere il pianoforte?
+eq_s01_extra_14_attesa.wav,MAESTRO BATTUTA,Antonio Farina – Expressive and Warm,Risposta al No alla richiesta di aiuto,Va bene. Prenditi tutto il tempo che ti serve. Io resto qui.

@@ -16,6 +16,7 @@ Story/
   Audio/
     Voice/                        voci registrate (ElevenLabs), un file per battuta
     Sfx/                          suoni, un file per [AUDIO], chiamato con l'ID del suono
+    Interazioni/                  domande e risposte condizionali del Maestro; originali in _ricevuti/
 ```
 
 I CSV si **generano** dal copione e non vanno modificati a mano. Dopo ogni modifica al copione,
@@ -40,9 +41,9 @@ sezione e dello stesso personaggio scalano di uno. Le registrazioni già fatte v
 2. Parte il prologo (`p00`). Sullo schermo vedi dall'alto dove si trova ogni suono: il cerchio bianco
    sei tu, il naso indica davanti. Arancione = personaggi, marrone = voce lontana, azzurro = vento,
    giallo = suoni. Il Narratore non ha un pallino: si sente "dentro la testa".
-3. Tasti: **Spazio** pausa · **R** ripeti la battuta · **N** salta · **Backspace** da capo ·
+3. Tasti: **Spazio** pausa · **R** ripeti la battuta · **N** salta durante il parlato · **Backspace** da capo ·
    **← →** gira la testa (i suoni si spostano intorno a te) · **Home** guarda di nuovo avanti ·
-   **1–4** risposte alle scelte · **F9** registra quello che senti in un WAV (`unity/EchoQuestTest/Recordings/`, ignorata da git).
+   **1–4** pulsanti musicali · **Y/N** Sì/No nella Scena 1 · **F9** registra quello che senti in un WAV (`unity/EchoQuestTest/Recordings/`, ignorata da git).
 
 Per partire da un punto preciso: seleziona l'oggetto **Storia** nella scena e scrivi un ID in
 *Start From* (per esempio `p00_maes_01`). Nello stesso pannello: *Section* (quale sezione suonare)
@@ -59,11 +60,13 @@ e *Take* (versione preferita delle voci, `a` o `b`).
 - `x`/`y`/`z` vuoti = non spaziale (il Narratore). `a_x`/`a_y`/`a_z` = dove arriva, se si sposta.
 - `volume` (0–1), `filtro_hz` (taglia gli acuti per sembrare più lontano o dietro una porta; vuoto = automatico
   in base alla distanza), `attesa` (secondi prima che parta la cosa successiva: serve a far parlare
-  qualcuno sopra a una musica o a un vento).
+  qualcuno sopra a una musica, a un vento o alla coda di un suono; il suono continua sotto la voce e si
+  abbassa un po' mentre si parla).
 - `ripeti` = `sì` su un suono: continua in loop, come sottofondo, finché non parte l'elemento scritto in `fino_a`.
 - `sottofondo` su una battuta: l'ID di un suono che va in loop sotto quella battuta (per esempio la canzone
   spezzata mentre il Narratore dice «la canzone continua, ma non è più la stessa»).
-- `pausa_dopo`: secondi di silenzio dopo quell'elemento.
+- `pausa_dopo`: secondi di silenzio dopo quell'elemento. **Negativa** = la cosa successiva parte prima che
+  questa finisca (per esempio `-0.3` su «Sono talmente serio che…»: la bacchetta cade sull'ultima parola).
 
 Quando qualcuno parla, i sottofondi si abbassano da soli (a circa un terzo) e poi risalgono.
 Le pause tra le battute sono automatiche: 0,6 s dopo ogni battuta, 1,2 s quando cambia chi parla.
@@ -72,7 +75,8 @@ Si regolano nell'oggetto **Storia** (*Pacing and music beds*); `pausa_dopo` vale
 ### Pause dentro le battute del Narratore
 
 ElevenLabs legge un po' di fretta. `tools/stretch_pauses.py` allunga le pause tra le frasi dentro i file
-(+0,35 s a ogni pausa più lunga di 0,28 s). Gli originali vanno in `Audio/Voice/_originali/` e i file in
+(+0,35 s a ogni pausa più lunga di 0,28 s). Si inserisce silenzio pulito, senza ripetere
+respiri o code di parole presenti nella pausa. Gli originali vanno in `Audio/Voice/_originali/` e i file in
 `Audio/Voice/` vengono sempre rifatti da lì, quindi si può rilanciare quante volte si vuole:
 
 ```sh
@@ -81,6 +85,22 @@ python3 tools/stretch_pauses.py --voice-dir $V --originals-dir $V/_originali --c
 ```
 
 Dopo aver aggiunto nuove registrazioni del Narratore: rilancialo, poi rigenera la scena.
+Con `--only 's01_maes_1*'` rifà solo i file che corrispondono. Dopo una domanda allunga solo una pausa
+vera: se la voce prosegue senza pausa non inserisce niente, perché il punto più silenzioso vicino a una
+parola è spesso il silenzio prima di una "p" o di una "t", e il silenzio messo lì spezza la parola.
+
+### Accorciare una battuta già registrata
+
+Se nel copione si **tolgono** frasi da una battuta (senza aggiungere parole), non serve registrarla di nuovo:
+`tools/voice_trim.py` trova le parole tolte nell'audio e le taglia nelle pause intorno.
+
+```sh
+python3 tools/voice_trim.py vecchio.wav nuovo.wav --old-text "testo vecchio" --new-text "testo nuovo" \
+    --whisper-model ~/.local/share/whisper-models/ggml-large-v3-turbo.bin
+```
+
+Per Narratore e Maestro si accorcia il file in `Audio/Voice/_originali/` e poi si rilancia `stretch_pauses.py`.
+Se togliere battute o `[AUDIO]` fa scalare i numeri, i file vanno rinominati (vedi sotto).
 
 Più un suono è lontano, più è piano e "ovattato". Le cose nella sala hanno l'eco della sala, il Narratore no.
 Limite attuale: Unity di base sposta i suoni solo tra destra e sinistra, quindi davanti e dietro non
@@ -140,7 +160,7 @@ Le voci per ora **non sono coerenti**, perché ogni registrazione ha usato una s
 
 ## Suoni (prologo)
 
-22 suoni su 23 ci sono, ma sono **provvisori** (`Audio/Sfx/`). Manca `p00_sfx_15` (risata in lontananza).
+Ci sono tutti i 23 suoni, ma sono **provvisori** (`Audio/Sfx/`).
 I numeri seguono `capitolo_01_suoni.csv`: se nel copione si aggiunge un `[AUDIO]`, quelli dopo scalano
 e i file vanno rinominati (è successo aggiungendo i suoni `09`–`12`).
 
@@ -149,10 +169,10 @@ destra, **tamburo** a sinistra, **triangolo** a destra in alto, **flauto** davan
 un suono (lungo, corto, delicato, forte, «bum bum», «din din», «suoni delicati», «tutti insieme») lo si
 sente davvero, con uno strumento diverso ogni volta (`03`–`06`, `09`–`12`).
 
-- Presi dal bundle Sonniss GDC 2026, parte 1 (licenza royalty-free, uso nei giochi consentito senza
+- Presi dal bundle Sonniss GDC 2026, parti 1, 2 e 5 (licenza royalty-free, uso nei giochi consentito senza
   attribuzione; vietato rivenderli così come sono o usarli per addestrare AI): vento (`18`, `19`, `22`,
   `23`), porta e fogli (`19`), oggetto che cade (`13`), frugare (`14`), colpi di bacchetta (`16`),
-  sedia che scricchiola (`01`).
+  sedia che scricchiola (`01`), risata lontana (`15`).
 - **Sintetizzati** come segnaposto: pianoforte, tamburo, triangolo, flauto, applausi (`07`, `08`) e il
   fischio del vento (`23`).
 - Mancano ancora dentro i suoni composti: passi, porta che si apre e voci sottovoce (`01`), passi (`07`),
@@ -169,26 +189,44 @@ bambino deve ripetere nella Scena 3. È un motivo nostro, non una canzone esiste
   e al posto dell'ultima un tasto che si inceppa.
 
 I suoni provvisori si rigenerano con `tools/story_placeholder_sfx.py` (istruzioni in testa al file).
+I file sorgente (Sonniss e Kenney convertiti in mono) non stanno nel repo, perché la licenza Sonniss vieta di
+ridistribuirli così come sono. Sul computer di Bianca sono in `~/.cache/echoquest-sfx/mono`:
+
+```sh
+python3 tools/story_placeholder_sfx.py ~/.cache/echoquest-sfx/mono unity/EchoQuestTest/Assets/EchoQuest/Story/Audio/Sfx s01
+```
 
 ## Scena 1 (`s01`, scena `Story/Scenes/Scena1.unity`)
 
-- **Voci**: 54 battute, tutte registrate con la voce di Antonio Farina (Maestro), divise dalle 5 registrazioni
-  in `Audio/Voice/_da_dividere/` (ignorate dalla scena). In `s01_maes_11` è inserita la registrazione
-  separata «Beh, te lo spiego lo stesso», dopo la domanda «Sai che cos'è un'orchestra?».
-- **Pause**: anche nelle battute del Maestro le pause tra le frasi sono allungate, e dopo ogni domanda
-  dentro una battuta c'è quasi un secondo in più (`tools/stretch_pauses.py --chars narr,maes --question-extra 0.9`).
-  Dopo una battuta che finisce con una domanda il gioco aspetta 1,4 s, dopo un suono 0,4 s.
-- **Suoni**: tutti i 50, provvisori.
-  - Passi su legno, porta che scricchiola, suono di conferma, pagine, tessuto, colpi su legno e tonfi:
-    pacchetti Kenney (kenney.nl, licenza **CC0**: uso libero, anche senza citare).
-  - Vento e cassa trascinata: bundle Sonniss.
-  - Pianoforte, tamburo, campanella, triangolo, flauto, applausi: sintetizzati.
-  - **Sospiro e verso di fatica** del Maestro (`26`, `03`, `41`): sintetizzati e poco credibili: meglio
-    generarli con ElevenLabs (effetti sonori o con la voce del Maestro) e sostituire i file.
-- **Sottofondi** (regia): vento tra gli alberi sotto `s01_maes_27`, fogli che volano sotto `s01_maes_29`
-  (file extra `Audio/Sfx/x_vento_alberi.wav`, `x_fogli_vento.wav`), il pianoforte che riprova sotto `s01_maes_34`.
-- **Scelta**: indice = andare al pianoforte, medio = riascoltare (colonna `scelte` della regia).
+Versione interattiva: **93 elementi, 45 battute, 40 suoni e otto interazioni**,
+compresa quella nel ramo facoltativo di riascolto.
 
-Il copione completo (versione con la Scena 1 estesa) dura circa **30 minuti** di parlato (stima basata sul ritmo del Narratore,
-circa 15 caratteri al secondo), più musica e suoni. Per il primo test conviene ridurlo
-(vedi le note in fondo al copione).
+- Tocco viene presentato subito dopo il Maestro. Si prova l’indice, poi si
+  distinguono una volta sola i quattro pulsanti musicali dai due del pollice.
+- Le risposte usano Sì/No: sulla tastiera **Y/N**. Le domande successive non
+  ripetono quale pulsante premere. **1** serve per i tre esercizi musicali.
+- Il bambino ripete un ritmo regolare e TAC TAC… TOC, confronta i due ritmi,
+  preme al momento della nota mancante e risponde alla richiesta d’aiuto.
+- No alla richiesta d’aiuto apre un’attesa calma. Si continua con Sì, senza
+  ripetere la domanda o far partire automaticamente la storia.
+- La scelta finale conserva i due percorsi: Y va al pianoforte; N riascolta.
+  Dopo il riascolto si può confermare con Y oppure aspettare con N.
+- Le risposte sbagliate negli esercizi fanno riascoltare l’esempio senza
+  rileggere la consegna. R la ripete se richiesta.
+- La descrizione di Sbuffo resta, senza ripetere il furto. Restano «Un panino?!»
+  e il mistero sul vento; è tolta la gag che ritardava la presentazione di Tocco.
+- Registrazioni complete: non sono richiesti nuovi audio. Gli MP3 originali
+  restano in `Audio/Interazioni/_ricevuti/`, esclusi dalle scene.
+- I GUID dei file riutilizzati sono conservati. La regia e il generatore dei
+  suoni seguono i nuovi numeri; gli esempi degli esercizi hanno nomi `x_s01_*` stabili.
+
+La musica rubata resta distinta dagli esempi: il ricordo contiene le tre note
+Sol–Do–Mi, mentre il pianoforte attuale perde la terza. L’esercizio sincronizzato
+usa esattamente i tempi del ricordo. I passi, i colpi e i suoni provvisori usano
+le fonti Kenney CC0 e Sonniss già documentate; gli esempi di strumenti restano
+sintetizzati. Nessuna nuova dipendenza o modifica del protocollo.
+
+Il [piano e le verifiche](../../../../../docs/scena1-interattiva.md) riportano
+punti di prova, configurazione e limiti. Sono superati i test delle regole,
+quelli dell’input in Play e i due percorsi della scena. Il riascolto in cuffia
+resta necessario per valutare raccordi e riverbero.

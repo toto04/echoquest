@@ -9,7 +9,8 @@ namespace EchoQuest.Story
     public class InteractionSettings
     {
         public InteractionMode Mode;
-        public string Prompt, Success, Retry, Feedback, Decline;
+        public string Prompt, Success, Retry, Feedback;
+        public string[] DeclineVoices;
         public string RetryQuestion;
         public string[] ContinueVoices;
         public int AttemptsPerRound;
@@ -35,7 +36,7 @@ namespace EchoQuest.Story
                 },
                 Prompt = get("consegna"), Success = get("successo"), Retry = get("riprova"),
                 Feedback = get("suono_pulsante"),
-                Decline = get("attesa_no"),
+                DeclineVoices = get("attesa_no").Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries),
                 RetryQuestion = get("domanda_riprova"),
                 ContinueVoices = get("prosegui").Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries),
                 Examples = get("esempi").Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries),
@@ -110,16 +111,16 @@ namespace EchoQuest.Story
             return true;
         }
 
-        public static bool HitsMissingNote(double press, double start, IReadOnlyList<float> times, float tolerance)
+        public static bool HitsMissingNote(double press, double start, IReadOnlyList<float> times, float tolerance, double deadline)
         {
             if (times.Count != 3 || double.IsNaN(press) || double.IsInfinity(press) ||
-                double.IsNaN(start) || double.IsInfinity(start) || tolerance < 0 ||
+                double.IsNaN(start) || double.IsInfinity(start) || double.IsNaN(deadline) || double.IsInfinity(deadline) || tolerance < 0 ||
                 float.IsNaN(tolerance) || float.IsInfinity(tolerance)) return false;
             foreach (float time in times) if (float.IsNaN(time) || float.IsInfinity(time)) return false;
-            if (times[0] != 0 || times[1] <= 0 || times[2] <= times[1]) return false;
+            if (times[0] != 0 || times[1] <= 0 || times[2] <= times[1] || deadline < start + times[2]) return false;
             double relative = press - start;
             double earliest = Math.Max(times[1] + 0.05, times[2] - tolerance);
-            return relative >= earliest && relative <= times[2] + tolerance;
+            return relative >= earliest && press <= deadline;
         }
     }
 }

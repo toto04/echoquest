@@ -39,15 +39,19 @@ public static class StoryInteractionChecks
         Check(!StoryInteractionRules.MatchesRhythm(new[] { 10d, 10.32, 10.95 }, new[] { 0f, float.NaN, .95f }), "invalid pattern");
 
         var theme = new[] { 0f, 1.2f, 1.5f };
-        Check(StoryInteractionRules.HitsMissingNote(101.5, 100, theme, .3f), "missing note on time");
-        Check(StoryInteractionRules.HitsMissingNote(101.3, 100, theme, .3f), "forgiving early response");
-        Check(StoryInteractionRules.HitsMissingNote(101.79, 100, theme, .3f), "forgiving late response");
-        Check(!StoryInteractionRules.HitsMissingNote(101.2, 100, theme, .3f), "second note does not pass");
-        Check(!StoryInteractionRules.HitsMissingNote(99, 100, theme, .3f), "press before playback");
-        Check(!StoryInteractionRules.HitsMissingNote(101.81, 100, theme, .3f), "response outside window");
-        Check(!StoryInteractionRules.HitsMissingNote(double.NaN, 100, theme, .3f), "NaN press");
-        Check(!StoryInteractionRules.HitsMissingNote(101.5, 100, theme, float.NaN), "NaN tolerance");
-        Check(!StoryInteractionRules.HitsMissingNote(101.5, 100, new[] { 0f, 2f, 1f }, .3f), "unordered theme");
+        Check(StoryInteractionRules.HitsMissingNote(101.5, 100, theme, .3f, 101.8), "missing note on time");
+        Check(StoryInteractionRules.HitsMissingNote(101.3, 100, theme, .3f, 101.8), "forgiving early response");
+        Check(StoryInteractionRules.HitsMissingNote(101.79, 100, theme, .3f, 101.8), "forgiving late response");
+        Check(!StoryInteractionRules.HitsMissingNote(101.2, 100, theme, .3f, 101.8), "second note does not pass");
+        Check(!StoryInteractionRules.HitsMissingNote(99, 100, theme, .3f, 101.8), "press before playback");
+        Check(!StoryInteractionRules.HitsMissingNote(101.81, 100, theme, .3f, 101.8), "response outside window");
+        Check(!StoryInteractionRules.HitsMissingNote(double.NaN, 100, theme, .3f, 101.8), "NaN press");
+        Check(!StoryInteractionRules.HitsMissingNote(101.5, 100, theme, float.NaN, 101.8), "NaN tolerance");
+        Check(!StoryInteractionRules.HitsMissingNote(101.5, 100, new[] { 0f, 2f, 1f }, .3f, 101.8), "unordered theme");
+        Check(StoryInteractionRules.HitsMissingNote(103.7, 100, theme, .3f, 106.2), "response in silence after the piano finishes");
+        Check(!StoryInteractionRules.HitsMissingNote(106.21, 100, theme, .3f, 106.2), "response after the listening window closes");
+        Check(!StoryInteractionRules.HitsMissingNote(103.7, 100, theme, .3f, double.NaN), "invalid response deadline");
+        Check(!StoryInteractionRules.HitsMissingNote(101.5, 100, theme, .3f, 101.4), "deadline cannot precede the missing note");
 
         var values = new Dictionary<string, string>
         {
@@ -107,6 +111,10 @@ public static class StoryInteractionChecks
         Invalid(() => InteractionSettings.Parse(Get), "narrative confirmation cannot be skipped by an exercise limit");
         values["modalita"] = "confronto"; values["tentativi"] = "";
         Invalid(() => InteractionSettings.Parse(Get), "retry voices need an explicit limit");
+        var invitations = StoryData.ParseStaging("id,modalita,consegna,attesa_no\ns01_int_06,conferma,prompt,first;second\n");
+        Check(invitations["s01_int_06"].Interaction.DeclineVoices.Length == 2, "parse multiple invitations after No");
+        var calmWait = StoryData.ParseStaging("id,modalita,consegna,attesa_no\ns01_int_06,conferma,prompt,wait\n");
+        Check(calmWait["s01_int_06"].Interaction.DeclineVoices.Length == 1, "single calm-wait recording remains supported");
         return checks;
     }
 }

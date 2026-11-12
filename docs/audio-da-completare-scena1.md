@@ -13,7 +13,13 @@ battute ricevute con Antonio Farina – Expressive and Warm:
 
 Il [testo per ElevenLabs](registrazioni-scena1-riprova.txt) conserva le
 indicazioni fra parentesi quadre e i nomi dei file. La scelta è attiva nella
-regia; le ultime due risposte si alternano dopo No. Non servono altri audio.
+regia; le ultime due risposte si alternano dopo No.
+
+Per gli inviti dopo No alla richiesta d’aiuto, chiesti successivamente,
+sono pronti [quattro nuovi testi con i toni](registrazioni-scena1-inviti.txt),
+sempre con Antonio Farina. Il codice supporta il ciclo degli inviti a ogni
+nuovo No, ma la regia conserva il messaggio d’attesa finché gli audio non
+sono ricevuti e importati. Non servono nuovi audio per correggere il tasto 1.
 
 La versione montata spiega i pulsanti una volta sola nel tutorial: quattro
 pulsanti per le note e due del pollice per Sì/No. Dopo usa domande naturali:

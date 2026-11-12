@@ -215,5 +215,50 @@
     "identical_downloads": [
       "ElevenLabs_2026-11-12T09_10_21_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
     ]
+  },
+  {
+    "file": "eq_s01_extra_18_squadra.wav",
+    "source": "ElevenLabs_2026-11-12T10_19_47_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "6225e5a2a4c095ea1481c47731ef18753962371b1ae8e8830cb9314a2b1a1041",
+    "duration_seconds": 6.0,
+    "status": "ricevuto e montato: invito dopo No alla richiesta d’aiuto",
+    "text": "Io ho la bacchetta, tu hai Tocco. Insieme potremmo fare una bella squadra! Ti unisci a me?",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-12T10_19_47_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "file": "eq_s01_extra_19_pianoforte.wav",
+    "source": "ElevenLabs_2026-11-12T10_20_01_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "1e51a1228a95df9677e624da36abb3de3e14f4dd1e47158cd2199a09a0061591",
+    "duration_seconds": 3.68,
+    "status": "ricevuto e montato: invito dopo No alla richiesta d’aiuto",
+    "text": "Ti va di scoprire che cosa sta cercando di dirci il pianoforte?",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-12T10_20_01_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "file": "eq_s01_extra_20_compagno.wav",
+    "source": "ElevenLabs_2026-11-12T10_20_25_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "37973cdd22dd46508948697155b5dbeadc4f18dc5095a87b310c61a67c1fd861",
+    "duration_seconds": 7.2,
+    "status": "ricevuto e montato: invito dopo No alla richiesta d’aiuto",
+    "text": "Io rischio di perdere di nuovo la bacchetta! Mi farebbe comodo un compagno d’avventura. Ci stai?",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-12T10_20_25_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+      "ElevenLabs_2026-11-12T10_20_25_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4(1).mp3"
+    ]
+  },
+  {
+    "file": "eq_s01_extra_21_insieme.wav",
+    "source": "ElevenLabs_2026-11-12T10_21_03_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "2b4dbb20209c9325b39697b46287770ec77bace52d68efe98634105173c77827",
+    "duration_seconds": 4.4,
+    "status": "ricevuto e montato: invito dopo No alla richiesta d’aiuto",
+    "text": "Possiamo cominciare con una nota soltanto. Ti va di provarci insieme?",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-12T10_21_03_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
   }
 ]

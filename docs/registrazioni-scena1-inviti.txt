@@ -1,0 +1,29 @@
+SCENA 1 — INVITI DEL MAESTRO DOPO NO ALLA RICHIESTA D’AIUTO
+
+Voce: Antonio Farina – Expressive and Warm.
+Una registrazione separata per ogni frase, con tono leggero e complice.
+Non aggiungere istruzioni sui pulsanti.
+
+1. eq_s01_extra_18_squadra
+
+[playful] Io ho la bacchetta, tu hai Tocco. Insieme potremmo fare una bella squadra! Ti unisci a me?
+
+
+2. eq_s01_extra_19_pianoforte
+
+[curious] Ti va di scoprire che cosa sta cercando di dirci il pianoforte?
+
+
+3. eq_s01_extra_20_compagno
+
+[chuckles] Io rischio di perdere di nuovo la bacchetta! Mi farebbe comodo un compagno d’avventura. Ci stai?
+
+
+4. eq_s01_extra_21_insieme
+
+[warmly] Possiamo cominciare con una nota soltanto. Ti va di provarci insieme?
+
+
+Funzionamento: ogni nuovo No fa ascoltare l’invito successivo. Dopo il quarto
+si ritorna al primo. Sì continua la storia. Il silenzio non ripete gli inviti.
+Durante la prova da tastiera S o Y significano Sì, N significa No.

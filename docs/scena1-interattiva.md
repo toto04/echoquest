@@ -31,7 +31,10 @@ si fanno domande naturali, senza ripetere «premi Sì… premi No…»:
 Il riascolto dopo un tentativo non rilegge la consegna. R permette di
 richiederla esplicitamente. Nessuna domanda viene ripetuta automaticamente
 perché il bambino non risponde. No alla richiesta d’aiuto apre un’attesa calma;
-si continua con Sì, senza conto alla rovescia o richiami insistenti.
+si continua con Sì, senza conto alla rovescia o richiami insistenti. Sono pronti
+il codice e i [testi di quattro inviti alternativi](registrazioni-scena1-inviti.txt)
+da attivare dopo aver ricevuto i nuovi audio. Ogni nuovo No farà ascoltare
+l’invito successivo; il silenzio continuerà a non provocare ripetizioni.
 
 Per il montaggio dell’11 novembre sono stati controllati 20 MP3 nei Downloads:
 17 contenuti distinti e tre copie identiche. Il 12 novembre sono stati aggiunti
@@ -59,7 +62,7 @@ Riferimenti:
 |---|---|
 | `1` | Nota sotto l’indice: prova iniziale, ritmo e nota mancante |
 | `2`–`4` | Altri pulsanti musicali; non rispondono alle domande |
-| `Y` | Sì |
+| `S` oppure `Y` | Sì |
 | `N` durante un’interazione | No |
 | `N` durante il parlato | Salta, come comando di prova |
 | `R` | Ripete l’elemento corrente, compresa la consegna se richiesta |
@@ -68,7 +71,7 @@ Riferimenti:
 
 I due numeri HID fisici del pollice non sono documentati nel protocollo:
 non si presume che siano 5 e 6. `yesThumbButton` e `noThumbButton` nell’Inspector
-restano a zero, non associati, finché si proverà il controller. Y/N funzionano
+restano a zero, non associati, finché si proverà il controller. S/Y e N funzionano
 indipendentemente da questa associazione. I valori logici 5 e 6 usati dalla
 regia significano Sì e No e non sono numeri di cablaggio.
 
@@ -135,7 +138,7 @@ La regia supporta:
 | `tempi` | Tre istanti in secondi; esempio `0;0.32;0.95` |
 | `suono_pulsante` | Feedback breve facoltativo sulle pressioni |
 | `pulsante` | `indice` per la prima prova musicale; conferme altrimenti sul Sì del pollice |
-| `attesa_no` | Messaggio che accoglie No, una volta, prima di aspettare Sì |
+| `attesa_no` | Un messaggio accoglie No una sola volta; più messaggi separati da `;` avanzano ciclicamente a ogni nuovo No, aspettando poi Sì/No in silenzio |
 | `scelte` | Nelle nuove scelte `5=B;6=A`: Sì al ramo B, No al ramo A |
 | `tentativi` | Facoltativo: da 1 a 3, previsto 2; richiede entrambi gli audio seguenti |
 | `domanda_riprova` | Domanda Sì/No dopo il numero di tentativi indicato |
@@ -145,6 +148,15 @@ Il confronto ritmico è locale: non cambia il ramo narrativo. Le pressioni
 sono raccolte dai timestamp di `InputSystem.onEvent`, evitando di perdere tre
 pressioni avvenute nello stesso aggiornamento. L’offset verso l’orologio DSP
 viene fissato all’apertura dell’attesa e ricalcolato dopo una pausa.
+Anche il pulsante Pausa dell’Editor ricalcola questa corrispondenza alla
+ripresa: l’orologio degli eventi continua durante la pausa, quello audio si
+ferma. La prova con il file reale della nota mancante falliva prima della
+correzione e ora deve riuscire anche dopo una pausa dell’Editor.
+
+Durante l’esercizio della nota mancante si usa `1`, anche dal tastierino:
+il bersaglio è 1,5 secondi dopo l’inizio del pianoforte, subito dopo la
+seconda nota a 1,2 secondi. Alla domanda «Ti va di riprovare?» invece si
+risponde S/Y oppure N: i tasti musicali non rispondono alle domande.
 
 Tempi degli esempi: battiti regolari 0, 1, 2 secondi; Maestro 0, 0,32, 0,95;
 tema della canzone 0, 1,2, 1,5. L’esempio della nota mancante usa i tempi esatti
@@ -191,8 +203,8 @@ Esiti dell’11–12 novembre:
 
 - Compilazione senza errori.
 - Riprodotta e corretta la sovrapposizione dopo una pausa dell’Editor: controllo sulla narrazione e sulle consegne divise in più parti.
-- 50 controlli sulle regole e sulla configurazione superati.
-- 34 controlli in Play: note/risposte separate, No, pausa, ripeti, riavvio, tempi, pressione anticipata corretta, tastierino numerico, limite dei tentativi e risposte alternate.
+- 52 controlli sulle regole e sulla configurazione superati.
+- 43 controlli in Play: note/risposte separate, No, pausa, ripeti, riavvio, tempi, pressione anticipata corretta, tastierino numerico, limite dei tentativi, risposte alternate, inviti dopo No, alias S e prova della nota con il file audio reale prima e dopo la pausa dell’Editor.
 - Percorso diretto completato con sette interazioni; percorso di riascolto con otto.
 - Completato anche il percorso che rinuncia a tutti e quattro gli esercizi dopo due tentativi, con sette interazioni e arrivo allo stesso finale.
 - Verificati 93 elementi, 40 suoni di scena, cinque esempi/feedback, riferimenti audio e GUID riutilizzati.

@@ -43,7 +43,7 @@ sezione e dello stesso personaggio scalano di uno. Le registrazioni già fatte v
    giallo = suoni. Il Narratore non ha un pallino: si sente "dentro la testa".
 3. Tasti: **Spazio** pausa · **R** ripeti la battuta · **N** salta durante il parlato · **Backspace** da capo ·
    **← →** gira la testa (i suoni si spostano intorno a te) · **Home** guarda di nuovo avanti ·
-   **1–4** pulsanti musicali · **Y/N** Sì/No nella Scena 1 · **F9** registra quello che senti in un WAV (`unity/EchoQuestTest/Recordings/`, ignorata da git).
+   **1–4** pulsanti musicali · **S oppure Y** Sì, **N** No nella Scena 1 · **F9** registra quello che senti in un WAV (`unity/EchoQuestTest/Recordings/`, ignorata da git).
 
 Per partire da un punto preciso: seleziona l'oggetto **Storia** nella scena e scrivi un ID in
 *Start From* (per esempio `p00_maes_01`). Nello stesso pannello: *Section* (quale sezione suonare)
@@ -203,7 +203,7 @@ compresa quella nel ramo facoltativo di riascolto.
 
 - Tocco viene presentato subito dopo il Maestro. Si prova l’indice, poi si
   distinguono una volta sola i quattro pulsanti musicali dai due del pollice.
-- Le risposte usano Sì/No: sulla tastiera **Y/N**. Le domande successive non
+- Le risposte usano Sì/No: sulla tastiera **S o Y** per Sì, **N** per No. Le domande successive non
   ripetono quale pulsante premere. **1** serve per i tre esercizi musicali.
 - Il bambino ripete un ritmo regolare e TAC TAC… TOC, confronta i due ritmi,
   preme al momento della nota mancante e risponde alla richiesta d’aiuto.

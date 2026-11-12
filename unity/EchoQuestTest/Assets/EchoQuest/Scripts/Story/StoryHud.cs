@@ -49,8 +49,11 @@ namespace EchoQuest.Story
             {
                 string who = string.IsNullOrEmpty(item.Character) ? item.Id : $"{item.Character}  ({item.Id})";
                 GUILayout.Label($"<b>{who}</b>", m_Label);
-                string text = item.Text.Length > 320 ? item.Text.Substring(0, 320) + "…" : item.Text;
-                GUILayout.Label(text, m_Small);
+                if (!player.WaitingRetryChoice)
+                {
+                    string text = item.Text.Length > 320 ? item.Text.Substring(0, 320) + "…" : item.Text;
+                    GUILayout.Label(text, m_Small);
+                }
                 if (!string.IsNullOrEmpty(player.CurrentClip)) GUILayout.Label("File: " + player.CurrentClip, m_Small);
             }
 
@@ -59,7 +62,7 @@ namespace EchoQuest.Story
             GUILayout.Label($"Suoni attivi: {voices}   ·   ramo scelto: {player.BranchChoice}", m_Small);
             if (recorder != null && recorder.IsRecording) GUILayout.Label("<color=#ff6666>● Registrazione in corso (F9 per fermare)</color>", m_Small);
             else if (recorder != null && !string.IsNullOrEmpty(recorder.LastFile)) GUILayout.Label("Ultima registrazione: " + recorder.LastFile, m_Small);
-            GUILayout.Label("1–4 note · Y Sì / N No nelle domande · N salta durante il parlato · Spazio pausa/conferma · R ripeti · Backspace da capo · ← → gira la testa · F9 registra", m_Small);
+            GUILayout.Label("1–4 note · S/Y Sì / N No nelle domande · N salta durante il parlato · Spazio pausa/conferma · R ripeti · Backspace da capo · ← → gira la testa · F9 registra", m_Small);
             GUILayout.EndVertical();
             GUILayout.EndArea();
         }

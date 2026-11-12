@@ -36,7 +36,8 @@ public static class StoryInteractionRuntimeChecks
         public StoryPlayer Player;
         public Keyboard Keys;
         public readonly List<UnityEngine.Object> Assets = new();
-        public Harness(string mode, string times = "", int attempts = 0, bool twoExercises = false)
+        public Harness(string mode, string times = "", int attempts = 0, bool twoExercises = false,
+            AudioClip noteExample = null, string declineVoices = null)
         {
             Root = new GameObject("Interaction test"); Root.SetActive(false);
             Player = Root.AddComponent<StoryPlayer>();
@@ -50,17 +51,20 @@ public static class StoryInteractionRuntimeChecks
             Player.section = "s01";
             Player.sequence = new TextAsset(sequence); Assets.Add(Player.sequence);
             string example = mode == "conferma" || mode == "scelta" ? "" : mode == "confronto" ? "eq_test_example;eq_test_example2" : "eq_test_example";
-            string row = "s01_int_01," + mode + ",eq_test_prompt,eq_test_success,eq_test_retry," + example + "," + times + "," + (mode == "scelta" ? "5=B;6=A" : "") + "," + (mode == "conferma" ? "eq_test_retry" : "") + "," +
+            if (noteExample != null) example = noteExample.name;
+            string row = "s01_int_01," + mode + ",eq_test_prompt,eq_test_success,eq_test_retry," + example + "," + times + "," + (mode == "scelta" ? "5=B;6=A" : "") + "," + (mode == "conferma" ? declineVoices ?? "eq_test_retry" : "") + "," +
                 (attempts > 0 ? attempts + ",eq_test_question,eq_test_continue;eq_test_continue_alt" : ",,") + "\n";
             Player.staging = new TextAsset("id,modalita,consegna,successo,riprova,esempi,tempi,scelte,attesa_no,tentativi,domanda_riprova,prosegui\n" +
                 row + (twoExercises ? row.Replace("s01_int_01,", "s01_int_02,") : ""));
             Assets.Add(Player.staging);
             var clips = new List<AudioClip>();
-            foreach (string name in new[] { "eq_test_prompt", "eq_test_success", "eq_test_retry", "eq_test_example", "eq_test_example2", "eq_test_question", "eq_test_continue", "eq_test_continue_alt" })
+            foreach (string name in new[] { "eq_test_prompt", "eq_test_success", "eq_test_retry", "eq_test_example", "eq_test_example2", "eq_test_question", "eq_test_continue", "eq_test_continue_alt", "eq_test_decline_a", "eq_test_decline_b" })
             {
+                if (name == "eq_test_example" && noteExample != null) continue;
                 var clip = AudioClip.Create(name, mode == "nota" && name == "eq_test_example" ? 16000 : 800, 1, 16000, false);
                 clips.Add(clip); Assets.Add(clip);
             }
+            if (noteExample != null) clips.Add(noteExample);
             Player.clips = clips.ToArray(); Keys = InputSystem.AddDevice<Keyboard>();
             Root.SetActive(true);
         }
@@ -91,6 +95,74 @@ public static class StoryInteractionRuntimeChecks
             foreach (var asset in Assets) UnityEngine.Object.Destroy(asset);
         }
     }
+
+    public static async Task<string> NoteAfterEditorPause()
+    {
+        if (!Application.isPlaying) throw new Exception("Run in Play mode in an empty temporary scene.");
+        await RealNoteTiming(false, Key.Digit1);
+        await RealNoteTiming(false, Key.Numpad1);
+        await RealNoteTiming(true, Key.Digit1);
+        return "PASS: real missing note accepts top-row/keypad 1 and survives Editor pause";
+    }
+
+    static async Task RealNoteTiming(bool pauseEditor, Key key)
+    {
+        var clip = UnityEditor.AssetDatabase.LoadAssetAtPath<AudioClip>(
+            "Assets/EchoQuest/Story/Audio/Sfx/x_s01_nota_mancante.wav");
+        var h = new Harness("nota", "0;1.2;1.5", noteExample: clip);
+        UnityEditor.EditorApplication.CallbackFunction resume = null;
+        try
+        {
+            await h.Ready();
+            double ready = AudioSettings.dspTime;
+            if (pauseEditor)
+            {
+                var pause = System.Diagnostics.Stopwatch.StartNew();
+                resume = () =>
+                {
+                    if (pause.Elapsed.TotalSeconds < 1) return;
+                    UnityEditor.EditorApplication.isPaused = false;
+                    UnityEditor.EditorApplication.update -= resume;
+                };
+                UnityEditor.EditorApplication.isPaused = true;
+                UnityEditor.EditorApplication.update += resume;
+                await Until(() => !UnityEditor.EditorApplication.isPaused, "Editor resumes during note exercise");
+            }
+            await Until(() => AudioSettings.dspTime >= ready + .15 + 1.5, "real missing-note moment");
+            h.Press(key);
+            await Until(() => h.Player.CurrentClip != clip.name, "real note response");
+            Check(h.Player.CurrentClip == "eq_test_success", $"real note timing: {key}, Editor pause {pauseEditor}");
+            await h.Finished();
+        }
+        finally
+        {
+            if (resume != null) UnityEditor.EditorApplication.update -= resume;
+            UnityEditor.EditorApplication.isPaused = false;
+            await h.Dispose();
+        }
+    }
+
+    public static async Task<string> NoteAfterSilence()
+    {
+        var clip = UnityEditor.AssetDatabase.LoadAssetAtPath<AudioClip>(
+            "Assets/EchoQuest/Story/Audio/Sfx/x_s01_nota_mancante.wav");
+        var h = new Harness("nota", "0;1.2;1.5", attempts: 1, noteExample: clip);
+        try
+        {
+            await h.Ready();
+            double ready = AudioSettings.dspTime;
+            await Until(() => AudioSettings.dspTime >= ready + .15 + clip.length + .5, "press after the piano finishes");
+            Check(h.Player.WaitingInteractionInput && !h.Player.WaitingRetryChoice,
+                "the exercise must still accept input after the piano finishes");
+            h.Press(Key.Digit1);
+            await Until(() => h.Player.CurrentClip == "eq_test_success", "recognize the missing note in silence");
+            await h.Finished();
+            Check(!h.Player.WaitingRetryChoice, "a late response must not trigger another attempt");
+            return "PASS: 1 is accepted in silence after the complete piano example";
+        }
+        finally { await h.Dispose(); }
+    }
+
     public static async Task<int> Run()
     {
         if (!Application.isPlaying) throw new Exception("Run in Play mode in an empty temporary scene.");
@@ -117,11 +189,24 @@ public static class StoryInteractionRuntimeChecks
             Check(!h.Player.WaitingInteractionInput, "Yes resumes after No");
             await h.Dispose(); h = null;
 
-            foreach (var choice in new[] { Key.Y, Key.N })
+            h = new Harness("conferma", declineVoices: "eq_test_decline_a;eq_test_decline_b");
+            await h.Ready();
+            foreach (string voice in new[] { "eq_test_decline_a", "eq_test_decline_b", "eq_test_decline_a" })
+            {
+                h.Press(Key.N);
+                await Until(() => h.Player.CurrentClip == voice, "next invitation after No");
+                await h.Ready(); await Frames();
+                Check(h.Player.CurrentClip == voice, "silence does not advance the invitation loop");
+            }
+            h.Press(Key.S); await h.Finished();
+            Check(!h.Player.WaitingInteractionInput, "Italian S confirms help after repeated refusals");
+            await h.Dispose(); h = null;
+
+            foreach (var choice in new[] { Key.Y, Key.N, Key.S })
             {
                 h = new Harness("scelta"); await h.Ready();
                 h.Press(choice); await h.Finished();
-                Check(h.Player.BranchChoice == (choice == Key.Y ? "B" : "A"), "thumb choice selects its narrative branch");
+                Check(h.Player.BranchChoice == (choice == Key.N ? "A" : "B"), "thumb choice selects its narrative branch");
                 await h.Dispose(); h = null;
             }
 
@@ -207,7 +292,7 @@ public static class StoryInteractionRuntimeChecks
 
             h = new Harness("nota", "0;0.12;0.3", attempts: 2); await h.Ready();
             typeof(StoryPlayer).GetProperty("BranchChoice").SetValue(h.Player, "B");
-            await Until(() => h.Player.WaitingRetryChoice, "two missed note windows offer a choice");
+            await Until(() => h.Player.WaitingRetryChoice, "two missed note windows offer a choice", seconds: 12);
             Check(h.Player.CurrentClip == "eq_test_question", "question replaces automatic retry after two attempts");
             h.Press(Key.Digit1); await Frames();
             Check(h.Player.WaitingRetryChoice, "a musical button cannot answer the retry question");
@@ -224,6 +309,13 @@ public static class StoryInteractionRuntimeChecks
             await Until(() => h.Player.CurrentClip == "eq_test_continue", "No receives encouragement");
             await h.Finished();
             Check(h.Player.BranchChoice == "B", "declining practice preserves the story branch");
+            await h.Dispose(); h = null;
+
+            h = new Harness("nota", "0;0.12;0.3", attempts: 2); await h.Ready();
+            await Until(() => h.Player.WaitingRetryChoice, "retry question for Italian keyboard", seconds: 12);
+            h.Press(Key.S);
+            await Until(() => h.Player.WaitingInteractionInput && !h.Player.WaitingRetryChoice, "S starts another practice round");
+            Check(!h.Player.WaitingRetryChoice, "Italian S answers the retry question");
             await h.Dispose(); h = null;
 
             h = new Harness("confronto", attempts: 2); await h.Ready();
@@ -269,6 +361,8 @@ public static class StoryInteractionRuntimeChecks
             }
             await h.Finished();
             await h.Dispose(); h = null;
+            await NoteAfterEditorPause();
+            await NoteAfterSilence();
             return checks;
         }
         catch (Exception e) { throw new Exception(e.Message + " | " + h?.Player.Status + " | item=" + h?.Player.Current?.Id + " | branch=" + h?.Player.BranchChoice + " | keyboard=" + Keyboard.current?.deviceId + " expected=" + h?.Keys.deviceId, e); }

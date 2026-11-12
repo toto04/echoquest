@@ -139,7 +139,7 @@ public static class StorySceneChecks
                 else if (interaction.Mode == InteractionMode.Decision) Press(replay ? Key.N : Key.Y);
                 else
                 {
-                    if (!string.IsNullOrEmpty(interaction.Decline))
+                    if (interaction.DeclineVoices.Length > 0)
                     {
                         Press(Key.N); await Frames();
                         await Until(() => player.WaitingInteractionInput, "wait after refusal");

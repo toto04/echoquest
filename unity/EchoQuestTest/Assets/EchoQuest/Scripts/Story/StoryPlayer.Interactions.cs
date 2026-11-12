@@ -9,7 +9,7 @@ namespace EchoQuest.Story
 {
     public partial class StoryPlayer
     {
-        [Header("Physical thumb buttons (0 = unassigned; keyboard Y/N always available)")]
+        [Header("Physical thumb buttons (0 = unassigned; keyboard S/Y and N available)")]
         [Range(0, 16)] public int yesThumbButton;
         [Range(0, 16)] public int noThumbButton;
 
@@ -18,19 +18,39 @@ namespace EchoQuest.Story
         private double m_CaptureStart, m_CaptureInputStart;
         private int m_InteractionSelectedButton, m_InteractionConfirmButton;
         private int m_EncouragementIndex;
+        private const float MissingNoteResponseSeconds = 3f;
         public bool WaitingInteractionInput => m_CapturingInteraction;
         public bool WaitingRetryChoice { get; private set; }
 
-        private void OnEnable() => InputSystem.onEvent += CaptureInteractionInput;
+        private void OnEnable()
+        {
+            InputSystem.onEvent += CaptureInteractionInput;
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.pauseStateChanged += OnEditorPauseChanged;
+#endif
+        }
 
         private void OnDisable()
         {
             InputSystem.onEvent -= CaptureInteractionInput;
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.pauseStateChanged -= OnEditorPauseChanged;
+#endif
             EndInteractionCapture();
         }
 
+#if UNITY_EDITOR
+        private void OnEditorPauseChanged(UnityEditor.PauseState state)
+        {
+            if (state == UnityEditor.PauseState.Unpaused) RebaseInteractionClock();
+        }
+#endif
+
         private void CaptureInteractionInput(InputEventPtr ev, InputDevice device)
         {
+#if UNITY_EDITOR
+            if (UnityEditor.EditorApplication.isPaused) return;
+#endif
             if (!m_CapturingInteraction || Paused ||
                 (!ev.IsA<StateEvent>() && !ev.IsA<DeltaStateEvent>())) return;
             if (ev.time < m_CaptureInputStart) return;
@@ -48,6 +68,7 @@ namespace EchoQuest.Story
                 Read(keyboard.numpad1Key, 1); Read(keyboard.numpad2Key, 2);
                 Read(keyboard.numpad3Key, 3); Read(keyboard.numpad4Key, 4);
                 Read(keyboard.yKey, StoryInteractionRules.Yes);
+                Read(keyboard.sKey, StoryInteractionRules.Yes);
                 Read(keyboard.nKey, StoryInteractionRules.No);
                 if (WaitingChoice) Read(keyboard.spaceKey, m_InteractionConfirmButton);
             }
@@ -108,7 +129,7 @@ namespace EchoQuest.Story
         {
             if (!InteractionVoiceExists(settings.Prompt)) return false;
             if (!string.IsNullOrEmpty(settings.Success) && !InteractionVoiceExists(settings.Success)) return false;
-            if (!string.IsNullOrEmpty(settings.Decline) && !InteractionVoiceExists(settings.Decline)) return false;
+            foreach (var voice in settings.DeclineVoices) if (!InteractionVoiceExists(voice)) return false;
             if (settings.AttemptsPerRound > 0)
             {
                 if (!InteractionVoiceExists(settings.RetryQuestion)) return false;
@@ -244,7 +265,7 @@ namespace EchoQuest.Story
             if (Interrupted) yield break;
             BeginInteractionCapture(true);
             WaitingRetryChoice = true;
-            Status = "Ti va di riprovare? Y: sì · N: continuiamo la storia";
+            Status = "Ti va di riprovare? S/Y: sì · N: continuiamo la storia";
             try
             {
                 while (!Interrupted)
@@ -269,6 +290,7 @@ namespace EchoQuest.Story
                 settings.ConfirmButton);
             var taps = new List<double>();
             bool declined = false;
+            int declineIndex = 0;
             Status = "Aspetto la tua risposta";
             double lastActivity = AudioSettings.dspTime;
             while (!Interrupted)
@@ -296,13 +318,16 @@ namespace EchoQuest.Story
                                 yield return Wait(feedback.length + pauseAfterSound);
                             yield break;
                         }
-                        if (button == StoryInteractionRules.No && settings.ConfirmButton == StoryInteractionRules.Yes && !declined)
+                        if (button == StoryInteractionRules.No && settings.ConfirmButton == StoryInteractionRules.Yes &&
+                            settings.DeclineVoices.Length > 0 && (!declined || settings.DeclineVoices.Length > 1))
                         {
                             declined = true;
                             EndInteractionCapture();
-                            if (!string.IsNullOrEmpty(settings.Decline)) yield return InteractionVoice(settings.Decline);
+                            yield return InteractionVoice(settings.DeclineVoices[declineIndex]);
+                            declineIndex = (declineIndex + 1) % settings.DeclineVoices.Length;
                             if (Interrupted) yield break;
                             BeginInteractionCapture(true, settings.ConfirmButton);
+                            Status = "Aspetto la tua risposta: S/Y sì · N no";
                         }
                         continue;
                     }
@@ -331,11 +356,12 @@ namespace EchoQuest.Story
             InteractionClip(settings.Examples[0], out var clip);
             var sound = new StoryItem { Id = settings.Examples[0], Kind = StoryItemKind.Sound };
             double start = AudioSettings.dspTime + 0.15;
-            Spawn(clip, StagingFor(sound), sound.Id, soundMarker, scheduledStart: start);
+            var source = Spawn(clip, StagingFor(sound), sound.Id, soundMarker, scheduledStart: start);
+            source.Source.bypassReverbZones = true;
             BeginInteractionCapture(false);
             Status = "Premi nel momento della terza nota";
             CurrentClip = clip.name;
-            double deadline = start + settings.Times[2] + settings.Tolerance;
+            double deadline = start + clip.length + MissingNoteResponseSeconds;
             while (!Interrupted)
             {
                 if (Paused) { yield return null; continue; }
@@ -344,14 +370,17 @@ namespace EchoQuest.Story
                     var (button, time) = m_InteractionInput.Dequeue();
                     if (button != 1 || time < start) continue;
                     m_InteractionAttempted = true;
-                    m_InteractionPassed |= StoryInteractionRules.HitsMissingNote(time, start, settings.Times, settings.Tolerance);
+                    m_InteractionPassed |= StoryInteractionRules.HitsMissingNote(time, start, settings.Times, settings.Tolerance, deadline);
                 }
+                if (m_InteractionPassed) break;
                 if (AudioSettings.dspTime >= deadline) break;
+                if (AudioSettings.dspTime >= start + clip.length) Status = "Ora premi 1 nel silenzio";
                 yield return null;
             }
             // A complete listening window counts as a try even if no button was pressed.
             if (!Interrupted) m_InteractionAttempted = true;
             EndInteractionCapture();
+            if (!Interrupted) Status = m_InteractionPassed ? "Nota riconosciuta" : "Ascolta la fine dell’esempio";
             while (!Interrupted && AudioSettings.dspTime < start + clip.length + pauseAfterSound) yield return null;
         }
     }

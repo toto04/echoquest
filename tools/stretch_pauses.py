@@ -175,7 +175,6 @@ def main() -> None:
     inner_q = lines_with_inner_question(args.sequence) if args.sequence else None
     args.originals_dir.mkdir(parents=True, exist_ok=True)
 
-    # 1. Move new recordings of these characters into the originals folder.
     for f in sorted(args.voice_dir.iterdir()):
         m = VOICE_RE.match(f.stem)
         if f.is_file() and f.suffix.lower() in AUDIO_EXTS and m and m.group(1) in chars:
@@ -187,7 +186,6 @@ def main() -> None:
             if meta.exists():
                 meta.unlink()  # Unity makes a new one for the processed file
 
-    # 2. Rebuild every processed copy from its original.
     total = 0
     for orig in sorted(args.originals_dir.iterdir()):
         m = VOICE_RE.match(orig.stem)

@@ -1,7 +1,3 @@
-// Builds Assets/EchoQuest/Scenes/ControllerTest.unity from code, so the scene is
-// reproducible and easy to change (by hand or by an AI agent).
-// Menu: EchoQuest > Rebuild Controller Test Scene
-// CLI:  unity command eval --code 'EchoQuest.Editor.TestSceneBuilder.Build();'
 using EchoQuest;
 using UnityEditor;
 using UnityEditor.SceneManagement;

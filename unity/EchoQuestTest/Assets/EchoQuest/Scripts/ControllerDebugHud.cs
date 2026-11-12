@@ -1,4 +1,3 @@
-// On-screen debug readout for the controller test scene (IMGUI, no setup needed).
 using System.Text;
 using EchoQuest.Input;
 using UnityEngine;

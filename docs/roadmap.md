@@ -1,6 +1,6 @@
 # Roadmap and status
 
-Last updated: 2026-11-11.
+Last updated: 2026-11-12.
 
 ## Where we are
 
@@ -88,6 +88,30 @@ and a scheduled missing-note exercise. These are wired into the 93-item Scene 1;
 
 See [scena1-interattiva.md](scena1-interattiva.md) for behavior, audio texts,
 implementation decisions and acceptance checks. The current story has 93 items and has passed both route checks. Full listening and physical controller checks remain.
+
+### Repository cleanup (completed 2026-11-12)
+
+Keep runtime behavior, HID reports, story IDs, audio sources and existing local
+changes intact. Remove files only after checking references and build inputs.
+
+- [x] Remove the empty root Unity project and generated solution. The project
+  remains in `unity/EchoQuestTest`; ignore rules prevent accidental root imports.
+- [x] Remove the template scene and build entry. Preserve referenced render/input
+  assets, audio originals and the local recovery scene.
+- [x] Remove two unread fields, two unused synthesizers, duplicated WAV helpers
+  and redundant comments. Later-section choices and hardware profiles remain.
+- [x] Remove nine unloadable test subassets from the volume profile and seven
+  obsolete renderer references through Unity. Preserve the 19 active volume
+  components, renderer masks, render modes, stencil and SSAO settings.
+- [x] Verify Unity compilation, 50 rule/configuration checks, 34 interaction
+  checks, paused-audio regression and all three Scene 1 routes. Verify 22 native
+  firmware tests, probe self-test and three Python audio tests. The 45 generated
+  Scene 1 WAVs and four generated CSVs remain byte-identical.
+- [x] Resolve all remaining scene/material/render-pipeline references and
+  preserve the 93-item Scene 1 with 194 audio clips.
+
+No dependency, firmware behavior or architecture changes. ESP32 target builds
+were not rerun: the changed firmware lines are comments only; native tests pass.
 
 ### Later
 

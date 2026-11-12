@@ -1,5 +1,3 @@
-// On-screen panel for the people around the player (and for demos): what is playing,
-// where each sound is, and the keys. The game itself is audio-only.
 using UnityEngine;
 
 namespace EchoQuest.Story

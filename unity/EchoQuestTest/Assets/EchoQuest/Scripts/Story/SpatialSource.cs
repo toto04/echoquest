@@ -1,5 +1,3 @@
-// One playing voice or sound. Places it around the listener, moves it if the staging says so,
-// darkens it with distance (far sounds lose their high frequencies), and removes itself when done.
 using UnityEngine;
 
 namespace EchoQuest.Story

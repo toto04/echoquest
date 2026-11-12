@@ -182,5 +182,38 @@
     "identical_downloads": [
       "ElevenLabs_2026-11-11T10_56_24_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
     ]
+  },
+  {
+    "file": "eq_s01_extra_15_ancora.wav",
+    "source": "ElevenLabs_2026-11-12T09_08_51_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "476ff47b78f1c21ac4722984175fa21bb36fc5af571cd206f14070ac1cfbc6a4",
+    "duration_seconds": 1.6,
+    "status": "ricevuto e montato: scelta dopo due tentativi",
+    "text": "Ti va di riprovare?",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-12T09_08_51_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "file": "eq_s01_extra_16_migliorare.wav",
+    "source": "ElevenLabs_2026-11-12T09_09_10_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "4a379a3dc1ae5c23cfc3c1bc0d67300279c477d86a2732efe3a830b6880fa65e",
+    "duration_seconds": 6.32,
+    "status": "ricevuto e montato: scelta dopo due tentativi",
+    "text": "Nessuna fretta! C’è tutto il tempo per migliorare. Continuiamo la nostra avventura.",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-12T09_09_10_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
+  },
+  {
+    "file": "eq_s01_extra_17_migliorare_alt.wav",
+    "source": "ElevenLabs_2026-11-12T09_10_21_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3",
+    "sha256": "cac09113a957036d4fe8585b511cd13de014e8fbbc54ab4cd9365f431f1bb9d3",
+    "duration_seconds": 3.76,
+    "status": "ricevuto e montato: scelta dopo due tentativi",
+    "text": "Non ti preoccupare! Si può sempre migliorare!",
+    "identical_downloads": [
+      "ElevenLabs_2026-11-12T09_10_21_Antonio Farina - Expressive and Warm_pvc_s50_sim75_v4.mp3"
+    ]
   }
 ]

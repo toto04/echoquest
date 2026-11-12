@@ -2,7 +2,8 @@
 
 Versione montata l’11 novembre 2026: **93 elementi**, 45 battute narrative,
 40 suoni e otto punti di interazione, di cui uno nel ramo di riascolto.
-Tutti gli audio necessari sono presenti. Restano il riascolto in cuffia e,
+Gli audio del montaggio e della scelta di riprovare sono presenti.
+Restano il riascolto in cuffia e,
 quando sarà disponibile, la verifica del controller fisico.
 
 ## Le cinque modifiche approvate
@@ -32,8 +33,10 @@ richiederla esplicitamente. Nessuna domanda viene ripetuta automaticamente
 perché il bambino non risponde. No alla richiesta d’aiuto apre un’attesa calma;
 si continua con Sì, senza conto alla rovescia o richiami insistenti.
 
-Sono stati controllati 20 MP3 nei Downloads: 17 contenuti distinti e tre copie
-identiche. I file originali sono conservati in `Story/Audio/Interazioni/_ricevuti/`;
+Per il montaggio dell’11 novembre sono stati controllati 20 MP3 nei Downloads:
+17 contenuti distinti e tre copie identiche. Il 12 novembre sono stati aggiunti
+tre audio per la scelta di riprovare e le risposte alternate. I file originali
+sono conservati in `Story/Audio/Interazioni/_ricevuti/`;
 i messaggi pronti sono in `Story/Audio/Interazioni/`. Le versioni estese delle
 istruzioni del confronto e dell’aiuto restano archiviate. La risposta d’attesa
 è tagliata dopo «Io resto qui», prima del comando finale «premi Sì».
@@ -89,6 +92,31 @@ non sono lette nuovamente.
 
 ## Dati e riproducibilità
 
+### Due tentativi, poi una scelta
+
+La logica permette due tentativi per volta negli esercizi di ritmo,
+confronto e nota mancante. Dopo due esiti non riusciti il Maestro chiede
+«Ti va di riprovare?». Sì apre un altro gruppo di due tentativi; No fa
+ascoltare un incoraggiamento e prosegue nella storia. La rinuncia non viene
+presentata come un successo e non cambia il ramo narrativo. Il silenzio
+durante la domanda non provoca richiami automatici.
+
+La scelta è configurata per `s01_int_02`, `s01_int_03`, `s01_int_04` e
+`s01_int_05`. I tre nuovi audio ricevuti il 12 novembre sono importati con
+gli originali MP3 conservati in `_ricevuti`. `eq_s01_extra_15_ancora` è la
+domanda; le risposte `eq_s01_extra_16_migliorare` e
+`eq_s01_extra_17_migliorare_alt` si alternano fra le rinunce ai diversi
+esercizi. Il riavvio della storia ricomincia dalla prima risposta.
+I [testi registrati](registrazioni-scena1-riprova.txt) restano disponibili
+in formato leggibile, con i toni fra parentesi quadre. Non servono altri audio.
+
+Nella nota mancante una pressione troppo anticipata non impedisce più di
+correggersi premendo nel momento giusto durante lo stesso ascolto. La finestra
+conclusa senza pressioni conta come una prova nella modalità con limite.
+R e il riavvio azzerano il conteggio; il tasto 1 funziona anche dal tastierino numerico.
+
+### Configurazione del montaggio
+
 Il copione Markdown resta la fonte della sequenza narrativa. I quattro CSV
 si rigenerano con `tools/story_extract.py`; la regia è scritta a mano. I
 messaggi condizionali sono un banco audio separato: non sono duplicati come
@@ -109,6 +137,9 @@ La regia supporta:
 | `pulsante` | `indice` per la prima prova musicale; conferme altrimenti sul Sì del pollice |
 | `attesa_no` | Messaggio che accoglie No, una volta, prima di aspettare Sì |
 | `scelte` | Nelle nuove scelte `5=B;6=A`: Sì al ramo B, No al ramo A |
+| `tentativi` | Facoltativo: da 1 a 3, previsto 2; richiede entrambi gli audio seguenti |
+| `domanda_riprova` | Domanda Sì/No dopo il numero di tentativi indicato |
+| `prosegui` | Incoraggiamenti separati da `;`, alternati dopo No; poi prosegue senza la risposta di successo |
 
 Il confronto ritmico è locale: non cambia il ramo narrativo. Le pressioni
 sono raccolte dai timestamp di `InputSystem.onEvent`, evitando di perdere tre
@@ -153,16 +184,17 @@ In Play in una scena temporanea vuota, poi ripristinando la scena originale:
 ```sh
 unity command 'script run' --file ../../tools/story_audio_checks.cs --entry StoryAudioChecks.Run --timeout 40
 unity command 'script run' --file ../../tools/story_interaction_runtime_checks.cs --entry StoryInteractionRuntimeChecks.Run
-unity command 'script run' --file ../../tools/story_scene_checks.cs --entry StorySceneChecks.Run --timeout 120
+unity command 'script run' --file ../../tools/story_scene_checks.cs --entry StorySceneChecks.Run --timeout 180
 ```
 
-Esiti dell’11 novembre:
+Esiti dell’11–12 novembre:
 
 - Compilazione senza errori.
 - Riprodotta e corretta la sovrapposizione dopo una pausa dell’Editor: controllo sulla narrazione e sulle consegne divise in più parti.
-- 38 controlli sulle regole e sulla configurazione superati.
-- 19 controlli in Play su note/risposte separate, No, pausa, ripeti, riavvio e tempi superati.
+- 50 controlli sulle regole e sulla configurazione superati.
+- 34 controlli in Play: note/risposte separate, No, pausa, ripeti, riavvio, tempi, pressione anticipata corretta, tastierino numerico, limite dei tentativi e risposte alternate.
 - Percorso diretto completato con sette interazioni; percorso di riascolto con otto.
+- Completato anche il percorso che rinuncia a tutti e quattro gli esercizi dopo due tentativi, con sette interazioni e arrivo allo stesso finale.
 - Verificati 93 elementi, 40 suoni di scena, cinque esempi/feedback, riferimenti audio e GUID riutilizzati.
 - Superati i tre test Python delle pause vocali.
 

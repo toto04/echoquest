@@ -48,7 +48,7 @@ public static class StorySceneChecks
         }
         return output.ToString();
     }
-    static async Task<int> Route(bool replay)
+    static async Task<int> Route(bool replay, bool declineExercises = false)
     {
         const string rootPath = "Assets/EchoQuest/Story";
         var root = new GameObject("Actual story check"); root.SetActive(false);
@@ -88,11 +88,36 @@ public static class StorySceneChecks
                 await Until(() => player.Current == null || player.WaitingInteractionInput, player.Current?.Id ?? "next interaction");
                 if (player.Current == null) break;
                 string id = player.Current.Id;
-                Progress = (replay ? "Replay: " : "Direct: ") + id;
+                Progress = (declineExercises ? "Declining practice: " : replay ? "Replay: " : "Direct: ") + id;
                 if (!visited.Add(id)) throw new Exception("Unexpected interaction repeat: " + id);
                 var interaction = player.StagingFor(player.Current).Interaction;
                 if (interaction == null) throw new Exception("Unexpected legacy interaction: " + id);
-                if (interaction.Mode == InteractionMode.Rhythm)
+                if (declineExercises && interaction.AttemptsPerRound > 0)
+                {
+                    for (int attempt = 0; attempt < interaction.AttemptsPerRound; attempt++)
+                    {
+                        await Until(() => player.WaitingInteractionInput && !player.WaitingRetryChoice, "practice attempt");
+                        if (interaction.Mode == InteractionMode.Compare) Press(Key.Y);
+                        else if (interaction.Mode == InteractionMode.Rhythm)
+                        {
+                            double capture = AudioSettings.dspTime;
+                            await Until(() => AudioSettings.dspTime >= capture + .05, "wrong rhythm timestamps");
+                            double origin = InputState.currentTime - .02;
+                            foreach (double offset in new[] { 0d, .01, .02 })
+                            {
+                                State(origin + offset, Key.Digit1); State(origin + offset + .000001);
+                            }
+                            InputSystem.Update();
+                        }
+                        if (attempt + 1 == interaction.AttemptsPerRound)
+                            await Until(() => player.WaitingRetryChoice, "retry choice after final attempt");
+                        else
+                            await Until(() => !player.WaitingInteractionInput, "attempt completes");
+                    }
+                    await Until(() => player.WaitingRetryChoice, "choice after two attempts");
+                    Press(Key.N);
+                }
+                else if (interaction.Mode == InteractionMode.Rhythm)
                 {
                     double capture = AudioSettings.dspTime;
                     double duration = interaction.Times[2];
@@ -147,7 +172,9 @@ public static class StorySceneChecks
         if (!Application.isPlaying) throw new Exception("Run in Play mode in an empty temporary scene.");
         int direct = await Route(false);
         int replay = await Route(true);
-        LastResult = "Direct path: " + direct + " interactions; replay path: " + replay + " interactions.";
+        int declined = await Route(false, declineExercises: true);
+        LastResult = "Direct path: " + direct + " interactions; replay path: " + replay +
+            " interactions; declined exercises path: " + declined + " interactions.";
         Progress = "Complete"; return LastResult;
     }
 }

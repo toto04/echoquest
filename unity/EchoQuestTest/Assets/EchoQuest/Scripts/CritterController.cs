@@ -1,6 +1,3 @@
-// Test-scene behaviour: a little critter that mirrors the controller's
-// orientation. Button A cycles its colour, button B makes it hop.
-// Keyboard fallback when no controller is connected (see ControllerDebugHud for keys).
 using EchoQuest.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;

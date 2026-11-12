@@ -1,7 +1,3 @@
-// Builds the story scenes from code, like TestSceneBuilder: Story/Scenes/Intro.unity (the prologue,
-// section p00) and Story/Scenes/Scena1.unity (section s01). They differ only in the section they play.
-// Change this file, not the .unity files. Menu: EchoQuest > Rebuild Story Scenes,
-// or `unity command eval --code 'EchoQuest.Editor.StorySceneBuilder.Build();'`.
 using System.Collections.Generic;
 using EchoQuest.Story;
 using UnityEditor;

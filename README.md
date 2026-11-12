@@ -11,6 +11,9 @@ vendor-defined haptic commands from the game.
 - Unity test scene: [`unity/EchoQuestTest/`](unity/EchoQuestTest/), see [`docs/unity-test-scene.md`](docs/unity-test-scene.md#running-it)
 - Build, flash and dev notes: [`CLAUDE.md`](CLAUDE.md)
 
+In Unity Hub, add `unity/EchoQuestTest` as the project folder. The repository
+root contains firmware and tools as well; it is not a Unity project.
+
 ## Supported boards
 
 | PlatformIO env | Board | Inputs | IMU |

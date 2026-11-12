@@ -10,6 +10,9 @@ namespace EchoQuest.Story
     {
         public InteractionMode Mode;
         public string Prompt, Success, Retry, Feedback, Decline;
+        public string RetryQuestion;
+        public string[] ContinueVoices;
+        public int AttemptsPerRound;
         public int ConfirmButton = StoryInteractionRules.Yes;
         public string[] Examples;
         public float[] Times;
@@ -33,6 +36,8 @@ namespace EchoQuest.Story
                 Prompt = get("consegna"), Success = get("successo"), Retry = get("riprova"),
                 Feedback = get("suono_pulsante"),
                 Decline = get("attesa_no"),
+                RetryQuestion = get("domanda_riprova"),
+                ContinueVoices = get("prosegui").Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries),
                 Examples = get("esempi").Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries),
             };
             var times = new List<float>();
@@ -44,6 +49,20 @@ namespace EchoQuest.Story
                 times.Add(time);
             }
             settings.Times = times.ToArray();
+            string attempts = get("tentativi");
+            if (!string.IsNullOrEmpty(attempts) &&
+                (!int.TryParse(attempts, NumberStyles.Integer, CultureInfo.InvariantCulture, out settings.AttemptsPerRound) ||
+                 settings.AttemptsPerRound < 1 || settings.AttemptsPerRound > 3))
+                throw new FormatException("Practice rounds require one to three attempts.");
+            if (settings.AttemptsPerRound > 0)
+            {
+                if (settings.Mode is InteractionMode.Confirm or InteractionMode.Decision)
+                    throw new FormatException("Attempt limits apply only to practice exercises.");
+                if (string.IsNullOrEmpty(settings.RetryQuestion) || settings.ContinueVoices.Length == 0)
+                    throw new FormatException("Attempt limits require domanda_riprova and prosegui voices.");
+            }
+            else if (!string.IsNullOrEmpty(settings.RetryQuestion) || settings.ContinueVoices.Length > 0)
+                throw new FormatException("Retry choice voices require a tentativi limit.");
             settings.ConfirmButton = get("pulsante") switch
             {
                 "" or "si" => StoryInteractionRules.Yes,

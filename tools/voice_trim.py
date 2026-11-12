@@ -22,8 +22,9 @@ import math
 import re
 import subprocess
 import sys
-import wave
 from pathlib import Path
+
+from stretch_pauses import decode, write_wav
 
 TS = re.compile(r"\[(\d+):(\d+):([\d.]+) --> (\d+):(\d+):([\d.]+)\]\s*(.*)")
 
@@ -31,29 +32,6 @@ TS = re.compile(r"\[(\d+):(\d+):([\d.]+) --> (\d+):(\d+):([\d.]+)\]\s*(.*)")
 def norm(text: str) -> list[str]:
     text = re.sub(r"\[[^\]]*\]", " ", text.lower())
     return [w for w in re.split(r"[^a-zàèéìòóù]+", text) if w]
-
-
-def decode(path: Path) -> tuple[array.array, int]:
-    rate = int(subprocess.check_output(
-        ["ffprobe", "-v", "error", "-select_streams", "a:0", "-show_entries", "stream=sample_rate",
-         "-of", "csv=p=0", str(path)], text=True).strip())
-    raw = subprocess.check_output(["ffmpeg", "-v", "error", "-i", str(path), "-ac", "1", "-f", "s16le", "-"])
-    x = array.array("h")
-    x.frombytes(raw)
-    if sys.byteorder != "little":
-        x.byteswap()
-    return x, rate
-
-
-def write_wav(path: Path, x: array.array, rate: int) -> None:
-    data = array.array("h", x)
-    if sys.byteorder != "little":
-        data.byteswap()
-    with wave.open(str(path), "wb") as w:
-        w.setnchannels(1)
-        w.setsampwidth(2)
-        w.setframerate(rate)
-        w.writeframes(data.tobytes())
 
 
 def whisper_words(path: Path, model: str) -> list[tuple[float, float, str]]:

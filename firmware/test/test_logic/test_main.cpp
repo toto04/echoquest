@@ -13,7 +13,6 @@ using namespace protocol;
 void setUp() {}
 void tearDown() {}
 
-// ---- Descriptor --------------------------------------------------------------
 // Minimal HID descriptor walker: sums report bits per (type, report ID) so we
 // can check the descriptor agrees with INPUT_REPORT_SIZE / HAPTIC_REPORT_SIZE.
 struct ReportBits {
@@ -58,7 +57,6 @@ void test_descriptor_matches_report_sizes() {
     TEST_ASSERT_EQUAL(HAPTIC_REPORT_SIZE * 8, b.output[REPORT_ID_HAPTIC]);
 }
 
-// ---- Input packing -----------------------------------------------------------
 void test_pack_input_layout() {
     InputState s;
     s.buttons = 0x8001;  // button 1 and button 16
@@ -106,7 +104,6 @@ void test_hat_from_directions() {
     TEST_ASSERT_EQUAL(3, hatFromDirections(true, true, true, false));     // up+down cancel, right remains
 }
 
-// ---- Haptic parsing ----------------------------------------------------------
 void test_parse_haptic_payload() {
     const uint8_t r[] = {1, 200, 0xF4, 0x01, 0, 0, 0, 0};  // motor 1, 200, 500 ms
     HapticCommand c;
@@ -145,7 +142,6 @@ void test_haptic_stop_semantics() {
     TEST_ASSERT_TRUE(c.isStop());
 }
 
-// ---- Debouncer ---------------------------------------------------------------
 void test_debouncer_ignores_bounce() {
     Debouncer db(10);
     TEST_ASSERT_FALSE(db.update(true, 0));
@@ -163,7 +159,6 @@ void test_debouncer_millis_wraparound() {
     TEST_ASSERT_TRUE(db.update(true, 4));  // 10 ms later across the wrap
 }
 
-// ---- Orientation filter ------------------------------------------------------
 // Body frame: X forward, Y left, Z up. A still accelerometer reads "up".
 static const float D2R = orientation::DEG_TO_RAD_F;
 
@@ -230,7 +225,6 @@ void test_remap_axes() {
     TEST_ASSERT_EQUAL_FLOAT(3, out[2]);
 }
 
-// ---- Gyro bias tracking ------------------------------------------------------
 // Deterministic pseudo-noise in [-amp, amp].
 static float noise(uint32_t& seed, float amp) {
     seed = seed * 1664525u + 1013904223u;

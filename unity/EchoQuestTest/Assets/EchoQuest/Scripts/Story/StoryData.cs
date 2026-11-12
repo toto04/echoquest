@@ -1,5 +1,3 @@
-// Story data read from the CSV files that tools/story_extract.py generates (sequence)
-// and from the hand-written staging file (where each voice and sound is placed).
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -43,7 +41,6 @@ namespace EchoQuest.Story
         /// Empty = button 1 picks branch A, button 2 branch B, and so on.</summary>
         public Dictionary<int, string> Choices = new Dictionary<int, string>();
         public InteractionSettings Interaction;
-        public string Key = "(default)";
 
         public static readonly StagingEntry Default = new StagingEntry { Position = new Vector3(0, 0, 4) };
     }
@@ -100,7 +97,6 @@ namespace EchoQuest.Story
                 if (key.Length == 0 || key.StartsWith("#")) continue;
                 map[key] = new StagingEntry
                 {
-                    Key = key,
                     Position = Vec("x", "y", "z"),
                     MoveTo = Vec("a_x", "a_y", "a_z"),
                     MoveSeconds = Num("secondi_movimento") ?? 0,

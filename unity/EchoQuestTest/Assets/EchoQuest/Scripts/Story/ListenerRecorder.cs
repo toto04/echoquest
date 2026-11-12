@@ -1,6 +1,4 @@
-// Records what the listener hears (after spatialisation and reverb) to a stereo WAV file,
-// to share a demo or to check the left/right placement. F9 starts and stops.
-// Files go to <project>/Recordings/, which git ignores.
+// F9 records post-spatialization audio to <project>/Recordings/.
 using System;
 using System.Collections.Generic;
 using System.IO;

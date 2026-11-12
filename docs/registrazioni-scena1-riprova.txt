@@ -1,0 +1,29 @@
+SCENA 1 — TRE NUOVE BATTUTE DEL MAESTRO, RICEVUTE IL 12 NOVEMBRE
+
+Voce per tutte: Antonio Farina – Expressive and Warm.
+Una registrazione separata per ogni battuta.
+Il tono deve essere affettuoso e leggero. La risata accompagna il bambino,
+senza prendere in giro un errore. Non aggiungere istruzioni sui pulsanti.
+
+1. DOMANDA DOPO DUE TENTATIVI
+Nome previsto: eq_s01_extra_15_ancora.wav
+
+[curious] Ti va di riprovare?
+
+
+2. RISPOSTA AL NO — POI LA STORIA CONTINUA
+Nome previsto: eq_s01_extra_16_migliorare.wav
+
+[chuckles] Nessuna fretta! C’è tutto il tempo per migliorare. Continuiamo la nostra avventura.
+
+
+3. RISPOSTA AL NO — ALTERNATIVA
+Nome previsto: eq_s01_extra_17_migliorare_alt.wav
+
+[chuckles] Non ti preoccupare! Si può sempre migliorare!
+
+
+Se il bambino risponde Sì, si aprono altre due prove dello stesso esercizio.
+Se risponde No, il Maestro alterna le ultime due battute e la storia prosegue.
+Le stesse tre registrazioni servono per ritmo, confronto e nota mancante.
+Gli MP3 esportati da ElevenLabs vanno bene: la conversione in WAV si fa nel progetto.

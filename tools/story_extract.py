@@ -107,7 +107,6 @@ class Extractor:
         self.counters[key] = self.counters.get(key, 0) + 1
         return f"{key}_{self.counters[key]:02d}"
 
-    # --- speaker blocks -------------------------------------------------
     def close_block(self) -> None:
         if not self.speaker:
             return
@@ -142,7 +141,6 @@ class Extractor:
         self.speaker = ""
         self.block_parts = []
 
-    # --- cues -------------------------------------------------------------
     def make_cue(self, raw: str, line: int) -> Item | str | None:
         raw = clean_markdown(raw)
         m = CUE_KIND_RE.match(raw)
@@ -167,7 +165,6 @@ class Extractor:
             self.close_block()
             self.branch, self.branch_level = "", 0
 
-    # --- main loop ----------------------------------------------------------
     def run(self, lines: list[str]) -> list[Item]:
         for n, raw in enumerate(lines, start=1):
             line = raw.strip()

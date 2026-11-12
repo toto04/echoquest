@@ -17,7 +17,9 @@ namespace EchoQuest.Story
         private bool m_CapturingInteraction, m_InteractionPassed, m_InteractionAttempted;
         private double m_CaptureStart, m_CaptureInputStart;
         private int m_InteractionSelectedButton, m_InteractionConfirmButton;
+        private int m_EncouragementIndex;
         public bool WaitingInteractionInput => m_CapturingInteraction;
+        public bool WaitingRetryChoice { get; private set; }
 
         private void OnEnable() => InputSystem.onEvent += CaptureInteractionInput;
 
@@ -43,6 +45,8 @@ namespace EchoQuest.Story
             {
                 Read(keyboard.digit1Key, 1); Read(keyboard.digit2Key, 2);
                 Read(keyboard.digit3Key, 3); Read(keyboard.digit4Key, 4);
+                Read(keyboard.numpad1Key, 1); Read(keyboard.numpad2Key, 2);
+                Read(keyboard.numpad3Key, 3); Read(keyboard.numpad4Key, 4);
                 Read(keyboard.yKey, StoryInteractionRules.Yes);
                 Read(keyboard.nKey, StoryInteractionRules.No);
                 if (WaitingChoice) Read(keyboard.spaceKey, m_InteractionConfirmButton);
@@ -72,6 +76,7 @@ namespace EchoQuest.Story
         private void EndInteractionCapture()
         {
             m_CapturingInteraction = false;
+            WaitingRetryChoice = false;
             WaitingChoice = false;
             m_InteractionInput.Clear();
         }
@@ -104,6 +109,11 @@ namespace EchoQuest.Story
             if (!InteractionVoiceExists(settings.Prompt)) return false;
             if (!string.IsNullOrEmpty(settings.Success) && !InteractionVoiceExists(settings.Success)) return false;
             if (!string.IsNullOrEmpty(settings.Decline) && !InteractionVoiceExists(settings.Decline)) return false;
+            if (settings.AttemptsPerRound > 0)
+            {
+                if (!InteractionVoiceExists(settings.RetryQuestion)) return false;
+                foreach (var voice in settings.ContinueVoices) if (!InteractionVoiceExists(voice)) return false;
+            }
             if (settings.Mode is not (InteractionMode.Confirm or InteractionMode.Decision) && !InteractionVoiceExists(settings.Retry)) return false;
             foreach (var example in settings.Examples) if (!InteractionClip(example, out _)) return false;
             return string.IsNullOrEmpty(settings.Feedback) || InteractionClip(settings.Feedback, out _);
@@ -169,6 +179,7 @@ namespace EchoQuest.Story
             try
             {
                 bool firstAttempt = true;
+                int failedAttempts = 0;
                 while (!Interrupted)
                 {
                     m_Foreground.RemoveAll(source => source == null);
@@ -202,13 +213,54 @@ namespace EchoQuest.Story
                         if (!string.IsNullOrEmpty(settings.Success)) yield return InteractionVoice(settings.Success);
                         yield break;
                     }
-                    if (m_InteractionAttempted) yield return InteractionVoice(settings.Retry);
+                    if (m_InteractionAttempted)
+                    {
+                        if (settings.AttemptsPerRound > 0 && ++failedAttempts >= settings.AttemptsPerRound)
+                        {
+                            yield return RetryChoice(settings);
+                            if (Interrupted) yield break;
+                            if (m_InteractionSelectedButton == StoryInteractionRules.No)
+                            {
+                                string encouragement = settings.ContinueVoices[m_EncouragementIndex % settings.ContinueVoices.Length];
+                                m_EncouragementIndex = (m_EncouragementIndex + 1) % settings.ContinueVoices.Length;
+                                yield return InteractionVoice(encouragement);
+                                yield break;
+                            }
+                            failedAttempts = 0;
+                        }
+                        yield return InteractionVoice(settings.Retry);
+                    }
                 }
             }
             finally
             {
                 EndInteractionCapture();
             }
+        }
+
+        private IEnumerator RetryChoice(InteractionSettings settings)
+        {
+            yield return InteractionVoice(settings.RetryQuestion, pauseAfter: false);
+            if (Interrupted) yield break;
+            BeginInteractionCapture(true);
+            WaitingRetryChoice = true;
+            Status = "Ti va di riprovare? Y: sì · N: continuiamo la storia";
+            try
+            {
+                while (!Interrupted)
+                {
+                    if (Paused) { yield return null; continue; }
+                    while (m_InteractionInput.Count > 0)
+                    {
+                        var (button, _) = m_InteractionInput.Dequeue();
+                        if (button != StoryInteractionRules.Yes && button != StoryInteractionRules.No) continue;
+                        m_InteractionSelectedButton = button;
+                        yield break;
+                    }
+                    yield return null;
+                }
+            }
+            finally { EndInteractionCapture(); }
         }
 
         private IEnumerator CaptureButtons(InteractionSettings settings)
@@ -290,13 +342,15 @@ namespace EchoQuest.Story
                 while (m_InteractionInput.Count > 0)
                 {
                     var (button, time) = m_InteractionInput.Dequeue();
-                    if (button != 1 || m_InteractionAttempted || time < start) continue;
+                    if (button != 1 || time < start) continue;
                     m_InteractionAttempted = true;
-                    m_InteractionPassed = StoryInteractionRules.HitsMissingNote(time, start, settings.Times, settings.Tolerance);
+                    m_InteractionPassed |= StoryInteractionRules.HitsMissingNote(time, start, settings.Times, settings.Tolerance);
                 }
                 if (AudioSettings.dspTime >= deadline) break;
                 yield return null;
             }
+            // A complete listening window counts as a try even if no button was pressed.
+            if (!Interrupted) m_InteractionAttempted = true;
             EndInteractionCapture();
             while (!Interrupted && AudioSettings.dspTime < start + clip.length + pauseAfterSound) yield return null;
         }

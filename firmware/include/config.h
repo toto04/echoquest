@@ -20,9 +20,7 @@
 
 constexpr uint8_t NO_PIN = 0xFF;   // for optional pins
 
-// ---------------------------------------------------------------------------
 // Logging
-// ---------------------------------------------------------------------------
 // Set by platformio.ini (1 in the debug envs, 0 in env:release).
 #ifndef ECHO_DEBUG
 #define ECHO_DEBUG 1
@@ -31,9 +29,7 @@ constexpr uint8_t NO_PIN = 0xFF;   // for optional pins
 constexpr uint32_t LOG_BAUD = 115200;               // ignored by USB-Serial/JTAG, kept for UART fallback
 constexpr uint32_t LOG_INPUT_INTERVAL_MS = 1000;    // how often the current input report is logged
 
-// ---------------------------------------------------------------------------
 // BLE identity
-// ---------------------------------------------------------------------------
 // Advertised name is "<prefix>-XXXX"; XXXX = last 2 bytes of the BT MAC in hex.
 #define DEVICE_NAME_PREFIX "EchoQuest"
 #define DEVICE_MANUFACTURER "EchoQuest Team"
@@ -53,9 +49,7 @@ constexpr uint16_t DEVICE_PID = 0x0001;
 // Must match PROTOCOL_VERSION in protocol/hid-report.md.
 constexpr uint16_t DEVICE_VERSION = 0x0100;
 
-// ---------------------------------------------------------------------------
 // Shared tuning
-// ---------------------------------------------------------------------------
 // A button pin must hold the same level this long before a change is accepted.
 constexpr uint32_t DEBOUNCE_MS = 10;
 // Hold BOND_CLEAR_PIN low this long to erase all pairings and reboot.
@@ -72,9 +66,7 @@ constexpr uint32_t INPUT_REPORT_INTERVAL_MS = 10;   // 100 Hz
 #define IMU_DRIVER_QMI8658 1    // QMI8658(A) 6-axis over I2C, fused with a Mahony filter
 
 #if BOARD == BOARD_DEVKITC1
-// ===========================================================================
 // Espressif ESP32-C6-DevKitC-1
-// ===========================================================================
 // Pins to avoid: 8 (onboard RGB LED), 9 (BOOT), 12/13 (USB), 16/17 (UART0),
 // 24-30 (flash). 6/7 are reserved for an external IMU's I2C bus.
 
@@ -102,10 +94,8 @@ constexpr bool HAPTIC_STUB_USE_RGB_LED = true;      // stub also lights the onbo
 #define HAS_LCD 0
 
 #elif BOARD == BOARD_WAVESHARE_C6_LCD147
-// ===========================================================================
 // Waveshare ESP32-C6-Touch-LCD-1.47 (ESP32-C6FH8, 8 MB flash)
 // https://docs.waveshare.com/ESP32-C6-Touch-LCD-1.47
-// ===========================================================================
 // Onboard: LCD SPI 1/2/14/15/22, backlight 23; I2C 18/19 shared by IMU and
 // touch; touch RST 20 / INT 21; IMU INT 5/6; SD card 3/4 (shares LCD SPI);
 // battery ADC 0. GPIO 7 is free on the header. No RGB LED.
@@ -161,9 +151,7 @@ constexpr uint8_t TOUCH_BUTTON_B_INDEX = 1;
 constexpr uint8_t BUTTON_COUNT = BUTTON_PINS.size();
 static_assert(BUTTON_COUNT <= 16, "input report has room for 16 buttons");
 
-// ---------------------------------------------------------------------------
 // QMI8658 IMU (used when IMU_DRIVER == IMU_DRIVER_QMI8658)
-// ---------------------------------------------------------------------------
 constexpr uint8_t QMI8658_I2C_ADDR = 0x6B;
 // Maps sensor axes onto the controller's body frame, which is defined with
 // the board lying flat, screen up, in the LCD's landscape orientation:

@@ -86,6 +86,27 @@ public static class StoryInteractionChecks
         Check(InteractionSettings.Parse(Get).ConfirmButton == 1, "musical tutorial can require index");
         values["pulsante"] = "medio";
         Invalid(() => InteractionSettings.Parse(Get), "do not silently map an unknown confirmation button");
+        values["pulsante"] = ""; values["modalita"] = "confronto";
+        values["esempi"] = "a;b"; values["riprova"] = "retry";
+        Check(InteractionSettings.Parse(Get).AttemptsPerRound == 0, "old staging keeps its existing retry behavior");
+        values["tentativi"] = "2";
+        Invalid(() => InteractionSettings.Parse(Get), "a retry limit requires spoken choice and continuation");
+        values["domanda_riprova"] = "question"; values["prosegui"] = "continue";
+        Check(InteractionSettings.Parse(Get).AttemptsPerRound == 2, "two attempts per round");
+        values["prosegui"] = "continue;continue_alt";
+        Check(InteractionSettings.Parse(Get).ContinueVoices.Length == 2, "alternate the recorded encouragements");
+        values["prosegui"] = ";;";
+        Invalid(() => InteractionSettings.Parse(Get), "empty encouragement entries cannot enable a retry limit");
+        values["prosegui"] = "continue;continue_alt";
+        foreach (string bad in new[] { "0", "4", "-1", "two", "2.5" })
+        {
+            values["tentativi"] = bad;
+            Invalid(() => InteractionSettings.Parse(Get), "reject invalid attempt limit " + bad);
+        }
+        values["tentativi"] = "2"; values["modalita"] = "conferma";
+        Invalid(() => InteractionSettings.Parse(Get), "narrative confirmation cannot be skipped by an exercise limit");
+        values["modalita"] = "confronto"; values["tentativi"] = "";
+        Invalid(() => InteractionSettings.Parse(Get), "retry voices need an explicit limit");
         return checks;
     }
 }

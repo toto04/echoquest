@@ -1,12 +1,5 @@
-// Input System device for the EchoQuest controller.
-//
-// Byte layout: protocol/hid-report.md (repo root). Keep this file in sync with it.
-// Unity's generic HID fallback would turn X/Y into a "stick" with a radial
-// deadzone and an inverted Y, which distorts orientation angles. This custom
-// layout reads the report exactly as documented instead.
-//
-// The Input System delivers the raw HID input report as device state, report ID
-// byte first, so offsets below are the "host offsets" from the protocol doc.
+// HID offsets include the report ID; see protocol/hid-report.md.
+// The custom layout avoids the generic HID stick deadzone and inverted Y axis.
 using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -89,7 +82,6 @@ namespace EchoQuest.Input
         // change, and so must this layout be updated.
         public const int VendorId = 0x1209;
         public const int ProductId = 0x0001;
-        public const int InputReportId = 1;
         public const int InputReportSize = 16;   // host side, including the report ID
 
         public ButtonControl buttonA { get; private set; }

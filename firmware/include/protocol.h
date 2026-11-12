@@ -45,7 +45,6 @@ constexpr uint8_t HID_REPORT_DESCRIPTOR[] = {
     0x09, 0x05,        // Usage (Game Pad)
     0xA1, 0x01,        // Collection (Application)
 
-    // ---- Input report 1 ---------------------------------------------------
     0x85, REPORT_ID_INPUT, //   Report ID (1)
 
     // Bytes 0-1: 16 buttons, bit i = button i+1
@@ -90,7 +89,6 @@ constexpr uint8_t HID_REPORT_DESCRIPTOR[] = {
     0x95, 0x06,        //   Report Count (6)
     0x81, 0x02,        //   Input (Data, Var, Abs)
 
-    // ---- Output report 2: haptics (vendor defined) -------------------------
     0x85, REPORT_ID_HAPTIC, //   Report ID (2)
     0x06, 0x00, 0xFF,  //   Usage Page (Vendor Defined 0xFF00)
     0x09, 0x01,        //   Usage (0x01)

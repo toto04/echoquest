@@ -1,8 +1,19 @@
-# Registrazioni della Scena 1: completate
+# Registrazioni della Scena 1
 
-Tutti gli audio necessari sono presenti. Sono stati controllati 20 MP3 in
+Gli audio del montaggio precedente sono presenti. Sono stati controllati 20 MP3 in
 Downloads, con 17 contenuti distinti e tre copie identiche. Gli originali
-sono conservati; non servono altre registrazioni.
+sono conservati.
+
+La scelta dopo due tentativi, richiesta il 12 novembre, usa tre nuove
+battute ricevute con Antonio Farina – Expressive and Warm:
+
+- «Ti va di riprovare?».
+- «Nessuna fretta! C’è tutto il tempo per migliorare. Continuiamo la nostra avventura.».
+- «Non ti preoccupare! Si può sempre migliorare!».
+
+Il [testo per ElevenLabs](registrazioni-scena1-riprova.txt) conserva le
+indicazioni fra parentesi quadre e i nomi dei file. La scelta è attiva nella
+regia; le ultime due risposte si alternano dopo No. Non servono altri audio.
 
 La versione montata spiega i pulsanti una volta sola nel tutorial: quattro
 pulsanti per le note e due del pollice per Sì/No. Dopo usa domande naturali:

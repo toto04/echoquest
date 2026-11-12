@@ -1,7 +1,7 @@
 """Compose the PROVISIONAL prologue sound cues (p00_sfx_XX.wav, mono 48 kHz 16-bit).
 
 Placeholders until real recordings are found. Sources: the Sonniss GDC 2026 game audio bundle
-(parts 1, 2 and 5, royalty-free), plus simple synthesis (piano-like tones, claps, kick, whistle) where the
+(parts 1, 2 and 5, royalty-free), plus simple synthesis (piano-like tones, claps, whistle) where the
 bundle has nothing suitable. The piano theme is our own three-note motif, not an existing song.
 
 <mono_dir> must contain these Sonniss files converted to mono 48 kHz 16-bit WAV, e.g.
@@ -154,17 +154,6 @@ def clap():
     return biquad(biquad(burst, "bp", 1400, 0.8), "hp", 400)
 
 
-def kick(vel=0.8):
-    n = int(0.35 * SR)
-    out, ph = [], 0.0
-    for i in range(n):
-        t = i / SR
-        f = 50 + 70 * math.exp(-t / 0.03)
-        ph += 2 * math.pi * f / SR
-        out.append(vel * math.exp(-t / 0.12) * math.sin(ph))
-    return out
-
-
 def whistle(dur=0.9, f0=1700, f1=800):
     n = int(dur * SR)
     out, ph = [], 0.0
@@ -312,7 +301,6 @@ def wanted(n):
     return selected(cue(n))
 
 
-# --- Cues. Numbers follow capitolo_01_suoni.csv. ----------------------------------------------
 
 if wanted(1):  # room ambience, someone tries a few piano notes in the distance. MISSING: footsteps, door, murmurs.
     x = fade(load("seat"), 0.3, 0.8)
@@ -429,19 +417,6 @@ if wanted(23):  # the wind leaves quickly, a last whistle
     save(cue(23), fade(x, 0, 0.6), -4)
 
 
-# === Scene 1 (s01) ============================================================================
-
-
-def bell(vel=0.5, freq=1568.0, dur=2.0):
-    """A small hand bell ("campanella"): brighter and more harmonic than the triangle."""
-    n = int(dur * SR)
-    out = [0.0] * n
-    for ratio, amp, tau in ((1.0, 1.0, 0.9), (2.0, 0.5, 0.6), (2.76, 0.35, 0.4), (5.4, 0.2, 0.2)):
-        w = 2 * math.pi * freq * ratio / SR
-        ph = random.random() * 2 * math.pi
-        for i in range(n):
-            out[i] += vel * amp * math.exp(-i / (tau * SR)) * math.sin(w * i + ph)
-    return out
 
 
 def steps(times, variants=5, vel=1.0):

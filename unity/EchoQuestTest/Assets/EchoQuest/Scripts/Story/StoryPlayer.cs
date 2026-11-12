@@ -1,9 +1,3 @@
-// Plays a story section in order: voices, sounds and interactions from the sequence CSV,
-// each voice and sound placed in space according to the staging CSV.
-//
-// Keys: Space pause/resume (or confirm a choice), R repeat the current line, N skip it,
-// Backspace restart the section, Left/Right turn the head, Home face front again,
-// 1-4 (or the controller's buttons 1-4) answer a choice.
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -112,7 +106,6 @@ namespace EchoQuest.Story
             Restart();
         }
 
-        // --- clip lookup --------------------------------------------------------------------
 
         private void IndexClips()
         {
@@ -170,12 +163,12 @@ namespace EchoQuest.Story
             _ => characterMarker,
         };
 
-        // --- controls -----------------------------------------------------------------------
 
         public void Restart()
         {
             if (m_Run != null) StopCoroutine(m_Run);
             EndInteractionCapture();
+            m_EncouragementIndex = 0;
             foreach (var s in Active.ToArray()) s.Stop();
             m_Foreground.Clear();
             m_Beds.Clear();
@@ -242,7 +235,6 @@ namespace EchoQuest.Story
             }
         }
 
-        // --- playback -----------------------------------------------------------------------
 
         private IEnumerator RunSection()
         {

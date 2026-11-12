@@ -39,9 +39,7 @@ HAT_NAMES = ["--", "N", "NE", "E", "SE", "S", "SW", "W", "NW"]
 CONFIG_H = Path(__file__).resolve().parent.parent / "firmware" / "include" / "config.h"
 
 
-# ---------------------------------------------------------------------------
 # Protocol encode/decode (mirrors protocol/hid-report.md)
-# ---------------------------------------------------------------------------
 
 def decode_input(buf: bytes) -> dict:
     """Decode a host-side input report buffer (report ID first)."""
@@ -90,9 +88,7 @@ def selftest() -> int:
     return 0
 
 
-# ---------------------------------------------------------------------------
 # Device access
-# ---------------------------------------------------------------------------
 
 def default_ids() -> tuple[int, int]:
     vid, pid = 0x1209, 0x0001

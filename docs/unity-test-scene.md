@@ -95,15 +95,13 @@ easy for an AI agent to change without editing scene YAML.
 
 ## Repository setup
 
-The repo-root `.gitignore` was generated for several stacks and broke Unity
-projects. Fixed on 2026-11-04:
+The root `.gitignore` covers Python, PlatformIO and IDE output, and excludes
+Unity files accidentally created by opening the repository root in the Hub.
+Open `unity/EchoQuestTest` instead; that project has its own ignores for
+Library, Temp, Logs, UserSettings, recovery scenes and IDE output.
 
-- Removed `*.meta` (Visual Studio section): Unity `.meta` files must be committed.
-- Removed `**/[Pp]ackages/*` (NuGet section): Unity's `Packages/manifest.json`
-  and `packages-lock.json` must be committed.
-- The root file's Unity rules are anchored to the repo root, so the project
-  has its own `unity/EchoQuestTest/.gitignore` (Library, Temp, Logs,
-  UserSettings, generated `.csproj`/`.slnx`, ...).
+Commit the project's `.meta` files, `Packages/manifest.json` and
+`Packages/packages-lock.json`: they carry asset identity and dependency versions.
 
 Check before committing Unity changes: `git status --untracked-files=all unity`
 must list no `Library/`, `Temp/`, `Logs/` or `UserSettings/` paths, and every

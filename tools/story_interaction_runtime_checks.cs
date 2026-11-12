@@ -36,7 +36,7 @@ public static class StoryInteractionRuntimeChecks
         public StoryPlayer Player;
         public Keyboard Keys;
         public readonly List<UnityEngine.Object> Assets = new();
-        public Harness(string mode, string times = "")
+        public Harness(string mode, string times = "", int attempts = 0, bool twoExercises = false)
         {
             Root = new GameObject("Interaction test"); Root.SetActive(false);
             Player = Root.AddComponent<StoryPlayer>();
@@ -44,15 +44,19 @@ public static class StoryInteractionRuntimeChecks
             listener.AddComponent<AudioListener>(); Player.listener = listener.transform;
             Player.startDelay = Player.pauseAfterLine = Player.pauseAfterSound = 0;
             string sequence = "ordine,sezione,ramo,tipo,id,personaggio,testo,dentro_battuta\n";
-            sequence += "1,s01,,interazione,s01_int_01,,,\n2,s01,,convergenza,s01_int_02,,,\n";
+            sequence += "1,s01,,interazione,s01_int_01,,,\n" + (twoExercises ?
+                "2,s01,,interazione,s01_int_02,,,\n3,s01,,convergenza,s01_int_03,,,\n" :
+                "2,s01,,convergenza,s01_int_02,,,\n");
             Player.section = "s01";
             Player.sequence = new TextAsset(sequence); Assets.Add(Player.sequence);
             string example = mode == "conferma" || mode == "scelta" ? "" : mode == "confronto" ? "eq_test_example;eq_test_example2" : "eq_test_example";
-            Player.staging = new TextAsset("id,modalita,consegna,successo,riprova,esempi,tempi,scelte,attesa_no\n" +
-                "s01_int_01," + mode + ",eq_test_prompt,eq_test_success,eq_test_retry," + example + "," + times + "," + (mode == "scelta" ? "5=B;6=A" : "") + "," + (mode == "conferma" ? "eq_test_retry" : "") + "\n");
+            string row = "s01_int_01," + mode + ",eq_test_prompt,eq_test_success,eq_test_retry," + example + "," + times + "," + (mode == "scelta" ? "5=B;6=A" : "") + "," + (mode == "conferma" ? "eq_test_retry" : "") + "," +
+                (attempts > 0 ? attempts + ",eq_test_question,eq_test_continue;eq_test_continue_alt" : ",,") + "\n";
+            Player.staging = new TextAsset("id,modalita,consegna,successo,riprova,esempi,tempi,scelte,attesa_no,tentativi,domanda_riprova,prosegui\n" +
+                row + (twoExercises ? row.Replace("s01_int_01,", "s01_int_02,") : ""));
             Assets.Add(Player.staging);
             var clips = new List<AudioClip>();
-            foreach (string name in new[] { "eq_test_prompt", "eq_test_success", "eq_test_retry", "eq_test_example", "eq_test_example2" })
+            foreach (string name in new[] { "eq_test_prompt", "eq_test_success", "eq_test_retry", "eq_test_example", "eq_test_example2", "eq_test_question", "eq_test_continue", "eq_test_continue_alt" })
             {
                 var clip = AudioClip.Create(name, mode == "nota" && name == "eq_test_example" ? 16000 : 800, 1, 16000, false);
                 clips.Add(clip); Assets.Add(clip);
@@ -67,6 +71,17 @@ public static class StoryInteractionRuntimeChecks
             State(t, key); State(t + .000001); InputSystem.Update();
         }
         public async Task Ready() => await Until(() => Player.WaitingInteractionInput, "input ready");
+        public async Task BadRhythm()
+        {
+            double start = AudioSettings.dspTime;
+            await Until(() => AudioSettings.dspTime >= start + .05, "rhythm input timestamps");
+            double origin = InputState.currentTime - .02;
+            foreach (double offset in new[] { 0d, .01, .02 })
+            {
+                State(origin + offset, Key.Digit1); State(origin + offset + .000001);
+            }
+            InputSystem.Update();
+        }
         public async Task Finished() => await Until(() => Player.Current == null && Player.Status.StartsWith("Fine"), "interaction finish");
         public async Task Dispose()
         {
@@ -159,6 +174,100 @@ public static class StoryInteractionRuntimeChecks
             await Until(() => AudioSettings.dspTime >= ready + .43, "third-note moment");
             h.Press(Key.Digit1); await h.Finished();
             Check(!h.Player.WaitingInteractionInput, "scheduled note completes and closes input");
+            await h.Dispose(); h = null;
+
+            h = new Harness("nota", "0;0.12;0.3"); await h.Ready();
+            ready = AudioSettings.dspTime;
+            await Until(() => AudioSettings.dspTime >= ready + .22, "early press during music");
+            h.Press(Key.Digit1);
+            await Until(() => AudioSettings.dspTime >= ready + .43, "corrected note timing");
+            h.Press(Key.Digit1);
+            await Until(() => h.Player.CurrentClip != "eq_test_example", "note response after early press");
+            Check(h.Player.CurrentClip == "eq_test_success", "early press must not invalidate a later correct press");
+            await h.Finished();
+            await h.Dispose(); h = null;
+
+            h = new Harness("conferma"); await h.Ready();
+            h.Press(Key.Numpad1); await Frames();
+            Check(h.Player.WaitingInteractionInput, "keypad notes cannot answer a thumb question");
+            h.Press(Key.Y); await h.Finished();
+            await h.Dispose(); h = null;
+
+            h = new Harness("ritmo", "0;0.25;0.5"); await h.Ready();
+            double entered = AudioSettings.dspTime;
+            await Until(() => AudioSettings.dspTime >= entered + .6, "keypad rhythm timestamps");
+            double keypadOrigin = InputState.currentTime - .5;
+            foreach (double offset in new[] { 0d, .25, .5 })
+            {
+                h.State(keypadOrigin + offset, Key.Numpad1); h.State(keypadOrigin + offset + .000001);
+            }
+            InputSystem.Update(); await h.Finished();
+            Check(!h.Player.WaitingInteractionInput, "keypad 1 can play the rhythm");
+            await h.Dispose(); h = null;
+
+            h = new Harness("nota", "0;0.12;0.3", attempts: 2); await h.Ready();
+            typeof(StoryPlayer).GetProperty("BranchChoice").SetValue(h.Player, "B");
+            await Until(() => h.Player.WaitingRetryChoice, "two missed note windows offer a choice");
+            Check(h.Player.CurrentClip == "eq_test_question", "question replaces automatic retry after two attempts");
+            h.Press(Key.Digit1); await Frames();
+            Check(h.Player.WaitingRetryChoice, "a musical button cannot answer the retry question");
+            h.Player.TogglePause(); h.Press(Key.Y); await Frames();
+            Check(h.Player.WaitingRetryChoice, "pause prevents a retry answer");
+            h.Player.TogglePause(); await Frames();
+            Check(h.Player.WaitingRetryChoice, "silence waits without repeating the retry question");
+            h.Press(Key.Y);
+            await Until(() => h.Player.WaitingInteractionInput && !h.Player.WaitingRetryChoice, "Yes starts another round");
+            await Until(() => h.Player.CurrentClip == "eq_test_retry", "first miss in new round");
+            Check(!h.Player.WaitingRetryChoice, "Yes resets the two-attempt allowance");
+            await Until(() => h.Player.WaitingRetryChoice, "second round also stops after two misses");
+            h.Press(Key.N);
+            await Until(() => h.Player.CurrentClip == "eq_test_continue", "No receives encouragement");
+            await h.Finished();
+            Check(h.Player.BranchChoice == "B", "declining practice preserves the story branch");
+            await h.Dispose(); h = null;
+
+            h = new Harness("confronto", attempts: 2); await h.Ready();
+            h.Press(Key.Y);
+            await Until(() => h.Player.CurrentClip == "eq_test_retry", "first comparison miss");
+            await h.Ready();
+            Check(!h.Player.WaitingRetryChoice, "first miss still permits a second comparison");
+            h.Press(Key.Y);
+            await Until(() => h.Player.WaitingRetryChoice, "second comparison miss offers a choice");
+            h.Press(Key.N);
+            await Until(() => h.Player.CurrentClip == "eq_test_continue", "No skips instead of solving the comparison");
+            await h.Finished();
+            Check(!h.Player.WaitingRetryChoice, "comparison exits cleanly on No");
+            await h.Dispose(); h = null;
+
+            h = new Harness("ritmo", "0;0.25;0.5", attempts: 2); await h.Ready();
+            await h.BadRhythm();
+            await Until(() => h.Player.CurrentClip == "eq_test_retry", "first rhythm miss");
+            await h.Ready(); h.Player.Repeat();
+            await Until(() => h.Player.CurrentClip == "eq_test_prompt", "repeat restarts exercise");
+            await h.Ready(); await h.BadRhythm();
+            await Until(() => h.Player.CurrentClip == "eq_test_retry", "first miss after repeating");
+            await h.Ready();
+            Check(!h.Player.WaitingRetryChoice, "repeat resets the attempt counter");
+            await h.BadRhythm();
+            await Until(() => h.Player.WaitingRetryChoice, "second rhythm miss offers a choice");
+            h.Player.Restart();
+            await Until(() => h.Player.CurrentClip == "eq_test_prompt", "restart during retry question");
+            await h.Ready();
+            Check(!h.Player.WaitingRetryChoice, "restart clears retry-choice state");
+            await h.Dispose(); h = null;
+
+            h = new Harness("confronto", attempts: 2, twoExercises: true);
+            foreach (string response in new[] { "eq_test_continue", "eq_test_continue_alt" })
+            {
+                await h.Ready(); h.Press(Key.Y);
+                await Until(() => h.Player.CurrentClip == "eq_test_retry", "first failed comparison before encouragement");
+                await h.Ready(); h.Press(Key.Y);
+                await Until(() => h.Player.WaitingRetryChoice, "retry choice before encouragement");
+                h.Press(Key.N);
+                await Until(() => h.Player.CurrentClip == response, "alternating encouragement " + response);
+                Check(!h.Player.WaitingRetryChoice, "encouragement closes the retry question");
+            }
+            await h.Finished();
             await h.Dispose(); h = null;
             return checks;
         }

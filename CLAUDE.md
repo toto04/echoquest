@@ -16,6 +16,7 @@ This repo contains the controller firmware, the HID protocol spec, and host tool
   - `src/ui.cpp` + `src/touch_axs5106.cpp`: LCD status screen and two touch buttons (only when `HAS_LCD`; no-ops otherwise). `include/i2c_bus.h`: the I2C bus shared by IMU and touch.
   - `test/test_logic/`: native unit tests (descriptor sizes, packing, parsing, debouncer, orientation filter signs).
 - `docs/`: project vision, architecture and design decisions, roadmap, Unity test-scene plan, development workflow. Read `docs/README.md` for context; update `docs/roadmap.md` when a milestone moves.
+  - `docs/demo/`: plan for the shareable web demo (current state, web build, debug UI) with task IDs. Read `docs/demo/README.md` before working on the demo, the web build or the debug UI; tick tasks there when done.
   - `docs/music/`: composition guidelines for battle music (palette, calls, backing, cue sheet, snippet format and checks). Read `docs/music/README.md` before composing or generating any music.
 - `protocol/hid-report.md`: **single source of truth** for report byte layouts. The Unity C# layout (`unity/EchoQuestTest/Assets/EchoQuest/Scripts/EchoQuestController.cs`) mirrors it.
 - `tools/hid_probe.py`: hidapi tool to list, monitor, send haptics, dump the descriptor, and run a selftest.

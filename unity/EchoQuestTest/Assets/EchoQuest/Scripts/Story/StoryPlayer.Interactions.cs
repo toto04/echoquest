@@ -59,7 +59,10 @@ namespace EchoQuest.Story
             {
                 if (button != null && button.ReadValueFromEvent(ev, out float value) &&
                     value >= button.pressPointOrDefault && !button.isPressed)
+                {
                     m_InteractionInput.Enqueue((number, time));
+                    LogEvent("input " + ButtonName(number));
+                }
             }
             if (device is Keyboard keyboard)
             {
@@ -92,6 +95,7 @@ namespace EchoQuest.Story
             m_InteractionConfirmButton = confirmButton;
             m_InteractionSelectedButton = 0;
             m_InteractionPassed = m_InteractionAttempted = false;
+            m_ForcePass = false;
         }
 
         private void EndInteractionCapture()
@@ -197,6 +201,8 @@ namespace EchoQuest.Story
                 while (!Interrupted) yield return null;
                 yield break;
             }
+            CurrentInteraction = settings;
+            LastAttempt = "";
             try
             {
                 bool firstAttempt = true;
@@ -226,11 +232,15 @@ namespace EchoQuest.Story
                     else yield return CaptureButtons(settings);
                     EndInteractionCapture();
                     if (Interrupted) yield break;
+                    LogEvent(item.Id + (m_InteractionPassed ? " passed" : m_InteractionAttempted ? " not passed" : " no attempt"));
                     if (m_InteractionPassed)
                     {
                         if ((settings.Mode is InteractionMode.Confirm or InteractionMode.Decision) &&
                             StagingFor(item).Choices.TryGetValue(m_InteractionSelectedButton, out var branch))
+                        {
                             BranchChoice = branch;
+                            LogEvent("branch " + branch);
+                        }
                         if (!string.IsNullOrEmpty(settings.Success)) yield return InteractionVoice(settings.Success);
                         yield break;
                     }
@@ -256,6 +266,7 @@ namespace EchoQuest.Story
             finally
             {
                 EndInteractionCapture();
+                CurrentInteraction = null;
             }
         }
 
@@ -296,6 +307,13 @@ namespace EchoQuest.Story
             while (!Interrupted)
             {
                 if (Paused) { yield return null; continue; }
+                if (m_ForcePass)
+                {
+                    m_InteractionSelectedButton = settings.Mode == InteractionMode.Compare ? StoryInteractionRules.No : settings.ConfirmButton;
+                    m_InteractionAttempted = m_InteractionPassed = true;
+                    LastAttempt = "passed from the overlay";
+                    yield break;
+                }
                 while (m_InteractionInput.Count > 0)
                 {
                     var (button, time) = m_InteractionInput.Dequeue();
@@ -339,6 +357,9 @@ namespace EchoQuest.Story
                     if (taps.Count == 3)
                     {
                         m_InteractionPassed = StoryInteractionRules.MatchesRhythm(taps, settings.Times);
+                        LastAttempt = $"taps at 0.00, {taps[1] - taps[0]:F2}, {taps[2] - taps[0]:F2} s; " +
+                            $"example {settings.Times[0]:F2}, {settings.Times[1]:F2}, {settings.Times[2]:F2} s: " +
+                            (m_InteractionPassed ? "matches" : "does not match");
                         // Let the last tap finish before the response voice.
                         if (!string.IsNullOrEmpty(settings.Feedback) && InteractionClip(settings.Feedback, out var feedback))
                             yield return Wait(feedback.length + pauseAfterSound);
@@ -370,7 +391,15 @@ namespace EchoQuest.Story
                     var (button, time) = m_InteractionInput.Dequeue();
                     if (button != 1 || time < start) continue;
                     m_InteractionAttempted = true;
-                    m_InteractionPassed |= StoryInteractionRules.HitsMissingNote(time, start, settings.Times, settings.Tolerance, deadline);
+                    bool hit = StoryInteractionRules.HitsMissingNote(time, start, settings.Times, settings.Tolerance, deadline);
+                    m_InteractionPassed |= hit;
+                    LastAttempt = $"press at {time - start:F2} s; third note at {settings.Times[2]:F2} s, " +
+                        $"tolerance {settings.Tolerance:F2} s: " + (hit ? "hit" : "missed");
+                }
+                if (m_ForcePass)
+                {
+                    m_InteractionAttempted = m_InteractionPassed = true;
+                    LastAttempt = "passed from the overlay";
                 }
                 if (m_InteractionPassed) break;
                 if (AudioSettings.dspTime >= deadline) break;

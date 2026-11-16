@@ -3,6 +3,10 @@
 Surveyed on 2026-11-16 at commit `e5902b5`, by reading the code and counting
 the assets. Nothing was run in the Editor for this survey.
 
+Since then (2026-11-17) the debug overlay was added; it closes gaps 2, 3 and 4
+below in the Editor. See [debug-ui.md](debug-ui.md#what-exists-now). The rest
+of this page still describes the project as surveyed.
+
 ## Summary
 
 The project `unity/EchoQuestTest` (Unity 6000.6.8f1, URP, Input System 1.20.1)

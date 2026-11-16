@@ -197,7 +197,11 @@ In Play in una scena temporanea vuota, poi ripristinando la scena originale:
 unity command 'script run' --file ../../tools/story_audio_checks.cs --entry StoryAudioChecks.Run --timeout 40
 unity command 'script run' --file ../../tools/story_interaction_runtime_checks.cs --entry StoryInteractionRuntimeChecks.Run
 unity command 'script run' --file ../../tools/story_scene_checks.cs --entry StorySceneChecks.Run --timeout 180
+unity command 'script run' --file ../../tools/debug_overlay_checks.cs --entry DebugOverlayChecks.Run --timeout 60
 ```
+
+Prima di entrare in Play con l'Editor non in primo piano: `unity command editor.playmode set_run_in_background`
+(va ripetuto dopo ogni ricompilazione), altrimenti il gioco resta fermo al primo fotogramma e le prove vanno in timeout.
 
 Esiti dell’11–12 novembre:
 

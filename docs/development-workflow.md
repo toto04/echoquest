@@ -97,6 +97,7 @@ unity status --until-ready                            # wait for the Editor
 unity command recompile; unity command recompile_status --result-only
 unity command eval --code 'return UnityEngine.InputSystem.InputSystem.devices.Count;' --result-only
 unity command eval --code 'EchoQuest.Editor.TestSceneBuilder.Build();'
+unity command editor.playmode set_run_in_background   # needed again after every recompile, or Play mode freezes at frame 1
 unity command editor.playmode start                   # and editor.playmode stop
 unity command capture game_view --output-path /tmp/game.png
 unity command console get --tail 20

@@ -1,7 +1,8 @@
 # Shareable demo: plan and status
 
-Last updated: 2026-11-16. **Nothing in this folder is implemented yet.** These
-documents are the survey and the plan.
+Last updated: 2026-11-17. The **debug overlay works in the Editor** (first
+version, see [debug-ui.md](debug-ui.md)). The web build and the demo shell are
+not started.
 
 ## Objective
 
@@ -39,7 +40,7 @@ and acceptance checks are in the linked documents.
 | 2. Demo shell | S-01 to S-04 | A build needs a first scene with a click-to-start, and a way to move between scenes |
 | 3. Web-ready runtime | W-05 to W-09 | Fixes found by the spike |
 | 4. Automation | W-10 to W-14 | Build script, CI, deploy |
-| 5. Debug UI | D-01 to D-12 | Can run in parallel with phase 4 once D-01 and D-02 are done |
+| 5. Debug UI | D-01 to D-13 | Started first, at the user's request. Done: D-01, D-02, D-04, D-05, D-07 to D-10. Open: D-03, D-06, D-11 to D-13 |
 | 6. Controller in the browser | W-15, W-16 | Optional. Keyboard and on-screen buttons already make the demo complete |
 
 Phases 1 and 2 do not depend on any open decision and can start at once.

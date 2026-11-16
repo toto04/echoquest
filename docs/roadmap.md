@@ -1,6 +1,6 @@
 # Roadmap and status
 
-Last updated: 2026-11-16.
+Last updated: 2026-11-17.
 
 ## Where we are
 
@@ -89,7 +89,7 @@ and a scheduled missing-note exercise. These are wired into the 93-item Scene 1;
 See [scena1-interattiva.md](scena1-interattiva.md) for behavior, audio texts,
 implementation decisions and acceptance checks. The current story has 93 items and has passed both route checks. Full listening and physical controller checks remain.
 
-### Shareable web demo (planned 2026-11-16; not started)
+### Shareable web demo (planned 2026-11-16; debug overlay started 2026-11-17)
 
 A demo that tutors and designers can open from a link: an automated Web build
 of the Unity project and a debug UI for trying everything by mouse. The survey,
@@ -101,7 +101,9 @@ the plan, the open decisions and the task lists are in
 - [ ] Web spike: build once, test audio and input in a browser (W-01 to W-04).
 - [ ] Demo shell: first scene, click-to-start, menu (S-01 to S-04).
 - [ ] Web-ready runtime and automated build and deploy (W-05 to W-14).
-- [ ] Debug UI (D-01 to D-12).
+- [ ] Debug UI (D-01 to D-13). First version works in the Editor: seven tabs,
+  mouse-driven, 17 new Play-mode checks, all older checks still pass. Open:
+  timing strip, key map, build stamp, a walkthrough by hand.
 
 ### Repository cleanup (completed 2026-11-12)
 

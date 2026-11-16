@@ -11,6 +11,9 @@ namespace EchoQuest.Story
         public bool IsVoice { get; private set; }
         /// <summary>Multiplies the staging volume; the player lowers it under voices (ducking).</summary>
         public float TargetGain { get; set; } = 1f;
+        public float Gain => m_Gain;
+        /// <summary>Current low-pass cutoff; 0 for non-spatial sources.</summary>
+        public float CutoffHz => m_Lowpass != null ? m_Lowpass.cutoffFrequency : 0f;
 
         // Ducking speeds, in gain units per second: duck quickly when someone starts speaking,
         // come back slowly, so short pauses between sentences don't make the music pump.
@@ -129,6 +132,7 @@ namespace EchoQuest.Story
 
         private void UpdateLowpass()
         {
+            if (!m_Owner.distanceLowpass) { m_Lowpass.cutoffFrequency = 22000f; return; }
             if (m_FixedCutoff > 0) { m_Lowpass.cutoffFrequency = m_FixedCutoff; return; }
             float d = Vector3.Distance(transform.position, m_Listener.position);
             float t = Mathf.InverseLerp(NearDistance, FarDistance, d);

@@ -103,7 +103,8 @@ namespace EchoQuest.Story
                 Paused = true;
                 while (Paused) yield return null;
             }
-            Restart();
+            // A jump from the overlay may have started playback already.
+            if (m_Run == null) Restart();
         }
 
 
@@ -164,8 +165,11 @@ namespace EchoQuest.Story
         };
 
 
-        public void Restart()
+        public void Restart() => Begin(null, "A");
+
+        private void Begin(string fromId, string branch)
         {
+            m_StartOverride = fromId;
             if (m_Run != null) StopCoroutine(m_Run);
             EndInteractionCapture();
             m_EncouragementIndex = 0;
@@ -175,7 +179,8 @@ namespace EchoQuest.Story
             m_Tails.Clear();
             Paused = false;
             AudioListener.pause = false;
-            BranchChoice = "A";
+            m_Skip = m_Repeat = false;
+            BranchChoice = branch;
             m_Run = StartCoroutine(RunSection());
         }
 
@@ -217,8 +222,9 @@ namespace EchoQuest.Story
 
             // Ducking: background beds get quieter while a voice is playing.
             bool voicePlaying = false;
-            foreach (var s in Active)
-                if (s != null && s.IsVoice && s.Source.isPlaying) { voicePlaying = true; break; }
+            if (ducking)
+                foreach (var s in Active)
+                    if (s != null && s.IsVoice && s.Source.isPlaying) { voicePlaying = true; break; }
             foreach (var (bed, _) in m_Beds)
                 if (bed != null) bed.TargetGain = voicePlaying ? duckGain : 1f;
             m_Tails.RemoveAll(t => t == null);
@@ -232,6 +238,8 @@ namespace EchoQuest.Story
                     var button = pad.TryGetChildControl<ButtonControl>("button" + (b + 1));
                     if (button != null && button.wasPressedThisFrame) m_Choice = b;
                 }
+                if (headFollowsController && listener != null)
+                    listener.rotation = Quaternion.Euler(0f, pad.yawDegrees - headYawOffset, 0f);
             }
         }
 
@@ -241,8 +249,9 @@ namespace EchoQuest.Story
             var list = m_Items.FindAll(i => i.Section == section);
             ItemCount = list.Count;
             int index = 0;
-            if (!string.IsNullOrEmpty(startFrom))
-                index = Mathf.Max(0, list.FindIndex(i => i.Id == startFrom));
+            string from = m_StartOverride ?? startFrom;
+            if (!string.IsNullOrEmpty(from))
+                index = Mathf.Max(0, list.FindIndex(i => i.Id == from));
 
             StoryItem previous = null;
             float pendingPause = 0f;
@@ -267,6 +276,7 @@ namespace EchoQuest.Story
 
                 m_Skip = m_Repeat = false;
                 Current = item;
+                LogEvent(item.Id + (string.IsNullOrEmpty(item.Branch) ? "" : " [" + item.Branch + "]"));
                 EndBedsUntil(item.Id);
                 switch (item.Kind)
                 {
@@ -310,6 +320,7 @@ namespace EchoQuest.Story
             if (parts == null)
             {
                 Status = "Manca la registrazione: il testo resta a schermo";
+                LogEvent("missing voice " + item.Id);
                 CurrentClip = "(nessun audio)";
                 yield return Wait(Mathf.Max(1.5f, item.Text.Length / missingVoiceCharsPerSecond));
                 foreach (var s in inlineSounds) { if (Interrupted) yield break; yield return PlaySound(s); }
@@ -398,6 +409,7 @@ namespace EchoQuest.Story
             if (!m_Sounds.TryGetValue(item.Id, out var clip))
             {
                 Status = "Manca il suono " + item.Id;
+                LogEvent("missing sound " + item.Id);
                 CurrentClip = "(nessun audio)";
                 Debug.Log($"[Story] Missing sound {item.Id}: {item.Text}");
                 yield return Wait(0.6f);
@@ -426,14 +438,23 @@ namespace EchoQuest.Story
             var choices = StagingFor(item).Choices;
             if (choices.Count > 0)
             {
-                if (choices.TryGetValue(m_Choice + 1, out var mapped)) BranchChoice = mapped;
+                if (choices.TryGetValue(m_Choice + 1, out var mapped))
+                {
+                    BranchChoice = mapped;
+                    LogEvent("branch " + mapped);
+                }
                 else { m_Repeat = true; yield break; }  // a button with no meaning here: ask again
                 yield break;
             }
             string letter = ((char)('A' + m_Choice)).ToString();
             for (int i = index + 1; i < list.Count && list[i].Kind != StoryItemKind.Convergence; i++)
             {
-                if (list[i].Branch == letter) { BranchChoice = letter; break; }
+                if (list[i].Branch == letter)
+                {
+                    BranchChoice = letter;
+                    LogEvent("branch " + letter);
+                    break;
+                }
             }
         }
 

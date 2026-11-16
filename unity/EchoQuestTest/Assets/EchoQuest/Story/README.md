@@ -38,7 +38,9 @@ sezione e dello stesso personaggio scalano di uno. Le registrazioni già fatte v
 
 1. Apri `Story/Scenes/Intro.unity` (doppio clic nella finestra Project) e premi **Play**.
    Meglio con le cuffie: il destra/sinistra si sente solo lì.
-2. Parte il prologo (`p00`). Sullo schermo vedi dall'alto dove si trova ogni suono: il cerchio bianco
+2. Parte il prologo (`p00`). A sinistra c'è il **pannello di debug** (F1 lo nasconde): si usa col mouse
+   e permette di saltare a qualsiasi battuta, cambiare sezione, premere i pulsanti del controller a
+   schermo, regolare pause e volumi. Dettagli in `docs/demo/debug-ui.md`. Sullo schermo vedi dall'alto dove si trova ogni suono: il cerchio bianco
    sei tu, il naso indica davanti. Arancione = personaggi, marrone = voce lontana, azzurro = vento,
    giallo = suoni. Il Narratore non ha un pallino: si sente "dentro la testa".
 3. Tasti: **Spazio** pausa · **R** ripeti la battuta · **N** salta durante il parlato · **Backspace** da capo ·

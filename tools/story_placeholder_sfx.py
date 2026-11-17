@@ -2,7 +2,9 @@
 
 Placeholders until real recordings are found. Sources: the Sonniss GDC 2026 game audio bundle
 (parts 1, 2 and 5, royalty-free), plus simple synthesis (piano-like tones, claps, whistle) where the
-bundle has nothing suitable. The piano theme is our own three-note motif, not an existing song.
+bundle has nothing suitable. Every pitched note follows docs/music: the four button pitches
+D4 F4 A4 C5 (01-palette.md), and the orchestra's song is the draft in 06-worked-example.md, whose
+head C5 A4 F4 loses its third note to Sbuffo.
 
 <mono_dir> must contain these Sonniss files converted to mono 48 kHz 16-bit WAV, e.g.
 `ffmpeg -i "<file>.wav" -ac 1 -ar 48000 -sample_fmt s16 mono/stick.wav`:
@@ -247,49 +249,102 @@ def cached(fn, *args, **kw):
     return _CACHE[key]
 
 
-NOTE = {"C3": 130.81, "G3": 196.0, "C4": 261.63, "D#4": 311.13, "E4": 329.63, "G4": 392.0,
-        "A4": 440.0, "C5": 523.25, "D5": 587.33, "E5": 659.25, "G5": 783.99}
+class _Notes(dict):
+    """Note name ("D4", "Bb2", "F#4") -> equal-tempered frequency in Hz, A4 = 440."""
 
-# The recurring theme of the chapter: three notes, rhythm "TA... TA-TA" (scene 3 asks the child to repeat it).
-THEME = [(0.0, "G4"), (1.2, "C5"), (1.5, "E5")]
-BAR = 2.4
+    def __missing__(self, name):
+        m = re.fullmatch(r"([A-G])(#|b)?(\d)", name)
+        pc = "C D EF G A B".index(m[1]) + {"#": 1, "b": -1, None: 0}[m[2]]
+        return 440.0 * 2 ** ((pc + 12 * (int(m[3]) + 1) - 69) / 12)
+
+
+NOTE = _Notes()
+
+# docs/music/01-palette.md: buttons 1-4 (index, middle, ring, little) are always D4 F4 A4 C5.
+# Every pitched note a child could take for "their" note uses only these four.
+BUTTONS = ("D4", "F4", "A4", "C5")
+
+# docs/music/06-worked-example.md: "La canzone del concerto" (draft), centre F, 100 BPM, 4/4,
+# eighth-note grid. Letters are buttons (D F A C), "-" holds, "." rests.
+BAR = 2.4  # 100 BPM
 BEAT = BAR / 4
-# The flute's answer to the theme, alternating every bar: (time in bar, note, length).
-FLUTE_LINE = [[(0.0, "E5", 0.55), (0.6, "G5", 0.55), (1.2, "E5", 0.55), (1.8, "D5", 0.55)],
-              [(0.0, "C5", 1.1), (1.2, "D5", 0.55), (1.8, "E5", 0.55)]]
+EIGHTH = BAR / 8
+SONG_BARS = ["C - A - F - - .",   # 1 head: so-mi-do; the F is the note Sbuffo takes
+             "D - . . F D - .",   # 2 TA... TA-TA
+             "A A C - A A F -",   # 3 the drum's gallop
+             "C - - - A - - .",   # 4
+             "C - A - F - - .",   # 5 head again (the flute's piece)
+             "D - . . F D - .",   # 6
+             "C A C A C - A -",   # 7 so-mi figure
+             "A - C - F - - -"]   # 8 home to do
+LETTER = {"D": "D4", "F": "F4", "A": "A4", "C": "C5"}
+# One chord per bar. World layer only (01-palette.md register map): bass D1-Bb2, comping Bb2-Bb3,
+# nothing sustained in the call register C4-D5, no E B F# C# G#.
+SONG_CHORDS = ["F", "Dm7", "Bb", "Csus4", "F", "Dm7", "Gm7", "F"]
+CHORD = {"F": ("F2", ("C3", "F3", "A3")),
+         "Dm7": ("D2", ("C3", "F3", "A3")),
+         "Bb": ("Bb1", ("Bb2", "D3", "F3")),
+         "Csus4": ("C2", ("C3", "F3", "G3")),
+         "Gm7": ("G2", ("Bb2", "D3", "F3"))}
 
 
-def theme(notes=3, vel=0.7):
-    out = silence(BAR + 1.5)
-    for t, n in THEME[:notes]:
-        mix(out, cached(piano, NOTE[n], 1.6, vel), t)
+def bar_notes(bar):
+    """[(start in s, note, length in s)] for one grid bar."""
+    toks = bar.split()
+    out = []
+    for i, t in enumerate(toks):
+        if t in LETTER:
+            n = 1
+            while i + n < len(toks) and toks[i + n] == "-":
+                n += 1
+            out.append((i * EIGHTH, LETTER[t], n * EIGHTH))
     return out
 
 
-def add_bar(out, at, bar_index=0, piano_notes=3, bass=True, drum=True, tri=True, flt=True, first_beat=0):
-    """Mix one bar of the band into `out` at time `at`. `first_beat` skips the drum's first beats."""
-    mix(out, theme(piano_notes), at)
+# The recurring theme of the chapter: the song's head, C5 A4 F4 at 0, 0.6 and 1.2 s.
+THEME = [(t, n) for t, n, _ in bar_notes(SONG_BARS[0])]
+
+
+def song_piano(bar_index, vel=0.7):
+    out = silence(BAR + 1.5)
+    for t, n, d in bar_notes(SONG_BARS[bar_index % len(SONG_BARS)]):
+        mix(out, cached(piano, NOTE[n], max(1.0, d + 0.6), vel, damp=d + 0.25), t)
+    return out
+
+
+def add_bar(out, at, bar_index=0, bass=True, drum=True, tri=True, flt=True, first_beat=0):
+    """Mix one bar of the song, as the band plays it, into `out` at time `at`.
+    `first_beat` skips the drum's first beats."""
+    k_bar = bar_index % len(SONG_BARS)
+    mix(out, song_piano(k_bar), at)
+    root, _ = CHORD[SONG_CHORDS[k_bar]]
     if bass:
-        mix(out, cached(piano, NOTE["C3"], 2.4, 0.35), at)
+        mix(out, cached(piano, NOTE[root], 2.4, 0.45), at)
     if drum:
-        for k in range(first_beat, 4):
-            mix(out, cached(tom, 0.8 if k % 2 == 0 else 0.5), at + k * BEAT, 0.7)
+        if k_bar == 2:  # the drum plays its own piece of the song: ti-ti ta, ti-ti ta
+            for k in (0, 1, 2, 4, 5, 6):
+                if k >= 2 * first_beat:
+                    mix(out, cached(tom, 0.8 if k in (0, 4) else 0.55), at + k * EIGHTH, 0.7)
+        else:
+            for k in range(first_beat, 4):
+                mix(out, cached(tom, 0.8 if k % 2 == 0 else 0.5), at + k * BEAT, 0.7)
     if tri:
         for t in (BEAT, 3 * BEAT):
             mix(out, cached(triangle, 0.4), at + t, 0.3)
-    if flt:
-        for t, n, d in FLUTE_LINE[bar_index % 2]:
-            mix(out, cached(flute, NOTE[n], d, 0.4), at + t, 0.5)
+    if flt:  # the flute doubles the melody an octave up, softly
+        for t, n, d in bar_notes(SONG_BARS[k_bar]):
+            up = n[:-1] + str(int(n[-1]) + 1)
+            mix(out, cached(flute, NOTE[up], max(0.25, d - 0.05), 0.4), at + t, 0.35)
     return out
 
 
 def broken_theme(intensity=1.0):
     """The theme after the wind has stolen it: out of tune, sagging, the last note gone.
-    Where the third note should be there is only a dull, stuck key."""
+    Where the third note (F4) should be there is only a dull, stuck key."""
     out = silence(BAR + 1.5)
-    mix(out, piano(NOTE["G4"], 1.6, 0.6, cents=-35 * intensity, wobble=18 * intensity), 0.0)
-    mix(out, piano(NOTE["C5"], 1.6, 0.6, cents=45 * intensity, sag=-90 * intensity, wobble=25 * intensity), 1.25)
-    mix(out, piano(NOTE["E5"], 0.5, 0.35, cents=-110 * intensity, damp=0.06), 1.75)  # the note that will not come
+    mix(out, piano(NOTE["C5"], 1.6, 0.6, cents=-35 * intensity, wobble=18 * intensity), 0.0)
+    mix(out, piano(NOTE["A4"], 1.6, 0.6, cents=45 * intensity, sag=-90 * intensity, wobble=25 * intensity), 0.65)
+    mix(out, piano(NOTE["F4"], 0.5, 0.35, cents=-110 * intensity, damp=0.06), 1.45)  # the note that will not come
     return out
 
 
@@ -304,13 +359,13 @@ def wanted(n):
 
 if wanted(1):  # room ambience, someone tries a few piano notes in the distance. MISSING: footsteps, door, murmurs.
     x = fade(load("seat"), 0.3, 0.8)
-    for t, n, v in [(1.6, "A4", 0.3), (2.5, "A4", 0.25), (3.4, "E5", 0.3), (4.6, "C4", 0.25)]:
+    for t, n, v in [(1.6, "A4", 0.3), (2.5, "A4", 0.25), (3.4, "C5", 0.3), (4.6, "D4", 0.25)]:
         mix(x, piano(NOTE[n], 1.8, v), t, 3.0)
     save(cue(1), fade(x, 0, 0.5), -6)
 
 if wanted(2):  # three funny, slightly out-of-tune piano notes
     x = silence(2.6)
-    for t, f, v in [(0.0, NOTE["E4"] * 0.97, 0.6), (0.35, NOTE["D#4"] * 1.03, 0.6), (0.75, NOTE["G3"] * 0.95, 0.8)]:
+    for t, f, v in [(0.0, NOTE["A4"] * 0.97, 0.6), (0.35, NOTE["F4"] * 1.03, 0.6), (0.75, NOTE["D3"] * 0.95, 0.8)]:
         mix(x, piano(f, 1.6, v, damp=0.25 if t < 0.7 else None), t)
     save(cue(2), x)
 
@@ -326,8 +381,8 @@ if wanted(5):
     save(cue(5), triangle(0.3, 3.0), -12)  # delicate: one soft triangle touch
 if wanted(6):
     x = silence(3.2)  # loud: everybody together
-    for n in ("C3", "C4", "E4", "G4"):
-        mix(x, piano(NOTE[n], 3.0, 1.0), 0.0, 0.5)
+    for n in ("F2", "C3", "F3", "A3", "C4"):  # F major, home
+        mix(x, piano(NOTE[n], 3.0, 1.0), 0.0, 0.45)
     mix(x, tom(1.0), 0.0, 0.9)
     mix(x, triangle(0.6), 0.0, 0.4)
     mix(x, flute(NOTE["C5"], 1.6, 0.6), 0.0, 0.6)
@@ -345,7 +400,7 @@ if wanted(10):
     save(cue(10), mix(mix(silence(3.0), triangle(0.5), 0.0), triangle(0.5), 0.6), -6)  # DIN, DIN
 if wanted(11):
     x = silence(2.4)  # a whispering flute
-    for t, n, d in [(0.0, "E5", 0.5), (0.5, "D5", 0.5), (1.0, "C5", 1.2)]:
+    for t, n, d in [(0.0, "F4", 0.5), (0.5, "A4", 0.5), (1.0, "F4", 1.2)]:
         mix(x, flute(NOTE[n], d, 0.25, breath=0.2), t)
     save(cue(11), x, -10)
 if wanted(12):
@@ -369,7 +424,7 @@ if wanted(17):
     #   "e un altro ancora" ~5 s (triangle at 8.4) · "Ogni strumento..." ~7 s (flute and bass at 9.6)
     #   "La musica continua a crescere" ~15 s (more layers at 16.8, louder up to 20.5)
     # Then the full band keeps playing (looping) until the wind ruins it.
-    length = 80.0
+    length = 4 * len(SONG_BARS) * BAR  # the 8-bar song four times (76.8 s)
     x = silence(length + 2)
     bars = int(length / BAR)
     for b in range(bars):
@@ -380,7 +435,7 @@ if wanted(17):
                 tri=at + BEAT >= 8.4 - 1e-6 and at >= 7.2,
                 flt=at >= 9.6)
         if at >= 16.8:  # growing: chords on every bar and extra triangle
-            for n in ("C4", "E4", "G4"):
+            for n in CHORD[SONG_CHORDS[b % len(SONG_CHORDS)]][1]:
                 mix(x, cached(piano, NOTE[n], 2.0, 0.4), at, 0.35)
             for k in (0, 2):
                 mix(x, cached(triangle, 0.3), at + k * BEAT, 0.2)
@@ -461,7 +516,6 @@ def phrase(notes, vel=0.6, dur=1.4):
     return out
 
 
-NOTE.update({"C2": 65.41, "E3": 164.81, "A3": 220.0, "G3": 196.0, "B4": 493.88, "A5": 880.0, "C6": 1046.5})
 
 
 def cue1(n):
@@ -472,15 +526,14 @@ def wanted1(n):
     return selected(cue1(n))
 
 
-NOTE.update({"F4": 349.23})
 
 
 def stolen_try(intensity=0.6, vel=0.6):
     """The piano trying the stolen song after the wind: the same two out-of-tune notes as in the
     prologue (broken_theme), and then nothing where the third note should be."""
     out = silence(BAR + 0.6)
-    mix(out, piano(NOTE["G4"], 1.6, vel, cents=-35 * intensity, wobble=18 * intensity), 0.0)
-    mix(out, piano(NOTE["C5"], 1.6, vel, cents=45 * intensity, sag=-90 * intensity, wobble=25 * intensity), 1.25)
+    mix(out, piano(NOTE["C5"], 1.6, vel, cents=-35 * intensity, wobble=18 * intensity), 0.0)
+    mix(out, piano(NOTE["A4"], 1.6, vel, cents=45 * intensity, sag=-90 * intensity, wobble=25 * intensity), 0.65)
     return out
 
 
@@ -505,7 +558,8 @@ def blip(freq, dur=0.22, vel=0.5):
 
 
 # Numbers follow capitolo_01_suoni.csv. The stolen song only ever appears as stolen_try (two notes,
-# then silence) or as song_memory; every other piano sound avoids its notes, so the child can tell them apart.
+# then silence) or as song_memory; every other piano sound uses the button notes in a different order,
+# so the child can tell them apart.
 if wanted1(1):  # pacing steps, the piano trying the song in the distance, Sbuffo's breath fading away
     x = steps([0.0, 0.55, 1.1, 1.65, 2.2, 3.4, 3.95, 4.5, 5.05])
     mix(x, biquad(stolen_try(0.6, 0.4), "lp", 1800), 2.6, 0.5)
@@ -523,7 +577,7 @@ if wanted1(4):  # "three notes try to make a melody": the prologue's broken them
 if wanted1(5):  # the Maestro's steps slow down and stop
     save(cue1(5), steps([0.0, 0.6, 1.4], vel=0.9), -6)
 if wanted1(6):  # two funny piano notes
-    save(cue1(6), phrase([(0.0, NOTE["E4"] * 1.04, 0.2), (0.35, NOTE["G3"] * 0.96)], 0.7), -4)
+    save(cue1(6), phrase([(0.0, NOTE["F4"] * 1.04, 0.2), (0.35, NOTE["D3"] * 0.96)], 0.7), -4)
 if wanted1(7):
     save(cue1(7), stick_drop(1), -4)  # the baton falls again
 if wanted1(8):  # picks up the baton (the "ehm, ehm" is in the voice line)
@@ -548,12 +602,12 @@ if wanted1(15):
     save(cue1(15), steps([0.0, 0.9, 1.8]), -4)  # TUM... TUM... TUM: three slow steps
 if wanted1(16):
     save(cue1(16), steps([0.24 * k for k in range(9)]), -4)  # running: faster steps
-if wanted1(18):  # the Maestro's rhythm, then the piano imitates it (not the song)
+if wanted1(18):  # the Maestro's rhythm, then the piano imitates it on the index note D4, as the child just did
     x = tac_tac_toc() + silence(1.6)
-    mix(x, phrase([(0.0, "G4", 0.15), (0.32, "G4", 0.15), (0.95, "C4", 0.35)], 0.6, 0.9), 1.8)  # short, so it doesn't ring under the voice
+    mix(x, phrase([(0.0, "D4", 0.15), (0.32, "D4", 0.15), (0.95, "D4", 0.35)], 0.6, 0.9), 1.8)  # short, so it doesn't ring under the voice
     save(cue1(18), fade(x, 0, 0.3), -3)
-if wanted1(19):  # two cheerful notes (not the song's C-E step)
-    save(cue1(19), phrase([(0.0, "D5", 0.18), (0.25, "A4", 0.3)], 0.6), -4)
+if wanted1(19):  # two cheerful notes (rising, unlike the song's falling C-A)
+    save(cue1(19), phrase([(0.0, "A4", 0.18), (0.25, "C5", 0.3)], 0.6), -4)
 if wanted1(20):  # a breath of wind far away (the same storm as Sbuffo in the prologue), a door creaks a little
     x = fade(biquad(load("storm", 4.0, 8.0), "lp", 900), 1.0, 1.5)
     mix(x, load("k_creak1"), 1.6, 0.6)
@@ -580,28 +634,28 @@ if wanted1(26):  # starts running, stumbles after two steps and stops, out of br
     mix(x, one_breath(4, 1.0, 0.5), 1.2)
     save(cue1(26), x + silence(0.2), -4)
 if wanted1(27):
-    save(cue1(27), phrase([(0.0, "E4"), (0.6, "G4")], 0.4, 2.0), -6)  # two soft, encouraging notes
+    save(cue1(27), phrase([(0.0, "F4"), (0.6, "A4")], 0.4, 2.0), -6)  # two soft, encouraging notes
 if wanted1(28):
-    save(cue1(28), phrase([(0.0, "A4", 0.2), (0.25, "D5", 0.3)], 0.6), -4)  # two cheerful notes
+    save(cue1(28), phrase([(0.0, "D4", 0.2), (0.25, "A4", 0.3)], 0.6), -4)  # two cheerful notes
 if wanted1(29):
-    save(cue1(29), piano(NOTE["C4"], 1.8, 0.6), -4)  # one note
+    save(cue1(29), piano(NOTE["D4"], 1.8, 0.6), -4)  # one note: the index button
 if wanted1(30):  # a second note joins the first
-    save(cue1(30), mix(piano(NOTE["C4"], 2.2, 0.55), piano(NOTE["E4"], 2.0, 0.55), 0.4), -4)
+    save(cue1(30), mix(piano(NOTE["D4"], 2.2, 0.55), piano(NOTE["F4"], 2.0, 0.55), 0.4), -4)
 if wanted1(31):  # a drum gently accompanies the two notes (a new example, not the song)
     x = silence(3.6)
     for k in range(3):
-        mix(x, piano(NOTE["C4"], 1.2, 0.45), k * 1.2)
-        mix(x, piano(NOTE["E4"], 1.2, 0.45), k * 1.2 + 0.6)
+        mix(x, piano(NOTE["D4"], 1.2, 0.45), k * 1.2)
+        mix(x, piano(NOTE["F4"], 1.2, 0.45), k * 1.2 + 0.6)
         mix(x, tom(0.5), k * 1.2, 0.7)
     save(cue1(31), fade(x, 0, 0.6), -4)
 if wanted1(32):  # the sounds stop, a short silence
-    save(cue1(32), mix(silence(1.2), phrase([(0.0, "C4", 0.08), (0.0, "E4", 0.08)], 0.4, 0.4)), -12)
+    save(cue1(32), mix(silence(1.2), phrase([(0.0, "D4", 0.08), (0.0, "F4", 0.08)], 0.4, 0.4)), -12)
 if wanted1(33):
-    save(cue1(33), phrase([(0.0, "E5"), (0.5, "D5"), (1.0, "C5")], 0.4, 1.6), -6)  # three sweet notes
-if wanted1(11):  # four little, well separated neutral signals (not instruments yet)
+    save(cue1(33), phrase([(0.0, "F4"), (0.5, "A4"), (1.0, "C5")], 0.4, 1.6), -6)  # three sweet notes
+if wanted1(11):  # four little, well separated neutral signals (not instruments yet), on the four button pitches
     x = silence(3.6)
-    for k, f in enumerate((660, 740, 830, 990)):
-        mix(x, blip(f), k * 0.9)
+    for k, n in enumerate(BUTTONS):
+        mix(x, blip(NOTE[n]), k * 0.9)
     save(cue1(11), x, -8)
 if wanted1(34):  # the piano in the distance tries the song and stops before the last note
     save(cue1(34), biquad(stolen_try(0.6, 0.45), "lp", 2000) + silence(0.4), -8)
@@ -614,14 +668,14 @@ if wanted1(36):  # walking across the room; here and there an instrument tries a
     mix(x, tom(0.3), 1.5, 0.5)
     mix(x, triangle(0.2, 1.2), 3.6, 0.4)
     mix(x, flute(NOTE["A4"], 0.6, 0.3), 5.0, 0.5)
-    mix(x, piano(NOTE["D5"], 1.0, 0.3), 6.2, 0.6)
+    mix(x, piano(NOTE["F4"], 1.0, 0.3), 6.2, 0.6)
     save(cue1(36), fade(x, 0, 0.8), -4)
 if wanted1(37):  # the piano tries its part once more: two notes, then silence
     save(cue1(37), stolen_try(0.6) + silence(0.9), -4)
 if wanted1(38):
-    save(cue1(38), piano(NOTE["C2"], 5.0, 0.7), -4)  # a single low note that rings on
+    save(cue1(38), piano(NOTE["D2"], 5.0, 0.7), -4)  # a single low note that rings on (the index note, two octaves down)
 if wanted1(40):  # soft notes lead into the next scene (not the stolen phrase)
-    save(cue1(40), fade(phrase([(0.0, "C4"), (0.5, "E4"), (1.0, "G4"), (1.5, "A4"), (2.2, "G4")], 0.4, 2.0), 0, 1.0), -6)
+    save(cue1(40), fade(phrase([(0.0, "D4"), (0.5, "F4"), (1.0, "A4"), (1.5, "C5"), (2.2, "A4")], 0.4, 2.0), 0, 1.0), -6)
 
 # Practice examples have stable names because they are replayed inside interactions.
 if selected("x_s01_regolare"):
@@ -637,12 +691,13 @@ if selected("x_s01_confronto"):
 if selected("x_s01_maestro"):
     save("x_s01_maestro", tac_tac_toc(), -3)
 if selected("x_s01_pulsante"):
-    save("x_s01_pulsante", blip(660) + silence(0.06), -8)
+    # the index button: the piano note the child plays (docs/music: the child hears the stake instrument)
+    save("x_s01_pulsante", piano(NOTE["D4"], 0.42, 0.6, damp=0.2), -8)
 if selected("x_s01_nota_mancante"):
     x = silence(3.2)
     intensity = 0.6
-    mix(x, piano(NOTE["G4"], 1.6, 0.6, cents=-35 * intensity, wobble=18 * intensity), THEME[0][0])
-    mix(x, piano(NOTE["C5"], 1.6, 0.6, cents=45 * intensity, sag=-90 * intensity, wobble=25 * intensity), THEME[1][0])
+    mix(x, piano(NOTE[THEME[0][1]], 1.6, 0.6, cents=-35 * intensity, wobble=18 * intensity), THEME[0][0])
+    mix(x, piano(NOTE[THEME[1][1]], 1.6, 0.6, cents=45 * intensity, sag=-90 * intensity, wobble=25 * intensity), THEME[1][0])
     save("x_s01_nota_mancante", x, -4)
 
 # Extra beds for the regia (not cues in the script).

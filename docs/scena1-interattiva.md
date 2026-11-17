@@ -154,12 +154,13 @@ ferma. La prova con il file reale della nota mancante falliva prima della
 correzione e ora deve riuscire anche dopo una pausa dell’Editor.
 
 Durante l’esercizio della nota mancante si usa `1`, anche dal tastierino:
-il bersaglio è 1,5 secondi dopo l’inizio del pianoforte, subito dopo la
-seconda nota a 1,2 secondi. Alla domanda «Ti va di riprovare?» invece si
+il bersaglio è 1,2 secondi dopo l’inizio del pianoforte (la terza nota,
+Fa, della testa Do–La–Fa a 100 BPM; vedi `docs/music/06-worked-example.md`),
+dopo la seconda nota a 0,6 secondi. Alla domanda «Ti va di riprovare?» invece si
 risponde S/Y oppure N: i tasti musicali non rispondono alle domande.
 
 Tempi degli esempi: battiti regolari 0, 1, 2 secondi; Maestro 0, 0,32, 0,95;
-tema della canzone 0, 1,2, 1,5. L’esempio della nota mancante usa i tempi esatti
+tema della canzone 0, 0,6, 1,2. L’esempio della nota mancante usa i tempi esatti
 del tema completo, senza la terza nota. La pressione non ne ripristina il suono.
 I cinque esempi/feedback `x_s01_*` si rigenerano col generatore dei suoni.
 

@@ -109,7 +109,7 @@ public static class StoryInteractionRuntimeChecks
     {
         var clip = UnityEditor.AssetDatabase.LoadAssetAtPath<AudioClip>(
             "Assets/EchoQuest/Story/Audio/Sfx/x_s01_nota_mancante.wav");
-        var h = new Harness("nota", "0;1.2;1.5", noteExample: clip);
+        var h = new Harness("nota", "0;0.6;1.2", noteExample: clip);
         UnityEditor.EditorApplication.CallbackFunction resume = null;
         try
         {
@@ -128,7 +128,7 @@ public static class StoryInteractionRuntimeChecks
                 UnityEditor.EditorApplication.update += resume;
                 await Until(() => !UnityEditor.EditorApplication.isPaused, "Editor resumes during note exercise");
             }
-            await Until(() => AudioSettings.dspTime >= ready + .15 + 1.5, "real missing-note moment");
+            await Until(() => AudioSettings.dspTime >= ready + .15 + 1.2, "real missing-note moment");
             h.Press(key);
             await Until(() => h.Player.CurrentClip != clip.name, "real note response");
             Check(h.Player.CurrentClip == "eq_test_success", $"real note timing: {key}, Editor pause {pauseEditor}");
@@ -146,7 +146,7 @@ public static class StoryInteractionRuntimeChecks
     {
         var clip = UnityEditor.AssetDatabase.LoadAssetAtPath<AudioClip>(
             "Assets/EchoQuest/Story/Audio/Sfx/x_s01_nota_mancante.wav");
-        var h = new Harness("nota", "0;1.2;1.5", attempts: 1, noteExample: clip);
+        var h = new Harness("nota", "0;0.6;1.2", attempts: 1, noteExample: clip);
         try
         {
             await h.Ready();

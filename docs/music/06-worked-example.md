@@ -176,12 +176,12 @@ tracks:
   role: intro
   tempo: 100
   steps_per_bar: 8
-  intent: "game-wide constant: Maestro's baton TAC TAC TAC ... TOC, plus his voice 'uno, due, tre, VIA'"
+  intent: "game-wide constant: Maestro's baton TAC, TAC... TOC (two close taps, a rest, one low tap, as in the script), plus his voice 'uno, due, tre, VIA'"
   tracks:
     baton:
       layer: L0
       lanes:
-        claves:   ["x - x - x - . ."]
+        claves:   ["x - x - . . . ."]
         block_lo: [". . . . . . x -"]
 - id: turn_cue
   role: stinger

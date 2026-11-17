@@ -1,0 +1,372 @@
+EchoQuest — capitolo 1, scene 2–5 ed epilogo: testi per ElevenLabs
+
+Per ogni blocco: scegli la voce indicata, copia il testo tra le righe ----- e salva il file con il nome indicato.
+Maestro Battuta: Antonio Farina – Expressive and Warm. Narratore e Vento: le stesse voci del prologo.
+I tag in inglese tra parentesi quadre ([warm], [laughs]...) sono indicazioni di tono per ElevenLabs v3: copiali insieme al testo.
+Vanno bene gli MP3 esportati da ElevenLabs. Se fai una seconda versione da confrontare, usa _b al posto di _a.
+Le risposte «Riascoltiamo con calma», «Ti va di riprovare?» e «Nessuna fretta!» della Scena 1 si riusano: non vanno registrate di nuovo.
+
+============================================================
+SCENA 2 — IL PIANOFORTE CHE HA PERSO UNA NOTA
+============================================================
+
+1. s02_narr_01_a.mp3 — Narratore
+-----
+[calm] L'ultima nota del pianoforte rimane nell'aria per qualche secondo. Poi tutto torna tranquillo. Il Maestro Battuta si ferma accanto allo strumento. Per una volta non corre, non borbotta e non perde la bacchetta. Sta ascoltando.
+-----
+
+2. s02_maes_01_p1_a.mp3 — Maestro Battuta — pezzo 1 di 2, tra un pezzo e l'altro il gioco mette un suono
+-----
+[warm] Eccoci qui. Questo è il pianoforte. Hai sentito? Ci ha appena salutato! Non farci caso se a volte parlo con gli strumenti: è il mio modo di ascoltarli con attenzione. Ti racconto come funziona. Davanti a chi suona c'è una lunga fila di tasti. Quando il pianista preme un tasto...
+-----
+
+3. s02_maes_01_p2_a.mp3 — Maestro Battuta — pezzo 2 di 2, tra un pezzo e l'altro il gioco mette un suono
+-----
+[warm] ...dentro il pianoforte un piccolo martelletto colpisce una corda. La corda comincia a vibrare: si muove avanti e indietro molto, molto in fretta. Ed è proprio da quel movimento che nasce il suono. Ascolta.
+-----
+
+4. s02_maes_02_a.mp3 — Maestro Battuta
+-----
+[warm] Premi un tasto, una corda vibra, senti un suono! E sai una cosa? Da adesso il pulsante sotto il tuo indice è un tasto del pianoforte. Premilo, e fai vibrare la corda!
+-----
+
+5. s02_maes_03_a.mp3 — Maestro Battuta
+-----
+[warm] Adesso ascolta questi due suoni.
+-----
+
+6. s02_maes_04_a.mp3 — Maestro Battuta
+-----
+[warm] Il primo è grave: profondo, come una voce molto bassa. Il secondo è acuto: più sottile, come una voce che sale. Senti come cambia, poco alla volta?
+-----
+
+7. s02_maes_05_a.mp3 — Maestro Battuta
+-----
+[playful] Io, quando provo a fare una voce acuta, sembro una teiera che fischia! Piii! Ehm... Meglio lasciar fare al pianoforte. Sai perché si chiama proprio piano-forte? Perché può suonare piano, cioè delicatamente, oppure forte, con più energia. Ora ascolta bene e dimmi: secondo te, sono le stesse note?
+-----
+
+8. s02_maes_06_a.mp3 — Maestro Battuta
+-----
+[warm] Le note erano le stesse: è cambiata soltanto l'energia. Grave e acuto ci dicono quale nota sentiamo. Piano e forte ci dicono con quanta energia la suoniamo. Più di trecento anni fa, in Italia, un artigiano di nome Bartolomeo Cristofori costruì uno dei primi pianoforti proprio per poter passare dal piano al forte. Ed è da lì che viene il suo nome! Oh, già. Parlavo io. Suoni ancora qualcosa per noi?
+-----
+
+9. s02_maes_07_a.mp3 — Maestro Battuta
+-----
+[warm] Oh. Eccolo di nuovo: il pezzo che manca. Il pianoforte non si è rotto: i suoi tasti funzionano, lo hai sentito anche tu. È quella frase della canzone che Sbuffo ha scompigliato. Per ricostruirla dovremo ascoltare, ricordare il ritmo e rimettere i suoni al posto giusto. E questa volta lo faremo insieme!
+-----
+
+10. s02_maes_08_p1_a.mp3 — Maestro Battuta — pezzo 1 di 3, tra un pezzo e l'altro il gioco mette un suono
+-----
+[warm] Ma prima voglio affidare a te una decisione. Il pianoforte ci presterà la sua voce. Quale preferisci? Quella grave e profonda...
+-----
+
+11. s02_maes_08_p2_a.mp3 — Maestro Battuta — pezzo 2 di 3, tra un pezzo e l'altro il gioco mette un suono
+-----
+[warm] ...oppure quella acuta e sottile?
+-----
+
+12. s02_maes_08_p3_a.mp3 — Maestro Battuta — pezzo 3 di 3, tra un pezzo e l'altro il gioco mette un suono
+-----
+[warm] Per la voce grave, premi il pulsante sotto l'indice. Per la voce acuta, premi il pulsante sotto il medio. Non c'è una scelta sbagliata. Prenditi tutto il tempo che ti serve.
+-----
+
+13. s02_maes_09_a.mp3 — Maestro Battuta (ramo A)
+-----
+[excited] Hai scelto il suono grave! Ha una voce profonda, vero? Da adesso il pulsante sotto il tuo indice suona proprio così.
+-----
+
+14. s02_maes_10_a.mp3 — Maestro Battuta (ramo B)
+-----
+[excited] Hai scelto il suono acuto! Ha una voce sottile, vero? Da adesso il pulsante sotto il tuo indice suona proprio così.
+-----
+
+15. s02_maes_11_a.mp3 — Maestro Battuta
+-----
+[warm] Facciamogli suonare il mio ritmo. Ascolta il pianoforte, e poi ripetilo tu.
+-----
+
+16. s02_maes_12_a.mp3 — Maestro Battuta
+-----
+[warm] Senti? Lo stesso ritmo può suonare con voci diverse, profonde o sottili. Il nostro pianoforte è pronto. E anche tu. Tra poco ascolteremo una piccola frase e proveremo a ripeterla. Se non viene subito, si riprova: i musicisti fanno così. Io, una volta, ho cominciato a dirigere quando l'orchestra aveva già finito!
+-----
+
+17. s02_maes_13_a.mp3 — Maestro Battuta
+-----
+[chuckles] Va bene, va bene, non raccontiamolo a tutti. Un respiro... e cominciamo.
+-----
+
+18. s02_narr_02_a.mp3 — Narratore
+-----
+[calm] Il primo strumento del viaggio è pronto a suonare con te. La canzone dell'orchestra è ancora incompleta. Ma adesso sai da dove cominciare.
+-----
+
+19. eq_s02_extra_01_nota_tua.mp3 — Maestro Battuta — Dopo la prima pressione dell'indice
+-----
+[warm] Eccola! Questa nota l'hai fatta nascere tu!
+-----
+
+20. eq_s02_extra_02_stesse_note.mp3 — Maestro Battuta — Risposta giusta al confronto piano/forte
+-----
+[warm] Proprio così! Sono le stesse note.
+-----
+
+21. eq_s02_extra_03_ritmo_pianoforte.mp3 — Maestro Battuta — Dopo il ritmo riuscito sul pianoforte
+-----
+[excited] Il pianoforte ha suonato il mio ritmo con la tua voce!
+-----
+
+============================================================
+SCENA 3 — LA PRIMA SFIDA MUSICALE
+============================================================
+
+22. s03_vent_01_a.mp3 — Vento
+-----
+[mischievously] Fffffffff... Eeeeehi! Maestro Battutaaaaa! Che state facendo? State forse cercando i suoni che ho preso?
+-----
+
+23. s03_maes_01_a.mp3 — Maestro Battuta
+-----
+[annoyed] Sbuffo! Restituisci subito quella musica! Non è tua!
+-----
+
+24. s03_vent_02_a.mp3 — Vento
+-----
+[laughs] Ahahah! Volete il primo pezzo della canzone? Allora sfidatemi! Io suono, e voi ripetete. Se ci riuscite, ve lo ridò. Ma tanto non ci riuscirete mai!
+-----
+
+25. s03_maes_02_a.mp3 — Maestro Battuta
+-----
+[warm] Questo lo vedremo. E poi non sono solo: c'è un nuovo musicista che mi aiuta!
+-----
+
+26. s03_vent_03_a.mp3 — Vento
+-----
+[laughs] Ahahah! Vedremo! Ascoltate la mia sigla!
+-----
+
+27. s03_maes_03_a.mp3 — Maestro Battuta
+-----
+[warm] Quella è la sua musica: tre note dispettose. Ecco come funziona la sfida. Il pianoforte suona una piccola frase, due volte. Poi senti il mio TOC: vuol dire «tocca a te». E tu la ripeti con Tocco. Non serve essere perfetti: conta il ritmo. Ah, quasi dimenticavo! Ti servirà anche il pulsante sotto il medio. Anche lui è un tasto del pianoforte. Prova a premerlo.
+-----
+
+28. s03_maes_04_a.mp3 — Maestro Battuta
+-----
+[warm] Ecco la prima frase. Ascolta.
+-----
+
+29. s03_maes_05_a.mp3 — Maestro Battuta
+-----
+[warm] TA... TA-TA! Prima un suono, poi una pausa, poi due suoni vicini. Attento: è il contrario del mio TAC, TAC... TOC! Prima uno, poi due. Pronto? Si comincia!
+-----
+
+30. s03_maes_06_a.mp3 — Maestro Battuta
+-----
+[warm] Ascolta: Sbuffo ha cambiato una nota! Adesso, nel mezzo, c'è il medio.
+-----
+
+31. s03_maes_07_a.mp3 — Maestro Battuta
+-----
+[excited] Il pianoforte sta ritrovando la sua canzone! Ora l'ultimo pezzo. Il pianoforte suona l'inizio della sua frase. Quando arriva il silenzio, sei tu a suonare la nota mancante, con il medio!
+-----
+
+32. s03_vent_04_a.mp3 — Vento
+-----
+[annoyed] Cosa?! Non è possibile! Fffff... Va bene, va bene, tenetevi la vostra nota! Ma le altre non le troverete mai!
+-----
+
+33. s03_maes_08_a.mp3 — Maestro Battuta
+-----
+[excited] L'hai sentito? La nota! È tornata! L'hai rimessa tu al suo posto! Sai, ho diretto tantissimi concerti, ma non avevo mai recuperato una parte di canzone con l'aiuto di Tocco! Direi che è un giorno da ricordare. Anche perché, se non lo ricordo io, Sbuffo me lo rinfaccerà per il resto della vita.
+-----
+
+34. eq_s03_extra_01_medio.mp3 — Maestro Battuta — Dopo la prima pressione del medio
+-----
+[curious] Una nota diversa! Il medio suona un po' più in alto dell'indice.
+-----
+
+35. eq_s03_extra_02_conteggio.mp3 — Maestro Battuta — Conteggio prima della sfida, dopo TAC, TAC... TOC
+-----
+[energetic] Uno, due, tre... via!
+-----
+
+36. eq_s03_extra_03_turno_riuscito.mp3 — Maestro Battuta — Turno della sfida riuscito
+-----
+[excited] Perfetto!
+-----
+
+37. eq_s03_extra_04_turno_riuscito_alt.mp3 — Maestro Battuta — Turno della sfida riuscito, alternativa
+-----
+[excited] Così si fa!
+-----
+
+38. eq_s03_extra_05_insieme.mp3 — Maestro Battuta — Dopo il No a «Ti va di riprovare?» nella sfida
+-----
+[warm] Facciamolo insieme: io conto, tu premi.
+-----
+
+39. eq_s03_extra_06_sbuffo_ride.mp3 — Vento — Sbuffo dopo un turno non riuscito (voce del Vento)
+-----
+[laughs] Ahahah! Quasi! Ma non abbastanza!
+-----
+
+40. eq_s03_extra_07_sbuffo_ride_alt.mp3 — Vento — Sbuffo dopo un turno non riuscito, alternativa (voce del Vento)
+-----
+[mischievously] Fffff! Ritenta, se ci riesci!
+-----
+
+============================================================
+SCENA 4 — LA PRIMA NOTA È TORNATA
+============================================================
+
+41. s04_narr_01_a.mp3 — Narratore
+-----
+[calm] Il pianoforte torna a suonare. Le sue note si susseguono senza interrompersi. La piccola frase che il vento aveva spezzato è finalmente completa. E mentre il pianoforte suona, qualcosa di nuovo accade.
+-----
+
+42. s04_maes_01_a.mp3 — Maestro Battuta
+-----
+[warm] Oh! Hai sentito? Una campanella! Quando recuperiamo un pezzo della canzone, anche gli altri strumenti cominciano a ritrovare il loro posto. Dai, suoniamo insieme a loro! Premi i pulsanti quando vuoi: qualunque nota tu scelga, starà bene con la musica.
+-----
+
+43. s04_maes_02_a.mp3 — Maestro Battuta
+-----
+[warm] Che meraviglia! Sai qual è la cosa che mi rende più felice? Adesso anche tu conosci il pianoforte. Sai che dentro ci sono corde che vibrano. Hai ascoltato i suoi suoni gravi e acuti. E hai imparato a farlo suonare con il tuo Tocco. Quindi, tecnicamente... Sei appena diventato un musicista della nostra orchestra!
+-----
+
+44. s04_maes_03_a.mp3 — Maestro Battuta
+-----
+[warm] Normalmente dovrei consegnarti un diploma. Ma Sbuffo ha portato via anche i miei fogli. Quindi, per il momento, dovrai accontentarti di un applauso.
+-----
+
+45. s04_maes_04_a.mp3 — Maestro Battuta
+-----
+[embarrassed] Oh. Scusa. Mi sono lasciato trasportare.
+-----
+
+46. s04_vent_01_a.mp3 — Vento
+-----
+[mischievously] Fffffffff... Ehi! Ma quella è la nota che avevo preso io! L'avevo nascosta benissimo!
+-----
+
+47. s04_maes_05_a.mp3 — Maestro Battuta
+-----
+[playful] Forse non abbastanza.
+-----
+
+48. s04_vent_02_a.mp3 — Vento
+-----
+[mischievously] Tanto non riuscirete a recuperarle tutte! E comunque non capisco perché vi piaccia tanto suonare tutti insieme. Io faccio un sacco di rumore anche da solo! Ascoltate! FFFFFFFFFFFFFFFF!
+-----
+
+49. s04_maes_06_a.mp3 — Maestro Battuta
+-----
+[warm] Sì, Sbuffo. Sappiamo che sei molto bravo a soffiare.
+-----
+
+50. s04_vent_03_a.mp3 — Vento
+-----
+[upset] Allora perché non ascoltate me?! Non importa! Non riavrete gli altri suoni! Fffffffff!
+-----
+
+51. s04_maes_07_a.mp3 — Maestro Battuta
+-----
+[thoughtful] Hai sentito cosa ha detto? «Perché non ascoltate me?» Strano. Non avevo mai sentito Sbuffo parlare così. Dimmi tu: secondo te, Sbuffo vuole soltanto fare i dispetti?
+-----
+
+52. s04_maes_08_a.mp3 — Maestro Battuta (ramo A)
+-----
+[warm] Può darsi. Di solito entra, soffia, combina guai e scappa via. Però oggi, nella sua voce, c'era qualcosa di diverso.
+-----
+
+53. s04_maes_09_a.mp3 — Maestro Battuta (ramo B)
+-----
+[warm] Lo penso anch'io. Forse non vuole soltanto rubare la musica. Forse vuole che qualcuno lo ascolti.
+-----
+
+54. s04_maes_10_a.mp3 — Maestro Battuta
+-----
+[thoughtful] Lo scopriremo strada facendo. Per adesso dobbiamo continuare a recuperare la nostra canzone.
+-----
+
+55. s04_maes_11_a.mp3 — Maestro Battuta
+-----
+[excited] Bene, giovane musicista! Pronto per la prossima avventura? Questa volta non sarò io a decidere da quale strumento partire. Sarai tu a scegliere.
+-----
+
+============================================================
+SCENA 5 — DUE SUONI, DUE STRADE
+============================================================
+
+56. s05_maes_01_p1_a.mp3 — Maestro Battuta — pezzo 1 di 3, tra un pezzo e l'altro il gioco mette un suono
+-----
+[warm] Aspetta... Sento due cose diverse. Ascolta anche tu. Da una parte...
+-----
+
+57. s05_maes_01_p2_a.mp3 — Maestro Battuta — pezzo 2 di 3, tra un pezzo e l'altro il gioco mette un suono
+-----
+[warm] ...c'è un tamburo. Suona quando qualcuno colpisce la sua pelle tesa. Bum... Bum... Sembra quasi chiamarci. E dall'altra parte...
+-----
+
+58. s05_maes_01_p3_a.mp3 — Maestro Battuta — pezzo 3 di 3, tra un pezzo e l'altro il gioco mette un suono
+-----
+[warm] ...c'è una campanella. Il suo suono è squillante, e continua a risuonare per un momento.
+-----
+
+59. s05_maes_02_a.mp3 — Maestro Battuta
+-----
+[warm] Hanno bisogno entrambi del nostro aiuto, ma non possiamo andare da tutti e due nello stesso momento. Quale vuoi conoscere per primo? Per il tamburo, premi il pulsante sotto l'indice. Per la campanella, premi il pulsante sotto il medio. Non c'è una scelta sbagliata: la nostra canzone avrà bisogno di entrambi.
+-----
+
+60. s05_maes_03_p1_a.mp3 — Maestro Battuta (ramo A) — pezzo 1 di 2, tra un pezzo e l'altro il gioco mette un suono
+-----
+[warm] Il tamburo! Ottima idea! Quel suono profondo sembra davvero volerci raccontare qualcosa.
+-----
+
+61. s05_maes_03_p2_a.mp3 — Maestro Battuta (ramo A) — pezzo 2 di 2, tra un pezzo e l'altro il gioco mette un suono
+-----
+[warm] Andiamo a scoprire che cosa è successo al suo ritmo!
+-----
+
+62. s05_maes_04_p1_a.mp3 — Maestro Battuta (ramo B) — pezzo 1 di 2, tra un pezzo e l'altro il gioco mette un suono
+-----
+[warm] La campanella! Hai sentito come continua a risuonare dopo ogni colpo? Sono curioso di scoprire quale parte della canzone abbia perduto.
+-----
+
+63. s05_maes_04_p2_a.mp3 — Maestro Battuta (ramo B) — pezzo 2 di 2, tra un pezzo e l'altro il gioco mette un suono
+-----
+[warm] Andiamo a sentire cosa vuole raccontarci!
+-----
+
+============================================================
+EPILOGO — LA MUSICA È APPENA COMINCIATA
+============================================================
+
+64. e00_narr_01_a.mp3 — Narratore
+-----
+[calm] La vostra prima avventura è appena terminata. Avete conosciuto il Maestro Battuta e il pianoforte. E avete aiutato l'orchestra a ritrovare il primo pezzo della sua canzone. Ma il viaggio è appena cominciato. Sbuffo ha sparpagliato tanti altri suoni. E chissà perché desidera così tanto che tutti ascoltino soltanto lui.
+-----
+
+65. e00_maes_01_a.mp3 — Maestro Battuta
+-----
+[warm] Ehi! Prima di andare, suoniamo la nostra frase un'ultima volta. Io comincio... e l'ultima nota la metti tu, con il medio!
+-----
+
+66. e00_maes_02_p1_a.mp3 — Maestro Battuta — pezzo 1 di 2, tra un pezzo e l'altro il gioco mette un suono
+-----
+[warm] Oggi hai fatto qualcosa di importante. Non hai semplicemente premuto un pulsante. Hai ascoltato. Hai scelto. Hai provato. E hai aiutato uno strumento a ritrovare il suo posto nella musica. Ricordati: in un'orchestra non dobbiamo essere tutti uguali. Ognuno ha un suono diverso, ed è proprio questo che rende la musica interessante. E se durante il viaggio senti...
+-----
+
+67. e00_maes_02_p2_a.mp3 — Maestro Battuta — pezzo 2 di 2, tra un pezzo e l'altro il gioco mette un suono
+-----
+[warm] ...allora sono io! Il Maestro Battuta! Sempre pronto ad aiutarti. E, possibilmente, a non perdere più la bacchetta.
+-----
+
+68. e00_maes_03_a.mp3 — Maestro Battuta
+-----
+[sighs] ... Non dire niente. Ti prego.
+-----
+
+69. e00_narr_02_a.mp3 — Narratore
+-----
+[calm] La prima nota è tornata. Ma la canzone ha ancora bisogno di te. Il viaggio di EchoQuest continua...
+-----

@@ -1,0 +1,160 @@
+// Play-mode checks of Scenes 2 and 3 with the real scene data (regia, clips, timing).
+// Open any story scene, set run-in-background, enter Play mode, then evaluate this file followed by
+//   return await StoryBattleRuntimeChecks.RunScene2();   or   return await StoryBattleRuntimeChecks.RunScene3();
+// (unity command script.eval --file <combined file>). Presses go through the on-screen buttons
+// (StoryPlayer.PressLogical), timed on the audio clock like a child playing on the beat.
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using EchoQuest.Story;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public static class StoryBattleRuntimeChecks
+{
+    static int checks;
+    static void Check(bool condition, string label)
+    {
+        if (!condition) throw new Exception(label);
+        checks++;
+    }
+
+    static async Task Until(Func<bool> condition, string label, double seconds)
+    {
+        double end = Time.realtimeSinceStartupAsDouble + seconds;
+        while (!condition())
+        {
+            if (Time.realtimeSinceStartupAsDouble > end) throw new Exception("Timeout: " + label);
+            await Task.Delay(5);
+        }
+    }
+
+    static async Task At(double dspTime)
+    {
+        while (AudioSettings.dspTime < dspTime - 0.003) await Task.Delay(1);
+    }
+
+    static async Task<StoryPlayer> Load(string scene, string section)
+    {
+        bool loaded = false;
+        void OnLoaded(Scene s, LoadSceneMode mode) { if (s.name == scene) loaded = true; }
+        SceneManager.sceneLoaded += OnLoaded;
+        SceneManager.LoadScene(scene);
+        StoryPlayer p = null;
+        try
+        {
+            await Until(() => loaded && (p = UnityEngine.Object.FindAnyObjectByType<StoryPlayer>()) != null && p.section == section,
+                "scene " + scene, 20);
+        }
+        finally { SceneManager.sceneLoaded -= OnLoaded; }
+        await Task.Delay(300);
+        return p;
+    }
+
+    static bool Logged(StoryPlayer p, string text) => p.Log.Any(line => line.Contains(text));
+
+    static async Task Press(StoryPlayer p, int[] buttons, double start, double[] times)
+    {
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            await At(start + times[i]);
+            p.PressLogical(buttons[i]);
+        }
+    }
+
+    public static async Task<string> RunScene2()
+    {
+        checks = 0;
+        StoryPlayer.ChosenRegister = "";
+        var p = await Load("Scena2", "s02");
+        p.Log.Clear();
+
+        p.JumpTo("s02_int_01");   // the index plays the piano: the prompt was the story line before
+        await Until(() => p.WaitingInteractionInput, "index prompt", 5);
+        p.PressLogical(1);
+        await Until(() => Logged(p, "s02_int_01 passed"), "index press passes", 5);
+
+        p.JumpTo("s02_int_02");   // piano and forte: same notes, the right answer is Yes
+        await Until(() => p.WaitingInteractionInput, "compare prompt", 5);
+        p.PressLogical(StoryInteractionRules.No);
+        await Until(() => Logged(p, "s02_int_02 not passed"), "No is not the answer here", 5);
+        await Until(() => p.WaitingInteractionInput, "compare listens again", 20);
+        p.PressLogical(StoryInteractionRules.Yes);
+        await Until(() => Logged(p, "s02_int_02 passed"), "Yes passes", 5);
+
+        p.JumpTo("s02_int_03");   // the register choice with the note buttons
+        await Until(() => p.WaitingInteractionInput, "register choice", 5);
+        p.PressLogical(StoryInteractionRules.Yes);   // the thumb does not choose here
+        await Task.Delay(200);
+        Check(StoryPlayer.ChosenRegister == "", "Yes is not a register");
+        p.PressLogical(2);
+        await Until(() => p.Current != null && p.Current.Id == "s02_sfx_13", "the middle finger leads to the high branch", 8);
+        Check(StoryPlayer.ChosenRegister == "acuto" && p.BranchChoice == "B", "middle = high register, branch B");
+
+        p.JumpTo("s02_sfx_14");   // the Maestro's rhythm on the chosen note
+        await Until(() => p.CurrentClip == "s02_sfx_14_acuto", "the high variant plays", 5);
+
+        p.JumpTo("s02_int_05");
+        await Until(() => p.WaitingInteractionInput, "rhythm capture", 5);
+        double t0 = AudioSettings.dspTime + 0.2;
+        await Press(p, new[] { 1, 1, 1 }, t0, new[] { 0, 0.32, 0.95 });
+        await Until(() => Logged(p, "s02_int_05 passed"), "TAC TAC... TOC on the piano", 6);
+        return $"Scene 2: {checks} checks passed; register {StoryPlayer.ChosenRegister}";
+    }
+
+    public static async Task<string> RunScene3()
+    {
+        checks = 0;
+        StoryPlayer.ChosenRegister = "grave";
+        var p = await Load("Scena3", "s03");
+        p.Log.Clear();
+
+        p.JumpTo("s03_int_01");   // the middle button: index does nothing, middle passes
+        await Until(() => p.WaitingInteractionInput, "middle prompt", 5);
+        p.PressLogical(1);
+        await Task.Delay(200);
+        Check(!Logged(p, "s03_int_01 passed"), "the index does not confirm the middle-finger test");
+        p.PressLogical(2);
+        await Until(() => Logged(p, "s03_int_01 passed"), "middle press passes", 5);
+
+        p.JumpTo("s03_sfx_04");   // the count-in starts the loop on the beat
+        await Until(() => p.BattleRunning, "the battle loop is scheduled", 6);
+        double bar = p.BattleBarSeconds, start = p.BattleStart;
+        Check(Math.Abs(bar - 2.4) < 1e-3, "100 BPM: a bar is 2.4 s");
+        Check(Math.Abs(start - AudioSettings.dspTime - 4.8) < 0.25, "the loop starts two bars (the count-in) later");
+
+        // Round 1: D... D-D, echoed on the beat of the echo bar (bar 3 of the exchange).
+        await Until(() => p.Current?.Id == "s03_int_02" && p.WaitingInteractionInput, "round 1", 8);
+        double ex = p.ExchangeStart;
+        Check(Math.Abs(ex - start) < 1e-6, "the first exchange starts on the first bar of the loop");
+        await Press(p, new[] { 1, 1, 1 }, ex + 2 * bar, new[] { 0, 1.2, 1.5 });
+        await Until(() => Logged(p, "s03_int_02 passed"), "round 1 passes", 6);
+        await Until(() => p.BattleLayers == 1, "success adds the pad at the bar line", 8);
+
+        // Round 2: a wrong middle note first (Sbuffo laughs, the top layer goes), then the right echo.
+        await Until(() => p.Current?.Id == "s03_int_03" && p.WaitingInteractionInput, "round 2", 25);
+        ex = p.ExchangeStart;
+        double k = (ex - start) / bar;
+        Check(Math.Abs(k - 4 * Math.Round(k / 4)) < 1e-6, "rounds start on an exchange boundary (chord change)");
+        await Press(p, new[] { 1, 1, 1 }, ex + 2 * bar, new[] { 0, 1.2, 1.5 });
+        await Until(() => Logged(p, "s03_int_03 not passed"), "the wrong echo is not accepted", 6);
+        await Until(() => p.BattleLayers == 0, "a failure removes only the top layer", 6);
+        await Until(() => p.WaitingInteractionInput && p.ExchangeStart > ex, "the same call comes back", 25);
+        ex = p.ExchangeStart;
+        await Press(p, new[] { 1, 2, 1 }, ex + 2 * bar, new[] { 0, 1.2, 1.5 });
+        await Until(() => Logged(p, "s03_int_03 passed"), "round 2 passes", 6);
+
+        // Round 3: the piano plays C, A... and the child puts the stolen F back with the middle button.
+        await Until(() => p.Current?.Id == "s03_int_04" && p.WaitingInteractionInput, "round 3", 30);
+        ex = p.ExchangeStart;
+        await At(ex + bar + 1.2);
+        p.PressLogical(2);
+        await Until(() => Logged(p, "s03_int_04 passed"), "the missing F is back", 6);
+
+        // Victory: the loop stops on a bar line and the fanfare starts exactly there.
+        await Until(() => p.Current?.Id == "s03_sfx_05", "the fanfare", 15);
+        Check(!p.BattleRunning && Logged(p, "battle ends on the bar line"), "the loop ends with the fanfare");
+        Check(p.CurrentClip == "s03_sfx_05_grave", "the reprise is in the chosen register");
+        return $"Scene 3: {checks} checks passed";
+    }
+}

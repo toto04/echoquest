@@ -114,9 +114,11 @@ namespace EchoQuest.Story
             m_CaptureInputStart = InputState.currentTime;
         }
 
+        /// <summary>An example or button sound, in the chosen register when it has variants (x_s02_ritmo_grave).</summary>
         private bool InteractionClip(string id, out AudioClip clip)
         {
-            if (m_Sounds.TryGetValue(id, out clip) || m_ClipsByName.TryGetValue(id, out clip)) return true;
+            if (m_ClipsByName.TryGetValue(id + "_" + Register, out clip)) return true;
+            if (SoundClip(id, out clip) || m_ClipsByName.TryGetValue(id, out clip)) return true;
             return false;
         }
 
@@ -131,8 +133,10 @@ namespace EchoQuest.Story
 
         private bool InteractionAssetsReady(InteractionSettings settings)
         {
-            if (!InteractionVoiceExists(settings.Prompt)) return false;
-            if (!string.IsNullOrEmpty(settings.Success) && !InteractionVoiceExists(settings.Success)) return false;
+            if (!string.IsNullOrEmpty(settings.Prompt) && !InteractionVoiceExists(settings.Prompt)) return false;
+            foreach (var voice in settings.SuccessVoices) if (!InteractionVoiceExists(voice)) return false;
+            if (settings.Mode is InteractionMode.Battle or InteractionMode.BattleAnswer)
+                foreach (var voice in settings.RetryVoices) if (!InteractionVoiceExists(voice)) return false;
             foreach (var voice in settings.DeclineVoices) if (!InteractionVoiceExists(voice)) return false;
             if (settings.AttemptsPerRound > 0)
             {
@@ -141,7 +145,8 @@ namespace EchoQuest.Story
             }
             if (settings.Mode is not (InteractionMode.Confirm or InteractionMode.Decision) && !InteractionVoiceExists(settings.Retry)) return false;
             foreach (var example in settings.Examples) if (!InteractionClip(example, out _)) return false;
-            return string.IsNullOrEmpty(settings.Feedback) || InteractionClip(settings.Feedback, out _);
+            foreach (var feedback in settings.Feedbacks) if (!InteractionClip(feedback, out _)) return false;
+            return true;
         }
 
         private IEnumerator InteractionVoice(string id, bool pauseAfter = true)
@@ -175,13 +180,24 @@ namespace EchoQuest.Story
             if (pauseAfter) yield return Wait(pauseAfterSound);
         }
 
-        private void InteractionTapFeedback(InteractionSettings settings)
+        /// <summary>The sound of a button: suono_pulsante lists one sound per note button, or one for all.</summary>
+        private string FeedbackFor(InteractionSettings settings, int button)
         {
-            if (string.IsNullOrEmpty(settings.Feedback)) return;
-            InteractionClip(settings.Feedback, out var clip);
-            var item = new StoryItem { Id = settings.Feedback, Kind = StoryItemKind.Sound };
+            var list = settings.Feedbacks;
+            if (list.Length == 0) return null;
+            return button >= 1 && button <= list.Length ? list[button - 1] : list[0];
+        }
+
+        private void InteractionTapFeedback(InteractionSettings settings, int button = 1)
+        {
+            string id = FeedbackFor(settings, button);
+            if (string.IsNullOrEmpty(id) || !InteractionClip(id, out var clip)) return;
+            var item = new StoryItem { Id = id, Kind = StoryItemKind.Sound };
             Spawn(clip, StagingFor(item), item.Id, soundMarker);
         }
+
+        private float FeedbackLength(InteractionSettings settings, int button) =>
+            FeedbackFor(settings, button) is { } id && InteractionClip(id, out var clip) ? clip.length : 0f;
 
         private IEnumerator PlayInteraction(StoryItem item, InteractionSettings settings)
         {
@@ -192,11 +208,14 @@ namespace EchoQuest.Story
                 while (!Interrupted) yield return null;
                 yield break;
             }
-            if (settings.Mode == InteractionMode.Decision &&
-                (!StagingFor(item).Choices.ContainsKey(StoryInteractionRules.Yes) ||
-                 !StagingFor(item).Choices.ContainsKey(StoryInteractionRules.No)))
+            if (settings.Mode is InteractionMode.Battle or InteractionMode.BattleAnswer)
             {
-                Status = "Mancano i rami Sì/No per " + item.Id;
+                yield return PlayBattleRound(item, settings);
+                yield break;
+            }
+            if (settings.Mode == InteractionMode.Decision && StagingFor(item).Choices.Count < 2)
+            {
+                Status = "Mancano i rami della scelta per " + item.Id;
                 Debug.LogError("[Story] " + Status);
                 while (!Interrupted) yield return null;
                 yield break;
@@ -210,26 +229,29 @@ namespace EchoQuest.Story
                 while (!Interrupted)
                 {
                     m_Foreground.RemoveAll(source => source == null);
-                    if (firstAttempt && settings.Mode != InteractionMode.Compare)
+                    // No prompt: the story lines and sounds just before the interaction asked and played the
+                    // examples, so the first attempt starts listening straight away.
+                    bool introducedByStory = firstAttempt && string.IsNullOrEmpty(settings.Prompt);
+                    if (firstAttempt && !introducedByStory && settings.Mode != InteractionMode.Compare)
                     {
                         yield return InteractionVoice(settings.Prompt,
                             settings.Mode is InteractionMode.Rhythm or InteractionMode.Note);
                         if (Interrupted) yield break;
                     }
-                    if (settings.Mode is InteractionMode.Rhythm or InteractionMode.Compare)
+                    if ((settings.Mode is InteractionMode.Rhythm or InteractionMode.Compare) && !introducedByStory)
                         foreach (var example in settings.Examples)
                         {
                             yield return InteractionExample(example, settings.Mode != InteractionMode.Rhythm);
                             if (Interrupted) yield break;
                         }
-                    if (firstAttempt && settings.Mode == InteractionMode.Compare)
+                    if (firstAttempt && !introducedByStory && settings.Mode == InteractionMode.Compare)
                     {
                         yield return InteractionVoice(settings.Prompt, pauseAfter: false);
                         if (Interrupted) yield break;
                     }
                     firstAttempt = false;
                     if (settings.Mode == InteractionMode.Note) yield return CaptureMissingNote(settings);
-                    else yield return CaptureButtons(settings);
+                    else yield return CaptureButtons(settings, StagingFor(item).Choices);
                     EndInteractionCapture();
                     if (Interrupted) yield break;
                     LogEvent(item.Id + (m_InteractionPassed ? " passed" : m_InteractionAttempted ? " not passed" : " no attempt"));
@@ -241,6 +263,7 @@ namespace EchoQuest.Story
                             BranchChoice = branch;
                             LogEvent("branch " + branch);
                         }
+                        if (settings.Registers.TryGetValue(m_InteractionSelectedButton, out var register)) SetRegister(register);
                         if (!string.IsNullOrEmpty(settings.Success)) yield return InteractionVoice(settings.Success);
                         yield break;
                     }
@@ -295,10 +318,14 @@ namespace EchoQuest.Story
             finally { EndInteractionCapture(); }
         }
 
-        private IEnumerator CaptureButtons(InteractionSettings settings)
+        private IEnumerator CaptureButtons(InteractionSettings settings, Dictionary<int, string> choices)
         {
+            // A choice made with the note buttons (Scene 2: index = low, middle = high): Space picks the first.
+            bool noteChoice = settings.Mode == InteractionMode.Decision && !choices.ContainsKey(StoryInteractionRules.Yes);
+            int firstChoice = int.MaxValue;
+            foreach (var key in choices.Keys) firstChoice = Mathf.Min(firstChoice, key);
             BeginInteractionCapture(settings.Mode is InteractionMode.Confirm or InteractionMode.Compare or InteractionMode.Decision,
-                settings.ConfirmButton);
+                noteChoice ? firstChoice : settings.ConfirmButton);
             var taps = new List<double>();
             bool declined = false;
             int declineIndex = 0;
@@ -309,7 +336,8 @@ namespace EchoQuest.Story
                 if (Paused) { yield return null; continue; }
                 if (m_ForcePass)
                 {
-                    m_InteractionSelectedButton = settings.Mode == InteractionMode.Compare ? StoryInteractionRules.No : settings.ConfirmButton;
+                    m_InteractionSelectedButton = settings.Mode == InteractionMode.Compare ? settings.ExpectedAnswer :
+                        noteChoice ? firstChoice : settings.ConfirmButton;
                     m_InteractionAttempted = m_InteractionPassed = true;
                     LastAttempt = "passed from the overlay";
                     yield break;
@@ -319,10 +347,12 @@ namespace EchoQuest.Story
                     var (button, time) = m_InteractionInput.Dequeue();
                     if (settings.Mode is InteractionMode.Compare or InteractionMode.Decision)
                     {
-                        if (button != StoryInteractionRules.Yes && button != StoryInteractionRules.No) continue;
+                        bool valid = noteChoice ? choices.ContainsKey(button)
+                            : button == StoryInteractionRules.Yes || button == StoryInteractionRules.No;
+                        if (!valid) continue;
                         m_InteractionAttempted = true;
                         m_InteractionSelectedButton = button;
-                        m_InteractionPassed = settings.Mode == InteractionMode.Decision || button == StoryInteractionRules.No;
+                        m_InteractionPassed = settings.Mode == InteractionMode.Decision || button == settings.ExpectedAnswer;
                         yield break;
                     }
                     if (settings.Mode == InteractionMode.Confirm)
@@ -331,9 +361,9 @@ namespace EchoQuest.Story
                         {
                             m_InteractionSelectedButton = button;
                             m_InteractionAttempted = m_InteractionPassed = true;
-                            InteractionTapFeedback(settings);
-                            if (!string.IsNullOrEmpty(settings.Feedback) && InteractionClip(settings.Feedback, out var feedback))
-                                yield return Wait(feedback.length + pauseAfterSound);
+                            InteractionTapFeedback(settings, button);
+                            float length = FeedbackLength(settings, button);
+                            if (length > 0) yield return Wait(length + pauseAfterSound);
                             yield break;
                         }
                         if (button == StoryInteractionRules.No && settings.ConfirmButton == StoryInteractionRules.Yes &&
@@ -352,7 +382,7 @@ namespace EchoQuest.Story
                     if (button != 1) continue;
                     lastActivity = AudioSettings.dspTime;
                     m_InteractionAttempted = true;
-                    InteractionTapFeedback(settings);
+                    InteractionTapFeedback(settings, button);
                     taps.Add(time);
                     if (taps.Count == 3)
                     {
@@ -361,8 +391,8 @@ namespace EchoQuest.Story
                             $"example {settings.Times[0]:F2}, {settings.Times[1]:F2}, {settings.Times[2]:F2} s: " +
                             (m_InteractionPassed ? "matches" : "does not match");
                         // Let the last tap finish before the response voice.
-                        if (!string.IsNullOrEmpty(settings.Feedback) && InteractionClip(settings.Feedback, out var feedback))
-                            yield return Wait(feedback.length + pauseAfterSound);
+                        float length = FeedbackLength(settings, button);
+                        if (length > 0) yield return Wait(length + pauseAfterSound);
                         yield break;
                     }
                 }

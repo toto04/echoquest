@@ -89,6 +89,28 @@ and a scheduled missing-note exercise. These are wired into the 93-item Scene 1;
 See [scena1-interattiva.md](scena1-interattiva.md) for behavior, audio texts,
 implementation decisions and acceptance checks. The current story has 93 items and has passed both route checks. Full listening and physical controller checks remain.
 
+### Scenes 2 and 3: the piano and the first battle (implemented 2026-11-17; listening check pending)
+
+Scenes 2-5 of the script were rewritten for more frequent interaction, following
+`docs/music/`. Scenes 2 and 3 are now playable in Unity with all their voices,
+sounds and music; the chapter's scenes load one after another.
+
+- [x] Voices for Scenes 2-3 (ElevenLabs, same voices and settings as before).
+- [x] Music as grid specs in `music/library/capitolo_01.yaml`, checked by
+  `tools/music/check.py` (palette, forbidden notes, call register, call warnings) and
+  rendered by `tools/music`; Scene 2-3 sounds from `tools/story_placeholder_sfx.py`.
+- [x] Scene 2: the index plays the piano, piano/forte (answer Yes), the register choice
+  with index/middle (whole button set one octave down or up), the Maestro's rhythm on the piano.
+- [x] Scene 3: the first battle against Sbuffo (06-worked-example.md): count-in, a loop that
+  never stops, long exchanges with the TOC cue, layers that grow with success, comic taunt
+  on failure, an answer round where the child plays the stolen F, fanfare on the bar line.
+- [x] Rule checks (80) and Play-mode checks of both scenes; Scene 1 checks still pass.
+- [ ] Listen in headphones; tune levels and the synthesised placeholder instruments
+  (FluidSynth and a GeneralUser GS bank would replace them, 05-format-and-pipeline.md).
+- [ ] Voices and sounds for Scenes 4, 5 and the epilogue (`docs/registrazioni-scene2-5.txt`, from item 41).
+
+See [scena2-3-interattive.md](scena2-3-interattive.md).
+
 ### Shareable web demo (planned 2026-11-16; debug overlay started 2026-11-17)
 
 A demo that tutors and designers can open from a link: an automated Web build

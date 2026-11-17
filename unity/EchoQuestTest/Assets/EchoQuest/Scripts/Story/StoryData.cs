@@ -40,6 +40,11 @@ namespace EchoQuest.Story
         /// <summary>Interactions: which button leads to which branch, e.g. "1=B;2=A" (1 = index finger).
         /// Empty = button 1 picks branch A, button 2 branch B, and so on.</summary>
         public Dictionary<int, string> Choices = new Dictionary<int, string>();
+        /// <summary>Sounds: when this sound ends, the battle loop with this clip prefix starts on the beat
+        /// (stems PREFIX_l0, _l1, _l3); it stops on the bar line where the item in Until starts.</summary>
+        public string BattleBase = "";
+        /// <summary>Length of the battle loop in bars.</summary>
+        public int BattleBars;
         public InteractionSettings Interaction;
 
         public static readonly StagingEntry Default = new StagingEntry { Position = new Vector3(0, 0, 4) };
@@ -109,6 +114,8 @@ namespace EchoQuest.Story
                     PauseAfter = Num("pausa_dopo"),
                     Choices = ParseChoices(Get("scelte")),
                     Interaction = InteractionSettings.Parse(Get),
+                    BattleBase = Get("base"),
+                    BattleBars = (int)(Num("battute") ?? 0),
                 };
             }
             return map;

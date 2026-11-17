@@ -232,3 +232,24 @@ Il [piano e le verifiche](../../../../../docs/scena1-interattiva.md) riportano
 punti di prova, configurazione e limiti. Sono superati i test delle regole,
 quelli dell’input in Play e i due percorsi della scena. Il riascolto in cuffia
 resta necessario per valutare raccordi e riverbero.
+
+## Scene 2 e 3 (`s02`, `s03`, scene `Scena2.unity` e `Scena3.unity`)
+
+Il pianoforte e la prima sfida contro Sbuffo, giocabili con voci, suoni e musica. Le scene del capitolo
+si caricano una dopo l'altra (Intro → Scena 1 → Scena 2 → Scena 3). Nella Scena 2 il bambino sceglie
+il registro del pianoforte (indice = grave, medio = acuto): i suoni con i file `_grave`/`_acuto` seguono
+la scelta. La Scena 3 è una battaglia a tempo su una base che non si ferma, descritta in
+[scena2-3-interattive.md](../../../../../docs/scena2-3-interattive.md) insieme alle verifiche.
+
+La musica è scritta come partiture a griglia in `music/library/capitolo_01.yaml` (controllate da
+`python3 -m tools.music.check`) e i suoni si rigenerano come quelli del prologo:
+
+```sh
+python3 tools/story_placeholder_sfx.py ~/.cache/echoquest-sfx/mono unity/EchoQuestTest/Assets/EchoQuest/Story/Audio/Sfx s02 s03
+```
+
+Nella regia, le nuove colonne: `risposta` (la risposta giusta di un confronto, `si` o `no`),
+`registro` (per una scelta: `1=grave;2=acuto`), `pulsanti` (i pulsanti della frase di una sfida),
+`base` e `battute` (su un suono: la base della sfida che parte quando il suono finisce; `fino_a`
+dice dove si ferma). Modalità nuove: `sfida` (eco) e `sfida_nota` (completa la frase).
+

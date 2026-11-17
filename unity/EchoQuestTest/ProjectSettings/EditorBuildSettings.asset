@@ -14,5 +14,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/EchoQuest/Story/Scenes/Scena1.unity
     guid: 414efd98f89ed959b88783a270b9c57a
+  - enabled: 1
+    path: Assets/EchoQuest/Story/Scenes/Scena3.unity
+    guid: 811b8b5aadc7f747c8b0b59a4767fb05
+  - enabled: 1
+    path: Assets/EchoQuest/Story/Scenes/Scena2.unity
+    guid: 9936c865612a05a28832e718eed00894
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

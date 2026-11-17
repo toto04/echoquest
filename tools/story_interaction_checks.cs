@@ -75,7 +75,7 @@ public static class StoryInteractionChecks
         values["modalita"] = "conferma"; values["riprova"] = ""; values["esempi"] = ""; values["tempi"] = "";
         Check(InteractionSettings.Parse(Get).Mode == InteractionMode.Confirm, "confirmation needs no retry or example");
         values["consegna"] = "";
-        Invalid(() => InteractionSettings.Parse(Get), "instruction is required");
+        Check(InteractionSettings.Parse(Get).Prompt == "", "an empty instruction means the story lines already asked (Scenes 2-3)");
         values["modalita"] = "unknown";
         Invalid(() => InteractionSettings.Parse(Get), "reject unknown mode");
 
@@ -89,6 +89,8 @@ public static class StoryInteractionChecks
         values["pulsante"] = "indice";
         Check(InteractionSettings.Parse(Get).ConfirmButton == 1, "musical tutorial can require index");
         values["pulsante"] = "medio";
+        Check(InteractionSettings.Parse(Get).ConfirmButton == 2, "Scene 3 introduces the middle button");
+        values["pulsante"] = "anulare";
         Invalid(() => InteractionSettings.Parse(Get), "do not silently map an unknown confirmation button");
         values["pulsante"] = ""; values["modalita"] = "confronto";
         values["esempi"] = "a;b"; values["riprova"] = "retry";
@@ -115,6 +117,54 @@ public static class StoryInteractionChecks
         Check(invitations["s01_int_06"].Interaction.DeclineVoices.Length == 2, "parse multiple invitations after No");
         var calmWait = StoryData.ParseStaging("id,modalita,consegna,attesa_no\ns01_int_06,conferma,prompt,wait\n");
         Check(calmWait["s01_int_06"].Interaction.DeclineVoices.Length == 1, "single calm-wait recording remains supported");
+
+        // Scenes 2-3: the expected answer of a comparison, registers, per-button sounds, battle rounds.
+        values.Clear();
+        values["modalita"] = "confronto"; values["riprova"] = "retry"; values["esempi"] = "a;b";
+        Check(InteractionSettings.Parse(Get).ExpectedAnswer == StoryInteractionRules.No, "Scene 1 comparisons still expect No");
+        values["risposta"] = "si";
+        Check(InteractionSettings.Parse(Get).ExpectedAnswer == StoryInteractionRules.Yes, "piano and forte: the same notes, Yes");
+        values["risposta"] = "forse";
+        Invalid(() => InteractionSettings.Parse(Get), "reject an unknown expected answer");
+        values.Clear();
+        values["modalita"] = "scelta"; values["registro"] = "1=grave;2=acuto";
+        var choice = InteractionSettings.Parse(Get);
+        Check(choice.Registers[1] == "grave" && choice.Registers[2] == "acuto", "the register choice");
+        values["registro"] = "1=basso";
+        Invalid(() => InteractionSettings.Parse(Get), "reject an unknown register");
+        values.Clear();
+        values["modalita"] = "conferma"; values["suono_pulsante"] = "re;fa;la;do";
+        Check(InteractionSettings.Parse(Get).Feedbacks.Length == 4, "one sound per note button");
+        values.Clear();
+        values["modalita"] = "sfida"; values["esempi"] = "x_s03_r2"; values["tempi"] = "0;1.2;1.5"; values["pulsanti"] = "1;2;1";
+        values["successo"] = "ok;ok_alt"; values["riprova"] = "laugh;laugh_alt";
+        var round = InteractionSettings.Parse(Get);
+        Check(round.Mode == InteractionMode.Battle && round.Buttons[1] == 2 && round.SuccessVoices.Length == 2 && round.RetryVoices.Length == 2,
+            "parse a battle round");
+        values["pulsanti"] = "1;2";
+        Invalid(() => InteractionSettings.Parse(Get), "one button per note of the call");
+        values["pulsanti"] = "1;5;1";
+        Invalid(() => InteractionSettings.Parse(Get), "battle buttons are note buttons");
+        values["pulsanti"] = "1;2;1"; values["riprova"] = "";
+        Invalid(() => InteractionSettings.Parse(Get), "a battle round needs Sbuffo's taunt voices");
+        values["riprova"] = "laugh"; values["modalita"] = "sfida_nota";
+        Invalid(() => InteractionSettings.Parse(Get), "an answer round needs the call and the complete phrase");
+        values["esempi"] = "x_s03_r3;x_s03_r3_risposta"; values["tempi"] = "0;0.6;1.2"; values["pulsanti"] = "4;3;2";
+        Check(InteractionSettings.Parse(Get).Mode == InteractionMode.BattleAnswer, "parse the answer round");
+
+        var r2 = new[] { 1, 2, 1 };
+        var call = new[] { 0f, 1.2f, 1.5f };
+        Check(StoryInteractionRules.MatchesPhrase(new[] { (1, 10d), (2, 11.2), (1, 11.5) }, r2, call), "echo on time");
+        Check(StoryInteractionRules.MatchesPhrase(new[] { (1, 10d), (2, 11.45), (1, 11.8) }, r2, call), "a little slower");
+        Check(!StoryInteractionRules.MatchesPhrase(new[] { (1, 10d), (1, 11.2), (1, 11.5) }, r2, call), "wrong middle button");
+        Check(!StoryInteractionRules.MatchesPhrase(new[] { (1, 10d), (2, 10.3), (1, 11.5) }, r2, call), "TA-TA... TA is not TA... TA-TA");
+        Check(!StoryInteractionRules.MatchesPhrase(new[] { (1, 10d), (2, 11.2) }, r2, call), "incomplete echo");
+        Check(StoryInteractionRules.MatchesPhrase(new[] { (2, 5d) }, new[] { 2 }, new[] { 0f }), "a single note matches by button");
+        Check(StoryInteractionRules.HitsAnswer(2, 1.25, 2, 1.2f), "the missing F on time");
+        Check(StoryInteractionRules.HitsAnswer(2, 0.9, 2, 1.2f), "forgiving early answer");
+        Check(!StoryInteractionRules.HitsAnswer(2, 0.6, 2, 1.2f), "pressing with the second note is too early");
+        Check(!StoryInteractionRules.HitsAnswer(1, 1.2, 2, 1.2f), "the answer needs the middle button");
+        Check(!StoryInteractionRules.HitsAnswer(2, double.NaN, 2, 1.2f), "invalid answer time");
         return checks;
     }
 }

@@ -17,7 +17,9 @@ namespace EchoQuest.Story
 
         // Ducking speeds, in gain units per second: duck quickly when someone starts speaking,
         // come back slowly, so short pauses between sentences don't make the music pump.
-        private const float DuckSpeed = 3f, ReleaseSpeed = 0.5f;
+        private const float DuckSpeed = 3f;
+        /// <summary>How fast the gain comes back up, per second (battle layers use a faster one).</summary>
+        public float ReleaseSpeed { get; set; } = 0.5f;
         private float m_Volume, m_Gain = 1f, m_Fade = 1f, m_FadeSeconds;
         private bool m_FadingOut;
 

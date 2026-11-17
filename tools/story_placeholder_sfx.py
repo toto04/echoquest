@@ -25,8 +25,13 @@ same way and prefixed with k_: footstep_wood_000-004, creak1-3, confirmation_001
 cloth1-4, impactWood_light_000-004, impactSoft_medium_000-004.
 
 Usage: python3 tools/story_placeholder_sfx.py <mono_dir> <out_dir> [what ...]
-`what` can be a section (p00, s01), a cue id (s01_sfx_05) or a prologue cue number (16).
+`what` can be a section (p00, s01, s02, s03), a cue id (s01_sfx_05) or a prologue cue number (16).
 Without it, everything is written.
+
+Scenes 2 and 3 are music first: their piano phrases, Sbuffo's motif and the whole first battle are
+grid specs in music/library/capitolo_01.yaml, checked by `python3 -m tools.music.check` and rendered by
+tools/music. Sounds that depend on the register the child chose in Scene 2 are written twice, with
+the suffix _grave (buttons D3-C4) or _acuto (D5-C6); Unity picks the right one.
 """
 import math
 import random
@@ -177,7 +182,9 @@ def normalize(x, peak_db=-3.0):
 def selected(name):
     if not ONLY and not ONLY_SECTIONS:
         return True
-    return name in ONLY or name[:3] in ONLY_SECTIONS
+    # interaction clips (x_s02_..., x_piano_...) belong to their section
+    section = name[2:5] if name.startswith("x_s") else "s02" if name.startswith("x_piano") else name[:3]
+    return name in ONLY or section in ONLY_SECTIONS
 
 
 def save(name, x, peak_db=-3.0):
@@ -714,3 +721,214 @@ if selected("x_fogli_vento"):  # papers flying in the wind
         mix(x, load(f"k_bookFlip{k}"), t, 1.4)
     mix(x, load("pages"), 2.6, 1.2)
     save("x_fogli_vento", x, -8)
+
+
+# ---------------------------------------------------------------------------- Scenes 2 and 3
+# Music comes from music/library/capitolo_01.yaml through tools/music (checked against docs/music).
+sys.path.insert(0, __file__.rsplit("/tools/", 1)[0])
+from tools.music import grid as music  # noqa: E402
+
+SPECS = music.load_specs(__file__.rsplit("/tools/", 1)[0] + "/music/library/capitolo_01.yaml")
+CHOSEN = ("grave", "acuto")
+SHIFT = {"normale": 0, "grave": -12, "acuto": 12}
+VOICE_DIR = __file__.rsplit("/tools/", 1)[0] + "/unity/EchoQuestTest/Assets/EchoQuest/Story/Audio/Interazioni"
+
+
+def reg_note(name, register):
+    """A button note in the chosen register: reg_note("D4", "grave") -> "D3"."""
+    return music.shift_note(name, SHIFT[register])
+
+
+def loudness(x):
+    """A rough loudness proxy (RMS above 150 Hz), to match low and high notes by ear, not by peak."""
+    y = biquad(x, "hp", 150)
+    return math.sqrt(sum(v * v for v in y) / max(1, len(y)))
+
+
+def same_loudness(sounds, target=None):
+    target = target or loudness(sounds[0])
+    gains = [target / (loudness(s) or 1) for s in sounds]
+    return [[v * g for v in s] for s, g in zip(sounds, gains)]
+
+
+def save_fixed(name, x, gain):
+    """Writes without normalising, so battle stems keep the balance they were mixed with."""
+    if not selected(name):
+        return
+    peak = max(abs(v) for v in x) * gain
+    assert peak < 0.98, f"{name} would clip ({peak:.2f})"
+    with wave.open(f"{OUT}/{name}.wav", "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(SR)
+        w.writeframes(struct.pack(f"<{len(x)}h", *(int(s * gain * 32767) for s in x)))
+    print(f"{name}.wav  {len(x) / SR:.2f}s  (fixed gain)")
+
+
+def baton_kit():
+    """The Maestro's real baton for TAC (claves) and TOC (block_lo): the same sound as his signature."""
+    hit = fade(load("stick", 0.60, 0.90), 0.002, 0.05)
+    toc = resample(fade(load("stick", 1.28, 1.58), 0.002, 0.05), 0.7)
+    return {"claves": lambda vel=1.0: [v * vel for v in hit], "block_lo": lambda vel=1.0: [v * vel * 1.1 for v in toc]}
+
+
+def voice_48k(name):
+    """A recorded Maestro line from Audio/Interazioni, as mono 48 kHz samples."""
+    import subprocess
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", f"{VOICE_DIR}/{name}.wav", "-f", "s16le", "-ac", "1", "-ar", str(SR), "-"],
+                         check=True, capture_output=True).stdout
+    data = array("h", raw)
+    return [s / 32768 for s in data]
+
+
+def key_note(register, letter="D", dur=0.45, vel=0.6):
+    """What a button sounds like: a short piano note (the stake instrument, 06 §2)."""
+    return piano(NOTE[reg_note(music.BUTTON_NOTES[letter], register)], dur, vel, damp=dur * 0.5)
+
+
+def cue2(n):
+    return f"s02_sfx_{n:02d}"
+
+
+def cue3(n):
+    return f"s03_sfx_{n:02d}"
+
+
+# Button sounds: one per button and register (normale = before Scene 2's choice).
+for letter, nome in (("D", "re"), ("F", "fa"), ("A", "la"), ("C", "do")):
+    for register in ("normale",) + CHOSEN:
+        name = f"x_piano_{nome}" + ("" if register == "normale" else f"_{register}")
+        if selected(name):
+            save(name, key_note(register, letter), -8)
+
+if selected(cue2(1)):  # the last soft notes of Scene 1; one of them stays in the air and fades
+    x = phrase([(0.0, "D4", 0.5), (0.5, "F4", 0.6)], 0.35, 1.2)
+    mix(x, piano(NOTE["A4"], 5.0, 0.4), 1.0)
+    save(cue2(1), fade(x, 0, 2.5), -8)
+if selected(cue2(2)):  # two playful notes, F4 A4: hello (spec s2_saluto)
+    save(cue2(2), music.render(SPECS["s2_saluto"], tail=1.0)[: int(1.6 * SR)], -6)
+if selected(cue2(3)):  # the small mechanical noise of a key going down, very discreet
+    x = mix(silence(0.45), load("k_impactWood_light_002"), 0.0, 0.25)
+    mix(x, biquad(load("k_impactSoft_medium_001"), "lp", 1500), 0.02, 0.35)
+    save(cue2(3), fade(x, 0, 0.1), -18)
+if selected(cue2(4)):  # one piano note, D4 (the index button), left ringing on its own
+    save(cue2(4), piano(NOTE["D4"], 4.5, 0.6), -6)
+if selected(cue2(5)) or selected(cue2(10)) or selected(cue2(11)) or selected(cue2(12)) or selected(cue2(13)):
+    # Low and high: D3 and D5, the two registers the child will choose between. Same length and the
+    # same loudness by ear (not by peak), so only the pitch differs (the script's requirement).
+    low, high = same_loudness([piano(NOTE["D3"], 1.8, 0.6, damp=1.3), piano(NOTE["D5"], 1.8, 0.6, damp=1.3)])
+    save(cue2(5), mix(low + silence(0.9), high, 2.7), -6)
+    save(cue2(10), low, -8)
+    save(cue2(11), high, -8)
+    confirm = [v * 0.35 for v in blip(NOTE["A5"], 0.25)]
+    save(cue2(12), mix(mix(silence(0.3), confirm), piano(NOTE["D3"], 2.4, 0.6), 0.35), -6)
+    save(cue2(13), mix(mix(silence(0.3), confirm), piano(NOTE["D5"], 2.4, 0.6), 0.35), -6)
+if selected(cue2(6)):  # five notes up D3 A3 D4 A4 D5, then down; quarter notes at 100 BPM, same loudness
+    notes = ["D3", "A3", "D4", "A4", "D5"]
+    tones = same_loudness([piano(NOTE[n], 1.0, 0.55, damp=0.5) for n in notes])
+    x = silence(0)
+    for k, tone in enumerate(tones):
+        mix(x, tone, k * BEAT)
+    for k, tone in enumerate(reversed(tones)):
+        mix(x, tone, (len(notes) + 1 + k) * BEAT)
+    save(cue2(6), x + silence(0.3), -6)
+if selected(cue2(7)) or selected("x_s02_piano") or selected("x_s02_forte"):
+    # piano and forte: the same three notes D4 F4 A4, soft and then strong (about +9 dB, a brighter
+    # touch, no sudden peaks)
+    def trio(vel, bright):
+        x = silence(0)
+        for k, n in enumerate(("D4", "F4", "A4")):
+            mix(x, music.synth.piano(NOTE[n], 1.0, vel, damp=0.5, bright=bright), k * BEAT)
+        return x
+    soft, strong = trio(0.25, 0.0), trio(0.75, 0.5)
+    scale = 1 / max(abs(v) for v in strong)
+    soft, strong = [v * scale for v in soft], [v * scale for v in strong]
+    save_fixed("x_s02_piano", soft, 0.55)
+    save_fixed("x_s02_forte", strong, 0.55)
+    save_fixed(cue2(7), mix(soft + silence(1.2), strong, len(soft) / SR + 1.2), 0.55)
+if selected(cue2(8)):  # a free cheerful phrase (spec s2_allegra), then the piano tries the stolen head alone: C5, A4... nothing
+    x = music.render(SPECS["s2_allegra"], tail=0.6)
+    mix(x, stolen_try(0.6), len(x) / SR + 0.3)
+    save(cue2(8), x + silence(0.6), -5)
+if selected(cue2(9)):
+    save(cue2(9), tac_tac_toc(), -3)  # TAC, TAC... TOC!
+for register in CHOSEN:
+    # The Maestro's rhythm on the chosen piano note, with the exact times of s01_int_04 (0, 0.32, 0.95 s)
+    ritmo = phrase([(0.0, reg_note("D4", register), 0.15), (0.32, reg_note("D4", register), 0.15),
+                    (0.95, reg_note("D4", register), 0.35)], 0.6, 0.9)
+    if selected(f"{cue2(14)}_{register}"):
+        save(f"{cue2(14)}_{register}", ritmo, -4)
+    if selected(f"x_s02_ritmo_{register}"):
+        save(f"x_s02_ritmo_{register}", ritmo, -4)
+    if selected(f"{cue2(16)}_{register}"):  # the chosen note once, then a soft timpani roll: the challenge is coming
+        x = piano(NOTE[reg_note("D4", register)], 2.4, 0.6) + silence(0.6)
+        roll = silence(0)
+        for k in range(14):
+            mix(roll, music.synth.timpani(NOTE["D2"], 0.15 + 0.5 * k / 14, 0.6), k * 0.075)
+        mix(roll, music.synth.timpani(NOTE["D2"], 0.8), 14 * 0.075)
+        mix(x, roll, 2.6)
+        save(f"{cue2(16)}_{register}", x, -5)
+if selected(cue2(15)):  # two comic notes (spec s2_comiche), slightly out of tune like the Maestro's joke
+    x = phrase([(0.0, NOTE["C5"] * 1.03, 0.12), (0.3, NOTE["D4"] * 0.97, 0.3)], 0.6, 0.9)
+    save(cue2(15), x, -5)
+
+# ---- Scene 3: the first battle (docs/music/06-worked-example.md)
+if selected(cue3(1)):  # the wind comes back, far away at first (the same storm as Sbuffo in the prologue)
+    x = fade(biquad(load("storm", 3.0, 9.0), "lp", 700), 2.5, 1.5)
+    save(cue3(1), ramp(x, 0.4, 1.0), -8)
+if selected(cue3(2)):  # Sbuffo's signature: intro_sbuffo (pan flute C A D, villain slide), plus a gust
+    x = music.render(SPECS["intro_sbuffo"], tail=1.5)
+    mix(x, fade(biquad(load("whoosh", 0.0, 2.4), "hp", 300), 0.3, 0.8), 2.4, 0.5)
+    mix(x, music.synth.slide_whistle(700, 1600, 0.9, 0.25), 2.5)
+    save(cue3(2), x, -4)
+kit = baton_kit() if any(selected(n) for n in (cue3(4), "x_s03_toc")) else None
+if selected(cue3(4)):
+    # the count-in: TAC, TAC... TOC, then "uno, due, tre... via!" on beats 1-4 of the second bar
+    # (the recorded words fall at 0.04, 0.65, 1.2 and 1.8 s: on the beat at 100 BPM). Exactly two
+    # bars long, so the battle loop starts on the next downbeat.
+    x = music.render(SPECS["count_in"], kit=kit, tail=0.0)[: int(2 * BAR * SR)]
+    mix(x, voice_48k("eq_s03_extra_02_conteggio"), BAR, 0.9)
+    x = x[: int(2 * BAR * SR)]
+    save_fixed(cue3(4), x, 0.8 / max(abs(v) for v in x))
+if selected("x_s03_toc"):  # the turn cue: one TOC on beat 4
+    save_fixed("x_s03_toc", music.render(SPECS["turn_cue"], kit=kit, tail=0.3), 0.7)
+if selected("x_s03_taunt"):
+    save_fixed("x_s03_taunt", music.render(SPECS["taunt_sbuffo"], tail=1.0), 0.5)
+
+# The battle stems, mixed together: L0 groove, L1 pad, L3 hits, the calls on top. The calls must
+# be clearly the loudest thing (03-backing.md: nothing competes with the call).
+CALL_GAIN, STEM_GAIN = 0.55, 0.42
+for register in CHOSEN:
+    loop = SPECS["loop_sfida_piano_A"]
+    stems = {f"x_s03_base_l0_{register}": music.render(loop, register, only_layers={"L0"}),
+             f"x_s03_base_l1_{register}": music.render(loop, register, only_layers={"L1"}),
+             f"x_s03_base_l3_{register}": music.render(loop, register, only_layers={"L3"})}
+    if any(selected(n) for n in stems):
+        full = [a + b + c for a, b, c in zip(*stems.values())]
+        g = STEM_GAIN * 0.95 / max(abs(v) for v in full)
+        for name, x in stems.items():
+            save_fixed(name, x, g)
+    for sid, name in (("sfida_piano_r1", "r1"), ("sfida_piano_r2", "r2"), ("sfida_piano_r3", "r3"),
+                      ("sfida_piano_r3_risposta", "r3_risposta")):
+        if selected(f"x_s03_{name}_{register}"):
+            x = music.render(SPECS[sid], register, tail=1.2)
+            save_fixed(f"x_s03_{name}_{register}", x, CALL_GAIN / max(abs(v) for v in x))
+    if selected(f"x_s03_ok_{register}"):
+        x = music.render(SPECS["sting_ok"], register, tail=1.0)
+        save_fixed(f"x_s03_ok_{register}", x, 0.45 / max(abs(v) for v in x))
+    if selected(f"x_s03_notyet_{register}"):
+        x = music.render(SPECS["sting_notyet"], register, tail=0.8)
+        save_fixed(f"x_s03_notyet_{register}", x, 0.3 / max(abs(v) for v in x))
+    if selected(f"{cue3(3)}_{register}"):  # the first phrase alone, without the backing: TA... TA-TA
+        save(f"{cue3(3)}_{register}", music.render(SPECS["sfida_piano_r1"], register, tail=1.2), -4)
+    if selected(f"{cue3(5)}_{register}"):  # victory: the fanfare, then the reprise with the F back (centre F)
+        x = music.render(SPECS["fanfare_win_piano"], tail=0.0)[: int(2 * BAR * SR)]
+        mix(x, music.render(SPECS["reprise_piano"], register, tail=2.5), 2 * BAR)
+        save(f"{cue3(5)}_{register}", fade(x, 0, 1.5), -3)
+if selected(cue3(6)):  # Sbuffo goes away; his three notes come back softly, almost kind (C6 A5 D5)
+    x = fade(biquad(load("whoosh", 0.0, 3.0), "hp", 250), 0.1, 1.5)
+    tune = silence(0)
+    for t, n, d in ((0.0, "C6", 0.3), (0.3, "A5", 0.3), (0.6, "D5", 0.9)):
+        mix(tune, music.synth.pan_flute(NOTE[n], d, 0.35), t)
+    mix(x, biquad(tune, "lp", 5000), 1.6, 0.9)
+    save(cue3(6), fade(x, 0, 0.8), -6)

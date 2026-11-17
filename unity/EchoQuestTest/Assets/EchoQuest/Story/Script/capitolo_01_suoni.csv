@@ -62,28 +62,28 @@ s01_sfx_37,s01,B,"Il pianoforte prova ancora una volta a suonare la propria part
 s01_sfx_38,s01,B,Il pianoforte suona una singola nota grave che risuona lentamente.,,s01_sfx_38.wav,presente,592
 s01_sfx_39,s01,B,"TAC, TAC... TOC!",,s01_sfx_39.wav,presente,602
 s01_sfx_40,s01,B,Alcune note morbide di pianoforte introducono la scena successiva. La frase rimane diversa da quella incompleta rubata da Sbuffo.,,s01_sfx_40.wav,presente,608
-s02_sfx_01,s02,,"Risuonano le ultime note morbide con cui si è conclusa la Scena 1. Una di esse rimane nell'aria per un istante, poi sfuma. Non ricominciano i passi: il Maestro e il bambino sono già arrivati davanti al pianoforte.",,,da trovare,612
-s02_sfx_02,s02,,"Due note scherzose di pianoforte, come un saluto (Fa4, La4).",,,da trovare,618
-s02_sfx_03,s02,,"Il piccolo rumore meccanico di un tasto premuto, molto discreto.",s02_maes_01,,da trovare,624
-s02_sfx_04,s02,,Una nota di pianoforte (Re4) viene suonata e lasciata risuonare senza sovrapporle altri suoni.,,,da trovare,628
-s02_sfx_05,s02,,Il pianoforte suona una nota grave (Re3). Silenzio breve. Poi una nota acuta (Re5). Uguale volume e uguale durata. Nessuna voce parla sopra le note.,,,da trovare,640
-s02_sfx_06,s02,,"Cinque note salgono gradualmente (Re3, La3, Re4, La4, Re5), poi scendono al contrario (Re5, La4, Re4, La3, Re3), senza accelerare e senza cambiare volume.",,,da trovare,646
-s02_sfx_07,s02,,"Tre note (Re4, Fa4, La4) con un tocco leggero, sempre chiaramente udibili. Pausa. Le stesse tre note con un tocco più energico, senza picchi improvvisi di volume.",,,da trovare,652
-s02_sfx_08,s02,,"Una breve frase allegra di pianoforte, solo con Re, Fa, La e Do, senza cominciare con Do–La. Subito dopo il pianoforte prova da solo il motivo del concerto: Do5, La4... e silenzio dove dovrebbe esserci Fa4.",,,da trovare,660
-s02_sfx_09,s02,,"TAC, TAC... TOC!",,,da trovare,666
-s02_sfx_10,s02,,Breve ripetizione della nota grave (Re3).,s02_maes_08,,da trovare,672
-s02_sfx_11,s02,,Breve ripetizione della nota acuta (Re5).,s02_maes_08,,da trovare,676
-s02_sfx_12,s02,A,Breve conferma morbida. Una nota grave di pianoforte (Re3) risuona da sola.,,,da trovare,684
-s02_sfx_13,s02,B,Breve conferma morbida. Una nota acuta di pianoforte (Re5) risuona da sola.,,,da trovare,692
-s02_sfx_14,s02,,"Il pianoforte suona TAC, TAC... TOC sulla nota scelta (Re3 o Re5): due note vicine e una dopo la pausa.",,,da trovare,704
-s02_sfx_15,s02,,Due note comiche del pianoforte.,,,da trovare,712
-s02_sfx_16,s02,,"Il pianoforte ripete una volta il suono scelto. Breve pausa, quindi un segnale sonoro distintivo prepara l'avvio della Scena 3.",,,da trovare,718
-s03_sfx_01,s03,,"Il vento torna a farsi sentire, inizialmente lontano.",,,da trovare,730
-s03_sfx_02,s03,,"La sigla di Sbuffo: flauto di Pan soffiato con un piccolo colpo di legno, tre note corta-corta-lunga (Do5, La4, Re4), poi un colpo basso di timpano. Comica e dispettosa, mai spaventosa.",,,da trovare,752
-s03_sfx_03,s03,,"sfida_piano_r1 da sola, senza base: Re... Re-Re (TA... TA-TA) sulla nota dell'indice nel registro scelto, a 100 battiti al minuto.",,,da trovare,764
-s03_sfx_04,s03,,"Il conteggio, uguale in tutto il gioco: TAC, TAC... TOC! e la voce del Maestro «Uno, due, tre... via!». Parte la base della sfida (loop_sfida_piano_A, centro Re, 100 battiti al minuto): non si ferma fino alla vittoria.",,,da trovare,770
-s03_sfx_05,s03,,"Fanfara di vittoria (fanfare_win_piano), poi la ripresa: il pianoforte suona le prime due battute della canzone complete, Do, La, Fa... e il Fa è tornato. Centro Fa, festoso.",,,da trovare,786
-s03_sfx_06,s03,,"Sbuffo si allontana. Le sue tre note tornano piano, quasi gentili, dentro l'ultima battuta della ripresa.",,,da trovare,792
+s02_sfx_01,s02,,"Risuonano le ultime note morbide con cui si è conclusa la Scena 1. Una di esse rimane nell'aria per un istante, poi sfuma. Non ricominciano i passi: il Maestro e il bambino sono già arrivati davanti al pianoforte.",,s02_sfx_01.wav,presente,612
+s02_sfx_02,s02,,"Due note scherzose di pianoforte, come un saluto (Fa4, La4).",,s02_sfx_02.wav,presente,618
+s02_sfx_03,s02,,"Il piccolo rumore meccanico di un tasto premuto, molto discreto.",s02_maes_01,s02_sfx_03.wav,presente,624
+s02_sfx_04,s02,,Una nota di pianoforte (Re4) viene suonata e lasciata risuonare senza sovrapporle altri suoni.,,s02_sfx_04.wav,presente,628
+s02_sfx_05,s02,,Il pianoforte suona una nota grave (Re3). Silenzio breve. Poi una nota acuta (Re5). Uguale volume e uguale durata. Nessuna voce parla sopra le note.,,s02_sfx_05.wav,presente,640
+s02_sfx_06,s02,,"Cinque note salgono gradualmente (Re3, La3, Re4, La4, Re5), poi scendono al contrario (Re5, La4, Re4, La3, Re3), senza accelerare e senza cambiare volume.",,s02_sfx_06.wav,presente,646
+s02_sfx_07,s02,,"Tre note (Re4, Fa4, La4) con un tocco leggero, sempre chiaramente udibili. Pausa. Le stesse tre note con un tocco più energico, senza picchi improvvisi di volume.",,s02_sfx_07.wav,presente,652
+s02_sfx_08,s02,,"Una breve frase allegra di pianoforte, solo con Re, Fa, La e Do, senza cominciare con Do–La. Subito dopo il pianoforte prova da solo il motivo del concerto: Do5, La4... e silenzio dove dovrebbe esserci Fa4.",,s02_sfx_08.wav,presente,660
+s02_sfx_09,s02,,"TAC, TAC... TOC!",,s02_sfx_09.wav,presente,666
+s02_sfx_10,s02,,Breve ripetizione della nota grave (Re3).,s02_maes_08,s02_sfx_10.wav,presente,672
+s02_sfx_11,s02,,Breve ripetizione della nota acuta (Re5).,s02_maes_08,s02_sfx_11.wav,presente,676
+s02_sfx_12,s02,A,Breve conferma morbida. Una nota grave di pianoforte (Re3) risuona da sola.,,s02_sfx_12.wav,presente,684
+s02_sfx_13,s02,B,Breve conferma morbida. Una nota acuta di pianoforte (Re5) risuona da sola.,,s02_sfx_13.wav,presente,692
+s02_sfx_14,s02,,"Il pianoforte suona TAC, TAC... TOC sulla nota scelta (Re3 o Re5): due note vicine e una dopo la pausa.",,s02_sfx_14_acuto.wav s02_sfx_14_grave.wav,presente,704
+s02_sfx_15,s02,,Due note comiche del pianoforte.,,s02_sfx_15.wav,presente,712
+s02_sfx_16,s02,,"Il pianoforte ripete una volta il suono scelto. Breve pausa, quindi un segnale sonoro distintivo prepara l'avvio della Scena 3.",,s02_sfx_16_acuto.wav s02_sfx_16_grave.wav,presente,718
+s03_sfx_01,s03,,"Il vento torna a farsi sentire, inizialmente lontano.",,s03_sfx_01.wav,presente,730
+s03_sfx_02,s03,,"La sigla di Sbuffo: flauto di Pan soffiato con un piccolo colpo di legno, tre note corta-corta-lunga (Do5, La4, Re4), poi un colpo basso di timpano. Comica e dispettosa, mai spaventosa.",,s03_sfx_02.wav,presente,752
+s03_sfx_03,s03,,"sfida_piano_r1 da sola, senza base: Re... Re-Re (TA... TA-TA) sulla nota dell'indice nel registro scelto, a 100 battiti al minuto.",,s03_sfx_03_acuto.wav s03_sfx_03_grave.wav,presente,764
+s03_sfx_04,s03,,"Il conteggio, uguale in tutto il gioco: TAC, TAC... TOC! e la voce del Maestro «Uno, due, tre... via!». Parte la base della sfida (loop_sfida_piano_A, centro Re, 100 battiti al minuto): non si ferma fino alla vittoria.",,s03_sfx_04.wav,presente,770
+s03_sfx_05,s03,,"Fanfara di vittoria (fanfare_win_piano), poi la ripresa: il pianoforte suona le prime due battute della canzone complete, Do, La, Fa... e il Fa è tornato. Centro Fa, festoso.",,s03_sfx_05_acuto.wav s03_sfx_05_grave.wav,presente,786
+s03_sfx_06,s03,,"Sbuffo si allontana. Le sue tre note tornano piano, quasi gentili, dentro l'ultima battuta della ripresa.",,s03_sfx_06.wav,presente,792
 s04_sfx_01,s04,,"Il pianoforte suona la melodia appena recuperata, questa volta completa. La frase sonora è quella riconoscibile dall'inizio del gioco.",,,da trovare,802
 s04_sfx_02,s04,,Un leggero suono di campanella si aggiunge per un momento al pianoforte.,,,da trovare,808
 s04_sfx_03,s04,,Piccola fanfara comica di pianoforte.,,,da trovare,824

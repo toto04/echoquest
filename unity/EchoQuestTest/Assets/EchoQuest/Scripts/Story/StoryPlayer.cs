@@ -25,6 +25,10 @@ namespace EchoQuest.Story
         [Tooltip("Optional id to start from, e.g. p00_maes_01. Empty = start of the section.")]
         public string startFrom = "";
         public bool autoStart = true;
+        [Tooltip("Scene loaded when this section ends (empty = stay). The chapter's scenes are chained.")]
+        public string nextScene = "";
+        [Tooltip("Piano register used when the child hasn't chosen one yet (e.g. starting from Scene 3).")]
+        public string defaultRegister = "grave";
         public float startDelay = 1.5f;
         [Tooltip("When a voice line has no recording yet, its text stays on screen for this reading speed.")]
         public float missingVoiceCharsPerSecond = 15f;
@@ -62,9 +66,19 @@ namespace EchoQuest.Story
         public int ItemCount { get; private set; }
         public int ItemIndex { get; private set; }
 
+        /// <summary>The piano register chosen in Scene 2 ("grave" = buttons D3-C4, "acuto" = D5-C6).
+        /// Static, so it survives the load of the next scene.</summary>
+        public static string ChosenRegister = "";
+        public string Register => string.IsNullOrEmpty(ChosenRegister) ? defaultRegister : ChosenRegister;
+        public void SetRegister(string register)
+        {
+            ChosenRegister = register;
+            LogEvent("register " + register);
+        }
+
         private static readonly Regex VoiceName = new Regex(
             @"^(?<sec>[a-z]\d\d)_(?<ch>[a-z]+)_(?<n1>\d\d)(?:_(?<n2>\d\d))?(?:_p(?<part>\d+))?_(?<take>[a-z])$");
-        private static readonly Regex SoundName = new Regex(@"^(?<id>[a-z]\d\d_sfx_\d\d)(?:_[a-z0-9]+)?$");
+        private static readonly Regex SoundName = new Regex(@"^(?<id>[a-z]\d\d_sfx_\d\d)(?:_(?<variant>[a-z0-9]+))?$");
 
         private List<StoryItem> m_Items = new List<StoryItem>();
         private Dictionary<string, StagingEntry> m_Staging = new Dictionary<string, StagingEntry>();
@@ -74,6 +88,9 @@ namespace EchoQuest.Story
         // voice ids whose audio is inside another line's recording (e.g. p00_narr_02_03_a covers p00_narr_03)
         private readonly HashSet<string> m_CoveredByPrevious = new HashSet<string>();
         private readonly Dictionary<string, AudioClip> m_Sounds = new Dictionary<string, AudioClip>();
+        // Sound id -> variant suffix -> clip (s02_sfx_14_grave.wav: "grave"); picked by the register.
+        private readonly Dictionary<string, Dictionary<string, AudioClip>> m_SoundVariants =
+            new Dictionary<string, Dictionary<string, AudioClip>>();
         // Every clip by its file name, for extra beds named in the staging (e.g. x_vento_alberi).
         private readonly Dictionary<string, AudioClip> m_ClipsByName = new Dictionary<string, AudioClip>();
         private readonly List<SpatialSource> m_Foreground = new List<SpatialSource>();
@@ -129,8 +146,23 @@ namespace EchoQuest.Story
                     continue;
                 }
                 var s = SoundName.Match(clip.name);
-                if (s.Success && !m_Sounds.ContainsKey(s.Groups["id"].Value)) m_Sounds[s.Groups["id"].Value] = clip;
+                if (!s.Success) continue;
+                string soundId = s.Groups["id"].Value;
+                if (!m_Sounds.ContainsKey(soundId) || !s.Groups["variant"].Success) m_Sounds[soundId] = clip;
+                if (s.Groups["variant"].Success)
+                {
+                    if (!m_SoundVariants.TryGetValue(soundId, out var variants))
+                        m_SoundVariants[soundId] = variants = new Dictionary<string, AudioClip>();
+                    variants[s.Groups["variant"].Value] = clip;
+                }
             }
+        }
+
+        /// <summary>The clip of a sound, in the chosen register when the sound has register variants.</summary>
+        private bool SoundClip(string id, out AudioClip clip)
+        {
+            if (m_SoundVariants.TryGetValue(id, out var variants) && variants.TryGetValue(Register, out clip)) return true;
+            return m_Sounds.TryGetValue(id, out clip);
         }
 
         private List<AudioClip> VoiceParts(string id, out string usedTake)
@@ -173,6 +205,7 @@ namespace EchoQuest.Story
             if (m_Run != null) StopCoroutine(m_Run);
             EndInteractionCapture();
             m_EncouragementIndex = 0;
+            StopBattle();
             foreach (var s in Active.ToArray()) s.Stop();
             m_Foreground.Clear();
             m_Beds.Clear();
@@ -229,6 +262,7 @@ namespace EchoQuest.Story
                 if (bed != null) bed.TargetGain = voicePlaying ? duckGain : 1f;
             m_Tails.RemoveAll(t => t == null);
             foreach (var tail in m_Tails) tail.TargetGain = voicePlaying ? soundDuckGain : 1f;
+            UpdateBattleLayers(voicePlaying);
 
             var pad = EchoQuestController.current;
             if (pad != null)
@@ -278,13 +312,14 @@ namespace EchoQuest.Story
                 Current = item;
                 LogEvent(item.Id + (string.IsNullOrEmpty(item.Branch) ? "" : " [" + item.Branch + "]"));
                 EndBedsUntil(item.Id);
+                double? onTheBeat = EndBattleAt(item);
                 switch (item.Kind)
                 {
                     case StoryItemKind.Voice:
                         yield return PlayVoice(item, list.FindAll(i => i.Inside == item.Id));
                         break;
                     case StoryItemKind.Sound:
-                        yield return PlaySound(item);
+                        yield return PlaySound(item, onTheBeat);
                         break;
                     case StoryItemKind.Interaction:
                         if (StagingFor(item).Interaction is { } interaction)
@@ -309,9 +344,15 @@ namespace EchoQuest.Story
                 index++;
             }
             EndBedsUntil(null);
+            StopBattle();
             Current = null;
             CurrentClip = "";
             Status = "Fine della sezione. Backspace per ricominciare.";
+            if (!string.IsNullOrEmpty(nextScene))
+            {
+                yield return Wait(2f);
+                UnityEngine.SceneManagement.SceneManager.LoadScene(nextScene);
+            }
         }
 
         private IEnumerator PlayVoice(StoryItem item, List<StoryItem> inlineSounds)
@@ -404,9 +445,9 @@ namespace EchoQuest.Story
             }
         }
 
-        private IEnumerator PlaySound(StoryItem item)
+        private IEnumerator PlaySound(StoryItem item, double? scheduledStart = null)
         {
-            if (!m_Sounds.TryGetValue(item.Id, out var clip))
+            if (!SoundClip(item.Id, out var clip))
             {
                 Status = "Manca il suono " + item.Id;
                 LogEvent("missing sound " + item.Id);
@@ -418,9 +459,15 @@ namespace EchoQuest.Story
             var staging = StagingFor(item);
             Status = staging.Loop ? "Suono (continua di sottofondo)" : "Suono";
             CurrentClip = clip.name;
-            var src = Spawn(clip, staging, item.Id, MarkerFor(item), loop: staging.Loop);
+            // A sound that starts the battle loop is scheduled, so the loop can start exactly when it ends.
+            if (scheduledStart == null && !string.IsNullOrEmpty(staging.BattleBase))
+                scheduledStart = AudioSettings.dspTime + 0.1;
+            var src = Spawn(clip, staging, item.Id, MarkerFor(item), loop: staging.Loop, scheduledStart: scheduledStart);
             if (staging.Loop) m_Beds.Add((src, staging.Until));
-            yield return Wait(staging.Wait ?? clip.length);
+            double lead = scheduledStart.HasValue ? scheduledStart.Value - AudioSettings.dspTime : 0;
+            if (!string.IsNullOrEmpty(staging.BattleBase))
+                StartBattle(staging, scheduledStart.Value + (double)clip.samples / clip.frequency);
+            yield return Wait((float)lead + (staging.Wait ?? clip.length));
         }
 
         private IEnumerator WaitForChoice(StoryItem item, List<StoryItem> list, int index)

@@ -138,14 +138,17 @@ namespace EchoQuest.DebugUi
                 {
                     InteractionMode.Confirm => "confirm with one button",
                     InteractionMode.Rhythm => "repeat a three-tap rhythm",
-                    InteractionMode.Compare => "are the two rhythms the same? (correct answer: No)",
+                    InteractionMode.Compare => "same or different? (correct answer: " + StoryPlayer.ButtonName(it.ExpectedAnswer) + ")",
                     InteractionMode.Note => "press at the missing third note",
-                    _ => "yes or no picks a branch",
+                    InteractionMode.Battle => "battle: echo the call after the TOC (buttons " + string.Join(" ", it.Buttons) + ")",
+                    InteractionMode.BattleAnswer => "battle: play the missing last note (button " + (it.Buttons.Length > 0 ? it.Buttons[it.Buttons.Length - 1] : 0) + ")",
+                    _ => "a choice picks a branch",
                 }).AppendLine();
                 sb.Append("Prompt: ").Append(it.Prompt);
                 if (it.Examples.Length > 0) sb.AppendLine().Append("Examples: ").Append(string.Join(", ", it.Examples));
-                if (it.Times.Length == 3)
-                    sb.AppendLine().Append($"Expected times: {it.Times[0]:F2}, {it.Times[1]:F2}, {it.Times[2]:F2} s");
+                if (it.Times.Length > 0)
+                    sb.AppendLine().Append("Expected times: ").Append(string.Join(", ", System.Array.ConvertAll(it.Times, t => t.ToString("F2")))).Append(" s");
+                if (p.BattleRunning) sb.AppendLine().Append("Battle layers: ").Append(p.BattleLayers).Append(" · register ").Append(p.Register);
                 if (it.Mode == InteractionMode.Note) sb.AppendLine().Append($"Tolerance: {it.Tolerance:F2} s before the note");
                 if (it.Mode == InteractionMode.Rhythm) sb.AppendLine().Append("Tolerance: each gap within 0.10 s or 30%; any speed from half to double");
                 if (it.AttemptsPerRound > 0) sb.AppendLine().Append("Attempts before \"try again?\": ").Append(it.AttemptsPerRound);

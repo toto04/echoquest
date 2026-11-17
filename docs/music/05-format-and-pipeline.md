@@ -2,7 +2,7 @@
 
 This file is the contract for agents. It covers how to write a snippet, how it is checked, how it becomes audio in Unity, and how to iterate. Evidence and alternatives considered: [ai_composition_tooling.md](../../research_notes/Music%20composition%20guidelines/ai_composition_tooling.md).
 
-**Status.** The format below is the proposal, and every example in these guides is written in it and passes a draft validator. The tools named here (`tools/music/check.py`, `tools/music/render.py`) and the Unity players **do not exist yet**. The section [Tooling to build](#tooling-to-build) lists them.
+**Status.** The format below is in use. `tools/music/check.py` (H1-H8 and the call warnings W1-W8, W11) and `tools/music/render.py` exist, and Scene 3's battle runs in Unity (`StoryPlayer.Battle.cs`) from the specs in [`music/library/capitolo_01.yaml`](../../music/library/capitolo_01.yaml). The renderer uses small pure-Python placeholder instruments (`tools/music/synth.py`); FluidSynth with the house bank, the preview page and a text-driven `CallPlayer` are still to build (see [Tooling to build](#tooling-to-build)).
 
 ## Why this format
 

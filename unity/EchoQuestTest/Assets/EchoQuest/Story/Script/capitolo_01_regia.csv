@@ -1,4 +1,4 @@
-id,x,y,z,a_x,a_y,a_z,secondi_movimento,volume,filtro_hz,attesa,ripeti,fino_a,sottofondo,pausa_dopo,scelte,note,modalita,consegna,successo,riprova,esempi,tempi,suono_pulsante,pulsante,attesa_no,tentativi,domanda_riprova,prosegui
+id,x,y,z,a_x,a_y,a_z,secondi_movimento,volume,filtro_hz,attesa,ripeti,fino_a,sottofondo,pausa_dopo,scelte,note,modalita,consegna,successo,riprova,esempi,tempi,suono_pulsante,pulsante,attesa_no,tentativi,domanda_riprova,prosegui,risposta,registro,pulsanti,base,battute
 # Regia del capitolo 1. Tu sei al centro (0;0;0) e guardi in avanti: x = destra (negativo = sinistra); z = davanti; y = altezza. Unità circa in metri.,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 # Una riga per personaggio (narr maes lont vent) vale per tutte le sue battute; una riga con l'ID di una battuta o di un suono vale solo per quello.,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 # x/y/z vuoti = non spaziale (dentro la testa). a_x/a_y/a_z = punto di arrivo se si sposta. attesa = secondi prima che parta la cosa successiva (vuoto = alla fine del file): con un'attesa più corta del suono, la voce parte sopra il suono, che si abbassa un po' mentre si parla.,,,,,,,,,,,,,,,,,,,,,,,,,,
@@ -96,3 +96,55 @@ x_s01_confronto,2,0,3,,,,,1,,,,,,,,,,,,,,,,,,,,
 x_s01_maestro,2,0,3,,,,,1,,,,,,,,,,,,,,,,,,,,
 x_s01_pulsante,0,0,5,,,,,0.9,,,,,,,,,,,,,,,,,,,,
 x_s01_nota_mancante,3,0,5,,,,,0.9,,,,,,,,,,,,,,,,,,,,
+# --- Scena 2: il pianoforte (i suoni con _grave/_acuto seguono il registro scelto) ---
+s02_sfx_01,3,0,5,,,,,0.8,,,,,,,,Le ultime note della Scena 1: una resta nell'aria
+s02_sfx_02,3,0,5,,,,,0.9,,,,,,,,Il pianoforte saluta: Fa4 La4
+s02_sfx_03,3,0,5,,,,,0.7,,,,,,,,"Rumore del tasto, dentro la battuta del Maestro"
+s02_sfx_04,3,0,5,,,,,0.9,,,,,,,,Re4 che risuona da solo
+s02_sfx_05,3,0,5,,,,,0.9,,,,,,,,"Grave (Re3) e acuto (Re5), stesso volume percepito"
+s02_sfx_06,3,0,5,,,,,0.9,,,,,,,,Re3 La3 Re4 La4 Re5 su e giù
+s02_sfx_07,3,0,5,,,,,0.9,,,,,,,,Piano e forte: stesse note
+s02_sfx_08,3,0,5,,,,,0.9,,,,,,,,"Frase allegra, poi il motivo rubato senza la terza nota"
+s02_sfx_09,2,0,3,,,,,1,,,,,,,,"TAC, TAC... TOC!"
+s02_sfx_10,3,0,5,,,,,0.9
+s02_sfx_11,3,0,5,,,,,0.9
+s02_sfx_12,3,0,5,,,,,0.9
+s02_sfx_13,3,0,5,,,,,0.9
+s02_sfx_14,3,0,5,,,,,0.9,,,,,,,,TAC TAC TOC sulla nota scelta (varianti _grave/_acuto)
+s02_sfx_15,3,0,5,,,,,0.9
+s02_sfx_16,3,0,5,,,,,0.9,,,,,,,,"La nota scelta, poi un rullo di timpano: arriva la sfida"
+s02_int_01,,,,,,,,,,,,,,,,Prova: l'indice suona Re4 del pianoforte. La consegna è già nella battuta s02_maes_02.,conferma,,eq_s02_extra_01_nota_tua,,,,x_piano_re,indice
+s02_int_02,,,,,,,,,,,,,,,,Piano e forte: «Sono le stesse note?» La risposta giusta è Sì.,confronto,,eq_s02_extra_02_stesse_note,eq_s01_extra_04_riprova,x_s02_piano;x_s02_forte,,,,,2,eq_s01_extra_15_ancora,eq_s01_extra_16_migliorare;eq_s01_extra_17_migliorare_alt,si
+s02_int_03,,,,,,,,,,,,,,,1=A;2=B,"Indice = grave (ramo A), medio = acuto (ramo B); imposta il registro del pianoforte",scelta,,,,,,,,,,,,,1=grave;2=acuto
+s02_int_05,,,,,,,,,,,,,,,,"TAC TAC... TOC sulla nota scelta, gli stessi tempi di s01_int_04",ritmo,,eq_s02_extra_03_ritmo_pianoforte,eq_s01_extra_04_riprova,x_s02_ritmo,0;0.32;0.95,x_piano_re;x_piano_fa;x_piano_la;x_piano_do,,,2,eq_s01_extra_15_ancora,eq_s01_extra_16_migliorare;eq_s01_extra_17_migliorare_alt
+x_piano_re,,,,,,,,0.9,,,,,,,,"I pulsanti suonano il pianoforte, al centro (come la voce): Re/Fa/La/Do nel registro scelto"
+x_piano_fa,,,,,,,,0.9
+x_piano_la,,,,,,,,0.9
+x_piano_do,,,,,,,,0.9
+x_s02_piano,3,0,5,,,,,0.9
+x_s02_forte,3,0,5,,,,,0.9
+x_s02_ritmo,3,0,5,,,,,0.9
+# --- Scena 3: la prima sfida (docs/music/06-worked-example.md). La base parte alla fine del conteggio e si ferma sulla battuta della fanfara ---
+s03_sfx_01,-8,1.5,8,,,,,0.8,,,,,,,,"Il vento torna, lontano"
+s03_sfx_02,0,1,6,,,,,1,,,,,,,,La sigla di Sbuffo
+s03_sfx_03,,,,,,,,0.9,,,,,,,,"La prima frase da sola, al centro come nella sfida"
+s03_sfx_04,2,0,3,,,,,1,,4.3,,s03_sfx_05,,,,"Conteggio TAC TAC... TOC + «uno, due, tre... via!»: alla fine parte la base della sfida",,,,,,,,,,,,,,,,x_s03_base,8
+s03_int_01,,,,,,,,,,,,,,,,Prova del medio (Fa). La consegna è nella battuta s03_maes_03.,conferma,,eq_s03_extra_01_medio,,,,x_piano_re;x_piano_fa;x_piano_la;x_piano_do,medio
+s03_int_02,,,,,,,,,,,,,,,,Turno 1: Re... Re-Re con l'indice,sfida,,eq_s03_extra_03_turno_riuscito;eq_s03_extra_04_turno_riuscito_alt,eq_s03_extra_06_sbuffo_ride;eq_s03_extra_07_sbuffo_ride_alt,x_s03_r1,0;1.2;1.5,x_piano_re;x_piano_fa;x_piano_la;x_piano_do,,,2,eq_s01_extra_15_ancora,eq_s03_extra_05_insieme,,,1;1;1
+s03_int_03,,,,,,,,,,,,,,,,"Turno 2: Re... Fa-Re (indice, medio, indice)",sfida,,eq_s03_extra_03_turno_riuscito;eq_s03_extra_04_turno_riuscito_alt,eq_s03_extra_06_sbuffo_ride;eq_s03_extra_07_sbuffo_ride_alt,x_s03_r2,0;1.2;1.5,x_piano_re;x_piano_fa;x_piano_la;x_piano_do,,,2,eq_s01_extra_15_ancora,eq_s03_extra_05_insieme,,,1;2;1
+s03_int_04,,,,,,,,,,,,,,,,"Turno 3: Do, La... e il bambino mette il Fa col medio",sfida_nota,,eq_s03_extra_03_turno_riuscito;eq_s03_extra_04_turno_riuscito_alt,eq_s03_extra_06_sbuffo_ride;eq_s03_extra_07_sbuffo_ride_alt,x_s03_r3;x_s03_r3_risposta,0;0.6;1.2,x_piano_re;x_piano_fa;x_piano_la;x_piano_do,,,2,eq_s01_extra_15_ancora,eq_s03_extra_05_insieme,,,4;3;2
+s03_sfx_05,0,0,6,,,,,1,,,,,,,,Fanfara e ripresa: parte esattamente sulla battuta in cui finisce la base
+s03_sfx_06,0,1.5,4,12,1.5,20,3,0.9,,,,,,,,Sbuffo se ne va; le sue tre note tornano gentili
+x_s03_base_l0,,,,,,,,0.9,,,,,,,,"Base della sfida (non spaziale): L0 ritmo e basso, sempre"
+x_s03_base_l1,,,,,,,,0.9,,,,,,,,L1 accordi: entra dopo il primo turno riuscito
+x_s03_base_l3,,,,,,,,0.9,,,,,,,,L3 timpani: entra dopo il secondo turno riuscito
+x_s03_r1,,,,,,,,1
+x_s03_r2,,,,,,,,1
+x_s03_r3,,,,,,,,1
+x_s03_r3_risposta,,,,,,,,1
+x_s03_toc,,,,,,,,1,,,,,,,,Il TOC: tocca a te
+x_s03_ok,,,,,,,,0.9
+x_s03_notyet,,,,,,,,0.9
+x_s03_taunt,,,,,,,,0.9
+eq_s03_extra_06_sbuffo_ride,-5,1.5,4,5,1.5,4,,1,,,,,,,,Sbuffo ride passando da sinistra a destra
+eq_s03_extra_07_sbuffo_ride_alt,5,1.5,4,-5,1.5,4,,1

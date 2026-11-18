@@ -27,6 +27,7 @@ be hidden to show the real experience.
 | [current-state.md](current-state.md) | What the Unity project contains today, measured from the code and assets, and the gaps that matter for a demo |
 | [web-build.md](web-build.md) | Web build: what breaks on the Web platform, the build script, CI, hosting, and the tasks |
 | [debug-ui.md](debug-ui.md) | Debug UI: the demo shell, the panels, the refactors they need, and the tasks |
+| [desktop-builds.md](desktop-builds.md) | Desktop zips for tutors (Linux, macOS, Windows) from the Build Profiles with `tools/build_demo.sh`, until the web build exists |
 
 ## Work order
 

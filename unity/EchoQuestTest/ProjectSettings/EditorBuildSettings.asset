@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/EchoQuest/Scenes/ControllerTest.unity
     guid: 033deb9e8e14b43f6b1c02335fd782c0
   - enabled: 1

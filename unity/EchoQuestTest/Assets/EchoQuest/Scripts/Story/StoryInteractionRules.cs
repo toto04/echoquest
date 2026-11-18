@@ -4,9 +4,11 @@ using System.Globalization;
 
 namespace EchoQuest.Story
 {
-    /// <summary>Battle = call and echo over the battle loop (docs/music/04-battle-cues.md);
-    /// BattleAnswer = the child completes the phrase with its last note (02-calls.md, "Period").</summary>
-    public enum InteractionMode { Confirm, Rhythm, Compare, Note, Decision, Battle, BattleAnswer }
+    /// <summary>Battle = call and echo over the battle loop (docs/music/04-battle-cues.md).
+    /// The story never asks for a timed press in a silence any more (too hard); Note is kept for
+    /// configurations that still use it.</summary>
+    /// FreePlay = the child plays along with a piece, any button at any time, no wrong answer (stage 0).
+    public enum InteractionMode { Confirm, Rhythm, Compare, Note, Decision, Battle, FreePlay }
 
     public class InteractionSettings
     {
@@ -24,6 +26,9 @@ namespace EchoQuest.Story
         public int[] Buttons = new int[0];
         /// <summary>Battle: voices alternated after a success (Success) and after a failure (Retry).</summary>
         public string[] SuccessVoices = new string[0], RetryVoices = new string[0];
+        /// <summary>primo_ascolto "storia": the story just played the examples, so the first attempt
+        /// only asks the question (Compare) instead of playing them again.</summary>
+        public bool ExamplesPlayedByStory;
         public string[] DeclineVoices;
         public string RetryQuestion;
         public string[] ContinueVoices;
@@ -50,7 +55,7 @@ namespace EchoQuest.Story
                     "nota" => InteractionMode.Note,
                     "scelta" => InteractionMode.Decision,
                     "sfida" => InteractionMode.Battle,
-                    "sfida_nota" => InteractionMode.BattleAnswer,
+                    "libero" => InteractionMode.FreePlay,
                     _ => throw new FormatException("Unknown interaction mode: " + mode),
                 },
                 Prompt = get("consegna"), Success = get("successo"), Retry = get("riprova"),
@@ -61,6 +66,12 @@ namespace EchoQuest.Story
                 Examples = get("esempi").Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries),
             };
             settings.Feedbacks = Split(settings.Feedback);
+            settings.ExamplesPlayedByStory = get("primo_ascolto") switch
+            {
+                "" => false,
+                "storia" => true,
+                _ => throw new FormatException("primo_ascolto can only be storia: " + get("primo_ascolto")),
+            };
             settings.SuccessVoices = Split(settings.Success);
             settings.RetryVoices = Split(settings.Retry);
             if (settings.SuccessVoices.Length > 1) settings.Success = settings.SuccessVoices[0];
@@ -115,17 +126,23 @@ namespace EchoQuest.Story
                 "medio" => 2,
                 _ => throw new FormatException("Unknown confirmation button: " + get("pulsante")),
             };
-            bool battle = settings.Mode is InteractionMode.Battle or InteractionMode.BattleAnswer;
-            if (battle)
+            if (settings.Mode == InteractionMode.Battle)
             {
                 if (times.Count < 1 || times[0] != 0 || times.Count != settings.Buttons.Length)
                     throw new FormatException("Battle rounds need tempi starting at zero and one pulsanti entry per note.");
                 for (int i = 1; i < times.Count; i++)
                     if (times[i] <= times[i - 1]) throw new FormatException("Battle tempi must increase.");
-                if (settings.Examples.Length != (settings.Mode == InteractionMode.Battle ? 1 : 2))
-                    throw new FormatException("A battle round needs its call clip (sfida) or the call and the complete phrase (sfida_nota).");
+                if (settings.Examples.Length != 1)
+                    throw new FormatException("A battle round needs exactly one call clip.");
                 if (settings.SuccessVoices.Length == 0 || settings.RetryVoices.Length == 0)
                     throw new FormatException("Battle rounds need successo and riprova voices.");
+                return settings;
+            }
+            if (settings.Mode == InteractionMode.FreePlay)
+            {
+                if (settings.Examples.Length != 1 || settings.Feedbacks.Length == 0)
+                    throw new FormatException("Free play needs the piece to play along with (esempi) and the button sounds (suono_pulsante).");
+                if (settings.AttemptsPerRound > 0) throw new FormatException("Free play has no attempts: there is no wrong note.");
                 return settings;
             }
             if (settings.Mode is not (InteractionMode.Confirm or InteractionMode.Decision) &&
@@ -190,9 +207,6 @@ namespace EchoQuest.Story
             return true;
         }
 
-        /// <summary>A battle answer: the right button within [expected - early, expected + late] seconds.</summary>
-        public static bool HitsAnswer(int button, double relative, int expectedButton, float expected, float early = 0.35f, float late = 0.45f) =>
-            button == expectedButton && !double.IsNaN(relative) && relative >= expected - early && relative <= expected + late;
 
         public static bool HitsMissingNote(double press, double start, IReadOnlyList<float> times, float tolerance, double deadline)
         {

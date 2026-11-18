@@ -11,7 +11,8 @@ quando sarà disponibile, la verifica del controller fisico.
 1. Tocco viene presentato subito dopo «Quello sono io!».
 2. Il bambino ripete tre battiti regolari e poi TAC TAC… TOC.
 3. «Ti sembrano uguali?» diventa una domanda con risposta Sì/No.
-4. Si preme nel momento della terza nota mancante.
+4. Si riconosce la nota mancante ascoltando: il ricordo della frase e il pianoforte di oggi, «Ti sembrano uguali?»
+   (fino al 18 novembre si premeva nel silenzio della terza nota: era troppo difficile ed è stato tolto).
 5. Il Maestro aspetta una risposta alla richiesta d’aiuto.
 
 Sono sei momenti di partecipazione prima della scelta finale, perché il secondo
@@ -60,7 +61,7 @@ Riferimenti:
 
 | Comando | Funzione |
 |---|---|
-| `1` | Nota sotto l’indice: prova iniziale, ritmo e nota mancante |
+| `1` | Nota sotto l’indice: prova iniziale e ritmi |
 | `2`–`4` | Altri pulsanti musicali; non rispondono alle domande |
 | `S` oppure `Y` | Sì |
 | `N` durante un’interazione | No |
@@ -83,7 +84,7 @@ regia significano Sì e No e non sono numeri di cablaggio.
 | 36/93 | `s01_int_02` | Tre colpi regolari, con feedback a ogni pressione |
 | 37/93 | `s01_int_03` | Due esempi, domanda breve; Y riascolta e N riconosce che sono diversi |
 | 45/93 | `s01_int_04` | TAC TAC… TOC; il pianoforte imita dopo il tentativo riuscito |
-| 57/93 | `s01_int_05` | Premere dove dovrebbe esserci la terza nota |
+| 57/93 | `s01_int_05` | Ricordo e pianoforte di oggi: «Ti sembrano uguali?», la risposta giusta è No |
 | 67/93 | `s01_int_06` | Domanda d’aiuto: N aspetta tranquillamente, Y continua |
 | 80/93 | `s01_int_07` | Y va al pianoforte, N riascolta la canzone |
 | 84/93, solo riascolto | `s01_int_08` | Domanda breve dopo il ricordo: Y prosegue, N aspetta |
@@ -220,3 +221,20 @@ la narrazione per verificare il percorso senza un ascolto integrale. Le prove
 dell’input usano una tastiera virtuale; il ramo B iniziale del confronto viene
 impostato come stato della fixture. Restano da verificare qualità dei raccordi,
 riverbero e comprensibilità in cuffia, oltre al futuro controller fisico.
+
+## Aggiornamento del 18 novembre: niente più pressioni nel silenzio
+
+Premere a tempo nel silenzio della nota mancante era troppo difficile. `s01_int_05` ora è un confronto,
+come `s01_int_03`: il suono `s01_sfx_23` fa sentire il ricordo della frase completa e subito dopo il
+pianoforte di oggi (Do, La e silenzio); il Maestro chiede «Ti sembrano uguali?» (`eq_s01_domanda_ritmi`)
+e la risposta giusta è No, con «Esatto! Nella seconda manca l’ultima nota.» (`eq_s01_extra_22_manca_nota`).
+La colonna di regia `primo_ascolto = storia` evita di far risentire subito gli esempi che la storia ha
+appena suonato; dopo un errore si riascoltano. Le parti qui sopra sulla finestra della nota mancante
+descrivono la modalità `nota`, che resta nel codice ma non è più usata dalla storia.
+
+Nello stesso giorno sono state sistemate le voci in cui una parola sembrava spezzata e ripartire: le pause
+allungate da `tools/stretch_pauses.py` finivano a volte nella chiusura silenziosa di una consonante. Ora il
+silenzio va solo nella parte centrale della pausa (almeno 60 ms dalla voce); i 10 file colpiti sono stati
+rifatti dagli originali. `s01_maes_03` («Ecco fatto…») e `s01_maes_27` («Ecco…») sono stati registrati di
+nuovo, perché nella registrazione mancava l’inizio.
+

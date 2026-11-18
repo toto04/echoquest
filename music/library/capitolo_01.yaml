@@ -78,27 +78,18 @@
   development: [{op: repitch, of: sfida_piano_r1}]
   bars: ["D - . . F D - ."]
 
-# Round 3 differs from 06 (whose r3 was another echo, A ... F-D): the rewritten Scene 3 ends the
-# battle with an *answer* round (02-calls.md, "Period": the child completes the phrase). The piano
-# plays the head without its last note and the child supplies the stolen F with the middle button.
 - id: sfida_piano_r3
   role: call
   stage: 2
-  centre: F
+  centre: D
   tempo: 100
   instrument: piano
-  open_ending: true
-  intent: "antecedent: the song's head so-mi and then the hole where do should be; the child answers with F"
-  bars: ["C - A - . . . ."]
+  intent: "Sbuffo's scrambled version starts from the top: mi ... do-la; the falling answer, same rhythm; the ring finger is the new button"
+  motif: {rhythm: "x - . . x x - .", contour: "*dd"}
+  bars: ["A - . . F D - ."]
 
-- id: sfida_piano_r3_risposta
-  role: answer
-  stage: 2
-  centre: F
-  tempo: 100
-  instrument: piano
-  intent: "consequent: the complete head so-mi-do, the stolen F home and long (= s1_casa, song bar 1)"
-  bars: ["C - A - F - - ."]
+# No round asks the child to fill a silence on time (the missing-note "answer" of an earlier draft
+# was too hard): every round is an echo of the same rhythm, one new button at a time.
 
 - id: loop_sfida_piano_A
   role: loop
@@ -341,3 +332,64 @@
       layer: L4
       gain: 0.6
       bars: [". . . . . . . .", "=1", "=1", ". . . . C6 A5 D5 -"]
+
+# ------------------------------------------------------------------ Scene 4: the first note is back
+
+- id: s4_campanella
+  role: theme
+  input: locked
+  tempo: 100
+  steps_per_bar: 8
+  intent: "the campanella's motif A-C-A (04 character sheet), ringing quarters, an octave up: a bell wakes up next to the piano"
+  tracks:
+    bell:
+      instrument: celesta
+      layer: L4
+      bars: ["A5 - C6 - A5 - - -"]
+
+- id: s4_libero
+  role: loop
+  loop: false
+  centre: F
+  tempo: 100
+  steps_per_bar: 8
+  chords: [F, Dm7, F, Dm7, F]
+  intent: "free play (stage 0, no calls): the recovered piece twice and a close, with the bell two octaves above the buttons and a soft marcia pulse; every button press is consonant (F6/Dm7, no forbidden notes), so there is no wrong note"
+  tracks:
+    bell:
+      instrument: celesta
+      layer: L4
+      bars: ["C7 - A6 - F6 - - .", "D6 - . . F6 D6 - .", "=1", "=2", "A6 - C7 - F6 - - -"]
+    bass:
+      instrument: acoustic_bass
+      layer: L0
+      bars: ["F2 - C2 - F2 - C2 -", "D2 - A2 - D2 - A2 -", "=1", "=2", "F2 - - - - - - -"]
+    pad:
+      instrument: strings
+      layer: L1
+      register: [normale, acuto]
+      bars: ["F2+C3+A3 - - - - - - -", "C3+F3+A3 - - - - - - -", "=1", "=2", "F2+C3+A3 - - - - - - -"]
+    pad_grave:
+      instrument: strings
+      layer: L1
+      register: grave
+      bars: ["F2+A2 - - - - - - -", "D2+A2 - - - - - - -", "=1", "=2", "F2+A2 - - - - - - -"]
+    drums:
+      layer: L0
+      steps_per_bar: 16
+      gain: 0.7
+      lanes:
+        kick:     ["x . . . . . . . x . . . . . . .", "=1", "=1", "=1", "x . . . . . . . . . . . . . . ."]
+        block_hi: [". . . . x . . . . . . . x . . .", "=1", "=1", "=1", ". . . . . . . . . . . . . . . ."]
+
+- id: s4_fanfara_comica
+  role: fanfare
+  input: locked
+  tempo: 100
+  steps_per_bar: 8
+  intent: "a small comic piano fanfare for the 'diploma': a proud rising F arpeggio, a held high F, then a clumsy low plonk"
+  tracks:
+    piano:
+      instrument: piano
+      layer: L3
+      bars: ["F4 A4 C5 F5 - - - .", "C2 . . . . . . ."]

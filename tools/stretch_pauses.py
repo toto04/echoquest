@@ -126,7 +126,11 @@ def stretch(x: array.array, rate: int, pauses: list[tuple[int, int, float]]) -> 
     pos = 0
     fade = max(1, rate // 100)  # 10 ms
     for a, b, extra in pauses:
-        p = max(pos + fade, quietest(x, a, b, max(1, rate // 50)))
+        # Keep away from both edges of the pause: the quietest spot right next to a word is often the
+        # silent closure of a consonant ("p", "t", double consonants), and silence put there splits the
+        # word, which then seems to start again after the gap.
+        margin = min(rate * 6 // 100, (b - a) // 4)  # 60 ms, or a quarter of a short pause
+        p = max(pos + fade, quietest(x, a + margin, b - margin, max(1, rate // 50)))
         seg = x[pos:p]
         for k in range(min(fade, len(seg))):
             seg[-1 - k] = int(seg[-1 - k] * k / fade)
@@ -178,13 +182,14 @@ def main() -> None:
     for f in sorted(args.voice_dir.iterdir()):
         m = VOICE_RE.match(f.stem)
         if f.is_file() and f.suffix.lower() in AUDIO_EXTS and m and m.group(1) in chars:
+            if args.only and not any(fnmatch.fnmatch(f.stem, pat) for pat in args.only):
+                continue  # --only touches nothing else, not even to set originals aside
             target = args.originals_dir / f.name
             if target.exists():
                 continue  # already an original: f is a processed copy from a previous run
             shutil.move(str(f), target)
-            meta = f.with_name(f.name + ".meta")
-            if meta.exists():
-                meta.unlink()  # Unity makes a new one for the processed file
+            # The processed file is written back under the same name, so its .meta stays: Unity keeps
+            # the same GUID and the scenes keep their references to the clip.
 
     total = 0
     for orig in sorted(args.originals_dir.iterdir()):

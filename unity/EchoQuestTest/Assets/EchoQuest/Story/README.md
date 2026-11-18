@@ -77,7 +77,8 @@ Si regolano nell'oggetto **Storia** (*Pacing and music beds*); `pausa_dopo` vale
 ### Pause dentro le battute del Narratore
 
 ElevenLabs legge un po' di fretta. `tools/stretch_pauses.py` allunga le pause tra le frasi dentro i file
-(+0,35 s a ogni pausa più lunga di 0,28 s). Si inserisce silenzio pulito, senza ripetere
+(+0,35 s a ogni pausa più lunga di 0,28 s; +0,9 s dopo le domande con `--question-extra 0.9`). Il silenzio va
+nella parte centrale della pausa, ad almeno 60 ms dalla voce, così non spezza le parole. Si inserisce silenzio pulito, senza ripetere
 respiri o code di parole presenti nella pausa. Gli originali vanno in `Audio/Voice/_originali/` e i file in
 `Audio/Voice/` vengono sempre rifatti da lì, quindi si può rilanciare quante volte si vuole:
 
@@ -236,7 +237,7 @@ resta necessario per valutare raccordi e riverbero.
 ## Scene 2 e 3 (`s02`, `s03`, scene `Scena2.unity` e `Scena3.unity`)
 
 Il pianoforte e la prima sfida contro Sbuffo, giocabili con voci, suoni e musica. Le scene del capitolo
-si caricano una dopo l'altra (Intro → Scena 1 → Scena 2 → Scena 3). Nella Scena 2 il bambino sceglie
+si caricano una dopo l'altra (Intro → Scena 1 → Scena 2 → Scena 3 → Scena 4). Nella Scena 2 il bambino sceglie
 il registro del pianoforte (indice = grave, medio = acuto): i suoni con i file `_grave`/`_acuto` seguono
 la scelta. La Scena 3 è una battaglia a tempo su una base che non si ferma, descritta in
 [scena2-3-interattive.md](../../../../../docs/scena2-3-interattive.md) insieme alle verifiche.
@@ -251,5 +252,9 @@ python3 tools/story_placeholder_sfx.py ~/.cache/echoquest-sfx/mono unity/EchoQue
 Nella regia, le nuove colonne: `risposta` (la risposta giusta di un confronto, `si` o `no`),
 `registro` (per una scelta: `1=grave;2=acuto`), `pulsanti` (i pulsanti della frase di una sfida),
 `base` e `battute` (su un suono: la base della sfida che parte quando il suono finisce; `fino_a`
-dice dove si ferma). Modalità nuove: `sfida` (eco) e `sfida_nota` (completa la frase).
+dice dove si ferma), `primo_ascolto` (`storia`: gli esempi li ha appena suonati la storia). Modalità nuove:
+`sfida` (eco sulla base) e `libero` (Scena 4: il bambino suona insieme alla canzone, senza note sbagliate).
+Nessuna interazione chiede di premere a tempo nel silenzio di una nota mancante: era troppo difficile.
+
+La Scena 4 (`Scena4.unity`) ha voci, suoni, regia e le sue due interazioni; i suoni si rigenerano con `s04`.
 

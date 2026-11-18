@@ -107,7 +107,11 @@ sounds and music; the chapter's scenes load one after another.
 - [x] Rule checks (80) and Play-mode checks of both scenes; Scene 1 checks still pass.
 - [ ] Listen in headphones; tune levels and the synthesised placeholder instruments
   (FluidSynth and a GeneralUser GS bank would replace them, 05-format-and-pipeline.md).
-- [ ] Voices and sounds for Scenes 4, 5 and the epilogue (`docs/registrazioni-scene2-5.txt`, from item 41).
+- [x] Scene 4 playable: voices, sounds, free play (`libero`), the Sbuffo question (2026-11-18).
+- [x] No more timed presses in a silence (too hard): Scene 1 compares memory and today's piano,
+  Scene 3's round 3 is the documented echo La... Fa-Re, the epilogue repeats TA... TA-TA (2026-11-18).
+- [x] Intro and Scene 1 voices: pauses no longer split words; two lines re-recorded (2026-11-18).
+- [ ] Voices and sounds for Scene 5 and the epilogue (`docs/registrazioni-scene2-5.txt`, from item 56).
 
 See [scena2-3-interattive.md](scena2-3-interattive.md).
 

@@ -148,9 +148,14 @@ public static class StoryInteractionChecks
         values["pulsanti"] = "1;2;1"; values["riprova"] = "";
         Invalid(() => InteractionSettings.Parse(Get), "a battle round needs Sbuffo's taunt voices");
         values["riprova"] = "laugh"; values["modalita"] = "sfida_nota";
-        Invalid(() => InteractionSettings.Parse(Get), "an answer round needs the call and the complete phrase");
-        values["esempi"] = "x_s03_r3;x_s03_r3_risposta"; values["tempi"] = "0;0.6;1.2"; values["pulsanti"] = "4;3;2";
-        Check(InteractionSettings.Parse(Get).Mode == InteractionMode.BattleAnswer, "parse the answer round");
+        Invalid(() => InteractionSettings.Parse(Get), "no round asks to fill a silence on time any more");
+        values.Clear();
+        values["modalita"] = "confronto"; values["consegna"] = "question"; values["riprova"] = "retry"; values["esempi"] = "memory;today";
+        Check(!InteractionSettings.Parse(Get).ExamplesPlayedByStory, "examples are played by the interaction by default");
+        values["primo_ascolto"] = "storia";
+        Check(InteractionSettings.Parse(Get).ExamplesPlayedByStory, "Scene 1: the story already played the memory and today's piano");
+        values["primo_ascolto"] = "sempre";
+        Invalid(() => InteractionSettings.Parse(Get), "reject an unknown primo_ascolto");
 
         var r2 = new[] { 1, 2, 1 };
         var call = new[] { 0f, 1.2f, 1.5f };
@@ -160,11 +165,13 @@ public static class StoryInteractionChecks
         Check(!StoryInteractionRules.MatchesPhrase(new[] { (1, 10d), (2, 10.3), (1, 11.5) }, r2, call), "TA-TA... TA is not TA... TA-TA");
         Check(!StoryInteractionRules.MatchesPhrase(new[] { (1, 10d), (2, 11.2) }, r2, call), "incomplete echo");
         Check(StoryInteractionRules.MatchesPhrase(new[] { (2, 5d) }, new[] { 2 }, new[] { 0f }), "a single note matches by button");
-        Check(StoryInteractionRules.HitsAnswer(2, 1.25, 2, 1.2f), "the missing F on time");
-        Check(StoryInteractionRules.HitsAnswer(2, 0.9, 2, 1.2f), "forgiving early answer");
-        Check(!StoryInteractionRules.HitsAnswer(2, 0.6, 2, 1.2f), "pressing with the second note is too early");
-        Check(!StoryInteractionRules.HitsAnswer(1, 1.2, 2, 1.2f), "the answer needs the middle button");
-        Check(!StoryInteractionRules.HitsAnswer(2, double.NaN, 2, 1.2f), "invalid answer time");
+        values.Clear();
+        values["modalita"] = "libero"; values["esempi"] = "x_s04_libero"; values["suono_pulsante"] = "re;fa;la;do";
+        Check(InteractionSettings.Parse(Get).Mode == InteractionMode.FreePlay, "Scene 4: free play");
+        values["suono_pulsante"] = "";
+        Invalid(() => InteractionSettings.Parse(Get), "free play needs the button sounds");
+        values["suono_pulsante"] = "re;fa;la;do"; values["tentativi"] = "2"; values["domanda_riprova"] = "q"; values["prosegui"] = "c";
+        Invalid(() => InteractionSettings.Parse(Get), "free play has no attempts: there is no wrong note");
         return checks;
     }
 }

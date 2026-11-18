@@ -467,9 +467,9 @@ Sbuffo. Quel vento dispettoso. Sai, normalmente il vento non mi dispiace. Quando
 
 Ascolta. Mi ricordo benissimo com'era quella piccola frase prima che arrivasse il vento. Erano tre note, una dopo l'altra.
 
-*[AUDIO: Un breve ricordo sonoro della musica udita nel prologo: tre note complete, con un leggero effetto di memoria. Non è un'esecuzione dal vivo del pianoforte nel presente.]*
+*[AUDIO: Un breve ricordo sonoro della musica udita nel prologo: tre note complete, con un leggero effetto di memoria. Pausa. Poi il pianoforte di oggi, dal vivo: le stesse prime due note e silenzio al posto della terza.]*
 
-*[INTERAZIONE: Ascolta il pianoforte e premi l’indice nel momento della terza nota mancante.]*
+*[INTERAZIONE: Confronto: «Ti sembrano uguali?» Il ricordo e il pianoforte di oggi; la risposta giusta è No. Risposta: «Esatto! Nella seconda manca l'ultima nota.» Si risponde con Sì o No del pollice; nessuna pressione a tempo.]*
 
 **MAESTRO BATTUTA:**
 
@@ -779,9 +779,9 @@ Ascolta: Sbuffo ha cambiato una nota! Adesso, nel mezzo, c'è il medio.
 
 **MAESTRO BATTUTA:**
 
-Il pianoforte sta ritrovando la sua canzone! Ora l'ultimo pezzo. Il pianoforte suona l'inizio della sua frase. Quando arriva il silenzio, sei tu a suonare la nota mancante, con il medio!
+Il pianoforte sta ritrovando la sua canzone! Ma Sbuffo ha mescolato le note un'altra volta. Adesso la frase comincia con il pulsante sotto l'anulare: anulare, medio, indice. Ascolta bene, e poi ripetila!
 
-*[INTERAZIONE: Sfida, turno 3, risposta: il pianoforte suona l'inizio della frase del concerto nel registro scelto (Do4, La3 oppure Do6, La5) e il bambino preme il medio (Fa) nel momento della terza nota. Funziona come s01_int_05, con il pulsante del medio. Non riuscita: Sbuffo ride e la frase torna. Dopo due tentativi, «Ti va di riprovare?»; con No il Maestro suona il Fa insieme al bambino.]*
+*[INTERAZIONE: Sfida, turno 3 (sfida_piano_r3): La... Fa-Re, cioè anulare, medio, indice, con lo stesso ritmo dei turni 1 e 2. Stesse regole del turno 1. Riuscita: la sfida è vinta.]*
 
 *[AUDIO: Fanfara di vittoria (fanfare_win_piano), poi la ripresa: il pianoforte suona le prime due battute della canzone complete, Do, La, Fa... e il Fa è tornato. Centro Fa, festoso.]*
 
@@ -953,9 +953,9 @@ La vostra prima avventura è appena terminata. Avete conosciuto il Maestro Battu
 
 **MAESTRO BATTUTA:**
 
-Ehi! Prima di andare, suoniamo la nostra frase un'ultima volta. Io comincio... e l'ultima nota la metti tu, con il medio!
+Ehi! Prima di andare, suoniamo ancora una volta la prima frase della sfida: TA... TA-TA. Io la suono, e tu la ripeti con l'indice!
 
-*[INTERAZIONE: Il pianoforte suona l'inizio della frase del concerto nel registro scelto e il bambino preme il medio (Fa) nel momento della terza nota, come nel turno 3 della sfida. Qui non si conta niente: se la pressione non arriva, il pianoforte completa la frase da solo, e la storia prosegue.]*
+*[INTERAZIONE: Ripeti la frase TA... TA-TA con l'indice (Re... Re-Re nel registro scelto), come nel turno 1 della sfida. Qui non si conta niente: se non arriva una risposta, il pianoforte la ripete da solo e la storia prosegue.]*
 
 **MAESTRO BATTUTA:**
 
@@ -991,7 +991,7 @@ Il **pianoforte** è il primo strumento comune a tutti i percorsi: il bambino lo
 
 ### Nota sulla scelta e su Tocco
 
-Tocco (il Sasso del primo concept) ha **quattro pulsanti delle note, uno per dito**, e due pulsanti del pollice, **Sì** e **No**, introdotti nella Scena 1. Secondo le linee guida musicali (`docs/music/`), ogni pulsante delle note ha un'altezza fissa per tutto il gioco: indice Re4, medio Fa4, anulare La4, mignolo Do5. Lo strumento di turno cambia il timbro, non la nota; l'unica variazione ammessa è spostare tutti e quattro i pulsanti di un'ottava, come nella scelta del registro della Scena 2. L'alternativa «un pulsante per strumento» del concept resta una decisione del gruppo (D1 in `docs/music/07-open-questions.md`). Nelle sfide il segnale «tocca a te» è il TOC del Maestro, e una sequenza da ripetere non viene mai rallentata: per aiutare si ripete, si conta o si tolgono note. Nelle scene di scelta il sistema deve spiegare chiaramente i comandi, senza richiedere riferimenti visivi. Nella prima sfida il pianoforte usa due pulsanti, indice (Re) e medio (Fa), e i relativi campioni sonori, **non** una tastiera completa. Ogni scena alterna poco parlato e un'interazione: ascolta e ripeti, premi nel punto della nota mancante, domande Sì/No, scelte con indice e medio, suono libero.
+Tocco (il Sasso del primo concept) ha **quattro pulsanti delle note, uno per dito**, e due pulsanti del pollice, **Sì** e **No**, introdotti nella Scena 1. Secondo le linee guida musicali (`docs/music/`), ogni pulsante delle note ha un'altezza fissa per tutto il gioco: indice Re4, medio Fa4, anulare La4, mignolo Do5. Lo strumento di turno cambia il timbro, non la nota; l'unica variazione ammessa è spostare tutti e quattro i pulsanti di un'ottava, come nella scelta del registro della Scena 2. L'alternativa «un pulsante per strumento» del concept resta una decisione del gruppo (D1 in `docs/music/07-open-questions.md`). Nelle sfide il segnale «tocca a te» è il TOC del Maestro, e una sequenza da ripetere non viene mai rallentata: per aiutare si ripete, si conta o si tolgono note. Nelle scene di scelta il sistema deve spiegare chiaramente i comandi, senza richiedere riferimenti visivi. Nella prima sfida il pianoforte usa tre pulsanti, indice (Re), medio (Fa) e anulare (La), e i relativi campioni sonori, **non** una tastiera completa. Ogni scena alterna poco parlato e un'interazione: ascolta e ripeti, domande Sì/No, scelte con indice e medio, suono libero. Non si chiede mai di premere a tempo nel silenzio di una nota mancante: è troppo difficile; la nota mancante si riconosce ascoltando e la si ritrova ripetendo le frasi.
 
 ### Nota sulla didattica e sull'accessibilità
 

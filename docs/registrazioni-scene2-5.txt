@@ -166,7 +166,7 @@ SCENA 3 — LA PRIMA SFIDA MUSICALE
 
 31. s03_maes_07_a.mp3 — Maestro Battuta
 -----
-[excited] Il pianoforte sta ritrovando la sua canzone! Ora l'ultimo pezzo. Il pianoforte suona l'inizio della sua frase. Quando arriva il silenzio, sei tu a suonare la nota mancante, con il medio!
+[excited] Il pianoforte sta ritrovando la sua canzone! Ma Sbuffo ha mescolato le note un'altra volta. Adesso la frase comincia con il pulsante sotto l'anulare: anulare, medio, indice. Ascolta bene, e poi ripetila!
 -----
 
 32. s03_vent_04_a.mp3 — Vento
@@ -348,7 +348,7 @@ EPILOGO — LA MUSICA È APPENA COMINCIATA
 
 65. e00_maes_01_a.mp3 — Maestro Battuta
 -----
-[warm] Ehi! Prima di andare, suoniamo la nostra frase un'ultima volta. Io comincio... e l'ultima nota la metti tu, con il medio!
+[warm] Ehi! Prima di andare, suoniamo ancora una volta la prima frase della sfida: TA... TA-TA. Io la suono, e tu la ripeti con l'indice!
 -----
 
 66. e00_maes_02_p1_a.mp3 — Maestro Battuta — pezzo 1 di 2, tra un pezzo e l'altro il gioco mette un suono

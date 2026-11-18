@@ -157,8 +157,7 @@ namespace EchoQuest.Story
                     m_Foreground.RemoveAll(source => source == null);
                     double exchange = NextExchange(0.3);
                     ExchangeStart = exchange;
-                    if (settings.Mode == InteractionMode.Battle) yield return EchoExchange(settings, exchange);
-                    else yield return AnswerExchange(settings, exchange);
+                    yield return EchoExchange(settings, exchange);
                     EndInteractionCapture();
                     if (Interrupted) yield break;
                     LogEvent(item.Id + (m_InteractionPassed ? " passed" : " not passed"));
@@ -235,47 +234,6 @@ namespace EchoQuest.Story
             LastAttempt = forced ? "passed from the overlay" : DescribeTaps(taps, settings) + (m_InteractionPassed ? ": matches" : ": does not match");
             double verdict = System.Math.Max(ex + 2 * b.Bar + 3 * beat, NextBeat(0.05));
             yield return Verdict(settings, verdict, System.Math.Max(ex + 3 * b.Bar, NextBar(0.1)), call);
-        }
-
-        /// <summary>Bar 1: the head without its last note, the TOC on beat 4. Bar 2: the piano plays it again
-        /// and the child supplies the missing note with the right button. Bar 3: the whole phrase.</summary>
-        private IEnumerator AnswerExchange(InteractionSettings settings, double ex)
-        {
-            var b = m_Battle;
-            double beat = b.Bar / 4;
-            int last = settings.Times.Length - 1;
-            ScheduleBattleClip(settings.Examples[0], ex);
-            ScheduleBattleClip("x_s03_toc", ex + 3 * beat);
-            ScheduleBattleClip(settings.Examples[0], ex + b.Bar);
-            double answerBar = ex + b.Bar;
-            double close = answerBar + settings.Times[last] + 0.45;
-            BeginInteractionCapture(false);
-            Status = "Al momento della nota mancante premi il pulsante " + settings.Buttons[last];
-            bool hit = false;
-            while (!Interrupted)
-            {
-                if (Paused) { yield return null; continue; }
-                if (m_ForcePass) { hit = true; LastAttempt = "passed from the overlay"; break; }
-                while (m_InteractionInput.Count > 0)
-                {
-                    var (button, time) = m_InteractionInput.Dequeue();
-                    if (button < 1 || button > 4) continue;
-                    InteractionTapFeedback(settings, button);
-                    if (time < answerBar) continue;
-                    bool ok = StoryInteractionRules.HitsAnswer(button, time - answerBar, settings.Buttons[last], settings.Times[last]);
-                    LastAttempt = $"button {button} at {time - answerBar:F2} s; expected {settings.Buttons[last]} at {settings.Times[last]:F2} s: " + (ok ? "hit" : "missed");
-                    hit |= ok;
-                }
-                if (hit || AudioSettings.dspTime >= close) break;
-                yield return null;
-            }
-            EndInteractionCapture();
-            if (Interrupted) yield break;
-            m_InteractionAttempted = true;
-            m_InteractionPassed = hit;
-            if (string.IsNullOrEmpty(LastAttempt)) LastAttempt = "no press in the window";
-            double verdict = System.Math.Max(answerBar + 3 * beat, NextBeat(0.05));
-            yield return Verdict(settings, verdict, System.Math.Max(ex + 2 * b.Bar, NextBar(0.1)), settings.Examples[1]);
         }
 
         private IEnumerator Verdict(InteractionSettings settings, double stingAt, double replyBar, string reply)

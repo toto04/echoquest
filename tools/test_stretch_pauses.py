@@ -36,6 +36,23 @@ class StretchPausesTests(unittest.TestCase):
         for level in (6000, 9000, 12000):
             self.assertEqual(result.count(level), 500)
 
+    def test_silence_is_not_put_against_the_next_word(self):
+        # A pause with a little room noise and, right before the next word, the perfectly silent
+        # closure of a consonant: the extra silence must not go there, or the word splits.
+        rate = 1000
+        word = array.array("h", [8000] * 400)
+        pause = array.array("h", [300] * 270) + array.array("h", [0] * 30)
+        original = word + pause + word
+        pauses = find_pauses(original, rate, -38, 0.28)
+        result = stretch(original, rate, [(a, b, 0.35) for a, b in pauses])
+
+        start = next(i for i in range(len(result)) if result[i:i + 300] == array.array("h", [0] * 300))
+        end = start + 300
+        while result[end] == 0:
+            end += 1
+        self.assertGreaterEqual(400 + 300 - 60, start)
+        self.assertTrue(all(v < 8000 for v in result[end:end + 50]), "the word must not start right after the inserted silence")
+
     def test_without_internal_pauses_audio_is_unchanged(self):
         original = array.array("h", [0] * 300 + [8000] * 500 + [0] * 300)
         pauses = find_pauses(original, 1000, -38, 0.28)

@@ -141,7 +141,7 @@ namespace EchoQuest.DebugUi
                     InteractionMode.Compare => "same or different? (correct answer: " + StoryPlayer.ButtonName(it.ExpectedAnswer) + ")",
                     InteractionMode.Note => "press at the missing third note",
                     InteractionMode.Battle => "battle: echo the call after the TOC (buttons " + string.Join(" ", it.Buttons) + ")",
-                    InteractionMode.BattleAnswer => "battle: play the missing last note (button " + (it.Buttons.Length > 0 ? it.Buttons[it.Buttons.Length - 1] : 0) + ")",
+                    InteractionMode.FreePlay => "free play: any button, any time, no wrong note",
                     _ => "a choice picks a branch",
                 }).AppendLine();
                 sb.Append("Prompt: ").Append(it.Prompt);

@@ -1,4 +1,4 @@
-id,x,y,z,a_x,a_y,a_z,secondi_movimento,volume,filtro_hz,attesa,ripeti,fino_a,sottofondo,pausa_dopo,scelte,note,modalita,consegna,successo,riprova,esempi,tempi,suono_pulsante,pulsante,attesa_no,tentativi,domanda_riprova,prosegui,risposta,registro,pulsanti,base,battute
+id,x,y,z,a_x,a_y,a_z,secondi_movimento,volume,filtro_hz,attesa,ripeti,fino_a,sottofondo,pausa_dopo,scelte,note,modalita,consegna,successo,riprova,esempi,tempi,suono_pulsante,pulsante,attesa_no,tentativi,domanda_riprova,prosegui,risposta,registro,pulsanti,base,battute,primo_ascolto
 # Regia del capitolo 1. Tu sei al centro (0;0;0) e guardi in avanti: x = destra (negativo = sinistra); z = davanti; y = altezza. Unità circa in metri.,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 # Una riga per personaggio (narr maes lont vent) vale per tutte le sue battute; una riga con l'ID di una battuta o di un suono vale solo per quello.,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 # x/y/z vuoti = non spaziale (dentro la testa). a_x/a_y/a_z = punto di arrivo se si sposta. attesa = secondi prima che parta la cosa successiva (vuoto = alla fine del file): con un'attesa più corta del suono, la voce parte sopra il suono, che si abbassa un po' mentre si parla.,,,,,,,,,,,,,,,,,,,,,,,,,,
@@ -64,7 +64,7 @@ s01_sfx_19,3,0,5,,,,,0.9,,,,,,0.6,,,,,,,,,,,,,,
 s01_sfx_20,6,1,12,,,,,0.8,,2.6,,,,,,Vento lontano e porta che scricchiola,,,,,,,,,,,,
 s01_sfx_21,-6,1,10,6,1,10,,0.7,,2.5,,,,,,,,,,,,,,,,,,
 s01_sfx_22,2,0,3,,,,,0.8,,,,,,,,Sospiro,,,,,,,,,,,,
-s01_sfx_23,,,,,,,,0.8,,4.4,,,,,,Ricordo: dentro la testa,,,,,,,,,,,,
+s01_sfx_23,,,,,,,,0.8,,,,,,,,Ricordo (dentro la testa) e poi il pianoforte di oggi senza la terza nota
 s01_sfx_24,3,0,5,,,,,0.9,,3.2,,,,,,,,,,,,,,,,,,
 s01_sfx_25,2,0,3,4,0,5,,1,,0.6,,,,,,Due passi verso la porta,,,,,,,,,,,,
 s01_sfx_26,3,0,4,5,0,6,,1,,2.3,,,,,,Corsa e inciampo,,,,,,,,,,,,
@@ -87,7 +87,7 @@ s01_int_01,,,,,,,,,,,,,,,,Prova musicale: attendere una nuova pressione dell’i
 s01_int_02,,,,,,,,,,,,,,,,Ripeti tre battiti regolari con il pulsante della nota sotto l’indice.,ritmo,eq_s01_extra_02_ritmo_regolare,eq_s01_extra_03_primo_ritmo,eq_s01_extra_04_riprova,x_s01_regolare,0;1;2,x_s01_pulsante,,,2,eq_s01_extra_15_ancora,eq_s01_extra_16_migliorare;eq_s01_extra_17_migliorare_alt
 s01_int_03,,,,,,,,,,,,,,,,Ascolta i due esempi. Alla domanda «Ti sembrano uguali?» rispondi con Sì o No del pollice.,confronto,eq_s01_domanda_ritmi,eq_s01_extra_06_ritmi_diversi,eq_s01_extra_04_riprova,x_s01_regolare;x_s01_confronto,,,,,2,eq_s01_extra_15_ancora,eq_s01_extra_16_migliorare;eq_s01_extra_17_migliorare_alt
 s01_int_04,,,,,,,,,,,,,,,,Ripeti il ritmo del Maestro: due colpi vicini e uno dopo la pausa.,ritmo,eq_s01_extra_07_ritmo_maestro,,eq_s01_extra_04_riprova,x_s01_maestro,0;0.32;0.95,x_s01_pulsante,,,2,eq_s01_extra_15_ancora,eq_s01_extra_16_migliorare;eq_s01_extra_17_migliorare_alt
-s01_int_05,,,,,,,,,,,,,,,,Ascolta il pianoforte e premi l’indice nel momento della terza nota mancante.,nota,eq_s01_extra_08_nota_mancante,eq_s01_extra_09_nota_trovata,eq_s01_extra_04_riprova,x_s01_nota_mancante,0;0.6;1.2,,,,2,eq_s01_extra_15_ancora,eq_s01_extra_16_migliorare;eq_s01_extra_17_migliorare_alt
+s01_int_05,,,,,,,,,,,,,,,,Il ricordo e il pianoforte di oggi: «Ti sembrano uguali?» La risposta giusta è No. Nessuna pressione a tempo.,confronto,eq_s01_domanda_ritmi,eq_s01_extra_22_manca_nota,eq_s01_extra_04_riprova,x_s01_ricordo;x_s01_nota_mancante,,,,,2,eq_s01_extra_15_ancora,eq_s01_extra_16_migliorare;eq_s01_extra_17_migliorare_alt,,,,,,storia
 s01_int_06,,,,,,,,,,,,,,,,Ogni No propone il prossimo invito; Sì conferma l’aiuto. Nel silenzio il Maestro aspetta.,conferma,eq_s01_domanda_aiuto,eq_s01_extra_11_grazie,,,,,,eq_s01_extra_18_squadra;eq_s01_extra_19_pianoforte;eq_s01_extra_20_compagno;eq_s01_extra_21_insieme,,,
 s01_int_07,,,,,,,,,,,,,,,5=B;6=A,"Alla domanda se andare al pianoforte: Sì porta al ramo B, No al riascolto A.",scelta,eq_s01_extra_13_scelta_finale,,,,,,,,,,
 s01_int_08,,,,,,,,,,,,,,,5=B,"Dopo il riascolto, Sì va al pianoforte. No aspetta senza ripetere istruzioni.",conferma,eq_s01_extra_13_scelta_finale,,,,,,,eq_s01_extra_14_attesa,,,
@@ -96,6 +96,7 @@ x_s01_confronto,2,0,3,,,,,1,,,,,,,,,,,,,,,,,,,,
 x_s01_maestro,2,0,3,,,,,1,,,,,,,,,,,,,,,,,,,,
 x_s01_pulsante,0,0,5,,,,,0.9,,,,,,,,,,,,,,,,,,,,
 x_s01_nota_mancante,3,0,5,,,,,0.9,,,,,,,,,,,,,,,,,,,,
+x_s01_ricordo,,,,,,,,0.8,,,,,,,,"Il ricordo della canzone: dentro la testa, come s01_sfx_23"
 # --- Scena 2: il pianoforte (i suoni con _grave/_acuto seguono il registro scelto) ---
 s02_sfx_01,3,0,5,,,,,0.8,,,,,,,,Le ultime note della Scena 1: una resta nell'aria
 s02_sfx_02,3,0,5,,,,,0.9,,,,,,,,Il pianoforte saluta: Fa4 La4
@@ -132,7 +133,7 @@ s03_sfx_04,2,0,3,,,,,1,,4.3,,s03_sfx_05,,,,"Conteggio TAC TAC... TOC + «uno, du
 s03_int_01,,,,,,,,,,,,,,,,Prova del medio (Fa). La consegna è nella battuta s03_maes_03.,conferma,,eq_s03_extra_01_medio,,,,x_piano_re;x_piano_fa;x_piano_la;x_piano_do,medio
 s03_int_02,,,,,,,,,,,,,,,,Turno 1: Re... Re-Re con l'indice,sfida,,eq_s03_extra_03_turno_riuscito;eq_s03_extra_04_turno_riuscito_alt,eq_s03_extra_06_sbuffo_ride;eq_s03_extra_07_sbuffo_ride_alt,x_s03_r1,0;1.2;1.5,x_piano_re;x_piano_fa;x_piano_la;x_piano_do,,,2,eq_s01_extra_15_ancora,eq_s03_extra_05_insieme,,,1;1;1
 s03_int_03,,,,,,,,,,,,,,,,"Turno 2: Re... Fa-Re (indice, medio, indice)",sfida,,eq_s03_extra_03_turno_riuscito;eq_s03_extra_04_turno_riuscito_alt,eq_s03_extra_06_sbuffo_ride;eq_s03_extra_07_sbuffo_ride_alt,x_s03_r2,0;1.2;1.5,x_piano_re;x_piano_fa;x_piano_la;x_piano_do,,,2,eq_s01_extra_15_ancora,eq_s03_extra_05_insieme,,,1;2;1
-s03_int_04,,,,,,,,,,,,,,,,"Turno 3: Do, La... e il bambino mette il Fa col medio",sfida_nota,,eq_s03_extra_03_turno_riuscito;eq_s03_extra_04_turno_riuscito_alt,eq_s03_extra_06_sbuffo_ride;eq_s03_extra_07_sbuffo_ride_alt,x_s03_r3;x_s03_r3_risposta,0;0.6;1.2,x_piano_re;x_piano_fa;x_piano_la;x_piano_do,,,2,eq_s01_extra_15_ancora,eq_s03_extra_05_insieme,,,4;3;2
+s03_int_04,,,,,,,,,,,,,,,,"Turno 3: La... Fa-Re (anulare, medio, indice)",sfida,,eq_s03_extra_03_turno_riuscito;eq_s03_extra_04_turno_riuscito_alt,eq_s03_extra_06_sbuffo_ride;eq_s03_extra_07_sbuffo_ride_alt,x_s03_r3,0;1.2;1.5,x_piano_re;x_piano_fa;x_piano_la;x_piano_do,,,2,eq_s01_extra_15_ancora,eq_s03_extra_05_insieme,,,3;2;1
 s03_sfx_05,0,0,6,,,,,1,,,,,,,,Fanfara e ripresa: parte esattamente sulla battuta in cui finisce la base
 s03_sfx_06,0,1.5,4,12,1.5,20,3,0.9,,,,,,,,Sbuffo se ne va; le sue tre note tornano gentili
 x_s03_base_l0,,,,,,,,0.9,,,,,,,,"Base della sfida (non spaziale): L0 ritmo e basso, sempre"
@@ -148,3 +149,15 @@ x_s03_notyet,,,,,,,,0.9
 x_s03_taunt,,,,,,,,0.9
 eq_s03_extra_06_sbuffo_ride,-5,1.5,4,5,1.5,4,,1,,,,,,,,Sbuffo ride passando da sinistra a destra
 eq_s03_extra_07_sbuffo_ride_alt,5,1.5,4,-5,1.5,4,,1
+"# --- Scena 4: la prima nota è tornata. La campanella sta a destra (4;1;5), dove la ritrova la Scena 5 ---"
+s04_sfx_01,3,0,5,,,,,0.9,,,,,,,,"La canzone ritrovata, completa (varianti _grave/_acuto)"
+s04_sfx_02,4,1,5,,,,,0.8,,,,,,,,La campanella si sveglia: La Do La
+s04_int_01,,,,,,,,,,,,,,,,Suono libero: nessuna nota sbagliata; la storia prosegue quando finisce la musica,libero,,,,x_s04_libero,,x_piano_re;x_piano_fa;x_piano_la;x_piano_do
+x_s04_libero,,,,,,,,0.9,,,,,,,,"Base del suono libero: pianoforte, campanella e un battito leggero"
+s04_sfx_03,3,0,5,,,,,0.9,,,,,,,,Fanfara comica per il «diploma»
+s04_sfx_04,2,0,3,,,,,0.9,,,,,,,,Applausi che perdono il ritmo
+s04_sfx_05,-6,1.5,6,,,,,0.7,,,,,,,,Un soffio torna nella sala
+s04_sfx_06,-3,1.5,4,3,1.5,4,,0.9,,,,,,,,Soffio lungo e piccolo sbuffo buffo
+s04_sfx_07,1,1.5,3,12,1.5,20,3,0.9,,,,,,,,Sbuffo se ne va fischiando
+s04_sfx_08,2,0,3,,,,,1,,,,,,,,"TAC, TAC... TOC!"
+s04_int_02,,,,,,,,,,,,,,,5=A;6=B,"Secondo te Sbuffo vuole solo fare i dispetti? Sì = ramo A, No = ramo B; nessuna risposta sbagliata",scelta

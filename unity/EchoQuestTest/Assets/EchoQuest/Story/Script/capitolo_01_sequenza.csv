@@ -98,8 +98,8 @@ ordine,sezione,ramo,tipo,id,personaggio,testo,dentro_battuta,file_audio,riga_cop
 97,s01,,voce,s01_maes_28,MAESTRO BATTUTA,"Sbuffo. Quel vento dispettoso. Sai, normalmente il vento non mi dispiace. Quando fa caldo, una leggera brezza può essere piacevole. E quando soffia tra gli alberi, può produrre dei suoni molto interessanti. Ma Sbuffo... Oh, Sbuffo è tutta un'altra storia! Sbuffa quando è contento. Sbuffa quando è arrabbiato. Sbuffa quando è annoiato. E quando qualcuno gli chiede gentilmente di smetterla... Beh... Sbuffa ancora più forte! Una volta ha soffiato talmente tanto da farmi volare via tutti i fogli della musica. Ci ho messo tre giorni a rimetterli in ordine. Tre giorni! E sapessi quante volte ho dovuto ricominciare da capo!",,s01_maes_28_a.wav,460
 98,s01,,suono,s01_sfx_22,,Il Maestro sospira.,,s01_sfx_22.wav,464
 99,s01,,voce,s01_maes_29,MAESTRO BATTUTA,"Ascolta. Mi ricordo benissimo com'era quella piccola frase prima che arrivasse il vento. Erano tre note, una dopo l'altra.",,s01_maes_29_a.wav,466
-100,s01,,suono,s01_sfx_23,,"Un breve ricordo sonoro della musica udita nel prologo: tre note complete, con un leggero effetto di memoria. Non è un'esecuzione dal vivo del pianoforte nel presente.",,s01_sfx_23.wav,470
-101,s01,,interazione,s01_int_05,,Ascolta il pianoforte e premi l’indice nel momento della terza nota mancante.,,,472
+100,s01,,suono,s01_sfx_23,,"Un breve ricordo sonoro della musica udita nel prologo: tre note complete, con un leggero effetto di memoria. Pausa. Poi il pianoforte di oggi, dal vivo: le stesse prime due note e silenzio al posto della terza.",,s01_sfx_23.wav,470
+101,s01,,interazione,s01_int_05,,Confronto: «Ti sembrano uguali?» Il ricordo e il pianoforte di oggi; la risposta giusta è No. Risposta: «Esatto! Nella seconda manca l'ultima nota.» Si risponde con Sì o No del pollice; nessuna pressione a tempo.,,,472
 102,s01,,voce,s01_maes_30,MAESTRO BATTUTA,Il pianoforte è ancora qui. I suoi tasti funzionano. E riesce ancora a suonare tante note. Ma quel pezzo della nostra canzone non riesce più a completarlo. È un po' come quando qualcuno comincia a dirti una frase... «C'era una volta un piccolo...»,,s01_maes_30_a.wav,474
 103,s01,,voce,s01_maes_31,MAESTRO BATTUTA,"Un piccolo cosa?! Un gatto? Un cane? Un panino?! Non lo sappiamo! La frase si è interrotta! Ecco, con la musica può succedere qualcosa di simile. Se manca un pezzo, manca una parte di ciò che volevamo ascoltare.",,s01_maes_31_a.wav,478
 104,s01,,suono,s01_sfx_24,,Il pianoforte riprova la sequenza incompleta.,,s01_sfx_24.wav,482
@@ -188,38 +188,38 @@ ordine,sezione,ramo,tipo,id,personaggio,testo,dentro_battuta,file_audio,riga_cop
 187,s03,,interazione,s03_int_02,,"Sfida, turno 1 (sfida_piano_r1). Il pianoforte suona la frase due volte, il TOC dice «tocca a te», il bambino la ripete con l'indice: Re... Re-Re. Si valuta la struttura (ordine e ritmo relativo) con una tolleranza ampia. Riuscita: un suono di successo e uno strumento in più nella base. Non riuscita: Sbuffo ride, in modo buffo e mai cattivo, e la frase torna alla stessa velocità. Dopo due tentativi, «Ti va di riprovare?»; con No il Maestro suona insieme al bambino e la sfida continua. Non si rallenta mai.",,,772
 188,s03,,voce,s03_maes_06,MAESTRO BATTUTA,"Ascolta: Sbuffo ha cambiato una nota! Adesso, nel mezzo, c'è il medio.",,s03_maes_06_a.wav,774
 189,s03,,interazione,s03_int_03,,"Sfida, turno 2 (sfida_piano_r2): Re... Fa-Re, cioè indice, medio, indice, con lo stesso ritmo. Stesse regole del turno 1. Riuscita: un altro strumento si aggiunge alla base.",,,778
-190,s03,,voce,s03_maes_07,MAESTRO BATTUTA,"Il pianoforte sta ritrovando la sua canzone! Ora l'ultimo pezzo. Il pianoforte suona l'inizio della sua frase. Quando arriva il silenzio, sei tu a suonare la nota mancante, con il medio!",,s03_maes_07_a.wav,780
-191,s03,,interazione,s03_int_04,,"Sfida, turno 3, risposta: il pianoforte suona l'inizio della frase del concerto nel registro scelto (Do4, La3 oppure Do6, La5) e il bambino preme il medio (Fa) nel momento della terza nota. Funziona come s01_int_05, con il pulsante del medio. Non riuscita: Sbuffo ride e la frase torna. Dopo due tentativi, «Ti va di riprovare?»; con No il Maestro suona il Fa insieme al bambino.",,,784
+190,s03,,voce,s03_maes_07,MAESTRO BATTUTA,"Il pianoforte sta ritrovando la sua canzone! Ma Sbuffo ha mescolato le note un'altra volta. Adesso la frase comincia con il pulsante sotto l'anulare: anulare, medio, indice. Ascolta bene, e poi ripetila!",,s03_maes_07_a.wav,780
+191,s03,,interazione,s03_int_04,,"Sfida, turno 3 (sfida_piano_r3): La... Fa-Re, cioè anulare, medio, indice, con lo stesso ritmo dei turni 1 e 2. Stesse regole del turno 1. Riuscita: la sfida è vinta.",,,784
 192,s03,,suono,s03_sfx_05,,"Fanfara di vittoria (fanfare_win_piano), poi la ripresa: il pianoforte suona le prime due battute della canzone complete, Do, La, Fa... e il Fa è tornato. Centro Fa, festoso.",,s03_sfx_05_acuto.wav s03_sfx_05_grave.wav,786
 193,s03,,voce,s03_vent_04,VENTO,"Cosa?! Non è possibile! Fffff... Va bene, va bene, tenetevi la vostra nota! Ma le altre non le troverete mai!",,s03_vent_04_a.wav,788
 194,s03,,suono,s03_sfx_06,,"Sbuffo si allontana. Le sue tre note tornano piano, quasi gentili, dentro l'ultima battuta della ripresa.",,s03_sfx_06.wav,792
 195,s03,,voce,s03_maes_08,MAESTRO BATTUTA,"L'hai sentito? La nota! È tornata! L'hai rimessa tu al suo posto! Sai, ho diretto tantissimi concerti, ma non avevo mai recuperato una parte di canzone con l'aiuto di Tocco! Direi che è un giorno da ricordare. Anche perché, se non lo ricordo io, Sbuffo me lo rinfaccerà per il resto della vita.",,s03_maes_08_a.wav,794
-196,s04,,suono,s04_sfx_01,,"Il pianoforte suona la melodia appena recuperata, questa volta completa. La frase sonora è quella riconoscibile dall'inizio del gioco.",,,802
-197,s04,,voce,s04_narr_01,NARRATORE,"Il pianoforte torna a suonare. Le sue note si susseguono senza interrompersi. La piccola frase che il vento aveva spezzato è finalmente completa. E mentre il pianoforte suona, qualcosa di nuovo accade.",,,804
-198,s04,,suono,s04_sfx_02,,Un leggero suono di campanella si aggiunge per un momento al pianoforte.,,,808
-199,s04,,voce,s04_maes_01,MAESTRO BATTUTA,"Oh! Hai sentito? Una campanella! Quando recuperiamo un pezzo della canzone, anche gli altri strumenti cominciano a ritrovare il loro posto. Dai, suoniamo insieme a loro! Premi i pulsanti quando vuoi: qualunque nota tu scelga, starà bene con la musica.",,,810
+196,s04,,suono,s04_sfx_01,,"Il pianoforte suona la melodia appena recuperata, questa volta completa. La frase sonora è quella riconoscibile dall'inizio del gioco.",,s04_sfx_01_acuto.wav s04_sfx_01_grave.wav,802
+197,s04,,voce,s04_narr_01,NARRATORE,"Il pianoforte torna a suonare. Le sue note si susseguono senza interrompersi. La piccola frase che il vento aveva spezzato è finalmente completa. E mentre il pianoforte suona, qualcosa di nuovo accade.",,s04_narr_01_a.wav,804
+198,s04,,suono,s04_sfx_02,,Un leggero suono di campanella si aggiunge per un momento al pianoforte.,,s04_sfx_02.wav,808
+199,s04,,voce,s04_maes_01,MAESTRO BATTUTA,"Oh! Hai sentito? Una campanella! Quando recuperiamo un pezzo della canzone, anche gli altri strumenti cominciano a ritrovare il loro posto. Dai, suoniamo insieme a loro! Premi i pulsanti quando vuoi: qualunque nota tu scelga, starà bene con la musica.",,s04_maes_01_a.wav,810
 200,s04,,interazione,s04_int_01,,"Suono libero: il pianoforte e la campanella ripetono la canzone ritrovata (centro Fa), e il bambino può premere i quattro pulsanti quando vuole. Ogni nota si intona con la base, perché la base evita le cinque note vietate. Nessuna risposta sbagliata. Dopo circa quindici secondi la musica si chiude da sola.",,,814
-201,s04,,voce,s04_maes_02,MAESTRO BATTUTA,"Che meraviglia! Sai qual è la cosa che mi rende più felice? Adesso anche tu conosci il pianoforte. Sai che dentro ci sono corde che vibrano. Hai ascoltato i suoi suoni gravi e acuti. E hai imparato a farlo suonare con il tuo Tocco. Quindi, tecnicamente... [PAUSA DRAMMATICA] Sei appena diventato un musicista della nostra orchestra!",,,816
-202,s04,,suono,s04_sfx_03,,Piccola fanfara comica di pianoforte.,,,824
-203,s04,,voce,s04_maes_03,MAESTRO BATTUTA,"Normalmente dovrei consegnarti un diploma. Ma Sbuffo ha portato via anche i miei fogli. Quindi, per il momento, dovrai accontentarti di un applauso.",,,826
-204,s04,,suono,s04_sfx_04,,"Il Maestro applaude, prima normalmente, poi troppo velocemente, perdendo il ritmo.",,,830
-205,s04,,voce,s04_maes_04,MAESTRO BATTUTA,Oh. Scusa. Mi sono lasciato trasportare.,,,832
-206,s04,,suono,s04_sfx_05,,Un leggero soffio torna a muoversi nella sala.,,,838
-207,s04,,voce,s04_vent_01,VENTO,Fffffffff... Ehi! Ma quella è la nota che avevo preso io! L'avevo nascosta benissimo!,,,840
-208,s04,,voce,s04_maes_05,MAESTRO BATTUTA,Forse non abbastanza.,,,844
-209,s04,,voce,s04_vent_02,VENTO,Tanto non riuscirete a recuperarle tutte! E comunque non capisco perché vi piaccia tanto suonare tutti insieme. Io faccio un sacco di rumore anche da solo! Ascoltate! FFFFFFFFFFFFFFFF!,,,848
-210,s04,,suono,s04_sfx_06,,"Soffio prolungato, seguito da un piccolo colpo d'aria buffo.",,,852
-211,s04,,voce,s04_maes_06,MAESTRO BATTUTA,"Sì, Sbuffo. Sappiamo che sei molto bravo a soffiare.",,,854
-212,s04,,voce,s04_vent_03,VENTO,Allora perché non ascoltate me?! Non importa! Non riavrete gli altri suoni! Fffffffff!,,,858
-213,s04,,suono,s04_sfx_07,,"Il vento si allontana, lasciando dietro di sé un fischio che pian piano svanisce.",,,862
-214,s04,,voce,s04_maes_07,MAESTRO BATTUTA,"Hai sentito cosa ha detto? «Perché non ascoltate me?» Strano. Non avevo mai sentito Sbuffo parlare così. Dimmi tu: secondo te, Sbuffo vuole soltanto fare i dispetti?",,,864
+201,s04,,voce,s04_maes_02,MAESTRO BATTUTA,"Che meraviglia! Sai qual è la cosa che mi rende più felice? Adesso anche tu conosci il pianoforte. Sai che dentro ci sono corde che vibrano. Hai ascoltato i suoi suoni gravi e acuti. E hai imparato a farlo suonare con il tuo Tocco. Quindi, tecnicamente... [PAUSA DRAMMATICA] Sei appena diventato un musicista della nostra orchestra!",,s04_maes_02_a.wav,816
+202,s04,,suono,s04_sfx_03,,Piccola fanfara comica di pianoforte.,,s04_sfx_03.wav,824
+203,s04,,voce,s04_maes_03,MAESTRO BATTUTA,"Normalmente dovrei consegnarti un diploma. Ma Sbuffo ha portato via anche i miei fogli. Quindi, per il momento, dovrai accontentarti di un applauso.",,s04_maes_03_a.wav,826
+204,s04,,suono,s04_sfx_04,,"Il Maestro applaude, prima normalmente, poi troppo velocemente, perdendo il ritmo.",,s04_sfx_04.wav,830
+205,s04,,voce,s04_maes_04,MAESTRO BATTUTA,Oh. Scusa. Mi sono lasciato trasportare.,,s04_maes_04_a.wav,832
+206,s04,,suono,s04_sfx_05,,Un leggero soffio torna a muoversi nella sala.,,s04_sfx_05.wav,838
+207,s04,,voce,s04_vent_01,VENTO,Fffffffff... Ehi! Ma quella è la nota che avevo preso io! L'avevo nascosta benissimo!,,s04_vent_01_a.wav,840
+208,s04,,voce,s04_maes_05,MAESTRO BATTUTA,Forse non abbastanza.,,s04_maes_05_a.wav,844
+209,s04,,voce,s04_vent_02,VENTO,Tanto non riuscirete a recuperarle tutte! E comunque non capisco perché vi piaccia tanto suonare tutti insieme. Io faccio un sacco di rumore anche da solo! Ascoltate! FFFFFFFFFFFFFFFF!,,s04_vent_02_a.wav,848
+210,s04,,suono,s04_sfx_06,,"Soffio prolungato, seguito da un piccolo colpo d'aria buffo.",,s04_sfx_06.wav,852
+211,s04,,voce,s04_maes_06,MAESTRO BATTUTA,"Sì, Sbuffo. Sappiamo che sei molto bravo a soffiare.",,s04_maes_06_a.wav,854
+212,s04,,voce,s04_vent_03,VENTO,Allora perché non ascoltate me?! Non importa! Non riavrete gli altri suoni! Fffffffff!,,s04_vent_03_a.wav,858
+213,s04,,suono,s04_sfx_07,,"Il vento si allontana, lasciando dietro di sé un fischio che pian piano svanisce.",,s04_sfx_07.wav,862
+214,s04,,voce,s04_maes_07,MAESTRO BATTUTA,"Hai sentito cosa ha detto? «Perché non ascoltate me?» Strano. Non avevo mai sentito Sbuffo parlare così. Dimmi tu: secondo te, Sbuffo vuole soltanto fare i dispetti?",,s04_maes_07_a.wav,864
 215,s04,,interazione,s04_int_02,,"MODALITÀ SCELTA: Sì del pollice → ramo A; No del pollice → ramo B. Non c'è risposta sbagliata. Nel silenzio il Maestro aspetta, senza richiami.",,,868
-216,s04,A,voce,s04_maes_08,MAESTRO BATTUTA,"Può darsi. Di solito entra, soffia, combina guai e scappa via. Però oggi, nella sua voce, c'era qualcosa di diverso.",,,872
-217,s04,B,voce,s04_maes_09,MAESTRO BATTUTA,Lo penso anch'io. Forse non vuole soltanto rubare la musica. Forse vuole che qualcuno lo ascolti.,,,878
+216,s04,A,voce,s04_maes_08,MAESTRO BATTUTA,"Può darsi. Di solito entra, soffia, combina guai e scappa via. Però oggi, nella sua voce, c'era qualcosa di diverso.",,s04_maes_08_a.wav,872
+217,s04,B,voce,s04_maes_09,MAESTRO BATTUTA,Lo penso anch'io. Forse non vuole soltanto rubare la musica. Forse vuole che qualcuno lo ascolti.,,s04_maes_09_a.wav,878
 218,s04,,convergenza,s04_int_03,,I due rami proseguono qui.,,,882
-219,s04,,voce,s04_maes_10,MAESTRO BATTUTA,Lo scopriremo strada facendo. Per adesso dobbiamo continuare a recuperare la nostra canzone.,,,884
-220,s04,,suono,s04_sfx_08,,"TAC, TAC... TOC!",,,888
-221,s04,,voce,s04_maes_11,MAESTRO BATTUTA,"Bene, giovane musicista! Pronto per la prossima avventura? Questa volta non sarò io a decidere da quale strumento partire. Sarai tu a scegliere.",,,890
+219,s04,,voce,s04_maes_10,MAESTRO BATTUTA,Lo scopriremo strada facendo. Per adesso dobbiamo continuare a recuperare la nostra canzone.,,s04_maes_10_a.wav,884
+220,s04,,suono,s04_sfx_08,,"TAC, TAC... TOC!",,s04_sfx_08.wav,888
+221,s04,,voce,s04_maes_11,MAESTRO BATTUTA,"Bene, giovane musicista! Pronto per la prossima avventura? Questa volta non sarò io a decidere da quale strumento partire. Sarai tu a scegliere.",,s04_maes_11_a.wav,890
 222,s05,,suono,s05_sfx_01,,Il pianoforte continua a suonare delicatamente. Il Maestro si ferma e ascolta.,,,898
 223,s05,,voce,s05_maes_01,MAESTRO BATTUTA,"Aspetta... Sento due cose diverse. Ascolta anche tu. Da una parte... [s05_sfx_02] ...c'è un tamburo. Suona quando qualcuno colpisce la sua pelle tesa. Bum... Bum... Sembra quasi chiamarci. E dall'altra parte... [s05_sfx_03] ...c'è una campanella. Il suo suono è squillante, e continua a risuonare per un momento.",,,900
 224,s05,,suono,s05_sfx_02,,"Un suono profondo di tamburo, ripetuto due volte, a sinistra dell'ascoltatore.",s05_maes_01,,904
@@ -235,8 +235,8 @@ ordine,sezione,ramo,tipo,id,personaggio,testo,dentro_battuta,file_audio,riga_cop
 234,e00,,suono,e00_sfx_01,,"La melodia recuperata del pianoforte torna, lenta e riconoscibile. Il Maestro la accompagna battendo leggermente il tempo.",,,946
 235,e00,,voce,e00_narr_01,NARRATORE,La vostra prima avventura è appena terminata. Avete conosciuto il Maestro Battuta e il pianoforte. E avete aiutato l'orchestra a ritrovare il primo pezzo della sua canzone. Ma il viaggio è appena cominciato. Sbuffo ha sparpagliato tanti altri suoni. E chissà perché desidera così tanto che tutti ascoltino soltanto lui.,,,948
 236,e00,,suono,e00_sfx_02,,"Il vento emette un piccolo fischio lontano, quasi musicale.",,,952
-237,e00,,voce,e00_maes_01,MAESTRO BATTUTA,"Ehi! Prima di andare, suoniamo la nostra frase un'ultima volta. Io comincio... e l'ultima nota la metti tu, con il medio!",,,954
-238,e00,,interazione,e00_int_01,,"Il pianoforte suona l'inizio della frase del concerto nel registro scelto e il bambino preme il medio (Fa) nel momento della terza nota, come nel turno 3 della sfida. Qui non si conta niente: se la pressione non arriva, il pianoforte completa la frase da solo, e la storia prosegue.",,,958
+237,e00,,voce,e00_maes_01,MAESTRO BATTUTA,"Ehi! Prima di andare, suoniamo ancora una volta la prima frase della sfida: TA... TA-TA. Io la suono, e tu la ripeti con l'indice!",,,954
+238,e00,,interazione,e00_int_01,,"Ripeti la frase TA... TA-TA con l'indice (Re... Re-Re nel registro scelto), come nel turno 1 della sfida. Qui non si conta niente: se non arriva una risposta, il pianoforte la ripete da solo e la storia prosegue.",,,958
 239,e00,,voce,e00_maes_02,MAESTRO BATTUTA,"Oggi hai fatto qualcosa di importante. Non hai semplicemente premuto un pulsante. Hai ascoltato. Hai scelto. Hai provato. E hai aiutato uno strumento a ritrovare il suo posto nella musica. Ricordati: in un'orchestra non dobbiamo essere tutti uguali. Ognuno ha un suono diverso, ed è proprio questo che rende la musica interessante. E se durante il viaggio senti... [e00_sfx_03] ...allora sono io! Il Maestro Battuta! Sempre pronto ad aiutarti. E, possibilmente, a non perdere più la bacchetta.",,,960
 240,e00,,suono,e00_sfx_03,,"TAC, TAC... TOC!",e00_maes_02,,964
 241,e00,,suono,e00_sfx_04,,La bacchetta cade nuovamente.,,,968

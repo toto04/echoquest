@@ -1,8 +1,8 @@
-# Scene 2 e 3 interattive
+# Scene 2, 3 e 4 interattive
 
-Versione del 17 novembre 2026. Le due scene si giocano in Unity
-(`Story/Scenes/Scena2.unity` e `Scena3.unity`), con tutte le voci, i suoni e la musica.
-Le scene del capitolo si caricano una dopo l'altra: Intro → Scena 1 → Scena 2 → Scena 3.
+Versione del 17 novembre 2026. Le tre scene si giocano in Unity
+(`Story/Scenes/Scena2.unity`, `Scena3.unity` e `Scena4.unity`), con tutte le voci, i suoni e la musica.
+Le scene del capitolo si caricano una dopo l'altra: Intro → Scena 1 → Scena 2 → Scena 3 → Scena 4.
 Il copione è in `Story/Script/capitolo_01_la_canzone_rubata_dal_vento.md`; le regole
 musicali sono quelle di [`docs/music/`](music/README.md).
 
@@ -21,7 +21,9 @@ mignolo Do. Sì e No sono i due pulsanti del pollice.
 | 3 | `s03_int_01` | premi il medio: suona Fa | solo il medio conferma |
 | 3 | `s03_int_02` | sfida, turno 1: Re... Re-Re | ordine e ritmo relativo dopo il TOC |
 | 3 | `s03_int_03` | sfida, turno 2: Re... Fa-Re | come sopra, con il medio in mezzo |
-| 3 | `s03_int_04` | sfida, turno 3: Do, La... e il Fa | il medio nel momento della terza nota |
+| 3 | `s03_int_04` | sfida, turno 3: La... Fa-Re | anulare, medio, indice, con lo stesso ritmo |
+| 4 | `s04_int_01` | suono libero con pianoforte e campanella | qualsiasi tasto, in qualsiasi momento: nessuna nota sbagliata |
+| 4 | `s04_int_02` | «Secondo te Sbuffo vuole solo fare i dispetti?» | Sì o No, nessuna risposta sbagliata |
 
 Le consegne sono dette dalle battute del Maestro subito prima dell'interazione, quindi la
 regia lascia vuota la colonna `consegna`: al primo tentativo si ascolta subito. Dopo due tentativi
@@ -49,7 +51,8 @@ La scelta resta valida nelle scene successive; chi parte direttamente dalla Scen
 5. ogni turno riuscito aggiunge uno strato alla base (prima gli accordi, poi i timpani); un turno
    non riuscito toglie solo lo strato più alto, fa ridere Sbuffo (una battuta comica) e la frase
    torna nello scambio successivo, **mai più lenta**;
-6. l'ultimo turno è una risposta: il pianoforte suona Do, La... e il bambino mette il Fa rubato;
+6. il terzo turno, come nei documenti, è la versione scombinata di Sbuffo, La... Fa-Re: entra l'anulare.
+   Nessun turno chiede di premere nel silenzio di una nota mancante (era troppo difficile);
 7. la base si ferma esattamente su una battuta e lì parte la fanfara, poi la ripresa con il Fa tornato.
 
 Il giudizio dell'eco guarda i pulsanti nell'ordine giusto e il ritmo relativo (qualsiasi velocità
@@ -57,14 +60,19 @@ fra metà e il doppio, ogni intervallo entro 0,12 s o il 35%). La risposta del t
 prima a 0,45 s dopo il momento della nota. Dal pannello di debug (scheda Input) si vedono la modalità,
 i tempi attesi, gli strati e il registro, e c'è «Pass it for me».
 
+### Il suono libero (Scena 4)
+
+Modalità `libero`: parte la canzone ritrovata con la campanella e un battito leggero (`x_s04_libero`),
+ogni pulsante suona la sua nota di pianoforte nel registro scelto, e la storia prosegue quando la musica
+finisce. Tutte le note dei pulsanti stanno bene sugli accordi (Fa, Re minore 7), quindi non c'è niente da giudicare.
+
 ## Musica e suoni
 
 - Le partiture sono in [`music/library/capitolo_01.yaml`](../music/library/capitolo_01.yaml), nel formato
   di [05-format-and-pipeline.md](music/05-format-and-pipeline.md). Ogni partitura si controlla con
   `python3 -m tools.music.check music/library/capitolo_01.yaml` (nei tre registri), che rifiuta le note
   vietate, gli accordi non sicuri e la musica nel registro della chiamata.
-- Differenze rispetto a 06, motivate nel file: il terzo turno è una risposta invece di un'altra eco;
-  la presa in giro dura una battuta (si suona nella battuta di risposta dello scambio non riuscito);
+- Differenze rispetto a 06, motivate nel file: la presa in giro dura una battuta (si suona nella battuta di risposta dello scambio non riuscito);
   con il registro grave basso e accordi sono rivoicati per lasciare libera la zona della chiamata.
 - I suoni si rigenerano con
   `python3 tools/story_placeholder_sfx.py ~/.cache/echoquest-sfx/mono unity/EchoQuestTest/Assets/EchoQuest/Story/Audio/Sfx s02 s03`.
@@ -75,11 +83,13 @@ i tempi attesi, gli strati e il registro, e c'è «Pass it for me».
 
 ## Verifiche
 
-- `tools/story_interaction_checks.cs`: 80 controlli delle regole (anche eco, risposta, registro, Sì atteso).
+- `tools/story_interaction_checks.cs`: 80 controlli delle regole (eco, registro, Sì atteso, suono libero,
+  nessuna modalità di risposta nel silenzio).
 - `tools/story_battle_runtime_checks.cs`: in Play mode con i dati veri. `RunScene2` prova le quattro
   interazioni e la scelta del registro; `RunScene3` gioca la sfida premendo a tempo (turno 1 giusto,
-  turno 2 prima sbagliato e poi giusto, turno 3 risposta) e controlla base, strati e fanfara.
+  turno 2 prima sbagliato e poi giusto, turno 3 con l'anulare) e controlla base, strati e fanfara.
+  `RunScene4` prova la canzone nel registro scelto, il suono libero e la domanda su Sbuffo.
 - Restano verdi i controlli della Scena 1 (interazioni, percorsi, audio).
 
 Da fare: ascolto in cuffia (livelli, timbri provvisori, attese fra un turno e l'altro), prova con il
-controller fisico, voci e suoni delle Scene 4, 5 e dell'epilogo.
+controller fisico, voci e suoni della Scena 5 e dell'epilogo.

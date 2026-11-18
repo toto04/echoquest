@@ -3,7 +3,7 @@ s01_int_01,s01,,interazione,Prova musicale: attendere una nuova pressione dell�
 s01_int_02,s01,,interazione,Ripeti tre battiti regolari con il pulsante della nota sotto l’indice.,404
 s01_int_03,s01,,interazione,Ascolta i due esempi. Alla domanda «Ti sembrano uguali?» rispondi con Sì o No del pollice.,406
 s01_int_04,s01,,interazione,Ripeti il ritmo del Maestro: due colpi vicini e uno dopo la pausa.,434
-s01_int_05,s01,,interazione,Ascolta il pianoforte e premi l’indice nel momento della terza nota mancante.,472
+s01_int_05,s01,,interazione,Confronto: «Ti sembrano uguali?» Il ricordo e il pianoforte di oggi; la risposta giusta è No. Risposta: «Esatto! Nella seconda manca l'ultima nota.» Si risponde con Sì o No del pollice; nessuna pressione a tempo.,472
 s01_int_06,s01,,interazione,Il Maestro chiede aiuto. Sì conferma; No apre un’attesa tranquilla.,514
 s01_int_07,s01,,interazione,"Alla domanda se andare al pianoforte: Sì porta al ramo B, No al riascolto A.",558
 s01_int_08,s01,A,interazione,"Dopo il riascolto, Sì va al pianoforte. No aspetta senza ripetere istruzioni.",572
@@ -15,10 +15,10 @@ s02_int_05,s02,,interazione,"Ripeti il ritmo del Maestro sulla nota del pianofor
 s03_int_01,s03,,interazione,Prova musicale: attendere una pressione del medio. Il pulsante suona Fa nel registro scelto (Fa3 o Fa5). Risposta: «Una nota diversa! Il medio suona un po' più in alto dell'indice.»,758
 s03_int_02,s03,,interazione,"Sfida, turno 1 (sfida_piano_r1). Il pianoforte suona la frase due volte, il TOC dice «tocca a te», il bambino la ripete con l'indice: Re... Re-Re. Si valuta la struttura (ordine e ritmo relativo) con una tolleranza ampia. Riuscita: un suono di successo e uno strumento in più nella base. Non riuscita: Sbuffo ride, in modo buffo e mai cattivo, e la frase torna alla stessa velocità. Dopo due tentativi, «Ti va di riprovare?»; con No il Maestro suona insieme al bambino e la sfida continua. Non si rallenta mai.",772
 s03_int_03,s03,,interazione,"Sfida, turno 2 (sfida_piano_r2): Re... Fa-Re, cioè indice, medio, indice, con lo stesso ritmo. Stesse regole del turno 1. Riuscita: un altro strumento si aggiunge alla base.",778
-s03_int_04,s03,,interazione,"Sfida, turno 3, risposta: il pianoforte suona l'inizio della frase del concerto nel registro scelto (Do4, La3 oppure Do6, La5) e il bambino preme il medio (Fa) nel momento della terza nota. Funziona come s01_int_05, con il pulsante del medio. Non riuscita: Sbuffo ride e la frase torna. Dopo due tentativi, «Ti va di riprovare?»; con No il Maestro suona il Fa insieme al bambino.",784
+s03_int_04,s03,,interazione,"Sfida, turno 3 (sfida_piano_r3): La... Fa-Re, cioè anulare, medio, indice, con lo stesso ritmo dei turni 1 e 2. Stesse regole del turno 1. Riuscita: la sfida è vinta.",784
 s04_int_01,s04,,interazione,"Suono libero: il pianoforte e la campanella ripetono la canzone ritrovata (centro Fa), e il bambino può premere i quattro pulsanti quando vuole. Ogni nota si intona con la base, perché la base evita le cinque note vietate. Nessuna risposta sbagliata. Dopo circa quindici secondi la musica si chiude da sola.",814
 s04_int_02,s04,,interazione,"MODALITÀ SCELTA: Sì del pollice → ramo A; No del pollice → ramo B. Non c'è risposta sbagliata. Nel silenzio il Maestro aspetta, senza richiami.",868
 s04_int_03,s04,,convergenza,I due rami proseguono qui.,882
 s05_int_01,s05,,interazione,"MODALITÀ SCELTA: indice → tamburo (ramo A); medio → campanella (ramo B). Come nella scelta del registro della Scena 2. Nel silenzio il Maestro aspetta, senza richiami.",918
 s05_int_02,s05,,convergenza,La scelta stabilisce l'ordine delle tappe successive. Entrambe sono valide e nessuna viene persa.,940
-e00_int_01,e00,,interazione,"Il pianoforte suona l'inizio della frase del concerto nel registro scelto e il bambino preme il medio (Fa) nel momento della terza nota, come nel turno 3 della sfida. Qui non si conta niente: se la pressione non arriva, il pianoforte completa la frase da solo, e la storia prosegue.",958
+e00_int_01,e00,,interazione,"Ripeti la frase TA... TA-TA con l'indice (Re... Re-Re nel registro scelto), come nel turno 1 della sfida. Qui non si conta niente: se non arriva una risposta, il pianoforte la ripete da solo e la storia prosegue.",958

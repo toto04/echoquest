@@ -144,17 +144,39 @@ public static class StoryBattleRuntimeChecks
         await Press(p, new[] { 1, 2, 1 }, ex + 2 * bar, new[] { 0, 1.2, 1.5 });
         await Until(() => Logged(p, "s03_int_03 passed"), "round 2 passes", 6);
 
-        // Round 3: the piano plays C, A... and the child puts the stolen F back with the middle button.
+        // Round 3: La... Fa-Re, the ring finger joins: the same rhythm, an echo like the others.
         await Until(() => p.Current?.Id == "s03_int_04" && p.WaitingInteractionInput, "round 3", 30);
         ex = p.ExchangeStart;
-        await At(ex + bar + 1.2);
-        p.PressLogical(2);
-        await Until(() => Logged(p, "s03_int_04 passed"), "the missing F is back", 6);
+        await Press(p, new[] { 3, 2, 1 }, ex + 2 * bar, new[] { 0, 1.2, 1.5 });
+        await Until(() => Logged(p, "s03_int_04 passed"), "round 3 passes", 6);
 
         // Victory: the loop stops on a bar line and the fanfare starts exactly there.
         await Until(() => p.Current?.Id == "s03_sfx_05", "the fanfare", 15);
         Check(!p.BattleRunning && Logged(p, "battle ends on the bar line"), "the loop ends with the fanfare");
         Check(p.CurrentClip == "s03_sfx_05_grave", "the reprise is in the chosen register");
         return $"Scene 3: {checks} checks passed";
+    }
+
+    public static async Task<string> RunScene4()
+    {
+        checks = 0;
+        StoryPlayer.ChosenRegister = "acuto";
+        var p = await Load("Scena4", "s04");
+        p.Log.Clear();
+
+        p.JumpTo("s04_sfx_01");   // the recovered song, in the chosen register
+        await Until(() => p.CurrentClip == "s04_sfx_01_acuto", "the high variant of the song", 5);
+
+        p.JumpTo("s04_int_01");   // free play: any buttons, the piece ends by itself
+        await Until(() => p.WaitingInteractionInput, "free play listens", 5);
+        foreach (int b in new[] { 1, 3, 2, 4, 4, 1 }) { p.PressLogical(b); await Task.Delay(400); }
+        Check(p.LastAttempt == "6 notes played", "every press is a note");
+        await Until(() => Logged(p, "s04_int_01 passed (6 notes)"), "the story goes on when the music ends", 20);
+
+        p.JumpTo("s04_int_02");   // Sbuffo question: No leads to branch B, there is no wrong answer
+        await Until(() => p.WaitingInteractionInput, "Sbuffo question", 5);
+        p.PressLogical(StoryInteractionRules.No);
+        await Until(() => p.Current != null && p.Current.Id == "s04_maes_09", "No leads to branch B", 8);
+        return $"Scene 4: {checks} checks passed";
     }
 }

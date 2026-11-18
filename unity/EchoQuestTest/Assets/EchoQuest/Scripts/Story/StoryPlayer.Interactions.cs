@@ -135,7 +135,7 @@ namespace EchoQuest.Story
         {
             if (!string.IsNullOrEmpty(settings.Prompt) && !InteractionVoiceExists(settings.Prompt)) return false;
             foreach (var voice in settings.SuccessVoices) if (!InteractionVoiceExists(voice)) return false;
-            if (settings.Mode is InteractionMode.Battle or InteractionMode.BattleAnswer)
+            if (settings.Mode == InteractionMode.Battle)
                 foreach (var voice in settings.RetryVoices) if (!InteractionVoiceExists(voice)) return false;
             foreach (var voice in settings.DeclineVoices) if (!InteractionVoiceExists(voice)) return false;
             if (settings.AttemptsPerRound > 0)
@@ -143,7 +143,8 @@ namespace EchoQuest.Story
                 if (!InteractionVoiceExists(settings.RetryQuestion)) return false;
                 foreach (var voice in settings.ContinueVoices) if (!InteractionVoiceExists(voice)) return false;
             }
-            if (settings.Mode is not (InteractionMode.Confirm or InteractionMode.Decision) && !InteractionVoiceExists(settings.Retry)) return false;
+            if (settings.Mode is not (InteractionMode.Confirm or InteractionMode.Decision or InteractionMode.FreePlay) &&
+                !InteractionVoiceExists(settings.Retry)) return false;
             foreach (var example in settings.Examples) if (!InteractionClip(example, out _)) return false;
             foreach (var feedback in settings.Feedbacks) if (!InteractionClip(feedback, out _)) return false;
             return true;
@@ -208,9 +209,14 @@ namespace EchoQuest.Story
                 while (!Interrupted) yield return null;
                 yield break;
             }
-            if (settings.Mode is InteractionMode.Battle or InteractionMode.BattleAnswer)
+            if (settings.Mode == InteractionMode.Battle)
             {
                 yield return PlayBattleRound(item, settings);
+                yield break;
+            }
+            if (settings.Mode == InteractionMode.FreePlay)
+            {
+                yield return PlayFreePlay(item, settings);
                 yield break;
             }
             if (settings.Mode == InteractionMode.Decision && StagingFor(item).Choices.Count < 2)
@@ -238,7 +244,8 @@ namespace EchoQuest.Story
                             settings.Mode is InteractionMode.Rhythm or InteractionMode.Note);
                         if (Interrupted) yield break;
                     }
-                    if ((settings.Mode is InteractionMode.Rhythm or InteractionMode.Compare) && !introducedByStory)
+                    bool examplesJustPlayed = introducedByStory || (firstAttempt && settings.ExamplesPlayedByStory);
+                    if ((settings.Mode is InteractionMode.Rhythm or InteractionMode.Compare) && !examplesJustPlayed)
                         foreach (var example in settings.Examples)
                         {
                             yield return InteractionExample(example, settings.Mode != InteractionMode.Rhythm);
@@ -285,6 +292,53 @@ namespace EchoQuest.Story
                         yield return InteractionVoice(settings.Retry);
                     }
                 }
+            }
+            finally
+            {
+                EndInteractionCapture();
+                CurrentInteraction = null;
+            }
+        }
+
+        /// <summary>Free play: the piece plays and every press sounds its piano note, in the chosen register.
+        /// Every button fits the harmony (docs/music/01-palette.md), so nothing is judged; the story goes on
+        /// when the piece ends. "Pass it for me" ends it early.</summary>
+        private IEnumerator PlayFreePlay(StoryItem item, InteractionSettings settings)
+        {
+            CurrentInteraction = settings;
+            LastAttempt = "";
+            try
+            {
+                if (!string.IsNullOrEmpty(settings.Prompt))
+                {
+                    yield return InteractionVoice(settings.Prompt);
+                    if (Interrupted) yield break;
+                }
+                InteractionClip(settings.Examples[0], out var piece);
+                double start = AudioSettings.dspTime + 0.1;
+                var source = Spawn(piece, StagingFor(new StoryItem { Id = settings.Examples[0], Kind = StoryItemKind.Sound }),
+                    settings.Examples[0], soundMarker, scheduledStart: start);
+                BeginInteractionCapture(false);
+                Status = "Suona quando vuoi: ogni nota sta bene con la musica";
+                CurrentClip = piece.name;
+                int notes = 0;
+                while (!Interrupted && AudioSettings.dspTime < start + piece.length)
+                {
+                    if (m_ForcePass) { source.FadeOut(0.5f); break; }
+                    while (m_InteractionInput.Count > 0)
+                    {
+                        var (button, _) = m_InteractionInput.Dequeue();
+                        if (button < 1 || button > 4) continue;
+                        InteractionTapFeedback(settings, button);
+                        notes++;
+                        LastAttempt = notes + (notes == 1 ? " note played" : " notes played");
+                    }
+                    yield return null;
+                }
+                EndInteractionCapture();
+                if (Interrupted) yield break;
+                LogEvent(item.Id + " passed (" + notes + " notes)");
+                if (!string.IsNullOrEmpty(settings.Success)) yield return InteractionVoice(settings.Success);
             }
             finally
             {

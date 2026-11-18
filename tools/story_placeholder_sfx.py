@@ -624,8 +624,9 @@ if wanted1(21):  # the wind blows a few more seconds, then calms down
 if wanted1(22):  # the Maestro sighs once: a single, slowed-down exhale
     sigh = fade(load("pant", 3.86, 4.62), 0.04, 0.35)  # only the exhale of one breath
     save(cue1(22), biquad(resample(sigh, 0.85), "lp", 3000) + silence(0.2), -12)
-if wanted1(23):  # the memory of the complete song, as the orchestra played it in the prologue
-    save(cue1(23), song_memory(), -6)
+if wanted1(23):  # the memory of the complete song, a pause, then today's piano without the last note
+    # (the child is asked "Ti sembrano uguali?": no timed press in the silence, too hard)
+    save(cue1(23), song_memory() + silence(0.8) + stolen_try(0.6) + silence(0.6), -5)
 if wanted1(24):  # the piano tries again and again, hesitating more each time; the third note never comes
     x = silence(0)
     for k, (at, vel) in enumerate(((0.0, 0.6), (3.0, 0.5), (6.2, 0.4))):
@@ -700,6 +701,8 @@ if selected("x_s01_maestro"):
 if selected("x_s01_pulsante"):
     # the index button: the piano note the child plays (docs/music: the child hears the stake instrument)
     save("x_s01_pulsante", piano(NOTE["D4"], 0.42, 0.6, damp=0.2), -8)
+if selected("x_s01_ricordo"):  # the first example of the comparison: the song as it was
+    save("x_s01_ricordo", song_memory(), -5)
 if selected("x_s01_nota_mancante"):
     x = silence(3.2)
     intensity = 0.6
@@ -908,8 +911,7 @@ for register in CHOSEN:
         g = STEM_GAIN * 0.95 / max(abs(v) for v in full)
         for name, x in stems.items():
             save_fixed(name, x, g)
-    for sid, name in (("sfida_piano_r1", "r1"), ("sfida_piano_r2", "r2"), ("sfida_piano_r3", "r3"),
-                      ("sfida_piano_r3_risposta", "r3_risposta")):
+    for sid, name in (("sfida_piano_r1", "r1"), ("sfida_piano_r2", "r2"), ("sfida_piano_r3", "r3")):
         if selected(f"x_s03_{name}_{register}"):
             x = music.render(SPECS[sid], register, tail=1.2)
             save_fixed(f"x_s03_{name}_{register}", x, CALL_GAIN / max(abs(v) for v in x))
@@ -932,3 +934,45 @@ if selected(cue3(6)):  # Sbuffo goes away; his three notes come back softly, alm
         mix(tune, music.synth.pan_flute(NOTE[n], d, 0.35), t)
     mix(x, biquad(tune, "lp", 5000), 1.6, 0.9)
     save(cue3(6), fade(x, 0, 0.8), -6)
+
+
+# ---- Scene 4: the first note is back
+def cue4(n):
+    return f"s04_sfx_{n:02d}"
+
+
+for register in CHOSEN:
+    if selected(f"{cue4(1)}_{register}"):  # the recovered melody, complete: the reprise without Sbuffo
+        x = music.render(SPECS["reprise_piano"], register, tail=2.0, only_layers={"L0", "L1", "L2"})
+        save(f"{cue4(1)}_{register}", fade(x, 0, 1.5), -4)
+    if selected(f"x_s04_libero_{register}"):  # free play: piano accompaniment, bell, soft pulse; the child adds notes
+        x = music.render(SPECS["s4_libero"], register, tail=2.0)
+        save_fixed(f"x_s04_libero_{register}", fade(x, 0, 1.0), 0.42 / max(abs(v) for v in x))
+if selected(cue4(2)):  # a light bell joins the piano for a moment
+    save(cue4(2), music.render(SPECS["s4_campanella"], tail=1.5), -8)
+if selected(cue4(3)):  # a small comic piano fanfare
+    save(cue4(3), music.render(SPECS["s4_fanfara_comica"], tail=1.2), -4)
+if selected(cue4(4)):  # applause: regular, then too fast, then out of time and it stops
+    times, t, gap = [], 0.0, 0.32
+    for k in range(18):
+        times.append(t)
+        gap = gap * (0.86 if k > 5 else 1.0)
+        t += max(0.07, gap) + (random.uniform(-0.04, 0.06) if k > 11 else 0)
+    x = silence(t + 0.6)
+    for k, tt in enumerate(times):
+        mix(x, clap(), tt, 0.9 if k < 12 else 0.7)
+    save(cue4(4), x, -6)
+if selected(cue4(5)):  # a light breath of wind moves in the room again
+    save(cue4(5), fade(biquad(load("storm", 6.0, 10.0), "lp", 900), 1.2, 1.5), -10)
+if selected(cue4(6)):  # a long blow, then a small funny puff of air
+    x = fade(biquad(load("whoosh", 0.0, 2.6), "hp", 200), 0.2, 0.6)
+    puff = [random.uniform(-1, 1) * math.exp(-i / (0.04 * SR)) for i in range(int(0.25 * SR))]
+    mix(x, biquad(puff, "bp", 700, 1.2), 2.7, 1.2)
+    mix(x, music.synth.slide_whistle(900, 450, 0.35, 0.25), 2.75)
+    save(cue4(6), x + silence(0.3), -6)
+if selected(cue4(7)):  # the wind goes away, leaving a whistle that slowly fades
+    x = fade(biquad(load("whoosh", 0.0, 3.0), "hp", 250), 0.1, 1.5)
+    mix(x, fade(whistle(2.4, 1500, 900), 0.2, 1.6), 0.8, 0.25)
+    save(cue4(7), x + silence(0.4), -7)
+if selected(cue4(8)):
+    save(cue4(8), tac_tac_toc(), -3)  # TAC, TAC... TOC!

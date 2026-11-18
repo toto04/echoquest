@@ -44,7 +44,7 @@ s01_sfx_19,s01,,Il pianoforte suona due note allegre.,,s01_sfx_19.wav,presente,4
 s01_sfx_20,s01,,In lontananza un soffio di vento attraversa la stanza. Una porta scricchiola leggermente.,,s01_sfx_20.wav,presente,452
 s01_sfx_21,s01,,Il vento soffia ancora per qualche secondo e poi si calma.,,s01_sfx_21.wav,presente,458
 s01_sfx_22,s01,,Il Maestro sospira.,,s01_sfx_22.wav,presente,464
-s01_sfx_23,s01,,"Un breve ricordo sonoro della musica udita nel prologo: tre note complete, con un leggero effetto di memoria. Non è un'esecuzione dal vivo del pianoforte nel presente.",,s01_sfx_23.wav,presente,470
+s01_sfx_23,s01,,"Un breve ricordo sonoro della musica udita nel prologo: tre note complete, con un leggero effetto di memoria. Pausa. Poi il pianoforte di oggi, dal vivo: le stesse prime due note e silenzio al posto della terza.",,s01_sfx_23.wav,presente,470
 s01_sfx_24,s01,,Il pianoforte riprova la sequenza incompleta.,,s01_sfx_24.wav,presente,482
 s01_sfx_25,s01,,Il Maestro fa due passi veloci verso la porta e si arresta.,,s01_sfx_25.wav,presente,496
 s01_sfx_26,s01,,"Parte di corsa, inciampa leggermente dopo due passi e si ferma.",,s01_sfx_26.wav,presente,502
@@ -84,14 +84,14 @@ s03_sfx_03,s03,,"sfida_piano_r1 da sola, senza base: Re... Re-Re (TA... TA-TA) s
 s03_sfx_04,s03,,"Il conteggio, uguale in tutto il gioco: TAC, TAC... TOC! e la voce del Maestro «Uno, due, tre... via!». Parte la base della sfida (loop_sfida_piano_A, centro Re, 100 battiti al minuto): non si ferma fino alla vittoria.",,s03_sfx_04.wav,presente,770
 s03_sfx_05,s03,,"Fanfara di vittoria (fanfare_win_piano), poi la ripresa: il pianoforte suona le prime due battute della canzone complete, Do, La, Fa... e il Fa è tornato. Centro Fa, festoso.",,s03_sfx_05_acuto.wav s03_sfx_05_grave.wav,presente,786
 s03_sfx_06,s03,,"Sbuffo si allontana. Le sue tre note tornano piano, quasi gentili, dentro l'ultima battuta della ripresa.",,s03_sfx_06.wav,presente,792
-s04_sfx_01,s04,,"Il pianoforte suona la melodia appena recuperata, questa volta completa. La frase sonora è quella riconoscibile dall'inizio del gioco.",,,da trovare,802
-s04_sfx_02,s04,,Un leggero suono di campanella si aggiunge per un momento al pianoforte.,,,da trovare,808
-s04_sfx_03,s04,,Piccola fanfara comica di pianoforte.,,,da trovare,824
-s04_sfx_04,s04,,"Il Maestro applaude, prima normalmente, poi troppo velocemente, perdendo il ritmo.",,,da trovare,830
-s04_sfx_05,s04,,Un leggero soffio torna a muoversi nella sala.,,,da trovare,838
-s04_sfx_06,s04,,"Soffio prolungato, seguito da un piccolo colpo d'aria buffo.",,,da trovare,852
-s04_sfx_07,s04,,"Il vento si allontana, lasciando dietro di sé un fischio che pian piano svanisce.",,,da trovare,862
-s04_sfx_08,s04,,"TAC, TAC... TOC!",,,da trovare,888
+s04_sfx_01,s04,,"Il pianoforte suona la melodia appena recuperata, questa volta completa. La frase sonora è quella riconoscibile dall'inizio del gioco.",,s04_sfx_01_acuto.wav s04_sfx_01_grave.wav,presente,802
+s04_sfx_02,s04,,Un leggero suono di campanella si aggiunge per un momento al pianoforte.,,s04_sfx_02.wav,presente,808
+s04_sfx_03,s04,,Piccola fanfara comica di pianoforte.,,s04_sfx_03.wav,presente,824
+s04_sfx_04,s04,,"Il Maestro applaude, prima normalmente, poi troppo velocemente, perdendo il ritmo.",,s04_sfx_04.wav,presente,830
+s04_sfx_05,s04,,Un leggero soffio torna a muoversi nella sala.,,s04_sfx_05.wav,presente,838
+s04_sfx_06,s04,,"Soffio prolungato, seguito da un piccolo colpo d'aria buffo.",,s04_sfx_06.wav,presente,852
+s04_sfx_07,s04,,"Il vento si allontana, lasciando dietro di sé un fischio che pian piano svanisce.",,s04_sfx_07.wav,presente,862
+s04_sfx_08,s04,,"TAC, TAC... TOC!",,s04_sfx_08.wav,presente,888
 s05_sfx_01,s05,,Il pianoforte continua a suonare delicatamente. Il Maestro si ferma e ascolta.,,,da trovare,898
 s05_sfx_02,s05,,"Un suono profondo di tamburo, ripetuto due volte, a sinistra dell'ascoltatore.",s05_maes_01,,da trovare,904
 s05_sfx_03,s05,,"Un tintinnio chiaro e prolungato di campanella, a destra dell'ascoltatore.",s05_maes_01,,da trovare,908

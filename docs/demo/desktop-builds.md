@@ -1,6 +1,7 @@
 # Desktop builds for tutors
 
-Last updated: 2026-11-18. Status: **script ready, not yet run on real builds.**
+Last updated: 2026-11-18. Status: **build script used for the first zips (commit `611c6c9`);
+publish script ready, checked with `--dry-run` only.**
 
 Until the [web build](web-build.md) exists, tutors get a desktop build for each
 weekly review: one zip per OS that they download, extract and run, with no Unity
@@ -25,7 +26,8 @@ Builds/demo/echoquest_demo_macos_<YYYY-MM-DD>.zip
 Builds/demo/echoquest_demo_windows_<YYYY-MM-DD>.zip
 ```
 
-`Builds/` is ignored by git. Upload the zips wherever the tutors download from.
+`Builds/` is ignored by git. Publish them as a GitHub release with
+`tools/publish_demo.sh` (see [Publishing](#publishing)).
 
 Each zip contains a single folder named like the zip, holding:
 
@@ -84,9 +86,41 @@ reproducible builds, and the zip stores file times.
   interface; untested on Linux, where the Input System's HID support is limited.
   The keyboard works everywhere.
 
+## Publishing
+
+```sh
+tools/publish_demo.sh --dry-run   # checks and prints the release notes, publishes nothing
+tools/publish_demo.sh             # asks for confirmation, then publishes
+tools/build_demo.sh && tools/publish_demo.sh --yes   # build and publish in one go
+```
+
+It takes the newest date's zips in `Builds/demo/` (or the date given as an
+argument) and creates the GitHub release `demo-<YYYY-MM-DD>`, titled
+"EchoQuest demo <date>", with one asset per OS. Before publishing it checks
+that:
+
+- all the zips come from the same commit (read from the `BUILD_INFO.txt` inside
+  each zip) and that commit is pushed, so the tag points at exactly the code
+  that was built;
+- the zips were not built with uncommitted changes. With `--allow-dirty` such
+  zips are published as a pre-release, so they never become "latest";
+- the release does not exist yet. `--replace` deletes the old release and its
+  tag first (for a rebuild on the same day).
+
+The release notes list the downloads, the first-launch warnings for each OS, and
+the commits since the previous `demo-*` release. A missing OS is published
+without it and named in the notes.
+
+The newest clean release is marked latest, so
+`https://github.com/toto04/echoquest/releases/latest` always shows the current
+demo.
+
+**Tutors need read access to the repository.** It is private, and assets of a
+private repository's releases only download for signed-in users with access. Add
+the tutors as collaborators with the Read role, or host the zips somewhere else.
+
 ## Possible next step
 
-Run the same script from CI (GameCI on a Linux runner can build Linux and
-Windows; macOS players need a macOS runner) and attach the zips to a GitHub
-release per review. This needs the Unity licence as a repository secret: see
-open decision 3 in [README.md](README.md).
+Run both scripts from CI (GameCI on a Linux runner can build Linux and Windows;
+macOS players need a macOS runner). This needs the Unity licence as a repository
+secret: see open decision 3 in [README.md](README.md).

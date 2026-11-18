@@ -47,6 +47,7 @@ python tools/hid_probe.py monitor           # live decoded input reports
 python tools/hid_probe.py haptic 0 200 500  # motor 0, intensity 200, 500 ms
 python tools/hid_probe.py descriptor        # descriptor as the host sees it vs. the doc
 tools/build_demo.sh                         # Unity Editor closed: tutor zips for linux/macos/windows in Builds/demo/ (docs/demo/desktop-builds.md)
+tools/publish_demo.sh --dry-run             # GitHub release demo-<date> from those zips (drop --dry-run to publish)
 ```
 
 ## Verify a change

@@ -15,6 +15,8 @@ namespace EchoQuest.Editor
         private const string Scene2Path = Root + "/Scenes/Scena2.unity";
         private const string Scene3Path = Root + "/Scenes/Scena3.unity";
         private const string Scene4Path = Root + "/Scenes/Scena4.unity";
+        private const string Scene5Path = Root + "/Scenes/Scena5.unity";
+        private const string EpiloguePath = Root + "/Scenes/Epilogo.unity";
         private const string MaterialsPath = Root + "/Materials";
         private const string AudioPath = Root + "/Audio";
         private const string SequencePath = Root + "/Script/capitolo_01_sequenza.csv";
@@ -24,7 +26,9 @@ namespace EchoQuest.Editor
         public static void Build()
         {
             // The chapter plays on: each scene loads the next one when it ends.
-            BuildSection("s04", Scene4Path, "EchoQuest · Scena 4");
+            BuildSection("e00", EpiloguePath, "EchoQuest · Epilogo");
+            BuildSection("s05", Scene5Path, "EchoQuest · Scena 5", "Epilogo");
+            BuildSection("s04", Scene4Path, "EchoQuest · Scena 4", "Scena5");
             BuildSection("s03", Scene3Path, "EchoQuest · Scena 3", "Scena4");
             BuildSection("s02", Scene2Path, "EchoQuest · Scena 2", "Scena3");
             BuildSection("s01", Scene1Path, "EchoQuest · Scena 1", "Scena2");

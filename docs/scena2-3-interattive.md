@@ -1,8 +1,9 @@
-# Scene 2, 3 e 4 interattive
+# Scene 2, 3, 4, 5 ed epilogo interattivi
 
-Versione del 17 novembre 2026. Le tre scene si giocano in Unity
-(`Story/Scenes/Scena2.unity`, `Scena3.unity` e `Scena4.unity`), con tutte le voci, i suoni e la musica.
-Le scene del capitolo si caricano una dopo l'altra: Intro → Scena 1 → Scena 2 → Scena 3 → Scena 4.
+Versione del 19 novembre 2026. Le scene si giocano in Unity
+(`Story/Scenes/Scena2.unity`, `Scena3.unity`, `Scena4.unity`, `Scena5.unity` ed `Epilogo.unity`), con tutte
+le voci, i suoni e la musica. Le scene del capitolo si caricano una dopo l'altra:
+Intro → Scena 1 → Scena 2 → Scena 3 → Scena 4 → Scena 5 → Epilogo.
 Il copione è in `Story/Script/capitolo_01_la_canzone_rubata_dal_vento.md`; le regole
 musicali sono quelle di [`docs/music/`](music/README.md).
 
@@ -24,6 +25,8 @@ mignolo Do. Sì e No sono i due pulsanti del pollice.
 | 3 | `s03_int_04` | sfida, turno 3: La... Fa-Re | anulare, medio, indice, con lo stesso ritmo |
 | 4 | `s04_int_01` | suono libero con pianoforte e campanella | qualsiasi tasto, in qualsiasi momento: nessuna nota sbagliata |
 | 4 | `s04_int_02` | «Secondo te Sbuffo vuole solo fare i dispetti?» | Sì o No, nessuna risposta sbagliata |
+| 5 | `s05_int_01` | tamburo (a sinistra) o campanella (a destra)? | indice = tamburo, medio = campanella; i pollici non scelgono; nessuna scelta sbagliata |
+| epilogo | `e00_int_01` | l'ultimo TA... TA-TA, come uno scambio della sfida | niente si conta: ogni pulsante suona, e anche il silenzio va bene |
 
 Le consegne sono dette dalle battute del Maestro subito prima dell'interazione, quindi la
 regia lascia vuota la colonna `consegna`: al primo tentativo si ascolta subito. Dopo due tentativi
@@ -66,6 +69,20 @@ Modalità `libero`: parte la canzone ritrovata con la campanella e un battito le
 ogni pulsante suona la sua nota di pianoforte nel registro scelto, e la storia prosegue quando la musica
 finisce. Tutte le note dei pulsanti stanno bene sugli accordi (Fa, Re minore 7), quindi non c'è niente da giudicare.
 
+### Scena 5 ed epilogo
+
+Nella Scena 5 il tamburo (timpano su Re2, «Bum... Bum...») suona a sinistra e la campanella (celesta,
+il suo motivo La-Do-La di 04-battle-cues.md) a destra, nella posizione in cui la lascia la Scena 4. Prima
+della scelta si risentono uno dopo l'altro, con una pausa: il tamburo è il suono dell'indice, la campanella
+del medio. La scelta non cambia il registro del pianoforte. Nel ramo A il tamburo si allontana, nel ramo B
+suonano tre tintinnii.
+
+Nell'epilogo l'interazione usa la modalità `libero` con un pezzo che è uno scambio completo
+(`x_e00_eco`): una battuta di battito, la chiamata due volte con il TOC, la battuta del bambino, poi il
+pianoforte la ripete comunque. Ogni pulsante suona la sua nota (tutte stanno bene su Re minore) e la storia
+prosegue quando il pezzo finisce, anche se il bambino non ha premuto niente. Poi la ripresa lenta della
+canzone (88 BPM: è una scena senza input, non una sfida), la risatina del Maestro e la canzone intera che sfuma.
+
 ## Musica e suoni
 
 - Le partiture sono in [`music/library/capitolo_01.yaml`](../music/library/capitolo_01.yaml), nel formato
@@ -75,7 +92,7 @@ finisce. Tutte le note dei pulsanti stanno bene sugli accordi (Fa, Re minore 7),
 - Differenze rispetto a 06, motivate nel file: la presa in giro dura una battuta (si suona nella battuta di risposta dello scambio non riuscito);
   con il registro grave basso e accordi sono rivoicati per lasciare libera la zona della chiamata.
 - I suoni si rigenerano con
-  `python3 tools/story_placeholder_sfx.py ~/.cache/echoquest-sfx/mono unity/EchoQuestTest/Assets/EchoQuest/Story/Audio/Sfx s02 s03`.
+  `python3 tools/story_placeholder_sfx.py ~/.cache/echoquest-sfx/mono unity/EchoQuestTest/Assets/EchoQuest/Story/Audio/Sfx s02 s03 s04 s05 e00`.
   Gli strumenti sono sintetizzati in Python (`tools/music/synth.py`), lo stesso pianoforte del prologo:
   sono segnaposto finché non si installa FluidSynth con una SoundFont (05).
 - La base è divisa in tre file (`x_s03_base_l0`, `_l1`, `_l3`) che suonano insieme sull'orologio audio;
@@ -89,7 +106,9 @@ finisce. Tutte le note dei pulsanti stanno bene sugli accordi (Fa, Re minore 7),
   interazioni e la scelta del registro; `RunScene3` gioca la sfida premendo a tempo (turno 1 giusto,
   turno 2 prima sbagliato e poi giusto, turno 3 con l'anulare) e controlla base, strati e fanfara.
   `RunScene4` prova la canzone nel registro scelto, il suono libero e la domanda su Sbuffo.
+  `RunScene5` prova la scelta tamburo/campanella (Sì non sceglie, il registro resta quello scelto).
+  `RunEpilogue` prova lo scambio finale con tre note e senza nessuna risposta, e le varianti di registro.
 - Restano verdi i controlli della Scena 1 (interazioni, percorsi, audio).
 
 Da fare: ascolto in cuffia (livelli, timbri provvisori, attese fra un turno e l'altro), prova con il
-controller fisico, voci e suoni della Scena 5 e dell'epilogo.
+controller fisico.

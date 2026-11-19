@@ -237,7 +237,7 @@ resta necessario per valutare raccordi e riverbero.
 ## Scene 2 e 3 (`s02`, `s03`, scene `Scena2.unity` e `Scena3.unity`)
 
 Il pianoforte e la prima sfida contro Sbuffo, giocabili con voci, suoni e musica. Le scene del capitolo
-si caricano una dopo l'altra (Intro → Scena 1 → Scena 2 → Scena 3 → Scena 4). Nella Scena 2 il bambino sceglie
+si caricano una dopo l'altra (Intro → Scena 1 → Scena 2 → Scena 3 → Scena 4 → Scena 5 → Epilogo). Nella Scena 2 il bambino sceglie
 il registro del pianoforte (indice = grave, medio = acuto): i suoni con i file `_grave`/`_acuto` seguono
 la scelta. La Scena 3 è una battaglia a tempo su una base che non si ferma, descritta in
 [scena2-3-interattive.md](../../../../../docs/scena2-3-interattive.md) insieme alle verifiche.
@@ -257,4 +257,6 @@ dice dove si ferma), `primo_ascolto` (`storia`: gli esempi li ha appena suonati 
 Nessuna interazione chiede di premere a tempo nel silenzio di una nota mancante: era troppo difficile.
 
 La Scena 4 (`Scena4.unity`) ha voci, suoni, regia e le sue due interazioni; i suoni si rigenerano con `s04`.
+Anche la Scena 5 (`Scena5.unity`: tamburo a sinistra o campanella a destra) e l'epilogo (`Epilogo.unity`)
+sono completi; i loro suoni si rigenerano con `s05` ed `e00`.
 

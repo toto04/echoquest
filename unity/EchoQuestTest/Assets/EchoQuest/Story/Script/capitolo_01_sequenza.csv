@@ -225,21 +225,22 @@ ordine,sezione,ramo,tipo,id,personaggio,testo,dentro_battuta,file_audio,riga_cop
 224,s05,,suono,s05_sfx_02,,"Un suono profondo di tamburo, ripetuto due volte, a sinistra dell'ascoltatore.",s05_maes_01,,904
 225,s05,,suono,s05_sfx_03,,"Un tintinnio chiaro e prolungato di campanella, a destra dell'ascoltatore.",s05_maes_01,,908
 226,s05,,voce,s05_maes_02,MAESTRO BATTUTA,"Hanno bisogno entrambi del nostro aiuto, ma non possiamo andare da tutti e due nello stesso momento. Quale vuoi conoscere per primo? Per il tamburo, premi il pulsante sotto l'indice. Per la campanella, premi il pulsante sotto il medio. Non c'è una scelta sbagliata: la nostra canzone avrà bisogno di entrambi.",,,912
-227,s05,,suono,s05_sfx_04,,"Il tamburo a sinistra e la campanella a destra, uno dopo l'altro, separati da una pausa.",,,916
-228,s05,,interazione,s05_int_01,,"MODALITÀ SCELTA: indice → tamburo (ramo A); medio → campanella (ramo B). Come nella scelta del registro della Scena 2. Nel silenzio il Maestro aspetta, senza richiami.",,,918
-229,s05,A,voce,s05_maes_03,MAESTRO BATTUTA,Il tamburo! Ottima idea! Quel suono profondo sembra davvero volerci raccontare qualcosa. [s05_sfx_05] Andiamo a scoprire che cosa è successo al suo ritmo!,,,922
-230,s05,A,suono,s05_sfx_05,,Due battiti profondi che si ripetono sempre più lontano.,s05_maes_03,,926
-231,s05,B,voce,s05_maes_04,MAESTRO BATTUTA,La campanella! Hai sentito come continua a risuonare dopo ogni colpo? Sono curioso di scoprire quale parte della canzone abbia perduto. [s05_sfx_06] Andiamo a sentire cosa vuole raccontarci!,,,932
-232,s05,B,suono,s05_sfx_06,,"Tre tintinnii, uno dopo l'altro.",s05_maes_04,,936
-233,s05,,convergenza,s05_int_02,,La scelta stabilisce l'ordine delle tappe successive. Entrambe sono valide e nessuna viene persa.,,,940
-234,e00,,suono,e00_sfx_01,,"La melodia recuperata del pianoforte torna, lenta e riconoscibile. Il Maestro la accompagna battendo leggermente il tempo.",,,946
-235,e00,,voce,e00_narr_01,NARRATORE,La vostra prima avventura è appena terminata. Avete conosciuto il Maestro Battuta e il pianoforte. E avete aiutato l'orchestra a ritrovare il primo pezzo della sua canzone. Ma il viaggio è appena cominciato. Sbuffo ha sparpagliato tanti altri suoni. E chissà perché desidera così tanto che tutti ascoltino soltanto lui.,,,948
-236,e00,,suono,e00_sfx_02,,"Il vento emette un piccolo fischio lontano, quasi musicale.",,,952
-237,e00,,voce,e00_maes_01,MAESTRO BATTUTA,"Ehi! Prima di andare, suoniamo ancora una volta la prima frase della sfida: TA... TA-TA. Io la suono, e tu la ripeti con l'indice!",,,954
-238,e00,,interazione,e00_int_01,,"Ripeti la frase TA... TA-TA con l'indice (Re... Re-Re nel registro scelto), come nel turno 1 della sfida. Qui non si conta niente: se non arriva una risposta, il pianoforte la ripete da solo e la storia prosegue.",,,958
-239,e00,,voce,e00_maes_02,MAESTRO BATTUTA,"Oggi hai fatto qualcosa di importante. Non hai semplicemente premuto un pulsante. Hai ascoltato. Hai scelto. Hai provato. E hai aiutato uno strumento a ritrovare il suo posto nella musica. Ricordati: in un'orchestra non dobbiamo essere tutti uguali. Ognuno ha un suono diverso, ed è proprio questo che rende la musica interessante. E se durante il viaggio senti... [e00_sfx_03] ...allora sono io! Il Maestro Battuta! Sempre pronto ad aiutarti. E, possibilmente, a non perdere più la bacchetta.",,,960
-240,e00,,suono,e00_sfx_03,,"TAC, TAC... TOC!",e00_maes_02,,964
-241,e00,,suono,e00_sfx_04,,La bacchetta cade nuovamente.,,,968
-242,e00,,voce,e00_maes_03,MAESTRO BATTUTA,... Non dire niente. Ti prego.,,,970
-243,e00,,suono,e00_sfx_05,,"Piccola risata, poi il pianoforte suona il tema principale. La musica sfuma gradualmente.",,,974
-244,e00,,voce,e00_narr_02,NARRATORE,La prima nota è tornata. Ma la canzone ha ancora bisogno di te. Il viaggio di EchoQuest continua...,,,976
+227,s05,,suono,s05_sfx_04,,"Il tamburo, a sinistra: è il suono dell'indice.",,,916
+228,s05,,suono,s05_sfx_05,,"Dopo una pausa, la campanella, a destra: è il suono del medio.",,,918
+229,s05,,interazione,s05_int_01,,"MODALITÀ SCELTA: indice → tamburo (ramo A); medio → campanella (ramo B). Come nella scelta del registro della Scena 2: i pollici non scelgono. Nel silenzio il Maestro aspetta, senza richiami.",,,920
+230,s05,A,voce,s05_maes_03,MAESTRO BATTUTA,Il tamburo! Ottima idea! Quel suono profondo sembra davvero volerci raccontare qualcosa. [s05_sfx_06] Andiamo a scoprire che cosa è successo al suo ritmo!,,,924
+231,s05,A,suono,s05_sfx_06,,Due battiti profondi che si ripetono sempre più lontano.,s05_maes_03,,928
+232,s05,B,voce,s05_maes_04,MAESTRO BATTUTA,La campanella! Hai sentito come continua a risuonare dopo ogni colpo? Sono curioso di scoprire quale parte della canzone abbia perduto. [s05_sfx_07] Andiamo a sentire cosa vuole raccontarci!,,,934
+233,s05,B,suono,s05_sfx_07,,"Tre tintinnii, uno dopo l'altro.",s05_maes_04,,938
+234,s05,,convergenza,s05_int_02,,La scelta stabilisce l'ordine delle tappe successive. Entrambe sono valide e nessuna viene persa.,,,942
+235,e00,,suono,e00_sfx_01,,"La melodia recuperata del pianoforte torna, lenta e riconoscibile. Il Maestro la accompagna battendo leggermente il tempo.",,,948
+236,e00,,voce,e00_narr_01,NARRATORE,La vostra prima avventura è appena terminata. Avete conosciuto il Maestro Battuta e il pianoforte. E avete aiutato l'orchestra a ritrovare il primo pezzo della sua canzone. Ma il viaggio è appena cominciato. Sbuffo ha sparpagliato tanti altri suoni. E chissà perché desidera così tanto che tutti ascoltino soltanto lui.,,,950
+237,e00,,suono,e00_sfx_02,,"Il vento emette un piccolo fischio lontano, quasi musicale.",,,954
+238,e00,,voce,e00_maes_01,MAESTRO BATTUTA,"Ehi! Prima di andare, suoniamo ancora una volta la prima frase della sfida: TA... TA-TA. Io la suono, e tu la ripeti con l'indice!",,,956
+239,e00,,interazione,e00_int_01,,"Uno scambio come nel turno 1 della sfida, sopra un battito leggero: il pianoforte suona due volte TA... TA-TA (Re... Re-Re nel registro scelto), il TOC dice «tocca a te», il bambino la ripete con l'indice, poi il pianoforte la ripete ancora. Qui non si conta niente: ogni pulsante suona la sua nota, e se non arriva una risposta il pianoforte la ripete da solo e la storia prosegue.",,,960
+240,e00,,voce,e00_maes_02,MAESTRO BATTUTA,"Oggi hai fatto qualcosa di importante. Non hai semplicemente premuto un pulsante. Hai ascoltato. Hai scelto. Hai provato. E hai aiutato uno strumento a ritrovare il suo posto nella musica. Ricordati: in un'orchestra non dobbiamo essere tutti uguali. Ognuno ha un suono diverso, ed è proprio questo che rende la musica interessante. E se durante il viaggio senti... [e00_sfx_03] ...allora sono io! Il Maestro Battuta! Sempre pronto ad aiutarti. E, possibilmente, a non perdere più la bacchetta.",,,962
+241,e00,,suono,e00_sfx_03,,"TAC, TAC... TOC!",e00_maes_02,,966
+242,e00,,suono,e00_sfx_04,,La bacchetta cade nuovamente.,,,970
+243,e00,,voce,e00_maes_03,MAESTRO BATTUTA,... Non dire niente. Ti prego.,,,972
+244,e00,,suono,e00_sfx_05,,"Piccola risata del Maestro, poi il pianoforte suona il tema principale. La musica sfuma gradualmente.",,,976
+245,e00,,voce,e00_narr_02,NARRATORE,La prima nota è tornata. Ma la canzone ha ancora bisogno di te. Il viaggio di EchoQuest continua...,,,978

@@ -370,3 +370,8 @@ EPILOGO — LA MUSICA È APPENA COMINCIATA
 -----
 [calm] La prima nota è tornata. Ma la canzone ha ancora bisogno di te. Il viaggio di EchoQuest continua...
 -----
+
+70. eq_e00_extra_01_risata.mp3 — Maestro Battuta — la piccola risata prima del tema finale (va in Audio/Interazioni)
+-----
+[chuckles softly] Eh eh eh...
+-----

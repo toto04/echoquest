@@ -25,7 +25,7 @@ same way and prefixed with k_: footstep_wood_000-004, creak1-3, confirmation_001
 cloth1-4, impactWood_light_000-004, impactSoft_medium_000-004.
 
 Usage: python3 tools/story_placeholder_sfx.py <mono_dir> <out_dir> [what ...]
-`what` can be a section (p00, s01, s02, s03), a cue id (s01_sfx_05) or a prologue cue number (16).
+`what` can be a section (p00, s01 ... s05, e00), a cue id (s01_sfx_05) or a prologue cue number (16).
 Without it, everything is written.
 
 Scenes 2 and 3 are music first: their piano phrases, Sbuffo's motif and the whole first battle are
@@ -182,8 +182,8 @@ def normalize(x, peak_db=-3.0):
 def selected(name):
     if not ONLY and not ONLY_SECTIONS:
         return True
-    # interaction clips (x_s02_..., x_piano_...) belong to their section
-    section = name[2:5] if name.startswith("x_s") else "s02" if name.startswith("x_piano") else name[:3]
+    # interaction clips (x_s02_..., x_e00_..., x_piano_...) belong to their section
+    section = name[2:5] if re.match(r"x_[a-z]\d\d_", name) else "s02" if name.startswith("x_piano") else name[:3]
     return name in ONLY or section in ONLY_SECTIONS
 
 
@@ -976,3 +976,66 @@ if selected(cue4(7)):  # the wind goes away, leaving a whistle that slowly fades
     save(cue4(7), x + silence(0.4), -7)
 if selected(cue4(8)):
     save(cue4(8), tac_tac_toc(), -3)  # TAC, TAC... TOC!
+
+
+# ---- Scene 5: two sounds, two roads (the tamburo on the left, the campanella on the right)
+def cue5(n):
+    return f"s05_sfx_{n:02d}"
+
+
+for register in CHOSEN:
+    if selected(f"{cue5(1)}_{register}"):  # the piano goes on playing softly, then fades: the Maestro stops to listen
+        x = music.render(SPECS["reprise_piano"], register, tail=1.5, only_layers={"L1", "L2"})[: int(2 * BAR * SR)]
+        save(f"{cue5(1)}_{register}", fade(x + silence(1.0), 0, 2.4), -10)
+if selected(cue5(2)) or selected(cue5(4)):  # Bum... Bum...: two deep strokes (s05_sfx_04 repeats it as the index's sound)
+    drum = music.render(SPECS["s5_tamburo"], tail=1.8)
+    save(cue5(2), drum, -4)
+    save(cue5(4), drum, -4)
+if selected(cue5(3)) or selected(cue5(5)):  # a clear bell that keeps ringing (s05_sfx_05 repeats it as the middle's sound)
+    bell = music.render(SPECS["s4_campanella"], tail=2.5)
+    save(cue5(3), bell, -6)
+    save(cue5(5), bell, -6)
+if selected(cue5(6)):  # branch A: the drum calls from further and further away (the regia also moves it)
+    x = music.render(SPECS["s5_tamburo_lontano"], tail=1.5)
+    far = biquad(x, "lp", 500)
+    n = len(x)
+    x = [(a * (1 - i / n) + b * (i / n)) * (1.0 - 0.8 * i / n) for i, (a, b) in enumerate(zip(x, far))]
+    save(cue5(6), x, -4)
+if selected(cue5(7)):  # branch B: three tinkles, the campanella's A-C-A
+    save(cue5(7), music.render(SPECS["s5_tintinnii"], tail=2.0), -6)
+
+
+# ---- Epilogue
+def cue_e(n):
+    return f"e00_sfx_{n:02d}"
+
+
+kit = baton_kit() if any(selected(f"{n}_{r}") for n in (cue_e(1), "x_e00_eco") for r in CHOSEN) else None
+for register in CHOSEN:
+    if selected(f"{cue_e(1)}_{register}"):  # the recovered melody, slow, the Maestro tapping the beat on his baton
+        x = music.render(SPECS["e0_ripresa_lenta"], register, kit=kit, tail=2.5)
+        save(f"{cue_e(1)}_{register}", fade(x, 0, 2.0), -5)
+    if selected(f"x_e00_eco_{register}"):
+        # one exchange, nothing counted: groove, call, call + TOC, the child's bar, the piano again.
+        # Kept below the button notes (the child's presses must be the clearest thing in bar 4).
+        x = music.render(SPECS["e0_eco"], register, kit=kit, tail=1.5)
+        save_fixed(f"x_e00_eco_{register}", fade(x, 0, 1.0), 0.5 / max(abs(v) for v in x))
+    if selected(f"{cue_e(5)}_{register}"):  # the Maestro's little laugh, then the whole song on the piano, fading out
+        laugh = voice_48k("eq_e00_extra_01_risata")
+        x = laugh + silence(0.4)
+        song = music.render(SPECS["e0_tema_finale"], register, tail=2.0)
+        start, n = int(4 * BAR * SR), len(song)
+        song = [v * (1.0 if i < start else max(0.0, 1 - (i - start) / (n - start)) ** 1.5) for i, v in enumerate(song)]
+        mix(x, song, len(x) / SR)
+        save(f"{cue_e(5)}_{register}", x, -4)
+if selected(cue_e(2)):  # a small far whistle of the wind, almost musical: Sbuffo's C6 A5, very soft
+    x = fade(biquad(load("whoosh", 0.0, 2.6), "hp", 400), 0.4, 1.2)
+    x = [v * 0.5 for v in x]
+    mix(x, music.synth.slide_whistle(1100, NOTE["C6"], 0.5, 0.18), 0.6)
+    mix(x, biquad(music.synth.pan_flute(NOTE["C6"], 0.35, 0.3), "lp", 4000), 1.1)
+    mix(x, biquad(music.synth.pan_flute(NOTE["A5"], 0.9, 0.3), "lp", 4000), 1.45)
+    save(cue_e(2), fade(x, 0, 0.8), -9)
+if selected(cue_e(3)):
+    save(cue_e(3), tac_tac_toc(), -3)  # TAC, TAC... TOC!
+if selected(cue_e(4)):  # the baton falls again
+    save(cue_e(4), stick_drop(1), -6)

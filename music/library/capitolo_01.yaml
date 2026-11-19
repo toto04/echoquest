@@ -393,3 +393,157 @@
       instrument: piano
       layer: L3
       bars: ["F4 A4 C5 F5 - - - .", "C2 . . . . . . ."]
+
+# ------------------------------------------------------------------ Scene 5: two sounds, two roads
+
+- id: s5_tamburo
+  role: theme
+  input: locked
+  tempo: 100
+  steps_per_bar: 8
+  intent: "the tamburo introduces itself: two deep strokes, Bum... Bum..., on the index button's pitch two octaves down (04 character sheet: timpani on the button pitches)"
+  tracks:
+    drum:
+      instrument: timpani
+      layer: L3
+      bars: ["D2 - - - D2 - - -"]
+
+- id: s5_tamburo_lontano
+  role: theme
+  input: locked
+  tempo: 100
+  steps_per_bar: 8
+  intent: "branch A: the tamburo calls from further and further away, two quick strokes per bar (the gain falls in the render, the source moves away in the regia)"
+  tracks:
+    drum:
+      instrument: timpani
+      layer: L3
+      bars: ["D2 . D2 - . . . .", "=1", "=1", "=1"]
+
+- id: s5_tintinnii
+  role: theme
+  input: locked
+  tempo: 100
+  steps_per_bar: 8
+  intent: "branch B: three separate tinkles of the campanella, its A-C-A motif (04) played short, an octave above the buttons"
+  tracks:
+    bell:
+      instrument: celesta
+      layer: L4
+      bars: ["A5 . . C6 . . A5 -"]
+
+# ------------------------------------------------------------------ Epilogue
+
+# Slower than the battle pulse on purpose: a calm cutscene, no input, nothing to follow (the
+# 100-130 BPM rule is for battle music).
+- id: e0_ripresa_lenta
+  role: loop
+  loop: false
+  input: locked
+  centre: F
+  tempo: 88
+  steps_per_bar: 8
+  chords: [F, Dm7, F]
+  intent: "the recovered melody comes back, slow and recognisable: song bars 1-2 complete and the final cadence, with the Maestro tapping the beat lightly on his baton"
+  tracks:
+    piano:
+      instrument: piano
+      layer: L2
+      buttons: true
+      bars: ["C - A - F - - .", "D - . . F D - .", "A - C - F - - -"]
+    pad:
+      instrument: strings
+      layer: L1
+      register: [normale, acuto]
+      bars: ["F2+C3+A3 - - - - - - -", "C3+F3+A3 - - - - - - -", "F2+C3+A3 - - - - - - -"]
+    pad_grave:
+      instrument: strings
+      layer: L1
+      register: grave
+      bars: ["F2+A2 - - - - - - -", "D2+A2 - - - - - - -", "F2+A2 - - - - - - -"]
+    baton:
+      layer: L0
+      gain: 0.35
+      lanes:
+        claves: ["x . x . x . x .", "=1", "x . x . x . . ."]
+
+- id: e0_eco
+  role: loop
+  loop: false
+  centre: D
+  tempo: 100
+  meter: 4/4
+  steps_per_bar: 8
+  call_bars: [2, 3]
+  chords: [Dm, Dm, Dm, Dm, Dm]
+  intent: "the last exchange of the chapter, nothing counted: one bar of groove, round 1's call twice with the TOC on beat 4, the echo bar for the child (input open, any button sounds), then the piano repeats it whatever happened"
+  tracks:
+    call:
+      instrument: piano
+      layer: L2
+      buttons: true
+      bars: [". . . . . . . .", "D - . . D D - .", "=2", ". . . . . . . .", "=2"]
+    bass:
+      instrument: pizzicato_strings
+      layer: L0
+      bars: ["D2 - A2 - D2 - A2 -", "=1", "=1", "=1", "D2 - A2 - D2 - - -"]
+    pad:
+      instrument: strings
+      layer: L1
+      register: [normale, acuto]
+      bars: ["D3+F3+A3 - - - - - - -", ". . . . . . . .", "=2", "D3+F3+A3 - - - - - - -", "=4"]
+    pad_grave:
+      instrument: strings
+      layer: L1
+      register: grave
+      muted_in_call_bars: true
+      bars: ["F4+A4+D5 - - - - - - -", ". . . . . . . .", "=2", "F4+A4+D5 - - - - - - -", "=4"]
+    baton:
+      layer: L0
+      lanes:
+        block_lo: [". . . . . . . .", "=1", ". . . . . . x -", "=1", "=1"]
+    drums:
+      layer: L0
+      steps_per_bar: 16
+      gain: 0.6
+      lanes:
+        kick:     ["x . . . . . . . x . . . . . . .", "=1", "=1", "=1", "x . . . . . . . . . . . . . . ."]
+        block_hi: [". . . . x . . . . . . . x . . .", "=1", "=1", "=1", ". . . . . . . . . . . . . . . ."]
+
+- id: e0_tema_finale
+  role: loop
+  loop: false
+  input: locked
+  centre: F
+  tempo: 100
+  steps_per_bar: 8
+  chords: [F, Dm7, Bb, Csus4, F, Dm7, Gm7, F]
+  intent: "the end credits: the whole song on the piano for the first time, complete, over a soft string pad and bass; the render fades it out from bar 5"
+  tracks:
+    piano:
+      instrument: piano
+      layer: L2
+      buttons: true
+      bars:
+        - "C - A - F - - ."
+        - "D - . . F D - ."
+        - "A A C - A A F -"
+        - "C - - - A - - ."
+        - "=1"
+        - "=2"
+        - "C A C A C - A -"
+        - "A - C - F - - -"
+    bass:
+      instrument: acoustic_bass
+      layer: L0
+      bars: ["F2 - - - C2 - - -", "D2 - - - A1 - - -", "Bb1 - - - F2 - - -", "C2 - - - G1 - - -", "=1", "=2", "G1 - - - D2 - - -", "F2 - - - - - - -"]
+    pad:
+      instrument: strings
+      layer: L1
+      register: [normale, acuto]
+      bars: ["F2+C3+A3 - - - - - - -", "C3+F3+A3 - - - - - - -", "Bb2+D3+F3 - - - - - - -", "C3+F3+G3 - - - - - - -", "=1", "=2", "G2+Bb2+D3+F3 - - - - - - -", "F2+C3+A3 - - - - - - -"]
+    pad_grave:
+      instrument: strings
+      layer: L1
+      register: grave
+      bars: ["F2+A2 - - - - - - -", "D2+A2 - - - - - - -", "Bb1+F2 - - - - - - -", "C2+G2 - - - - - - -", "=1", "=2", "G1+D2 - - - - - - -", "F2+A2 - - - - - - -"]

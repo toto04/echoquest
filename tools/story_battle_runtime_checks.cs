@@ -1,6 +1,6 @@
-// Play-mode checks of Scenes 2 and 3 with the real scene data (regia, clips, timing).
+// Play-mode checks of Scenes 2-5 and the epilogue with the real scene data (regia, clips, timing).
 // Open any story scene, set run-in-background, enter Play mode, then evaluate this file followed by
-//   return await StoryBattleRuntimeChecks.RunScene2();   or   return await StoryBattleRuntimeChecks.RunScene3();
+//   return await StoryBattleRuntimeChecks.RunScene2();   (or RunScene3, RunScene4, RunScene5, RunEpilogue)
 // (unity command script.eval --file <combined file>). Presses go through the on-screen buttons
 // (StoryPlayer.PressLogical), timed on the audio clock like a child playing on the beat.
 using System;
@@ -178,5 +178,62 @@ public static class StoryBattleRuntimeChecks
         p.PressLogical(StoryInteractionRules.No);
         await Until(() => p.Current != null && p.Current.Id == "s04_maes_09", "No leads to branch B", 8);
         return $"Scene 4: {checks} checks passed";
+    }
+
+    public static async Task<string> RunScene5()
+    {
+        checks = 0;
+        StoryPlayer.ChosenRegister = "grave";
+        var p = await Load("Scena5", "s05");
+        p.Log.Clear();
+
+        p.JumpTo("s05_sfx_01");   // the piano goes on softly, in the register chosen in Scene 2
+        await Until(() => p.CurrentClip == "s05_sfx_01_grave", "the low variant of the piano", 5);
+
+        p.JumpTo("s05_int_01");   // index = drum (A), middle = bell (B); the thumbs do not choose
+        await Until(() => p.WaitingInteractionInput, "drum or bell", 5);
+        p.PressLogical(StoryInteractionRules.Yes);
+        await Task.Delay(300);
+        Check(p.Current != null && p.Current.Id == "s05_int_01" && p.WaitingInteractionInput, "Yes does not choose an instrument");
+        p.PressLogical(1);
+        await Until(() => p.Current != null && p.Current.Id == "s05_maes_03", "the index leads to the drum (branch A)", 8);
+        Check(p.BranchChoice == "A", "index = branch A");
+        Check(StoryPlayer.ChosenRegister == "grave", "this choice does not change the piano register");
+
+        p.JumpTo("s05_int_01");
+        await Until(() => p.WaitingInteractionInput, "drum or bell again", 5);
+        p.PressLogical(2);
+        await Until(() => p.Current != null && p.Current.Id == "s05_maes_04", "the middle finger leads to the bell (branch B)", 8);
+        Check(p.BranchChoice == "B", "middle = branch B");
+        return $"Scene 5: {checks} checks passed";
+    }
+
+    public static async Task<string> RunEpilogue()
+    {
+        checks = 0;
+        StoryPlayer.ChosenRegister = "acuto";
+        var p = await Load("Epilogo", "e00");
+        p.Log.Clear();
+
+        p.JumpTo("e00_sfx_01");   // the recovered melody, slow, in the chosen register
+        await Until(() => p.CurrentClip == "e00_sfx_01_acuto", "the high variant of the slow melody", 5);
+
+        // TA... TA-TA once more: nothing is counted, every press is a note, the piano answers anyway.
+        p.JumpTo("e00_int_01");
+        await Until(() => p.WaitingInteractionInput, "the last exchange listens", 5);
+        Check(p.CurrentClip == "x_e00_eco_acuto", "the exchange is in the chosen register");
+        foreach (int b in new[] { 1, 1, 1 }) { p.PressLogical(b); await Task.Delay(300); }
+        Check(p.LastAttempt == "3 notes played", "every press is a note");
+        await Until(() => Logged(p, "e00_int_01 passed (3 notes)"), "the story goes on when the exchange ends", 20);
+
+        // No answer at all: the piano plays the phrase by itself and the story still goes on.
+        p.JumpTo("e00_int_01");
+        await Until(() => p.WaitingInteractionInput, "the last exchange listens again", 5);
+        await Until(() => Logged(p, "e00_int_01 passed (0 notes)"), "silence is fine", 20);
+        await Until(() => p.Current != null && p.Current.Id == "e00_maes_02", "the Maestro's goodbye follows", 8);
+
+        p.JumpTo("e00_sfx_05");   // the laugh, then the whole song fading out
+        await Until(() => p.CurrentClip == "e00_sfx_05_acuto", "the high variant of the final song", 5);
+        return $"Epilogue: {checks} checks passed";
     }
 }

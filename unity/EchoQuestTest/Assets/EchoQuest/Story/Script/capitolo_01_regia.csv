@@ -161,3 +161,20 @@ s04_sfx_06,-3,1.5,4,3,1.5,4,,0.9,,,,,,,,Soffio lungo e piccolo sbuffo buffo
 s04_sfx_07,1,1.5,3,12,1.5,20,3,0.9,,,,,,,,Sbuffo se ne va fischiando
 s04_sfx_08,2,0,3,,,,,1,,,,,,,,"TAC, TAC... TOC!"
 s04_int_02,,,,,,,,,,,,,,,5=A;6=B,"Secondo te Sbuffo vuole solo fare i dispetti? Sì = ramo A, No = ramo B; nessuna risposta sbagliata",scelta
+"# --- Scena 5: due suoni, due strade. Il tamburo a sinistra (-4;0;5) = indice, la campanella a destra (4;1;5) = medio ---"
+s05_sfx_01,3,0,5,,,,,0.8,,,,,,,,Il pianoforte continua piano e sfuma (varianti _grave/_acuto)
+s05_sfx_02,-4,0,5,,,,,1,,,,,,,,Il tamburo: Bum... Bum... (timpano Re2)
+s05_sfx_03,4,1,5,,,,,0.9,,,,,,,,La campanella: La Do La che risuona
+s05_sfx_04,-4,0,5,,,,,1,,,,,,0.8,,Il tamburo di nuovo: il suono dell'indice
+s05_sfx_05,4,1,5,,,,,0.9,,,,,,,,La campanella di nuovo: il suono del medio
+s05_int_01,,,,,,,,,,,,,,,1=A;2=B,"Indice = tamburo (ramo A), medio = campanella (ramo B); nessuna scelta sbagliata, nessun richiamo",scelta
+s05_sfx_06,-4,0,5,-12,0,20,6,1,,,,,,,,Ramo A: il tamburo chiama da sempre più lontano
+s05_sfx_07,4,1,5,,,,,0.9,,,,,,,,Ramo B: tre tintinnii
+# --- Epilogo ---
+e00_sfx_01,3,0,5,,,,,0.9,,,,,,,,"La canzone ritrovata, lenta, con la bacchetta che batte il tempo (varianti _grave/_acuto)"
+e00_sfx_02,-8,2,10,,,,,0.7,,,,,,,,"Un piccolo fischio lontano di Sbuffo, quasi musicale"
+e00_int_01,,,,,,,,,,,,,,,,"Uno scambio come nel turno 1 (TA... TA-TA): niente si conta, ogni pulsante suona; la storia prosegue quando finisce la musica",libero,,,,x_e00_eco,,x_piano_re;x_piano_fa;x_piano_la;x_piano_do
+x_e00_eco,,,,,,,,0.9,,,,,,,,"Battito, chiamata, chiamata + TOC, battuta del bambino, il pianoforte la ripete (varianti _grave/_acuto)"
+e00_sfx_03,2,0,3,,,,,1,,,,,,,,"TAC, TAC... TOC!"
+e00_sfx_04,2,-0.5,2.5,,,,,1,,,,,,,,"La bacchetta cade di nuovo, vicino al Maestro"
+e00_sfx_05,3,0,5,,,,,0.9,,,,,,,,"La risatina del Maestro, poi la canzone intera che sfuma (varianti _grave/_acuto)"

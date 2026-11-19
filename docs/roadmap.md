@@ -111,7 +111,10 @@ sounds and music; the chapter's scenes load one after another.
 - [x] No more timed presses in a silence (too hard): Scene 1 compares memory and today's piano,
   Scene 3's round 3 is the documented echo La... Fa-Re, the epilogue repeats TA... TA-TA (2026-11-18).
 - [x] Intro and Scene 1 voices: pauses no longer split words; two lines re-recorded (2026-11-18).
-- [ ] Voices and sounds for Scene 5 and the epilogue (`docs/registrazioni-scene2-5.txt`, from item 56).
+- [x] Scene 5 and the epilogue playable (2026-11-19): voices (items 56-70), the tamburo on the
+  left and the campanella on the right (index / middle choice, the register is kept), the
+  epilogue's last TA... TA-TA exchange as free play (nothing counted, silence is fine), the
+  Maestro's laugh and the whole song fading out. The chapter now plays from the Intro to the epilogue.
 
 See [scena2-3-interattive.md](scena2-3-interattive.md).
 

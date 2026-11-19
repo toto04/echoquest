@@ -913,9 +913,11 @@ Aspetta... Sento due cose diverse. Ascolta anche tu. Da una parte...
 
 Hanno bisogno entrambi del nostro aiuto, ma non possiamo andare da tutti e due nello stesso momento. Quale vuoi conoscere per primo? Per il tamburo, premi il pulsante sotto l'indice. Per la campanella, premi il pulsante sotto il medio. Non c'è una scelta sbagliata: la nostra canzone avrà bisogno di entrambi.
 
-*[AUDIO: Il tamburo a sinistra e la campanella a destra, uno dopo l'altro, separati da una pausa.]*
+*[AUDIO: Il tamburo, a sinistra: è il suono dell'indice.]*
 
-*[INTERAZIONE — MODALITÀ SCELTA: indice → tamburo (ramo A); medio → campanella (ramo B). Come nella scelta del registro della Scena 2. Nel silenzio il Maestro aspetta, senza richiami.]*
+*[AUDIO: Dopo una pausa, la campanella, a destra: è il suono del medio.]*
+
+*[INTERAZIONE — MODALITÀ SCELTA: indice → tamburo (ramo A); medio → campanella (ramo B). Come nella scelta del registro della Scena 2: i pollici non scelgono. Nel silenzio il Maestro aspetta, senza richiami.]*
 
 ### Ramo A — Il bambino sceglie il tamburo
 
@@ -955,7 +957,7 @@ La vostra prima avventura è appena terminata. Avete conosciuto il Maestro Battu
 
 Ehi! Prima di andare, suoniamo ancora una volta la prima frase della sfida: TA... TA-TA. Io la suono, e tu la ripeti con l'indice!
 
-*[INTERAZIONE: Ripeti la frase TA... TA-TA con l'indice (Re... Re-Re nel registro scelto), come nel turno 1 della sfida. Qui non si conta niente: se non arriva una risposta, il pianoforte la ripete da solo e la storia prosegue.]*
+*[INTERAZIONE: Uno scambio come nel turno 1 della sfida, sopra un battito leggero: il pianoforte suona due volte TA... TA-TA (Re... Re-Re nel registro scelto), il TOC dice «tocca a te», il bambino la ripete con l'indice, poi il pianoforte la ripete ancora. Qui non si conta niente: ogni pulsante suona la sua nota, e se non arriva una risposta il pianoforte la ripete da solo e la storia prosegue.]*
 
 **MAESTRO BATTUTA:**
 
@@ -971,7 +973,7 @@ Oggi hai fatto qualcosa di importante. Non hai semplicemente premuto un pulsante
 
 ... Non dire niente. Ti prego.
 
-*[AUDIO: Piccola risata, poi il pianoforte suona il tema principale. La musica sfuma gradualmente.]*
+*[AUDIO: Piccola risata del Maestro, poi il pianoforte suona il tema principale. La musica sfuma gradualmente.]*
 
 **NARRATORE:**
 

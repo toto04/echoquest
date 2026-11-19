@@ -95,11 +95,12 @@ s04_sfx_08,s04,,"TAC, TAC... TOC!",,s04_sfx_08.wav,presente,888
 s05_sfx_01,s05,,Il pianoforte continua a suonare delicatamente. Il Maestro si ferma e ascolta.,,,da trovare,898
 s05_sfx_02,s05,,"Un suono profondo di tamburo, ripetuto due volte, a sinistra dell'ascoltatore.",s05_maes_01,,da trovare,904
 s05_sfx_03,s05,,"Un tintinnio chiaro e prolungato di campanella, a destra dell'ascoltatore.",s05_maes_01,,da trovare,908
-s05_sfx_04,s05,,"Il tamburo a sinistra e la campanella a destra, uno dopo l'altro, separati da una pausa.",,,da trovare,916
-s05_sfx_05,s05,A,Due battiti profondi che si ripetono sempre più lontano.,s05_maes_03,,da trovare,926
-s05_sfx_06,s05,B,"Tre tintinnii, uno dopo l'altro.",s05_maes_04,,da trovare,936
-e00_sfx_01,e00,,"La melodia recuperata del pianoforte torna, lenta e riconoscibile. Il Maestro la accompagna battendo leggermente il tempo.",,,da trovare,946
-e00_sfx_02,e00,,"Il vento emette un piccolo fischio lontano, quasi musicale.",,,da trovare,952
-e00_sfx_03,e00,,"TAC, TAC... TOC!",e00_maes_02,,da trovare,964
-e00_sfx_04,e00,,La bacchetta cade nuovamente.,,,da trovare,968
-e00_sfx_05,e00,,"Piccola risata, poi il pianoforte suona il tema principale. La musica sfuma gradualmente.",,,da trovare,974
+s05_sfx_04,s05,,"Il tamburo, a sinistra: è il suono dell'indice.",,,da trovare,916
+s05_sfx_05,s05,,"Dopo una pausa, la campanella, a destra: è il suono del medio.",,,da trovare,918
+s05_sfx_06,s05,A,Due battiti profondi che si ripetono sempre più lontano.,s05_maes_03,,da trovare,928
+s05_sfx_07,s05,B,"Tre tintinnii, uno dopo l'altro.",s05_maes_04,,da trovare,938
+e00_sfx_01,e00,,"La melodia recuperata del pianoforte torna, lenta e riconoscibile. Il Maestro la accompagna battendo leggermente il tempo.",,,da trovare,948
+e00_sfx_02,e00,,"Il vento emette un piccolo fischio lontano, quasi musicale.",,,da trovare,954
+e00_sfx_03,e00,,"TAC, TAC... TOC!",e00_maes_02,,da trovare,966
+e00_sfx_04,e00,,La bacchetta cade nuovamente.,,,da trovare,970
+e00_sfx_05,e00,,"Piccola risata del Maestro, poi il pianoforte suona il tema principale. La musica sfuma gradualmente.",,,da trovare,976

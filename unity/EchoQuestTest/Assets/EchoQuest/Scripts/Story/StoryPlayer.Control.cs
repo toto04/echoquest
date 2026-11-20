@@ -51,6 +51,15 @@ namespace EchoQuest.Story
             return list;
         }
 
+        /// <summary>A section's name for people: p00 = Intro, s03 = Scena 3, e00 = Epilogo.</summary>
+        public static string SectionName(string section) => section switch
+        {
+            "p00" => "Intro",
+            "e00" => "Epilogo",
+            _ when section.Length == 3 && section[0] == 's' && int.TryParse(section.Substring(1), out int n) => "Scena " + n,
+            _ => section,
+        };
+
         public void LogEvent(string message)
         {
             if (Log.Count >= LogCapacity) Log.RemoveAt(0);

@@ -25,17 +25,18 @@ namespace EchoQuest.Editor
         [MenuItem("EchoQuest/Rebuild Story Scenes")]
         public static void Build()
         {
-            // The chapter plays on: each scene loads the next one when it ends.
+            // Every scene holds the whole chapter and plays on into the next section without a scene
+            // load (StoryPlayer.continueToNextSection); a scene only sets where playback starts.
             BuildSection("e00", EpiloguePath, "EchoQuest · Epilogo");
-            BuildSection("s05", Scene5Path, "EchoQuest · Scena 5", "Epilogo");
-            BuildSection("s04", Scene4Path, "EchoQuest · Scena 4", "Scena5");
-            BuildSection("s03", Scene3Path, "EchoQuest · Scena 3", "Scena4");
-            BuildSection("s02", Scene2Path, "EchoQuest · Scena 2", "Scena3");
-            BuildSection("s01", Scene1Path, "EchoQuest · Scena 1", "Scena2");
-            BuildSection("p00", ScenePath, "EchoQuest · Intro", "Scena1");   // last, so it stays open
+            BuildSection("s05", Scene5Path, "EchoQuest · Scena 5");
+            BuildSection("s04", Scene4Path, "EchoQuest · Scena 4");
+            BuildSection("s03", Scene3Path, "EchoQuest · Scena 3");
+            BuildSection("s02", Scene2Path, "EchoQuest · Scena 2");
+            BuildSection("s01", Scene1Path, "EchoQuest · Scena 1");
+            BuildSection("p00", ScenePath, "EchoQuest · Capitolo 1 (dall'Intro)");   // last, so it stays open
         }
 
-        public static void BuildSection(string section, string scenePath, string title, string nextScene = "")
+        public static void BuildSection(string section, string scenePath, string title)
         {
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
@@ -91,7 +92,6 @@ namespace EchoQuest.Editor
             player.staging = AssetDatabase.LoadAssetAtPath<TextAsset>(StagingPath);
             player.clips = FindClips();
             player.section = section;
-            player.nextScene = nextScene;
             player.listener = listenerGo.transform;
             player.characterMarker = GetMaterial("StoryMarkerCharacter", new Color(1.00f, 0.62f, 0.20f));
             player.distantMarker = GetMaterial("StoryMarkerDistant", new Color(0.65f, 0.45f, 0.25f));

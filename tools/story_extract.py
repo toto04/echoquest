@@ -28,7 +28,10 @@ Recorded voice files are matched from --voice-dir by name:
 Sound files are matched from --sfx-dir: p00_sfx_01.wav (or p00_sfx_01_<variant>.wav).
 
 Usage:
-    python tools/story_extract.py SCRIPT.md --out-dir DIR [--name NAME] [--voice-dir DIR]
+    python tools/story_extract.py SCRIPT.md --out-dir DIR [--name NAME] [--voice-dir DIR] [--section-letter X]
+
+Later chapters use --section-letter so their ids do not collide with chapter 1 (t = tamburo,
+c = campanella): Prologo -> t00, Scena 3 -> t03, Epilogo -> t99.
 """
 
 from __future__ import annotations
@@ -82,16 +85,19 @@ def clean_markdown(text: str) -> str:
     return text.strip()
 
 
-def section_code(match: re.Match) -> str:
+def section_code(match: re.Match, letter: str = "") -> str:
+    """Chapter 1 uses p00, s01..sNN, e00. Later chapters pass one letter for every section, so their
+    ids and audio files never collide with chapter 1: with "t", p00 -> t00, s03 -> t03, e00 -> t99."""
     if match.group(1) == "Prologo":
-        return "p00"
+        return f"{letter}00" if letter else "p00"
     if match.group(1) == "Epilogo":
-        return "e00"
-    return f"s{int(match.group(2)):02d}"
+        return f"{letter}99" if letter else "e00"
+    return f"{letter or 's'}{int(match.group(2)):02d}"
 
 
 class Extractor:
-    def __init__(self) -> None:
+    def __init__(self, letter: str = "") -> None:
+        self.letter = letter
         self.items: list[Item] = []
         self.section = ""
         self.branch = ""
@@ -174,7 +180,7 @@ class Extractor:
                 break
             if m := SECTION_RE.match(line):
                 self.close_block()
-                self.section = section_code(m)
+                self.section = section_code(m, self.letter)
                 self.branch, self.branch_level = "", 0
                 continue
             if not self.section:
@@ -256,9 +262,13 @@ def main() -> None:
     parser.add_argument("--name", help="output file prefix (default: script file name)")
     parser.add_argument("--voice-dir", type=Path, help="folder with recorded voice files")
     parser.add_argument("--sfx-dir", type=Path, help="folder with sound files named after their cue id")
+    parser.add_argument("--section-letter", default="", metavar="X",
+                        help="one letter for every section id of a later chapter (t: t00, t01..., t99)")
     args = parser.parse_args()
+    if args.section_letter and not re.fullmatch(r"[a-z]", args.section_letter):
+        parser.error("--section-letter must be one lowercase letter")
 
-    items = Extractor().run(args.script.read_text(encoding="utf-8").splitlines())
+    items = Extractor(args.section_letter).run(args.script.read_text(encoding="utf-8").splitlines())
     attach_voice_files(items, args.voice_dir)
     attach_sfx_files(items, args.sfx_dir)
     name = args.name or args.script.stem

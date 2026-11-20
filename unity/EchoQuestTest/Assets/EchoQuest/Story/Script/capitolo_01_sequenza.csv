@@ -5,15 +5,15 @@ ordine,sezione,ramo,tipo,id,personaggio,testo,dentro_battuta,file_audio,riga_cop
 4,p00,,voce,p00_narr_02,NARRATORE,"Come quella, per esempio. Ma sai qual è la cosa più interessante? Una canzone può essere fatta di tanti suoni diversi. Un suono può essere lungo... [p00_sfx_03] Oppure corto! [p00_sfx_04] Può essere delicato, quasi un sussurro... [p00_sfx_05] Oppure forte e deciso! [p00_sfx_06] Ah, già. Non ti ho ancora parlato della sala della musica. Vieni, ti racconto.",,p00_narr_02_p1_a.wav p00_narr_02_p1_b.wav p00_narr_02_p2_a.wav p00_narr_02_p2_b.wav p00_narr_02_p3_a.wav p00_narr_02_p3_b.wav p00_narr_02_p4_a.wav p00_narr_02_p4_b.wav p00_narr_02_p5_a.wav p00_narr_02_p5_b.wav,30
 5,p00,,suono,p00_sfx_03,,Una nota lunga e morbida di flauto che si spegne lentamente.,p00_narr_02,p00_sfx_03.wav,40
 6,p00,,suono,p00_sfx_04,,Tre colpi brevi di tamburo.,p00_narr_02,p00_sfx_04.wav,44
-7,p00,,suono,p00_sfx_05,,Un tocco delicatissimo di triangolo.,p00_narr_02,p00_sfx_05.wav,48
-8,p00,,suono,p00_sfx_06,,"Un accordo energico di tutti gli strumenti insieme (pianoforte, tamburo, triangolo, flauto), a volume controllato.",p00_narr_02,p00_sfx_06.wav,52
+7,p00,,suono,p00_sfx_05,,Un tocco delicatissimo di campanella.,p00_narr_02,p00_sfx_05.wav,48
+8,p00,,suono,p00_sfx_06,,"Un accordo energico di tutti gli strumenti insieme (pianoforte, tamburo, campanella, flauto), a volume controllato.",p00_narr_02,p00_sfx_06.wav,52
 9,p00,,suono,p00_sfx_07,,Si sentono passi in una stanza grande. Un battito di mani produce una piccola eco.,,p00_sfx_07.wav,60
 10,p00,,voce,p00_narr_03,NARRATORE,"Immagina una stanza molto grande. Così grande che, se batti le mani, il suono sembra continuare per un momento anche dopo che hai smesso. [p00_sfx_08] Qui si incontrano tante persone che suonano strumenti musicali. C'è chi suona strumenti che fanno bum, bum. [p00_sfx_09] C'è chi suona strumenti che fanno din, din. [p00_sfx_10] E c'è chi riesce a produrre suoni così delicati che sembrano quasi voler raccontare un segreto. [p00_sfx_11] Tutti insieme formano un'orchestra. [p00_sfx_12] Un'orchestra è un gruppo di musicisti che suonano insieme. Ognuno ha il proprio strumento, ma tutti ascoltano gli altri per creare un'unica musica. E oggi, nella sala della musica, sta per cominciare una canzone molto speciale.",,p00_narr_03_p1_a.wav p00_narr_03_p1_b.wav p00_narr_03_p2_a.wav p00_narr_03_p2_b.wav p00_narr_03_p3_a.wav p00_narr_03_p3_b.wav p00_narr_03_p4_a.wav p00_narr_03_p4_b.wav p00_narr_03_p5_a.wav p00_narr_03_p5_b.wav p00_narr_03_p6_a.wav p00_narr_03_p6_b.wav,62
 11,p00,,suono,p00_sfx_08,,Due battiti di mani con una breve riverberazione.,p00_narr_03,p00_sfx_08.wav,68
 12,p00,,suono,p00_sfx_09,,"Due colpi di tamburo: BUM, BUM.",p00_narr_03,p00_sfx_09.wav,74
-13,p00,,suono,p00_sfx_10,,"Due tocchi di triangolo: DIN, DIN.",p00_narr_03,p00_sfx_10.wav,78
+13,p00,,suono,p00_sfx_10,,"Due tocchi di campanella: DIN, DIN.",p00_narr_03,p00_sfx_10.wav,78
 14,p00,,suono,p00_sfx_11,,"Un flauto suona piano poche note, come un sussurro.",p00_narr_03,p00_sfx_11.wav,82
-15,p00,,suono,p00_sfx_12,,"Tamburo, triangolo, flauto e pianoforte suonano insieme per un attimo.",p00_narr_03,p00_sfx_12.wav,86
+15,p00,,suono,p00_sfx_12,,"Tamburo, campanella, flauto e pianoforte suonano insieme per un attimo.",p00_narr_03,p00_sfx_12.wav,86
 16,p00,,suono,p00_sfx_13,,Si sente qualcuno schiarirsi la voce. Un piccolo oggetto cade a terra.,,p00_sfx_13.wav,92
 17,p00,,voce,p00_lont_01,VOCE LONTANA,"Oh, per tutti i pentagrammi! Non di nuovo! Dove ho messo la mia bacchetta?",,p00_lont_01_a.wav p00_lont_01_b.wav,94
 18,p00,,suono,p00_sfx_14,,Piccoli passi affrettati. Qualcuno fruga tra degli oggetti.,,p00_sfx_14.wav,102
@@ -22,7 +22,7 @@ ordine,sezione,ramo,tipo,id,personaggio,testo,dentro_battuta,file_audio,riga_cop
 21,p00,,voce,p00_narr_04,NARRATORE,"Oh, credo proprio che il direttore d'orchestra stia per arrivare.",,p00_narr_04_a.wav p00_narr_04_b.wav,118
 22,p00,,suono,p00_sfx_16,,"Tre colpetti distintivi sul leggio: TAC, TAC... TOC!",,p00_sfx_16.wav,122
 23,p00,,voce,p00_maes_01,MAESTRO BATTUTA,"Eccola! Signore e signori, musicisti e musiciste, strumenti grandi, piccoli e di tutte le dimensioni... Siamo pronti! Al mio segnale! Uno... Due... Tre...",,p00_maes_01_a.wav p00_maes_01_b.wav,124
-24,p00,,suono,p00_sfx_17,,"L'orchestra inizia una melodia semplice e allegra. Il pianoforte apre con tre note riconoscibili, poi si aggiungono uno alla volta il tamburo, il triangolo e il flauto, mentre il Narratore li descrive. La musica cresce davvero fino all'arrivo del vento. È armoniosa, non troppo complessa.",,p00_sfx_17.wav,140
+24,p00,,suono,p00_sfx_17,,"L'orchestra inizia una melodia semplice e allegra. Il pianoforte apre con tre note riconoscibili, poi si aggiungono uno alla volta il tamburo, la campanella e il flauto, mentre il Narratore li descrive. La musica cresce davvero fino all'arrivo del vento. È armoniosa, non troppo complessa.",,p00_sfx_17.wav,140
 25,p00,,voce,p00_narr_05,NARRATORE,"Ascolta. Prima senti un suono. Poi ne arriva un altro. E un altro ancora. Ogni strumento sembra avere qualcosa da raccontare, ma tutti stanno raccontando la stessa storia. La musica continua a crescere... Quando, all'improvviso...",,p00_narr_05_a.wav p00_narr_05_b.wav,142
 26,p00,,suono,p00_sfx_18,,"Un soffio di vento attraversa la stanza. All'inizio è leggero, poi diventa più insistente. Il vento non deve mai essere assordante.",,p00_sfx_18.wav,158
 27,p00,,voce,p00_maes_02,MAESTRO BATTUTA,Un momento. Cos'è stato?,,p00_maes_02_a.wav p00_maes_02_b.wav,160
@@ -220,27 +220,27 @@ ordine,sezione,ramo,tipo,id,personaggio,testo,dentro_battuta,file_audio,riga_cop
 219,s04,,voce,s04_maes_10,MAESTRO BATTUTA,Lo scopriremo strada facendo. Per adesso dobbiamo continuare a recuperare la nostra canzone.,,s04_maes_10_a.wav,884
 220,s04,,suono,s04_sfx_08,,"TAC, TAC... TOC!",,s04_sfx_08.wav,888
 221,s04,,voce,s04_maes_11,MAESTRO BATTUTA,"Bene, giovane musicista! Pronto per la prossima avventura? Questa volta non sarò io a decidere da quale strumento partire. Sarai tu a scegliere.",,s04_maes_11_a.wav,890
-222,s05,,suono,s05_sfx_01,,Il pianoforte continua a suonare delicatamente. Il Maestro si ferma e ascolta.,,,898
-223,s05,,voce,s05_maes_01,MAESTRO BATTUTA,"Aspetta... Sento due cose diverse. Ascolta anche tu. Da una parte... [s05_sfx_02] ...c'è un tamburo. Suona quando qualcuno colpisce la sua pelle tesa. Bum... Bum... Sembra quasi chiamarci. E dall'altra parte... [s05_sfx_03] ...c'è una campanella. Il suo suono è squillante, e continua a risuonare per un momento.",,,900
-224,s05,,suono,s05_sfx_02,,"Un suono profondo di tamburo, ripetuto due volte, a sinistra dell'ascoltatore.",s05_maes_01,,904
-225,s05,,suono,s05_sfx_03,,"Un tintinnio chiaro e prolungato di campanella, a destra dell'ascoltatore.",s05_maes_01,,908
-226,s05,,voce,s05_maes_02,MAESTRO BATTUTA,"Hanno bisogno entrambi del nostro aiuto, ma non possiamo andare da tutti e due nello stesso momento. Quale vuoi conoscere per primo? Per il tamburo, premi il pulsante sotto l'indice. Per la campanella, premi il pulsante sotto il medio. Non c'è una scelta sbagliata: la nostra canzone avrà bisogno di entrambi.",,,912
-227,s05,,suono,s05_sfx_04,,"Il tamburo, a sinistra: è il suono dell'indice.",,,916
-228,s05,,suono,s05_sfx_05,,"Dopo una pausa, la campanella, a destra: è il suono del medio.",,,918
+222,s05,,suono,s05_sfx_01,,Il pianoforte riprende a suonare delicatamente la canzone ritrovata. Il Maestro si ferma e ascolta.,,s05_sfx_01_acuto.wav s05_sfx_01_grave.wav,898
+223,s05,,voce,s05_maes_01,MAESTRO BATTUTA,"Aspetta... Sento due cose diverse. Ascolta anche tu. Da una parte... [s05_sfx_02] ...c'è un tamburo. Suona quando qualcuno colpisce la sua pelle tesa. Bum... Bum... Sembra quasi chiamarci. E dall'altra parte... [s05_sfx_03] ...c'è una campanella. Il suo suono è squillante, e continua a risuonare per un momento.",,s05_maes_01_p1_a.wav s05_maes_01_p2_a.wav s05_maes_01_p3_a.wav,900
+224,s05,,suono,s05_sfx_02,,"Un suono profondo di tamburo, ripetuto due volte, a sinistra dell'ascoltatore.",s05_maes_01,s05_sfx_02.wav,904
+225,s05,,suono,s05_sfx_03,,"Un tintinnio chiaro e prolungato di campanella, a destra dell'ascoltatore.",s05_maes_01,s05_sfx_03.wav,908
+226,s05,,voce,s05_maes_02,MAESTRO BATTUTA,"Hanno bisogno entrambi del nostro aiuto, ma non possiamo andare da tutti e due nello stesso momento. Quale vuoi conoscere per primo? Per il tamburo, premi il pulsante sotto l'indice. Per la campanella, premi il pulsante sotto il medio. Non c'è una scelta sbagliata: la nostra canzone avrà bisogno di entrambi.",,s05_maes_02_a.wav,912
+227,s05,,suono,s05_sfx_04,,"Il tamburo, a sinistra: è il suono dell'indice.",,s05_sfx_04.wav,916
+228,s05,,suono,s05_sfx_05,,"Dopo una pausa, la campanella, a destra: è il suono del medio.",,s05_sfx_05.wav,918
 229,s05,,interazione,s05_int_01,,"MODALITÀ SCELTA: indice → tamburo (ramo A); medio → campanella (ramo B). Come nella scelta del registro della Scena 2: i pollici non scelgono. Nel silenzio il Maestro aspetta, senza richiami.",,,920
-230,s05,A,voce,s05_maes_03,MAESTRO BATTUTA,Il tamburo! Ottima idea! Quel suono profondo sembra davvero volerci raccontare qualcosa. [s05_sfx_06] Andiamo a scoprire che cosa è successo al suo ritmo!,,,924
-231,s05,A,suono,s05_sfx_06,,Due battiti profondi che si ripetono sempre più lontano.,s05_maes_03,,928
-232,s05,B,voce,s05_maes_04,MAESTRO BATTUTA,La campanella! Hai sentito come continua a risuonare dopo ogni colpo? Sono curioso di scoprire quale parte della canzone abbia perduto. [s05_sfx_07] Andiamo a sentire cosa vuole raccontarci!,,,934
-233,s05,B,suono,s05_sfx_07,,"Tre tintinnii, uno dopo l'altro.",s05_maes_04,,938
+230,s05,A,voce,s05_maes_03,MAESTRO BATTUTA,Il tamburo! Ottima idea! Quel suono profondo sembra davvero volerci raccontare qualcosa. [s05_sfx_06] Andiamo a scoprire che cosa è successo al suo ritmo!,,s05_maes_03_p1_a.wav s05_maes_03_p2_a.wav,924
+231,s05,A,suono,s05_sfx_06,,Due battiti profondi che si ripetono sempre più lontano.,s05_maes_03,s05_sfx_06.wav,928
+232,s05,B,voce,s05_maes_04,MAESTRO BATTUTA,La campanella! Hai sentito come continua a risuonare dopo ogni colpo? Sono curioso di scoprire quale parte della canzone abbia perduto. [s05_sfx_07] Andiamo a sentire cosa vuole raccontarci!,,s05_maes_04_p1_a.wav s05_maes_04_p2_a.wav,934
+233,s05,B,suono,s05_sfx_07,,"Tre tintinnii, uno dopo l'altro.",s05_maes_04,s05_sfx_07.wav,938
 234,s05,,convergenza,s05_int_02,,La scelta stabilisce l'ordine delle tappe successive. Entrambe sono valide e nessuna viene persa.,,,942
-235,e00,,suono,e00_sfx_01,,"La melodia recuperata del pianoforte torna, lenta e riconoscibile. Il Maestro la accompagna battendo leggermente il tempo.",,,948
-236,e00,,voce,e00_narr_01,NARRATORE,La vostra prima avventura è appena terminata. Avete conosciuto il Maestro Battuta e il pianoforte. E avete aiutato l'orchestra a ritrovare il primo pezzo della sua canzone. Ma il viaggio è appena cominciato. Sbuffo ha sparpagliato tanti altri suoni. E chissà perché desidera così tanto che tutti ascoltino soltanto lui.,,,950
-237,e00,,suono,e00_sfx_02,,"Il vento emette un piccolo fischio lontano, quasi musicale.",,,954
-238,e00,,voce,e00_maes_01,MAESTRO BATTUTA,"Ehi! Prima di andare, suoniamo ancora una volta la prima frase della sfida: TA... TA-TA. Io la suono, e tu la ripeti con l'indice!",,,956
+235,e00,,suono,e00_sfx_01,,"La melodia recuperata del pianoforte torna, lenta e riconoscibile. Il Maestro la accompagna battendo leggermente il tempo.",,e00_sfx_01_acuto.wav e00_sfx_01_grave.wav,948
+236,e00,,voce,e00_narr_01,NARRATORE,"La vostra prima avventura è appena terminata. Avete conosciuto il Maestro Battuta e il pianoforte. E avete aiutato l'orchestra a ritrovare il primo pezzo della sua canzone. Ma il viaggio è appena cominciato. Il tamburo, la campanella e il flauto aspettano ancora di ritrovare la loro parte. Sbuffo ha sparpagliato tanti altri suoni. E chissà perché desidera così tanto che tutti ascoltino soltanto lui.",,e00_narr_01_a.wav,950
+237,e00,,suono,e00_sfx_02,,"Il vento emette un piccolo fischio lontano, quasi musicale.",,e00_sfx_02.wav,954
+238,e00,,voce,e00_maes_01,MAESTRO BATTUTA,"Ehi! Prima di andare, suoniamo ancora una volta la prima frase della sfida: TA... TA-TA. Io la suono, e tu la ripeti con l'indice!",,e00_maes_01_a.wav,956
 239,e00,,interazione,e00_int_01,,"Uno scambio come nel turno 1 della sfida, sopra un battito leggero: il pianoforte suona due volte TA... TA-TA (Re... Re-Re nel registro scelto), il TOC dice «tocca a te», il bambino la ripete con l'indice, poi il pianoforte la ripete ancora. Qui non si conta niente: ogni pulsante suona la sua nota, e se non arriva una risposta il pianoforte la ripete da solo e la storia prosegue.",,,960
-240,e00,,voce,e00_maes_02,MAESTRO BATTUTA,"Oggi hai fatto qualcosa di importante. Non hai semplicemente premuto un pulsante. Hai ascoltato. Hai scelto. Hai provato. E hai aiutato uno strumento a ritrovare il suo posto nella musica. Ricordati: in un'orchestra non dobbiamo essere tutti uguali. Ognuno ha un suono diverso, ed è proprio questo che rende la musica interessante. E se durante il viaggio senti... [e00_sfx_03] ...allora sono io! Il Maestro Battuta! Sempre pronto ad aiutarti. E, possibilmente, a non perdere più la bacchetta.",,,962
-241,e00,,suono,e00_sfx_03,,"TAC, TAC... TOC!",e00_maes_02,,966
-242,e00,,suono,e00_sfx_04,,La bacchetta cade nuovamente.,,,970
-243,e00,,voce,e00_maes_03,MAESTRO BATTUTA,... Non dire niente. Ti prego.,,,972
-244,e00,,suono,e00_sfx_05,,"Piccola risata del Maestro, poi il pianoforte suona il tema principale. La musica sfuma gradualmente.",,,976
-245,e00,,voce,e00_narr_02,NARRATORE,La prima nota è tornata. Ma la canzone ha ancora bisogno di te. Il viaggio di EchoQuest continua...,,,978
+240,e00,,voce,e00_maes_02,MAESTRO BATTUTA,"Oggi hai fatto qualcosa di importante. Non hai semplicemente premuto un pulsante. Hai ascoltato. Hai scelto. Hai provato. E hai aiutato uno strumento a ritrovare il suo posto nella musica. Ricordati: in un'orchestra non dobbiamo essere tutti uguali. Ognuno ha un suono diverso, ed è proprio questo che rende la musica interessante. E se durante il viaggio senti... [e00_sfx_03] ...allora sono io! Il Maestro Battuta! Sempre pronto ad aiutarti. E, possibilmente, a non perdere più la bacchetta.",,e00_maes_02_p1_a.wav e00_maes_02_p2_a.wav,962
+241,e00,,suono,e00_sfx_03,,"TAC, TAC... TOC!",e00_maes_02,e00_sfx_03.wav,966
+242,e00,,suono,e00_sfx_04,,La bacchetta cade nuovamente.,,e00_sfx_04.wav,970
+243,e00,,voce,e00_maes_03,MAESTRO BATTUTA,... Non dire niente. Ti prego.,,e00_maes_03_a.wav,972
+244,e00,,suono,e00_sfx_05,,"Piccola risata del Maestro, poi il pianoforte suona il tema principale. La musica sfuma gradualmente.",,e00_sfx_05_acuto.wav e00_sfx_05_grave.wav,976
+245,e00,,voce,e00_narr_02,NARRATORE,La prima nota è tornata. Ma la canzone ha ancora bisogno di te. Il viaggio di EchoQuest continua...,,e00_narr_02_a.wav,978

@@ -45,11 +45,11 @@ Oppure corto!
 
 Può essere delicato, quasi un sussurro...
 
-*[AUDIO: Un tocco delicatissimo di triangolo.]*
+*[AUDIO: Un tocco delicatissimo di campanella.]*
 
 Oppure forte e deciso!
 
-*[AUDIO: Un accordo energico di tutti gli strumenti insieme (pianoforte, tamburo, triangolo, flauto), a volume controllato.]*
+*[AUDIO: Un accordo energico di tutti gli strumenti insieme (pianoforte, tamburo, campanella, flauto), a volume controllato.]*
 
 Ah, già.
 
@@ -75,7 +75,7 @@ C'è chi suona strumenti che fanno *bum, bum*.
 
 C'è chi suona strumenti che fanno *din, din*.
 
-*[AUDIO: Due tocchi di triangolo: DIN, DIN.]*
+*[AUDIO: Due tocchi di campanella: DIN, DIN.]*
 
 E c'è chi riesce a produrre suoni così delicati che sembrano quasi voler raccontare un segreto.
 
@@ -83,7 +83,7 @@ E c'è chi riesce a produrre suoni così delicati che sembrano quasi voler racco
 
 Tutti insieme formano un'orchestra.
 
-*[AUDIO: Tamburo, triangolo, flauto e pianoforte suonano insieme per un attimo.]*
+*[AUDIO: Tamburo, campanella, flauto e pianoforte suonano insieme per un attimo.]*
 
 Un'orchestra è un gruppo di musicisti che suonano insieme. Ognuno ha il proprio strumento, ma tutti ascoltano gli altri per creare un'unica musica.
 
@@ -137,7 +137,7 @@ Due...
 
 Tre...
 
-*[AUDIO: L'orchestra inizia una melodia semplice e allegra. Il pianoforte apre con tre note riconoscibili, poi si aggiungono uno alla volta il tamburo, il triangolo e il flauto, mentre il Narratore li descrive. La musica cresce davvero fino all'arrivo del vento. È armoniosa, non troppo complessa.]*
+*[AUDIO: L'orchestra inizia una melodia semplice e allegra. Il pianoforte apre con tre note riconoscibili, poi si aggiungono uno alla volta il tamburo, la campanella e il flauto, mentre il Narratore li descrive. La musica cresce davvero fino all'arrivo del vento. È armoniosa, non troppo complessa.]*
 
 **NARRATORE:**
 
@@ -895,7 +895,7 @@ Bene, giovane musicista! Pronto per la prossima avventura? Questa volta non sar�
 
 ## Scena 5 — Due suoni, due strade
 
-*[AUDIO: Il pianoforte continua a suonare delicatamente. Il Maestro si ferma e ascolta.]*
+*[AUDIO: Il pianoforte riprende a suonare delicatamente la canzone ritrovata. Il Maestro si ferma e ascolta.]*
 
 **MAESTRO BATTUTA:**
 
@@ -949,7 +949,7 @@ Andiamo a sentire cosa vuole raccontarci!
 
 **NARRATORE:**
 
-La vostra prima avventura è appena terminata. Avete conosciuto il Maestro Battuta e il pianoforte. E avete aiutato l'orchestra a ritrovare il primo pezzo della sua canzone. Ma il viaggio è appena cominciato. Sbuffo ha sparpagliato tanti altri suoni. E chissà perché desidera così tanto che tutti ascoltino soltanto lui.
+La vostra prima avventura è appena terminata. Avete conosciuto il Maestro Battuta e il pianoforte. E avete aiutato l'orchestra a ritrovare il primo pezzo della sua canzone. Ma il viaggio è appena cominciato. Il tamburo, la campanella e il flauto aspettano ancora di ritrovare la loro parte. Sbuffo ha sparpagliato tanti altri suoni. E chissà perché desidera così tanto che tutti ascoltino soltanto lui.
 
 *[AUDIO: Il vento emette un piccolo fischio lontano, quasi musicale.]*
 
@@ -989,7 +989,7 @@ Questa apertura stabilisce un mondo musicale fondato sull'ascolto. Il **Maestro 
 
 **Sbuffo**, il vento dispettoso, interrompe l'orchestra e ruba *parti della musica*, non ogni suono presente nel mondo. In questo modo il bambino può ascoltare tanto il problema quanto i suoi progressivi miglioramenti.
 
-Il **pianoforte** è il primo strumento comune a tutti i percorsi: il bambino lo ascolta, scopre come funziona, sceglie tra registro grave e acuto, poi prova una prima sequenza su Tocco. La **campanella** e il **tamburo** sono le due possibili tappe successive.
+L'orchestra del prologo ha quattro strumenti, uno per ogni pulsante di Tocco: **pianoforte**, **tamburo**, **campanella** e **flauto**. Ognuno recupera un pezzo di due battute della canzone (`docs/music/06-worked-example.md`). Il **pianoforte** è il primo strumento comune a tutti i percorsi: il bambino lo ascolta, scopre come funziona, sceglie tra registro grave e acuto, poi prova una prima sequenza su Tocco. Il **tamburo** e la **campanella** sono le due tappe successive, nell'ordine scelto nella Scena 5; il **flauto** è l'ultima, annunciata nell'epilogo.
 
 ### Nota sulla scelta e su Tocco
 
@@ -1001,6 +1001,6 @@ Il testo è deliberatamente lungo, come bozza narrativa complessiva. Per il **pr
 
 ### Direzione possibile per il resto della storia
 
-Un'evoluzione da esplorare: **Sbuffo non ruba la musica soltanto per cattiveria**. Forse desidera essere ascoltato e non sa come entrare nell'orchestra senza coprire gli altri. Il bambino lo comprende gradualmente recuperando strumenti e ritmi. Il finale potrebbe consistere nel trovare un posto anche per il soffio del vento dentro la canzone, anziché semplicemente sconfiggerlo.
+Un'evoluzione da esplorare: **Sbuffo non ruba la musica soltanto per cattiveria**. Forse desidera essere ascoltato e non sa come entrare nell'orchestra senza coprire gli altri. Il bambino lo comprende gradualmente recuperando strumenti e ritmi. Il finale potrebbe consistere nel trovare un posto anche per il soffio del vento dentro la canzone, anziché semplicemente sconfiggerlo. Il flauto, l'ultima tappa, si presta: anche Sbuffo suona un flauto (di Pan), e il soffio può diventare la parte del flauto nella canzone.
 
 **Stato:** prima bozza da discutere con il gruppo e validare; non è stata ancora verificata l'aderenza di ogni singola interazione al prototipo hardware.

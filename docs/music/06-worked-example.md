@@ -16,7 +16,7 @@ Requirements, derived from the script and the guides:
 |---|---|---|---|
 | 1–2 | the head + *TA… TA-TA* | pianoforte | so–mi–do, then la… do-la |
 | 3–4 | the galloping rhythm | tamburo | ti-ti ta, ti-ti ta |
-| 5–6 | the head returns | flauto (proposal) | repetition = memorability |
+| 5–6 | the head returns | flauto (the last stage, announced in the epilogue) | repetition = memorability |
 | 7–8 | the so–mi call and the close | campanella | the playground third reclaimed, then home |
 
 ```yaml

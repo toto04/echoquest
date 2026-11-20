@@ -1,0 +1,236 @@
+# Chapter "La campanella": the question-and-answer chapter (02-calls.md, "Three call forms": the
+# period). Format and rules: docs/music/05-format-and-pipeline.md. Check with:
+#   python3 -m tools.music.check music/library/capitolo_03_campanella.yaml
+# The piece this chapter wins back is the song's bars 7-8: the so-mi figure (a question) and the close
+# home to F (its answer) (06-worked-example.md §1).
+#
+# Register: the campanella plays the button pitches an octave up (04, character sheet: "an octave-up
+# register shift (D5-C6); flip the register map"), so the chapter is rendered in the "acuto" register
+# (buttons D5-C6) whatever the child chose for the piano. Pads may then sit up to B4, under the call.
+#
+# Centre: F for the whole chapter, including the duel with Sbuffo. Sbuffo does not fight here, he
+# plays a game of questions; F is home and friends (01, mode wheel), and every answer the child plays
+# must come home to F. The tension comes from Sbuffo's locked-bar colour, not from the centre (07, D2
+# allows F at stages 1-2).
+#
+# Stage ladder: the bell's words at stage 1 (quarters, so-mi), echoes with ti-ti at stage 2-3, then
+# the period (answer mode, stage 3), then a free answer (any phrase ending on F: the attack round).
+
+# ------------------------------------------------------------------ practice: the bell's words
+
+- id: c_ciao
+  role: call
+  stage: 1
+  centre: F
+  open_ending: true
+  tempo: 100
+  instrument: celesta
+  intent: "so-mi, the playground falling third (= s1_ciao): the bell says hello. Little finger, then ring finger: the first call on the little finger"
+  motif: {rhythm: "x - x - . . . .", contour: "*d"}
+  bars: ["C - A - . . . ."]
+
+- id: c_motto
+  role: call
+  stage: 1
+  centre: F
+  open_ending: true
+  tempo: 100
+  instrument: celesta
+  intent: "the campanella's own cell A-C-A in ringing quarters (04 character sheet): mi-so-mi, a question that does not come home"
+  motif: {rhythm: "x - x - x - . .", contour: "*ud"}
+  bars: ["A - C - A - . ."]
+
+- id: c_altalena
+  role: refrain
+  stage: 1
+  centre: F
+  tempo: 100
+  instrument: celesta
+  intent: "do-mi-do, the swing (= s1_altalena): the child's refrain, the phrase that always comes home; also the fixed answer of the first question game"
+  bars: ["F - A - F - . ."]
+
+- id: c_domanda
+  role: call
+  stage: 3
+  centre: F
+  open_ending: true
+  tempo: 100
+  instrument: celesta
+  intent: "the first period (scene 4, = s3_domanda): climbs and stops on so, a question"
+  motif: {rhythm: "x x x - x - x -", contour: "*uudu"}
+  bars: ["F A C - A - C -"]
+
+- id: c_risposta
+  role: answer
+  stage: 3
+  centre: F
+  tempo: 100
+  instrument: celesta
+  intent: "its answer (= s3_risposta): identical except the last note comes home to do. Answer mode costs almost no memory (02)"
+  bars: ["F A C - A - F -"]
+
+# ------------------------------------------------------------------ the duel with Sbuffo: echo, echo, answer, free answer
+
+- id: c_r1
+  role: call
+  stage: 2
+  centre: F
+  tempo: 100
+  instrument: celesta
+  intent: "round 1: the bell's cell, then home: ti-ti ta ta-a, mi-so-mi ... do. Surprise: the long last note"
+  motif: {rhythm: "x x x - x - - .", contour: "*udd"}
+  bars: ["A C A - F - - ."]
+
+- id: c_r2
+  role: call
+  stage: 3
+  centre: F
+  tempo: 100
+  instrument: celesta
+  intent: "round 2: song bar 7's head (so-mi-so-mi) brought home: ti-ti ti-ti ta-a, 5 notes. Same ending as round 1 (a musical rhyme, 02), a new face"
+  motif: {rhythm: "x x x x x - - .", contour: "*dudd"}
+  bars: ["C A C A F - - ."]
+
+- id: c_domanda_rubata
+  role: call
+  stage: 3
+  centre: F
+  open_ending: true
+  tempo: 100
+  instrument: celesta
+  intent: "round 3, the question: song bar 7 exactly (C A C A C - A -), ending open on mi. The bell plays it twice; the child does NOT echo it, the child answers it"
+  motif: {rhythm: "x x x x x - x -", contour: "*duddu"}
+  bars: ["C A C A C - A -"]
+
+- id: c_risposta_rubata
+  role: answer
+  stage: 3
+  centre: F
+  tempo: 100
+  instrument: celesta
+  intent: "round 3, the answer the child plays: song bar 8 (A - C - F - - -), mi-so then the falling fifth home to do. This is what Sbuffo stole"
+  bars: ["A - C - F - - -"]
+
+- id: c_domanda_libera
+  role: call
+  stage: 3
+  centre: F
+  open_ending: true
+  tempo: 100
+  instrument: celesta
+  intent: "round 4, the attack round: a new question that climbs to so and stays there (ta ta ti-ti ta); the child answers with any phrase that comes home on F (02, period; prior report: 'answers the Question with any phrase that ends on do')"
+  motif: {rhythm: "x - x - x x x -", contour: "*uurr"}
+  bars: ["F - A - C C C -"]
+
+- id: c_domanda_sbuffo
+  role: call
+  stage: 2
+  centre: F
+  open_ending: true
+  tempo: 100
+  instrument: pan_flute
+  intent: "the end of the chapter: Sbuffo's own cell C A D (04) as a question nobody ever answered. Any answer ending on F is right; the story moment is that someone answers him"
+  motif: {rhythm: "x x x - . . . .", contour: "*dd"}
+  bars: ["C A D - . . . ."]
+
+- id: c_ninna_nanna
+  role: call
+  stage: 4
+  centre: D
+  meter: 3/4
+  steps_per_bar: 6
+  tempo: 100
+  instrument: celesta
+  intent: "optional extra level: the first triple-metre call, rocking thirds (= s4_ninna_nanna); the bell rocks Sbuffo to sleep"
+  bars: ["A - - - F -", "A - - - C -", "A - - - F -", "D - - - - -"]
+
+# ------------------------------------------------------------------ loops (acuto register: pads may sit below C5)
+
+- id: loop_allenamento_campanella
+  role: loop
+  centre: F
+  tempo: 100
+  meter: 4/4
+  steps_per_bar: 8
+  loop_bars: 4
+  call_bars: [1, 2]
+  chords: [F5, F5, F5, F5]
+  intent: "practice: an F-C chord bordun (03 level 1) and a soft marcia, one long exchange per pass"
+  tracks:
+    bordun:
+      instrument: pizzicato_strings
+      layer: L0
+      register: acuto
+      bars: ["F2+C3 - F2+C3 - F2+C3 - F2+C3 -", "=1", "=1", "F2+C3 - F2+C3 - F2 - C3 -"]
+    drums:
+      layer: L0
+      steps_per_bar: 16
+      gain: 0.6
+      lanes:
+        kick:     ["x . . . . . . . x . . . . . . .", "=1", "=1", "=1"]
+        block_hi: [". . . . x . . . . . . . x . . .", "=1", "=1", ". . . . x . . . . . . . x . x x"]
+
+- id: loop_domande_campanella
+  role: loop
+  centre: F
+  tempo: 100
+  meter: 4/4
+  steps_per_bar: 8
+  loop_bars: 8
+  call_bars: [1, 2, 5, 6]
+  chords: [F, F, F, F, Bb, Bb, Bb, Bb]
+  intent: "the duel, long exchanges: F and Bb (home and its warm IV), broken bordun, a light 'battaglia' kit with shaker sixteenths; pads under the high call"
+  tracks:
+    bass:
+      instrument: pizzicato_strings
+      layer: L0
+      register: acuto
+      bars:
+        - "F2 - C3 - F2 - C3 -"
+        - "=1"
+        - "=1"
+        - "F2 - C3 - F2 C3 F3 C3"
+        - "Bb1 - F2 - Bb1 - F2 -"
+        - "=5"
+        - "=5"
+        - "Bb1 - F2 - C2 - D2 -"
+    pad:
+      instrument: strings
+      layer: L1
+      register: acuto
+      bars:
+        - "F3+A3+C4 - - - - - - -"
+        - "=1"
+        - "=1"
+        - "=1"
+        - "F3+Bb3+D4 - - - - - - -"
+        - "=5"
+        - "=5"
+        - "=5"
+    drums:
+      layer: L0
+      steps_per_bar: 16
+      lanes:
+        kick:   ["x . . . . . . . x . x . . . . .", "=1", "=1", "=1", "=1", "=1", "=1", "=1"]
+        snare:  [". . . . x . . . . . . . x . . .", "=1", "=1", "=1", "=1", "=1", "=1", ". . . . x . . . . . . . x . x x"]
+        shaker: ["x x x x x x x x x x x x x x x x", "=1", "=1", "=1", "=1", "=1", "=1", "=1"]
+
+- id: loop_rintocco
+  role: loop
+  centre: F
+  tempo: 100
+  meter: 4/4
+  steps_per_bar: 8
+  loop_bars: 4
+  chords: [F, F, F, F]
+  intent: "the finisher (04, 'one big gesture on the beat, a bell flick'): the Maestro counts bars 1-3 on the baton, the child strikes the bell once on the downbeat of bar 4"
+  tracks:
+    bass:
+      instrument: pizzicato_strings
+      layer: L0
+      register: acuto
+      bars: ["F2 - C3 - F2 - C3 -", "=1", "=1", "F2 - - - . . . ."]
+    baton:
+      layer: L0
+      lanes:
+        claves: ["x . x . x . x .", "=1", "=1", ". . . . . . . ."]

@@ -1,0 +1,14 @@
+id,sezione,ramo,descrizione,dentro_battuta,file_audio,stato,riga_copione
+c00_sfx_01,c00,,"La sala della musica. Il pianoforte suona piano il pezzo ritrovato nel capitolo 1. Poi, da destra, la campanella suona una frase che sale e scende, Do La Do La Do... La, e si ferma sospesa. Silenzio. La campanella la ripete, e si ferma di nuovo nello stesso punto.",,,da trovare,11
+c00_sfx_02,c00,,"La campanella ripete la domanda, un po' più piano, quasi triste.",,,da trovare,21
+c00_sfx_03,c00,,Passi verso destra. Un tintinnio leggero si avvicina.,,,da trovare,27
+c01_sfx_01,c01,,"Un rintocco di campanella (La5), lasciato risuonare fino in fondo.",,,da trovare,37
+c01_sfx_02,c01,,"Un rintocco che risuona a lungo; una pausa; lo stesso rintocco fermato subito dalla mano, corto.",,,da trovare,49
+c03_sfx_01,c03,,"c_motto (La Do La, sospesa), una pausa, poi c_altalena (Fa La Fa, che torna a casa).",,,da trovare,113
+c04_sfx_01,c04,,"Il ricordo della canzone, con l'effetto di memoria: le battute 7 e 8, la domanda della campanella (Do La Do La Do... La) e la sua risposta (La... Do... Fa), che torna a casa.",,,da trovare,145
+c05_sfx_01,c05,,Il vento arriva da destra e gira intorno all'ascoltatore. Poi la sigla di Sbuffo (intro_sbuffo).,,,da trovare,157
+c05_sfx_02,c05,,"Il conteggio di tutto il gioco: TAC, TAC... TOC! e «Uno, due, tre... via!». Parte la base del gioco (loop_domande_campanella, centro Fa, 100 battiti al minuto): non si ferma fino alla fine.",,,da trovare,167
+c05_sfx_03,c05,,"La fanfara di vittoria, poi la ripresa: la canzone fino ai pezzi ritrovati, con la domanda della campanella e finalmente la sua risposta, centro Fa, festosa. Nell'ultima battuta le tre note di Sbuffo tornano piano.",,,da trovare,195
+c05_sfx_04,c05,,"Sbuffo suona piano, sul suo flauto di Pan, una piccola domanda: Do La Re (c_domanda_sbuffo). Poi silenzio.",,,da trovare,201
+c05_sfx_05,c05,,"Il vento si allontana piano, con un fischio breve che questa volta sembra quasi una nota.",,,da trovare,213
+c99_sfx_01,c99,,"La campanella fa la sua domanda, e questa volta la risposta arriva subito. Sopra, il pianoforte suona la canzone con i pezzi ritrovati.",,,da trovare,251

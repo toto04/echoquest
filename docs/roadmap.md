@@ -115,8 +115,29 @@ sounds and music; the chapter's scenes load one after another.
   left and the campanella on the right (index / middle choice, the register is kept), the
   epilogue's last TA... TA-TA exchange as free play (nothing counted, silence is fine), the
   Maestro's laugh and the whole song fading out. The chapter now plays from the Intro to the epilogue.
+- [x] The chapter plays without breaks: sections follow one another in the same Unity scene (no scene
+  load); the debug overlay picks a scene and can stop at its end (2026-11-19).
+- [x] Four instruments, one per finger: the campanella replaces the prologue's triangle, the flauto
+  is announced in the epilogue as the last stage (2026-11-19).
 
 See [scena2-3-interattive.md](scena2-3-interattive.md).
+
+### Chapters 2 and 3: the tamburo and the campanella (scripts written 2026-11-19; to review)
+
+One chapter per instrument; the Scene 5 choice decides which comes first, and each works in either
+order. Both climb from stage 0 to stage 3 with an optional stage-4 extra level, with more interactions
+than all of chapter 1. Plan, interaction ladder, menu and what to build: [capitoli-2-3.md](capitoli-2-3.md).
+
+- [x] Scripts (`capitolo_02_il_tamburo.md`, `capitolo_03_la_campanella.md`) and music specs
+  (`music/library/capitolo_02_tamburo.yaml`, `capitolo_03_campanella.yaml`, 0 checker errors).
+- [ ] Team review of the scripts and the open questions in capitoli-2-3.md.
+- [ ] Chapter ids in the extractor, audio menu, saved progress, the songbook.
+- [ ] New interaction modes (battito, riconosci, conta, risposta libera, colpo) and battle features
+  (short exchanges, help loop, loop changes, attack round, recovered-instrument layers).
+- [x] Voices (115 lines with ElevenLabs, `docs/registrazioni-capitoli-2-3.txt`) and sounds: the tamburo and
+  the campanella are real CC0 recordings (VCSL timpani and hand bells) tuned to the button pitches;
+  ids carry the chapter letter (`tools/story_extract.py --section-letter`) (2026-11-19).
+- [ ] Regia, Unity scenes and Play-mode checks for both chapters.
 
 ### Shareable web demo (planned 2026-11-16; debug overlay started 2026-11-17)
 

@@ -1,0 +1,597 @@
+EchoQuest — capitoli 2 (il tamburo) e 3 (la campanella): testi per ElevenLabs
+
+Stesso formato e stesse voci di registrazioni-scene2-5.txt: Maestro Battuta = Antonio Farina, Narratore = Corrado
+Noventa, Vento = Luca Brasi. Gli ID hanno la lettera del capitolo (t = tamburo, c = campanella), vedi
+tools/story_extract.py --section-letter. Le risposte generiche del capitolo 1 (riprova, «Ti va di riprovare?»,
+turno riuscito, Sbuffo che ride, il conteggio) si riusano e non sono qui.
+
+============================================================
+CAPITOLO 2 — IL TAMBURO
+============================================================
+
+1. t00_narr_01_a.mp3 — Narratore
+-----
+[calm] Nella sala della musica il pianoforte ha ritrovato il suo pezzo di canzone. Ma in un angolo c'è qualcuno che non riesce a stare al passo.
+-----
+
+2. t00_maes_01_a.mp3 — Maestro Battuta
+-----
+[warm] Lo senti anche tu? È il tamburo! Di solito è il più puntuale di tutta l'orchestra. Oggi invece inciampa a ogni colpo. Sbuffo deve essere passato anche di qui. Andiamo a conoscerlo. È a sinistra. Seguimi... e attento alla carota sul pavimento. Non chiedermi perché c'è una carota sul pavimento.
+-----
+
+3. t01_maes_01_a.mp3 — Maestro Battuta
+-----
+[warm] Eccoci. Il tamburo ha una pelle tesa sopra un grande cerchio. Quando la colpisci, con le mani o con un bastoncino che si chiama battente, la pelle vibra. Proprio come la corda del pianoforte! E dalla vibrazione nasce il suono. Ascolta.
+-----
+
+4. t01_maes_02_a.mp3 — Maestro Battuta
+-----
+[warm] Sai qual è il suo lavoro nell'orchestra? Tenere il passo. È come il cuore: batte sempre, sempre alla stessa distanza, e tutti gli altri strumenti lo seguono.
+-----
+
+5. t01_maes_03_a.mp3 — Maestro Battuta
+-----
+[warm] Da adesso i tuoi pulsanti sono tamburi! Suona come vuoi: non esiste un colpo sbagliato.
+-----
+
+6. t01_maes_04_a.mp3 — Maestro Battuta
+-----
+[warm] Che baccano meraviglioso! Hai sentito? Il tamburo dell'indice ha la voce più profonda. Ma c'è un pulsante che non abbiamo mai usato, neanche con il pianoforte: quello sotto il mignolo. Premilo!
+-----
+
+7. t01_maes_05_a.mp3 — Maestro Battuta
+-----
+[warm] Adesso ascolta il nostro tamburo. Prima com'era prima di Sbuffo... e poi com'è oggi.
+-----
+
+8. t01_maes_06_a.mp3 — Maestro Battuta
+-----
+[warm] Sbuffo gli ha soffiato via il passo. E un'orchestra senza passo è come una fila di bambini che cammina senza guardarsi: dopo tre metri, uno è già finito contro un albero.
+-----
+
+9. t02_maes_01_a.mp3 — Maestro Battuta
+-----
+[warm] Il tamburo ha bisogno di qualcuno che gli ricordi com'è un passo regolare. Facciamo così: l'orchestra suona, e tu batti il tempo con l'indice, tum, tum, tum, tum, insieme alla musica. Prima ascolta il mio conteggio.
+-----
+
+10. t02_maes_02_a.mp3 — Maestro Battuta
+-----
+[excited] Bravo! Adesso un po' più difficile. A metà, la musica si farà piccola piccola: resterà solo un fruscio leggero. E il passo dovrai tenerlo tu, da solo, senza fermarti.
+-----
+
+11. t02_maes_03_a.mp3 — Maestro Battuta
+-----
+[warm] Senti? Il tamburo ha ripreso a camminare insieme a te! Ora una domanda per le tue orecchie. Lo stesso passo può essere lento come una lumaca, o veloce come un coniglio. In musica questa velocità si chiama tempo. Ascolta questi due.
+-----
+
+12. t02_maes_04_a.mp3 — Maestro Battuta
+-----
+[warm] E adesso?
+-----
+
+13. t02_maes_05_a.mp3 — Maestro Battuta
+-----
+[warm] Te lo dico in segreto: io, quando dirigo, a volte vado veloce come un coniglio anche quando dovrei essere una lumaca. Per fortuna il tamburo mi riporta sempre al passo giusto. Quando non inciampa, s'intende.
+-----
+
+14. t03_maes_01_a.mp3 — Maestro Battuta
+-----
+[warm] Il tamburo non parla come noi. Ma ha le sue parole, fatte di colpi lunghi e corti. Te ne insegno qualcuna. Prima te la dico io, poi la suona il tamburo due volte, poi senti il mio TOC: vuol dire «tocca a te». Prima parola: me-la. Me... la.
+-----
+
+15. t03_maes_02_a.mp3 — Maestro Battuta
+-----
+[warm] Seconda parola: co-li-brì. Due colpi veloci e uno lungo: co-li-BRÌ.
+-----
+
+16. t03_maes_03_a.mp3 — Maestro Battuta
+-----
+[warm] Terza parola, la più lunga: tar-ta-ru-ga. Due veloci e due lunghi: tar-ta-RU-GA.
+-----
+
+17. t03_maes_04_a.mp3 — Maestro Battuta
+-----
+[warm] Sei già un piccolo tamburino! Adesso un segreto: nell'orchestra ci sono tamburi grandi e tamburi piccoli. Ascolta co-li-brì suonato su due tamburi diversi: i due colpi veloci sul tamburo dell'anulare, quello lungo sul tamburo dell'indice.
+-----
+
+18. t03_maes_05_a.mp3 — Maestro Battuta
+-----
+[warm] Hai sentito? Co-li-brì, co-li-brì... Sembra un cavallo che galoppa! Ed è proprio questo il pezzo della nostra canzone che il tamburo ha perduto: il galoppo. Ascolta come suonava prima che arrivasse Sbuffo.
+-----
+
+19. t03_maes_06_a.mp3 — Maestro Battuta
+-----
+[warm] Povero tamburo. Il galoppo ce l'ha ancora nella pelle, ma non riesce più a farlo uscire.
+-----
+
+20. t04_vent_01_a.mp3 — Vento
+-----
+[mischievously] Fffffff... Ancora voi! Avete trovato il tamburo, eh? Peccato! Io gli ho insegnato un galoppo nuovo. Al contrario! Sentite com'è più bello!
+-----
+
+21. t04_maes_01_a.mp3 — Maestro Battuta
+-----
+[warm] Al contrario?! Aspetta, aspetta. Giovane musicista, aiutami tu. Ascolta questi due galoppi: il primo è quello vero, del ricordo. Il secondo è quello di Sbuffo.
+-----
+
+22. t04_vent_02_a.mp3 — Vento
+-----
+[mischievously] Uffa! Va bene, va bene. Sfidiamoci! Se ripeti tutti i miei ritmi, il galoppo torna al tamburo. Ma vi avverto: io sono velocissimo!
+-----
+
+23. t04_maes_02_a.mp3 — Maestro Battuta
+-----
+[warm] La musica non corre, Sbuffo. Cammina. E noi la seguiamo. Giovane musicista, la sfida funziona come quella del pianoforte: il tamburo suona, senti il mio TOC, e tocca a te. Nei primi due turni la frase la senti due volte. Poi, attenzione: una volta sola! Pronto? Si comincia!
+-----
+
+24. t04_maes_03_a.mp3 — Maestro Battuta
+-----
+[excited] Adesso una volta sola! Due tamburi!
+-----
+
+25. t04_maes_04_a.mp3 — Maestro Battuta
+-----
+[warm] Senti? La musica è tornata a casa! Adesso il galoppo vero: anulare, anulare, mignolo... e poi di nuovo, e alla fine il medio!
+-----
+
+26. t04_vent_03_a.mp3 — Vento
+-----
+[mischievously] Nooo... ma come fai?! Era il mio galoppo preferito!
+-----
+
+27. t05_maes_01_a.mp3 — Maestro Battuta
+-----
+[excited] Ci siamo quasi! Ora attacchi tu. Suona la frase del pianoforte che hai già ritrovato: TA... TA-TA, indice, medio, indice. Questa volta nessuno te la suona prima: la ricordi tu!
+-----
+
+28. t05_maes_02_a.mp3 — Maestro Battuta
+-----
+[excited] E adesso il colpo finale! Io conto, e sul «BUM!» tu colpisci il tamburo: un colpo solo, il più bello che hai. Uno... due... tre...
+-----
+
+29. t05_vent_01_a.mp3 — Vento
+-----
+[mischievously] Fffff... il mio galoppo al contrario... era bello anche lui, però. Me ne vado!
+-----
+
+30. t05_maes_03_a.mp3 — Maestro Battuta
+-----
+[excited] Il galoppo è tornato! L'hai rimesso tu al suo posto. Però... ascolta Sbuffo, là in fondo. Soffia a raffiche, senza nessun passo. Proprio come il tamburo prima. Chissà... forse nessuno ha mai suonato insieme a lui. Proviamo? Tu batti il tempo, tum, tum, tum, e vediamo che cosa succede.
+-----
+
+31. t05_vent_02_a.mp3 — Vento
+-----
+[softly] Ehi... che cos'era? Ho soffiato... insieme a qualcuno? Fff... Non lo so! Me ne vado davvero!
+-----
+
+32. t05_maes_04_a.mp3 — Maestro Battuta
+-----
+[warm] Per un attimo Sbuffo ha soffiato a tempo. L'hai sentito anche tu? Forse il vento non vuole soltanto rubare. Forse non ha mai avuto nessuno con cui tenere il passo.
+-----
+
+33. t05_maes_05_a.mp3 — Maestro Battuta
+-----
+[warm] Prima di salutarci, ho una sorpresa per i tamburini più coraggiosi. Ti ricordi il basso, quando la musica è tornata a casa? Suonava un ritmo segreto, un po' storto. Vuoi provarlo? Premi Sì per provarlo, oppure No per salutare il tamburo.
+-----
+
+34. t05_maes_06_a.mp3 — Maestro Battuta (ramo A)
+-----
+[warm] Ascolta bene: il primo colpo, poi si aspetta un pochino. Il secondo, si aspetta ancora. E il terzo arriva prima di quanto pensi! Poi si torna a casa, sull'indice.
+-----
+
+35. t05_maes_07_a.mp3 — Maestro Battuta (ramo A)
+-----
+[warm] Il ritmo segreto del tamburo! Pochi musicisti lo sanno suonare al primo colpo. Io ci ho messo tre anni. E una carota.
+-----
+
+36. t05_maes_08_a.mp3 — Maestro Battuta (ramo B)
+-----
+[warm] Va bene! Il ritmo segreto ti aspetterà qui. Il tamburo è paziente: ha imparato a tenere il passo, non a correre.
+-----
+
+37. t99_narr_01_a.mp3 — Narratore
+-----
+[calm] Il tamburo ha ritrovato il suo passo, e la canzone dell'orchestra ha di nuovo il suo galoppo. Ma Sbuffo ha sparpagliato ancora tanti suoni. E per un attimo, uno soltanto, il vento ha soffiato a tempo con qualcuno.
+-----
+
+38. t99_maes_01_a.mp3 — Maestro Battuta
+-----
+[warm] Il galoppo adesso è nel tuo quaderno delle canzoni: dal menu puoi riascoltarlo e suonarlo quando vuoi. Altri strumenti ci stanno aspettando. Vuoi andare subito dal prossimo? Premi Sì per partire, oppure No per tornare al menu.
+-----
+
+============================================================
+CAPITOLO 3 — LA CAMPANELLA
+============================================================
+
+39. c00_narr_01_a.mp3 — Narratore
+-----
+[calm] Nella sala della musica, a destra, una campanella continua a fare la stessa domanda. La fa una volta, poi un'altra. E aspetta. Ma la risposta non arriva mai.
+-----
+
+40. c00_maes_01_a.mp3 — Maestro Battuta
+-----
+[warm] Ah, la campanella! Hai sentito? Sta facendo una domanda. Nella nostra canzone, dopo la sua domanda, arrivava sempre una risposta. Ma oggi... niente. Sbuffo le ha rubato la risposta!
+-----
+
+41. c00_maes_02_a.mp3 — Maestro Battuta
+-----
+[warm] Povera campanella. Andiamo da lei, è a destra. Cammina piano: le campanelle sono un po' timide.
+-----
+
+42. c01_maes_01_a.mp3 — Maestro Battuta
+-----
+[warm] Eccola. La campanella è fatta di metallo. Dentro c'è un piccolo martello, che si chiama batacchio. Quando il batacchio colpisce il metallo, il metallo vibra. E continua a vibrare a lungo, anche dopo il colpo: per questo il suono della campanella resta nell'aria. Ascolta.
+-----
+
+43. c01_maes_02_a.mp3 — Maestro Battuta
+-----
+[warm] Il suo suono è acuto e chiaro, come una voce sottile che arriva lontano. Da adesso i tuoi pulsanti sono campanelle! Suona come vuoi: ogni campanella sta bene con tutte le altre.
+-----
+
+44. c01_maes_03_a.mp3 — Maestro Battuta
+-----
+[warm] Che bel concerto di campanelle! Hai notato come ogni suono continua a vibrare? Adesso ascolta: prima la lascio suonare... poi la fermo con la mano.
+-----
+
+45. c01_maes_04_a.mp3 — Maestro Battuta
+-----
+[warm] Adesso giochiamo. Io faccio suonare la campanella una volta sola. Se il suono è lungo, premi l'indice. Se è corto, premi il medio.
+-----
+
+46. c01_maes_05_a.mp3 — Maestro Battuta
+-----
+[warm] Hai delle orecchie finissime. Io, l'ultima volta, ho confuso una campanella con il campanello della porta. Ho aperto, e non c'era nessuno. C'era solo una carota.
+-----
+
+47. c02_maes_01_a.mp3 — Maestro Battuta
+-----
+[warm] La campanella ha un'abitudine: si nasconde! E per trovarla bisogna usare le orecchie. Quando suona a sinistra, premi l'indice. Quando suona a destra, premi il medio. Pronto?
+-----
+
+48. c02_maes_02_a.mp3 — Maestro Battuta
+-----
+[warm] Trovata! E adesso un gioco diverso: quante volte suona? Ascolta i rintocchi, e poi premi l'indice tante volte quante sono.
+-----
+
+49. c03_maes_01_a.mp3 — Maestro Battuta
+-----
+[warm] La campanella saluta sempre così: «Ciao!» Due note: una in alto e una un po' più giù. La prima è sotto il mignolo. Premi il pulsante sotto il mignolo!
+-----
+
+50. c03_maes_02_a.mp3 — Maestro Battuta
+-----
+[warm] Adesso ascolta il saluto: prima la campanella lo suona due volte, poi senti il mio TOC, e tu lo ripeti. Mignolo, poi anulare.
+-----
+
+51. c03_maes_03_a.mp3 — Maestro Battuta
+-----
+[warm] Ciao anche a te! E adesso la frase preferita della campanella: din, don, din. Anulare, mignolo, anulare.
+-----
+
+52. c03_maes_04_a.mp3 — Maestro Battuta
+-----
+[warm] Hai notato una cosa? Queste frasi restano sospese, come quando qualcuno ti chiama: «Ciao...?» e aspetta. Sono domande. Ascolta: prima la frase della campanella, poi un'altra frase.
+-----
+
+53. c03_maes_05_a.mp3 — Maestro Battuta
+-----
+[warm] Questa frase che torna a casa si chiama l'altalena: va su e torna giù, medio, anulare, medio. Da oggi sarà la tua frase. Ripetila!
+-----
+
+54. c04_maes_01_a.mp3 — Maestro Battuta
+-----
+[warm] Adesso giochiamo come due amici che si parlano. La campanella fa una domanda, e tu rispondi con la tua altalena. Sempre la stessa: qualunque cosa chieda la campanella, la tua altalena torna a casa.
+-----
+
+55. c04_maes_02_a.mp3 — Maestro Battuta
+-----
+[excited] Bravissimo! Ora una domanda più lunga. Ascolta: sale, sale... e si ferma in alto. La risposta è quasi uguale: cambia solo l'ultima nota, che invece di restare in alto torna giù, a casa, sul medio.
+-----
+
+56. c04_maes_03_a.mp3 — Maestro Battuta
+-----
+[warm] Adesso ti faccio sentire la risposta che Sbuffo ha rubato alla campanella. Ascolta il ricordo: prima la domanda, poi la risposta.
+-----
+
+57. c04_maes_04_a.mp3 — Maestro Battuta
+-----
+[warm] Ce l'hai! Adesso la risposta della campanella la conosci anche tu. Speriamo che Sbuffo non ci senta...
+-----
+
+58. c05_vent_01_a.mp3 — Vento
+-----
+[mischievously] Fffffff... Domande, risposte, domande, risposte... che noia! La risposta della campanella ce l'ho io, e non ve la ridò! A meno che... facciamo un gioco. Io faccio le domande, e tu rispondi. Se sbagli, la risposta resta mia per sempre!
+-----
+
+59. c05_maes_01_a.mp3 — Maestro Battuta
+-----
+[excited] Accettiamo! Ma niente trucchi, Sbuffo. Giovane musicista, prima ripeterai le frasi della campanella, come sempre. Poi arriveranno le domande vere: lì non dovrai ripetere, dovrai rispondere. Pronto? Si comincia!
+-----
+
+60. c05_maes_02_a.mp3 — Maestro Battuta
+-----
+[excited] Adesso la domanda vera! Non ripeterla: rispondi, come nel ricordo!
+-----
+
+61. c05_vent_02_a.mp3 — Vento
+-----
+[mischievously] Grrr! Va bene, quella la sapevi. Ma questa no! Questa domanda è nuova di zecca!
+-----
+
+62. c05_maes_03_a.mp3 — Maestro Battuta
+-----
+[warm] Una domanda nuova vuol dire una risposta nuova. Inventala tu! Puoi suonare le note che vuoi, basta che l'ultima torni a casa, sul medio. Anche la tua altalena va benissimo.
+-----
+
+63. c05_maes_04_a.mp3 — Maestro Battuta
+-----
+[excited] E adesso il rintocco finale! Io batto tre volte la bacchetta, e al quarto colpo suoni la campanella: un rintocco solo, il più chiaro che hai. Uno... due... tre...
+-----
+
+64. c05_vent_03_a.mp3 — Vento
+-----
+[softly] Ffff... Avete vinto. Tenetevi la vostra risposta. Tanto... a me nessuno risponde mai.
+-----
+
+65. c05_maes_05_a.mp3 — Maestro Battuta
+-----
+[warm] Hai sentito? Anche Sbuffo ha fatto una domanda. Forse è la prima volta che qualcuno la ascolta. Vuoi rispondergli tu? Qualunque risposta va bene. Se l'ultima nota torna a casa, sul medio, sarà ancora più bella.
+-----
+
+66. c05_vent_04_a.mp3 — Vento
+-----
+[softly] Mi... mi hai risposto? Nessuno... nessuno l'aveva mai fatto. Fff... Devo andare. Ma... grazie.
+-----
+
+67. c05_maes_06_a.mp3 — Maestro Battuta
+-----
+[warm] «Grazie». Sbuffo ha detto grazie! In tanti anni non l'avevo mai sentito. Forse il vento non vuole soltanto rubare. Forse vuole solo che qualcuno gli risponda.
+-----
+
+68. c05_maes_07_a.mp3 — Maestro Battuta
+-----
+[warm] Prima di salutarci, ho una sorpresa per i musicisti più coraggiosi. La campanella conosce una ninna nanna che dondola in un modo diverso: uno, due, tre... uno, due, tre. Vuoi provarla? Premi Sì per provarla, oppure No per salutare la campanella.
+-----
+
+69. c05_maes_08_a.mp3 — Maestro Battuta (ramo A)
+-----
+[warm] Ascolta come dondola: una nota lunga e una corta, una lunga e una corta... e alla fine una nota lunga lunga, che si addormenta.
+-----
+
+70. c05_maes_09_a.mp3 — Maestro Battuta (ramo A)
+-----
+[whispers] Shhh... Credo che anche Sbuffo, da qualche parte, si sia addormentato. O forse sono io che mi sto addormentando.
+-----
+
+71. c05_maes_10_a.mp3 — Maestro Battuta (ramo B)
+-----
+[warm] Va bene! La ninna nanna ti aspetterà qui. Le campanelle hanno molta pazienza: possono risuonare per tanto tempo.
+-----
+
+72. c99_narr_01_a.mp3 — Narratore
+-----
+[calm] La campanella ha ritrovato la sua risposta, e la canzone dell'orchestra ha di nuovo la sua fine, quella che torna a casa. Ma Sbuffo ha sparpagliato ancora tanti suoni. E oggi, per la prima volta, qualcuno ha risposto al vento.
+-----
+
+73. c99_maes_01_a.mp3 — Maestro Battuta
+-----
+[warm] La domanda e la risposta della campanella adesso sono nel tuo quaderno delle canzoni: dal menu puoi riascoltarle e suonarle quando vuoi. Altri strumenti ci stanno aspettando. Vuoi andare subito dal prossimo? Premi Sì per partire, oppure No per tornare al menu.
+-----
+
+============================================================
+CAPITOLO 2 — RISPOSTE DELLE INTERAZIONI
+============================================================
+
+74. eq_t01_extra_01_mignolo.mp3 — Maestro Battuta — Prova del mignolo riuscita
+-----
+[excited] Ecco il mignolo! È il tamburo con la voce più acuta.
+-----
+
+75. eq_t01_domanda_regolare.mp3 — Maestro Battuta — Domanda del confronto (al secondo ascolto)
+-----
+[warm] Il secondo è regolare come il primo?
+-----
+
+76. eq_t01_extra_02_inciampa.mp3 — Maestro Battuta — Confronto riuscito
+-----
+[warm] Esatto: il secondo inciampa.
+-----
+
+77. eq_t02_extra_01_conta.mp3 — Maestro Battuta — Aiuto per battere il tempo: il Maestro conta (si taglia parola per parola)
+-----
+[rhythmic] Uno. Due. Tre. Quattro.
+-----
+
+78. eq_t02_extra_02_passo_ok.mp3 — Maestro Battuta — Battere il tempo riuscito
+-----
+[excited] Che passo regolare! Proprio come un cuore.
+-----
+
+79. eq_t02_extra_03_passo_riprova.mp3 — Maestro Battuta — Battere il tempo non ancora riuscito
+-----
+[warm] Ascolta la cassa: tum, tum, tum, tum. Questa volta contiamo insieme.
+-----
+
+80. eq_t02_domanda_veloce.mp3 — Maestro Battuta — Domanda del confronto veloce/lento
+-----
+[warm] Il secondo è più veloce?
+-----
+
+81. eq_t02_extra_04_coniglio.mp3 — Maestro Battuta — Risposta giusta: più veloce
+-----
+[excited] Proprio così: il secondo corre come un coniglio!
+-----
+
+82. eq_t02_extra_05_lumaca.mp3 — Maestro Battuta — Risposta giusta: più lento
+-----
+[warm] No: questa volta il secondo cammina come una lumaca.
+-----
+
+83. eq_t03_extra_01_parola_ok.mp3 — Maestro Battuta — Eco di allenamento riuscita
+-----
+[excited] Il tamburo ti ha capito!
+-----
+
+84. eq_t03_extra_02_parola_ok_alt.mp3 — Maestro Battuta — Eco di allenamento riuscita, alternativa
+-----
+[excited] Che bella parola di tamburo!
+-----
+
+85. eq_t03_extra_03_due_tamburi.mp3 — Maestro Battuta — Eco su due tamburi riuscita
+-----
+[excited] Due tamburi, una parola sola!
+-----
+
+86. eq_t04_extra_01_contrario.mp3 — Maestro Battuta — Confronto riuscito: il galoppo al contrario
+-----
+[excited] Esatto: Sbuffo l'ha girato tutto al contrario!
+-----
+
+87. eq_t04_extra_02_colibri.mp3 — Maestro Battuta — Base d'aiuto: le sillabe sopra la frase
+-----
+[rhythmic] Co-li-brì.
+-----
+
+88. eq_t04_extra_03_insieme.mp3 — Maestro Battuta — Dopo tre tentativi della sfida
+-----
+[warm] Vuoi che lo suoniamo insieme, piano piano?
+-----
+
+89. eq_t05_extra_01_suggerimento.mp3 — Maestro Battuta — Turno d'attacco non riuscito
+-----
+[warm] Te la suggerisce il pianoforte. Ascolta, e poi riprova.
+-----
+
+90. eq_t05_extra_02_bum.mp3 — Maestro Battuta — Colpo finale riuscito
+-----
+[excited] BUM! Che colpo!
+-----
+
+91. eq_t05_extra_03_ancora_bum.mp3 — Maestro Battuta — Colpo finale da ripetere
+-----
+[warm] Quasi! Ricominciamo: uno, due, tre...
+-----
+
+92. eq_t05_extra_04_quasi_storto.mp3 — Maestro Battuta — Ritmo segreto raddrizzato
+-----
+[warm] Quasi! Il secondo colpo aspetta un pochino di più.
+-----
+
+============================================================
+CAPITOLO 3 — RISPOSTE DELLE INTERAZIONI
+============================================================
+
+93. eq_c01_domanda_corto.mp3 — Maestro Battuta — Domanda del confronto lungo/corto
+-----
+[warm] Il secondo suono è più corto?
+-----
+
+94. eq_c01_extra_01_mano.mp3 — Maestro Battuta — Confronto riuscito
+-----
+[warm] Esatto: la mano ha fermato la vibrazione.
+-----
+
+95. eq_c01_domanda_lungo.mp3 — Maestro Battuta — Riconosci: la domanda, al secondo ascolto
+-----
+[warm] Lungo o corto? Lungo, indice. Corto, medio.
+-----
+
+96. eq_c01_extra_02_lungo.mp3 — Maestro Battuta — Riconosci: lungo, giusto
+-----
+[excited] Lungo! Ha risuonato fino in fondo.
+-----
+
+97. eq_c01_extra_03_corto.mp3 — Maestro Battuta — Riconosci: corto, giusto
+-----
+[excited] Corto! La mano l'ha fermato subito.
+-----
+
+98. eq_c02_domanda_dove.mp3 — Maestro Battuta — Riconosci dove: la domanda, al secondo ascolto
+-----
+[warm] Dove suona? A sinistra, indice. A destra, medio.
+-----
+
+99. eq_c02_domanda_fermata.mp3 — Maestro Battuta — Riconosci dove: la campanella che si sposta
+-----
+[warm] Dove si è fermata?
+-----
+
+100. eq_c02_extra_01_trovata.mp3 — Maestro Battuta — Riconosci dove, giusto
+-----
+[excited] Trovata!
+-----
+
+101. eq_c02_extra_02_trovata_alt.mp3 — Maestro Battuta — Riconosci dove, giusto, alternativa
+-----
+[excited] Eccola! Hai delle orecchie finissime.
+-----
+
+102. eq_c02_domanda_quante.mp3 — Maestro Battuta — Conta: la domanda, al secondo ascolto
+-----
+[warm] Quante volte ha suonato? Premi l'indice tante volte quanti sono i rintocchi.
+-----
+
+103. eq_c02_extra_03_due.mp3 — Maestro Battuta — Conta: due, giusto
+-----
+[excited] Due! Giusto.
+-----
+
+104. eq_c02_extra_04_tre.mp3 — Maestro Battuta — Conta: tre, giusto
+-----
+[excited] Tre! Sei bravissimo a contare con le orecchie.
+-----
+
+105. eq_c03_extra_01_mignolo.mp3 — Maestro Battuta — Prova del mignolo riuscita
+-----
+[excited] Ecco il mignolo! È la campanella più acuta.
+-----
+
+106. eq_c03_extra_02_campanella_ok.mp3 — Maestro Battuta — Eco di allenamento riuscita
+-----
+[excited] La campanella ti ha sentito!
+-----
+
+107. eq_c03_domanda_finita.mp3 — Maestro Battuta — Domanda del confronto aperta/chiusa
+-----
+[warm] La seconda frase ti sembra finita?
+-----
+
+108. eq_c03_extra_03_risposta.mp3 — Maestro Battuta — Confronto riuscito
+-----
+[excited] Proprio così: la seconda torna a casa. È una risposta!
+-----
+
+109. eq_c03_extra_04_altalena.mp3 — Maestro Battuta — Eco dell'altalena riuscita
+-----
+[warm] Questa è la tua altalena. Non dimenticarla: ci servirà!
+-----
+
+110. eq_c04_extra_01_su_giu.mp3 — Maestro Battuta — Risposta fissa non riuscita
+-----
+[warm] Su... e giù!
+-----
+
+111. eq_c04_extra_02_ultima_casa.mp3 — Maestro Battuta — Periodo non riuscito
+-----
+[warm] Uguale... ma l'ultima torna a casa!
+-----
+
+112. eq_c04_extra_03_risposta_ok.mp3 — Maestro Battuta — Risposta riuscita
+-----
+[excited] Che bella risposta!
+-----
+
+113. eq_c05_extra_01_torna_casa.mp3 — Maestro Battuta — Risposta libera che non finisce sul medio
+-----
+[warm] Bella! Adesso falla tornare a casa, sul medio.
+-----
+
+114. eq_c05_extra_02_rintocco_ok.mp3 — Maestro Battuta — Rintocco finale riuscito
+-----
+[excited] Che rintocco luminoso!
+-----
+
+115. eq_c05_extra_03_rintocco_ancora.mp3 — Maestro Battuta — Rintocco finale da ripetere
+-----
+[warm] Quasi! Ricominciamo: uno, due, tre...
+-----

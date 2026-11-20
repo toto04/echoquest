@@ -54,7 +54,7 @@ public static class StorySceneChecks
         var root = new GameObject("Actual story check"); root.SetActive(false);
         var player = root.AddComponent<StoryPlayer>();
         var head = new GameObject("Test listener"); head.transform.SetParent(root.transform); head.AddComponent<AudioListener>();
-        player.listener = head.transform; player.section = "s01";
+        player.listener = head.transform; player.section = "s01"; player.continueToNextSection = false;
         player.sequence = new TextAsset(AssetDatabase.LoadAssetAtPath<TextAsset>(rootPath + "/Script/capitolo_01_sequenza.csv").text);
         player.staging = new TextAsset(FastStaging(AssetDatabase.LoadAssetAtPath<TextAsset>(rootPath + "/Script/capitolo_01_regia.csv").text));
         player.startDelay = player.pauseAfterLine = player.pauseAfterSound = player.pauseAroundInlineSound = 0;

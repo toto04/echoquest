@@ -168,7 +168,8 @@ I numeri seguono `capitolo_01_suoni.csv`: se nel copione si aggiunge un `[AUDIO]
 e i file vanno rinominati (è successo aggiungendo i suoni `09`–`12`).
 
 Nella sala ci sono quattro strumenti, sempre negli stessi posti (vedi la regia): **pianoforte** davanti a
-destra, **tamburo** a sinistra, **triangolo** a destra in alto, **flauto** davanti. Quando il Narratore nomina
+destra, **tamburo** a sinistra, **campanella** a destra in alto, **flauto** davanti: sono i quattro strumenti
+che il bambino recupererà, uno per dito. Quando il Narratore nomina
 un suono (lungo, corto, delicato, forte, «bum bum», «din din», «suoni delicati», «tutti insieme») lo si
 sente davvero, con uno strumento diverso ogni volta (`03`–`06`, `09`–`12`).
 
@@ -176,7 +177,7 @@ sente davvero, con uno strumento diverso ogni volta (`03`–`06`, `09`–`12`).
   attribuzione; vietato rivenderli così come sono o usarli per addestrare AI): vento (`18`, `19`, `22`,
   `23`), porta e fogli (`19`), oggetto che cade (`13`), frugare (`14`), colpi di bacchetta (`16`),
   sedia che scricchiola (`01`), risata lontana (`15`).
-- **Sintetizzati** come segnaposto: pianoforte, tamburo, triangolo, flauto, applausi (`07`, `08`) e il
+- **Sintetizzati** come segnaposto: pianoforte, tamburo, campanella, flauto, applausi (`07`, `08`) e il
   fischio del vento (`23`).
 - Mancano ancora dentro i suoni composti: passi, porta che si apre e voci sottovoce (`01`), passi (`07`),
   qualcuno che si schiarisce la voce (`13`).
@@ -184,7 +185,7 @@ sente davvero, con uno strumento diverso ogni volta (`03`–`06`, `09`–`12`).
 Il **tema musicale** del capitolo è di tre note, Sol–Do–Mi, con il ritmo «TA… TA-TA»: lo stesso che il
 bambino deve ripetere nella Scena 3. È un motivo nostro, non una canzone esistente.
 - `17` è la canzone dell'orchestra e **si costruisce sotto il Narratore**: prima solo il pianoforte, poi
-  entra il tamburo («poi ne arriva un altro»), il triangolo («e un altro ancora»), il flauto e il basso
+  entra il tamburo («poi ne arriva un altro»), la campanella («e un altro ancora»), il flauto e il basso
   («ogni strumento…»), e cresce davvero di volume (circa +10 dB) fino a «la musica continua a crescere».
   Poi continua piena, in loop, finché il vento non la rovina (`20`). I tempi sono allineati alla
   battuta `p00_narr_05`: se la si rigenera, vanno ricontrollati in `tools/story_placeholder_sfx.py`.
@@ -237,7 +238,9 @@ resta necessario per valutare raccordi e riverbero.
 ## Scene 2 e 3 (`s02`, `s03`, scene `Scena2.unity` e `Scena3.unity`)
 
 Il pianoforte e la prima sfida contro Sbuffo, giocabili con voci, suoni e musica. Le scene del capitolo
-si caricano una dopo l'altra (Intro → Scena 1 → Scena 2 → Scena 3 → Scena 4 → Scena 5 → Epilogo). Nella Scena 2 il bambino sceglie
+si suonano di fila, senza stacchi, nella stessa scena Unity (Intro → Scena 1 → … → Scena 5 → Epilogo): apri
+`Intro.unity` per il capitolo intero, oppure la scena da cui vuoi partire. Per ascoltare una scena sola, spegni
+«Play on into the next scene» nella scheda Story del pannello di debug. Nella Scena 2 il bambino sceglie
 il registro del pianoforte (indice = grave, medio = acuto): i suoni con i file `_grave`/`_acuto` seguono
 la scelta. La Scena 3 è una battaglia a tempo su una base che non si ferma, descritta in
 [scena2-3-interattive.md](../../../../../docs/scena2-3-interattive.md) insieme alle verifiche.
@@ -260,3 +263,33 @@ La Scena 4 (`Scena4.unity`) ha voci, suoni, regia e le sue due interazioni; i su
 Anche la Scena 5 (`Scena5.unity`: tamburo a sinistra o campanella a destra) e l'epilogo (`Epilogo.unity`)
 sono completi; i loro suoni si rigenerano con `s05` ed `e00`.
 
+
+## Capitoli 2 e 3 (il tamburo e la campanella)
+
+Copioni in `Script/capitolo_02_il_tamburo.md` e `Script/capitolo_03_la_campanella.md`, progetto in
+[capitoli-2-3.md](../../../../../docs/capitoli-2-3.md). I loro ID hanno la lettera del capitolo (`t01_maes_02`,
+`c05_sfx_03`), così non si scontrano con quelli del capitolo 1:
+
+```sh
+S=unity/EchoQuestTest/Assets/EchoQuest/Story
+python3 tools/story_extract.py $S/Script/capitolo_02_il_tamburo.md --out-dir $S/Script --name capitolo_02 \
+  --voice-dir $S/Audio/Voice --sfx-dir $S/Audio/Sfx --section-letter t
+python3 tools/story_extract.py $S/Script/capitolo_03_la_campanella.md --out-dir $S/Script --name capitolo_03 \
+  --voice-dir $S/Audio/Voice --sfx-dir $S/Audio/Sfx --section-letter c
+```
+
+Le voci sono in `Audio/Voice` (battute) e `Audio/Interazioni` (risposte, `eq_t…`, `eq_c…`); i testi sono in
+`docs/registrazioni-capitoli-2-3.txt`. Il tamburo e la campanella sono **registrazioni vere**, non sintesi:
+timpani e campane a mano della [Versilian Community Sample Library](https://github.com/sgossner/VCSL)
+(licenza CC0, nessun obbligo), accordati sulle note dei pulsanti (tamburo Re3-Do4, campanella Re5-Do6).
+I campioni scaricati stanno in `~/.cache/echoquest-sfx/vcsl`, convertiti in `mono/` con il prefisso `v_`
+(l'elenco è nel generatore). I suoni si rigenerano con:
+
+```sh
+python3 tools/story_placeholder_sfx.py ~/.cache/echoquest-sfx/mono unity/EchoQuestTest/Assets/EchoQuest/Story/Audio/Sfx \
+  t00 t01 t02 t03 t04 t05 t99 c00 c01 c02 c03 c04 c05 c99
+```
+
+I file `x_t…` e `x_c…` sono i suoni delle interazioni: i pulsanti (`x_t01_tamburo_re`, `x_c01_campanella_do`…),
+le frasi delle sfide, le basi divise in strati (`x_t04_base_a_l0`…), gli esempi da confrontare. La regia e le
+scene Unity dei due capitoli sono ancora da fare.

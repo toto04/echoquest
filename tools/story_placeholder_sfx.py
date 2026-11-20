@@ -25,7 +25,7 @@ same way and prefixed with k_: footstep_wood_000-004, creak1-3, confirmation_001
 cloth1-4, impactWood_light_000-004, impactSoft_medium_000-004.
 
 Usage: python3 tools/story_placeholder_sfx.py <mono_dir> <out_dir> [what ...]
-`what` can be a section (p00, s01 ... s05, e00), a cue id (s01_sfx_05) or a prologue cue number (16).
+`what` can be a section (p00, s01 ... s05, e00, or t00-t99 and c00-c99 for chapters 2 and 3), a cue id (s01_sfx_05) or a prologue cue number (16).
 Without it, everything is written.
 
 Scenes 2 and 3 are music first: their piano phrases, Sbuffo's motif and the whole first battle are
@@ -40,6 +40,9 @@ import struct
 import sys
 import wave
 from array import array
+
+sys.path.insert(0, __file__.rsplit("/tools/", 1)[0])
+from tools.music import grid as music  # noqa: E402
 
 SR = 48000
 MONO, OUT = sys.argv[1], sys.argv[2]
@@ -212,18 +215,14 @@ def tom(vel=0.8):
     return mix(out, hit, 0, 0.5 * vel)
 
 
-def triangle(vel=0.5, dur=2.5):
-    """A triangle: DIN. Inharmonic metal partials with a long ring."""
-    n = int(dur * SR)
-    out = [0.0] * n
-    for ratio, amp in zip((1.0, 2.76, 5.40, 8.93, 13.3), (1.0, 0.7, 0.5, 0.35, 0.25)):
-        w = 2 * math.pi * 1250 * ratio / SR
-        tau = 1.6 / ratio ** 0.4
-        ph = random.random() * 2 * math.pi
-        for i in range(n):
-            out[i] += amp * vel * math.exp(-i / (tau * SR)) * math.sin(w * i + ph)
-    click = biquad([random.uniform(-1, 1) * math.exp(-i / (0.001 * SR)) for i in range(int(0.006 * SR))], "hp", 4000)
-    return mix(out, click, 0, 0.3 * vel)
+def campanella(note="A5", vel=0.5, dur=2.5):
+    """The campanella (04-battle-cues.md: a celesta, clear pitch, an octave above the buttons). It
+    replaces the prologue's triangle, so the bell the child recovers is in the orchestra from the start."""
+    return music.synth.celesta(NOTE[note], dur, vel)
+
+
+# Bell notes on beats 2 and 4 of each song chord: chord tones among the button letters, D5-C6.
+BELL_NOTES = {"F": ("A5", "C6"), "Dm7": ("A5", "C6"), "Bb": ("F5", "D5"), "Csus4": ("F5", "C6"), "Gm7": ("F5", "D5")}
 
 
 def flute(freq, dur, vel=0.5, breath=0.08):
@@ -335,9 +334,9 @@ def add_bar(out, at, bar_index=0, bass=True, drum=True, tri=True, flt=True, firs
         else:
             for k in range(first_beat, 4):
                 mix(out, cached(tom, 0.8 if k % 2 == 0 else 0.5), at + k * BEAT, 0.7)
-    if tri:
-        for t in (BEAT, 3 * BEAT):
-            mix(out, cached(triangle, 0.4), at + t, 0.3)
+    if tri:  # the campanella (it was a triangle): chord tones on beats 2 and 4
+        for t, n in zip((BEAT, 3 * BEAT), BELL_NOTES[SONG_CHORDS[k_bar]]):
+            mix(out, cached(campanella, n, 0.4, 1.2), at + t, 0.3)
     if flt:  # the flute doubles the melody an octave up, softly
         for t, n, d in bar_notes(SONG_BARS[k_bar]):
             up = n[:-1] + str(int(n[-1]) + 1)
@@ -385,13 +384,13 @@ if wanted(4):
         mix(x, tom(0.7), t)
     save(cue(4), x, -3)
 if wanted(5):
-    save(cue(5), triangle(0.3, 3.0), -12)  # delicate: one soft triangle touch
+    save(cue(5), campanella("A5", 0.25, 3.0), -12)  # delicate: one soft touch of the campanella
 if wanted(6):
     x = silence(3.2)  # loud: everybody together
     for n in ("F2", "C3", "F3", "A3", "C4"):  # F major, home
         mix(x, piano(NOTE[n], 3.0, 1.0), 0.0, 0.45)
     mix(x, tom(1.0), 0.0, 0.9)
-    mix(x, triangle(0.6), 0.0, 0.4)
+    mix(x, campanella("C6", 0.6), 0.0, 0.4)
     mix(x, flute(NOTE["C5"], 1.6, 0.6), 0.0, 0.6)
     save(cue(6), x, -3)
 
@@ -404,7 +403,7 @@ if wanted(8):  # two claps
 if wanted(9):
     save(cue(9), mix(mix(silence(1.4), tom(0.9), 0.0), tom(0.9), 0.5), -3)  # BUM, BUM
 if wanted(10):
-    save(cue(10), mix(mix(silence(3.0), triangle(0.5), 0.0), triangle(0.5), 0.6), -6)  # DIN, DIN
+    save(cue(10), mix(mix(silence(3.0), campanella("C6", 0.5), 0.0), campanella("A5", 0.5), 0.6), -6)  # DIN, DIN (campanella)
 if wanted(11):
     x = silence(2.4)  # a whispering flute
     for t, n, d in [(0.0, "F4", 0.5), (0.5, "A4", 0.5), (1.0, "F4", 1.2)]:
@@ -428,7 +427,7 @@ if wanted(17):
     # The orchestra's song, built up under the narrator, who starts 3 s in (regia: attesa 3).
     # Narrator times (p00_narr_05) -> song time = narrator time + 3:
     #   "Prima senti un suono" ~1 s (piano alone) · "poi ne arriva un altro" ~3 s (drum at 6.0)
-    #   "e un altro ancora" ~5 s (triangle at 8.4) · "Ogni strumento..." ~7 s (flute and bass at 9.6)
+    #   "e un altro ancora" ~5 s (campanella at 8.4) · "Ogni strumento..." ~7 s (flute and bass at 9.6)
     #   "La musica continua a crescere" ~15 s (more layers at 16.8, louder up to 20.5)
     # Then the full band keeps playing (looping) until the wind ruins it.
     length = 4 * len(SONG_BARS) * BAR  # the 8-bar song four times (76.8 s)
@@ -441,11 +440,11 @@ if wanted(17):
                 drum=at + 3 * BEAT >= 6.0, first_beat=max(0, math.ceil((6.0 - at) / BEAT - 1e-6)) if at < 6.0 else 0,
                 tri=at + BEAT >= 8.4 - 1e-6 and at >= 7.2,
                 flt=at >= 9.6)
-        if at >= 16.8:  # growing: chords on every bar and extra triangle
+        if at >= 16.8:  # growing: chords on every bar and extra bell notes
             for n in CHORD[SONG_CHORDS[b % len(SONG_CHORDS)]][1]:
                 mix(x, cached(piano, NOTE[n], 2.0, 0.4), at, 0.35)
-            for k in (0, 2):
-                mix(x, cached(triangle, 0.3), at + k * BEAT, 0.2)
+            for k, n in zip((0, 2), BELL_NOTES[SONG_CHORDS[b % len(SONG_CHORDS)]]):
+                mix(x, cached(campanella, n, 0.3, 1.2), at + k * BEAT, 0.2)
     for i in range(len(x)):  # crescendo: 0.45 until 9.6 s, full at 20.5 s
         t = i / SR
         x[i] *= 0.45 + 0.55 * min(1.0, max(0.0, (t - 9.6) / (20.5 - 9.6)))
@@ -674,7 +673,7 @@ if wanted1(35):  # memory of the full song, a pause, then the live piano without
 if wanted1(36):  # walking across the room; here and there an instrument tries a single sound
     x = steps([0.6 * k for k in range(12)], vel=0.9)
     mix(x, tom(0.3), 1.5, 0.5)
-    mix(x, triangle(0.2, 1.2), 3.6, 0.4)
+    mix(x, campanella("A5", 0.2, 1.2), 3.6, 0.4)
     mix(x, flute(NOTE["A4"], 0.6, 0.3), 5.0, 0.5)
     mix(x, piano(NOTE["F4"], 1.0, 0.3), 6.2, 0.6)
     save(cue1(36), fade(x, 0, 0.8), -4)
@@ -728,8 +727,6 @@ if selected("x_fogli_vento"):  # papers flying in the wind
 
 # ---------------------------------------------------------------------------- Scenes 2 and 3
 # Music comes from music/library/capitolo_01.yaml through tools/music (checked against docs/music).
-sys.path.insert(0, __file__.rsplit("/tools/", 1)[0])
-from tools.music import grid as music  # noqa: E402
 
 SPECS = music.load_specs(__file__.rsplit("/tools/", 1)[0] + "/music/library/capitolo_01.yaml")
 CHOSEN = ("grave", "acuto")
@@ -1039,3 +1036,339 @@ if selected(cue_e(3)):
     save(cue_e(3), tac_tac_toc(), -3)  # TAC, TAC... TOC!
 if selected(cue_e(4)):  # the baton falls again
     save(cue_e(4), stick_drop(1), -6)
+
+
+# ============================================================================ Chapters 2 and 3
+# The tamburo and the campanella (docs/capitoli-2-3.md). Their instruments are real recordings from
+# the Versilian Community Sample Library (VCSL, CC0, github.com/sgossner/VCSL), converted like the
+# Sonniss files and prefixed v_ in <mono_dir>:
+#   timpani    Membranophones/Struck Membranophones/Timpani 1/Hit/Timpani{1..5}_Hit_v3_*_Sum.wav
+#   hand bells Idiophones/Struck Idiophones/Hand Chimes/sus_{D4,F#4,A4,C5}_r01_main.wav (they sound an
+#              octave above their name: sus_D4 is D5)
+# Each sample is tuned to the button pitch by resampling: the tamburo plays the buttons an octave down
+# (D3-C4), the campanella an octave up (D5-C6), as 04-battle-cues.md asks for these characters.
+SPECS_T = music.load_specs(__file__.rsplit("/tools/", 1)[0] + "/music/library/capitolo_02_tamburo.yaml")
+SPECS_C = music.load_specs(__file__.rsplit("/tools/", 1)[0] + "/music/library/capitolo_03_campanella.yaml")
+REG_T, REG_C = "grave", "acuto"
+# sample, principal frequency measured from its spectrum (Hz)
+TIMPANI = [("v_Timpani1_Hit_v3_rr3_Sum", 90.0), ("v_Timpani2_Hit_v3_rr1_Sum", 122.0), ("v_Timpani3_Hit_v3_rr1_Sum", 142.0),
+           ("v_Timpani4_Hit_v3_rr1_Sum", 169.0), ("v_Timpani5_Hit_v3_rr1_Sum", 191.0)]
+CHIMES = {"D5": ("v_sus_D4_r01_main", NOTE["D5"]), "F5": ("v_sus_Fs4_r01_main", NOTE["F#5"]),
+          "A5": ("v_sus_A4_r01_main", NOTE["A5"]), "C6": ("v_sus_C5_r01_main", NOTE["C6"])}
+
+
+def onset_trimmed(x, threshold=0.02):
+    """Drops the silence before the attack, so a note starts exactly where it is placed."""
+    peak = max(abs(v) for v in x) or 1.0
+    for i, v in enumerate(x):
+        if abs(v) > threshold * peak:
+            return x[max(0, i - 48):]
+    return x
+
+
+def pitched(x, ratio):
+    """Linear-interpolation resampling: ratio > 1 plays higher and shorter."""
+    n = int((len(x) - 1) / ratio)
+    out = []
+    for i in range(n):
+        p = i * ratio
+        k = int(p)
+        out.append(x[k] + (x[k + 1] - x[k]) * (p - k))
+    return out
+
+
+def tamburo(note, dur=1.6, vel=0.8):
+    """A real timpani stroke tuned to `note`, from the sample whose pitch is closest."""
+    f = NOTE[note]
+    name, base = min(TIMPANI, key=lambda s: abs(math.log(f / s[1])))
+    x = pitched(onset_trimmed(cached(load, name)), f / base)
+    x = x[: int((dur + 0.8) * SR)]
+    return [v * vel for v in fade(x, 0.0, 0.8)]
+
+
+def campana(note, dur=3.0, vel=0.7, damp=None):
+    """A real hand bell tuned to `note`. `damp` stops it with the hand after that many seconds."""
+    name, base = CHIMES[note]
+    x = pitched(onset_trimmed(cached(load, name)), NOTE[note] / base)
+    stop = damp if damp is not None else dur
+    x = x[: int((stop + (0.06 if damp is not None else 0.6)) * SR)]
+    return [v * vel for v in fade(x, 0.0, 0.06 if damp is not None else 0.6)]
+
+
+def call_with(spec, register, instrument, tail=1.5, vel=0.8):
+    """Plays a call spec (its button onsets) on a sampled instrument, in the given register."""
+    bar_len = 60.0 / spec.get("tempo", 100) * (int(spec.get("meter", "4/4").split("/")[0]))
+    length = len(spec["bars"]) * bar_len
+    onsets = music.call_onsets(spec, register)
+    out = silence(length + tail)
+    for k, (t, button) in enumerate(onsets):
+        end = onsets[k + 1][0] if k + 1 < len(onsets) else length
+        note = reg_note(music.BUTTON_NOTES["DFAC"[button - 1]], register)
+        mix(out, instrument(note, max(0.3, end - t), vel), t)
+    return out
+
+
+def hits(times, note="D3", vel=0.8, dur=1.0):
+    out = silence(max(times) + dur + 1.0)
+    for t in times:
+        mix(out, tamburo(note, dur, vel), t)
+    return out
+
+
+SONG_PIECES = ["C - A - F - - .", "D - . . F D - .", "A A C - A A F -", "C - - - A - - .",
+               "C - A - F - - .", "D - . . F D - .", "C A C A C - A -", "A - C - F - - -"]
+SONG_BASS = ["F2 - - - C2 - - -", "D2 - - - A1 - - -", "Bb1 - - - F2 - - -", "C2 - - - G1 - - -",
+             "F2 - - - C2 - - -", "D2 - - - A1 - - -", "G1 - - - D2 - - -", "F2 - - - - - - -"]
+SONG_PAD = ["F2+C3+A3 - - - - - - -", "C3+F3+A3 - - - - - - -", "Bb2+D3+F3 - - - - - - -", "C3+F3+G3 - - - - - - -",
+            "F2+C3+A3 - - - - - - -", "C3+F3+A3 - - - - - - -", "G2+Bb2+D3+F3 - - - - - - -", "F2+C3+A3 - - - - - - -"]
+SONG_PAD_GRAVE = ["F2+A2 - - - - - - -", "D2+A2 - - - - - - -", "Bb1+F2 - - - - - - -", "C2+G2 - - - - - - -",
+                  "F2+A2 - - - - - - -", "D2+A2 - - - - - - -", "G1+D2 - - - - - - -", "F2+A2 - - - - - - -"]
+
+
+def song(bars, register, layers=("L0", "L1", "L2"), tail=2.0):
+    """Some bars of the orchestra's song (0-based indices), piano melody in the chosen register with
+    bass and pad (the reprise: "the song up to the pieces recovered so far", 04)."""
+    pick = lambda rows: [rows[b] for b in bars]
+    spec = {"id": "song_" + "_".join(map(str, bars)), "role": "loop", "loop": False, "input": "locked", "centre": "F",
+            "tempo": 100, "steps_per_bar": 8,
+            "tracks": {"piano": {"instrument": "piano", "layer": "L2", "buttons": True, "bars": pick(SONG_PIECES)},
+                       "bass": {"instrument": "acoustic_bass", "layer": "L0", "bars": pick(SONG_BASS)},
+                       "pad": {"instrument": "strings", "layer": "L1", "register": ["normale", "acuto"], "bars": pick(SONG_PAD)},
+                       "pad_grave": {"instrument": "strings", "layer": "L1", "register": "grave", "bars": pick(SONG_PAD_GRAVE)}}}
+    return music.render(spec, register, tail=tail, only_layers=set(layers))
+
+
+def gallop_on_drums():
+    """The gallop (song bar 3) on the tamburo, as a layer to mix over song()."""
+    return call_with(SPECS_T["t_galoppo"], REG_T, tamburo, tail=1.0, vel=0.6)
+
+
+def gust(length=0.7, gain=1.0):
+    x = fade(biquad(load("whoosh", 0.2, 0.2 + length), "hp", 250), 0.05, 0.25)
+    return [v * gain for v in x]
+
+
+def stems(spec, register, layers, prefix):
+    """Battle/practice loop stems, mixed together with one gain like Scene 3's."""
+    parts = {f"{prefix}_{l.lower()}": music.render(spec, register, only_layers={l}) for l in layers}
+    if any(selected(n) for n in parts):
+        full = [sum(v) for v in zip(*parts.values())]
+        g = 0.42 * 0.95 / max(abs(v) for v in full)
+        for name, x in parts.items():
+            save_fixed(name, x, g)
+
+
+def save_call(name, x, gain=0.55):
+    save_fixed(name, x, gain / max(abs(v) for v in x))
+
+
+# ---- Chapter 2: the tamburo
+def ct(sec, n):
+    return f"t{sec:02d}_sfx_{n:02d}"
+
+
+for letter, nome in (("D", "re"), ("F", "fa"), ("A", "la"), ("C", "do")):  # the drums under the four fingers
+    if selected(f"x_t01_tamburo_{nome}"):
+        save(f"x_t01_tamburo_{nome}", tamburo(reg_note(music.BUTTON_NOTES[letter], REG_T), 0.9, 0.8), -8)
+for register in CHOSEN:
+    if selected(f"{ct(0, 1)}_{register}"):  # the piano's recovered piece, then a drum that cannot keep its step
+        x = song([0, 1], register, layers=("L2",), tail=0.5)
+        x = [v * 0.6 for v in x]
+        mix(x, hits([0.0, 0.9, 1.15, 2.9, 3.35], "D3", 0.7), len(x) / SR + 0.3)
+        save(f"{ct(0, 1)}_{register}", x, -6)
+    if selected(f"{ct(5, 1)}_{register}"):  # fanfare, then the song up to the gallop, Sbuffo's cell softly at the end
+        x = music.render(SPECS["fanfare_win_piano"], tail=0.0)[: int(2 * BAR * SR)]
+        rep = song([0, 1, 2, 3], register, tail=2.5)
+        mix(rep, gallop_on_drums(), 2 * BAR)
+        for t, n, d in ((3 * BAR + 4 * EIGHTH, "C6", 0.3), (3 * BAR + 5 * EIGHTH, "A5", 0.3), (3 * BAR + 6 * EIGHTH, "D5", 0.9)):
+            mix(rep, music.synth.pan_flute(NOTE[n], d, 0.3), t)
+        mix(x, rep, 2 * BAR)
+        save(f"{ct(5, 1)}_{register}", fade(x, 0, 1.5), -3)
+    if selected(f"t99_sfx_01_{register}"):  # a calm, regular drum under the song up to the gallop
+        x = song([0, 1, 2, 3], register, tail=2.5)
+        mix(x, hits([k * BEAT for k in range(16)], "D3", 0.35, 0.5), 0.0)
+        mix(x, gallop_on_drums(), 2 * BAR)
+        save(f"t99_sfx_01_{register}", fade(x, 0, 2.0), -5)
+if selected(ct(0, 2)):  # footsteps to the left, the drum getting closer
+    x = steps([0.55 * k for k in range(8)], vel=0.9)
+    mix(x, hits([1.6, 3.1], "D3", 0.25), 0.0)
+    save(ct(0, 2), fade(x, 0, 0.5), -5)
+if selected(ct(1, 1)):  # one deep stroke, left to ring
+    save(ct(1, 1), tamburo("D3", 3.5, 0.9), -4)
+regular = hits([k * BEAT for k in range(4)], "D3", 0.7)
+stumbling = hits([0.0, 0.45, 1.5, 1.9], "D3", 0.7)  # the second stroke early, the third late
+if selected(ct(1, 2)):
+    save(ct(1, 2), hits([k * BEAT for k in range(4)], "D3", 0.5), -6)  # four soft strokes, a heartbeat
+if selected("x_t01_regolare"):
+    save("x_t01_regolare", regular, -5)
+if selected("x_t01_inciampa"):
+    save("x_t01_inciampa", stumbling, -5)
+if selected(ct(1, 3)):
+    save(ct(1, 3), regular + silence(1.0) + stumbling, -5)
+if selected(ct(2, 1)):
+    save(ct(2, 1), hits([k * BEAT for k in range(4)], "D3", 0.7), -5)
+tempo_hits = {bpm: hits([k * 60.0 / bpm for k in range(4)], "D3", 0.7) for bpm in (80, 100, 130)}
+for bpm, x in tempo_hits.items():
+    if selected(f"x_t02_tempo_{bpm}"):
+        save(f"x_t02_tempo_{bpm}", x, -5)
+if selected(ct(2, 2)):
+    save(ct(2, 2), tempo_hits[100] + silence(1.0) + tempo_hits[130], -5)
+if selected(ct(2, 3)):
+    save(ct(2, 3), tempo_hits[100] + silence(1.0) + tempo_hits[80], -5)
+if selected("x_t02_battito"):  # keep the beat: the count-in bar, then loop_battito (bars 3-4 thin to the shaker)
+    kit = baton_kit()
+    x = music.render(SPECS["count_in"], kit=kit, tail=0.0)[: int(BAR * SR)]
+    x += music.render(SPECS_T["loop_battito"], REG_T, tail=0.5)
+    save_fixed("x_t02_battito", x, 0.5 / max(abs(v) for v in x))
+if selected(ct(3, 1)):  # memory of the gallop (song bars 3-4, drum and piano), then today's drum stumbling
+    x = song([2, 3], "normale", tail=1.0)
+    mix(x, gallop_on_drums(), 0.0)
+    x = memory(x) + silence(0.8)
+    mix(x, hits([0.0, 0.3], "A3", 0.7) + silence(0.6), len(x) / SR)
+    mix(x, tamburo("C4", 0.4, 0.4), len(x) / SR - 0.5)
+    save(ct(3, 1), x + silence(0.5), -5)
+for sid in ("t_mela", "t_colibri", "t_tartaruga", "t_due_tamburi", "t_colibri_doppio", "t_galoppo", "t_habanera"):
+    name = "x_t03_" + sid[2:] if sid in ("t_mela", "t_colibri", "t_tartaruga", "t_due_tamburi") else "x_t04_" + sid[2:]
+    if selected(name):
+        save_call(name, call_with(SPECS_T[sid], REG_T, tamburo))
+if selected("x_t04_galoppo_sbuffo") or selected(ct(4, 2)) or selected(ct(4, 3)):
+    backwards = music.render(SPECS_T["t_galoppo_sbuffo"], "normale", tail=1.0)
+    save_call("x_t04_galoppo_sbuffo", backwards)
+    save(ct(4, 2), backwards, -4)
+    x = call_with(SPECS_T["t_galoppo"], REG_T, tamburo) + silence(0.8)
+    save(ct(4, 3), mix(x, backwards, len(x) / SR) + silence(0.3), -4)
+if selected(ct(4, 1)):  # the wind comes back from far away, then Sbuffo's signature
+    x = fade(biquad(load("storm", 3.0, 7.0), "lp", 700), 2.0, 1.0)
+    sig = music.render(SPECS["intro_sbuffo"], tail=1.5)
+    mix(sig, fade(biquad(load("whoosh", 0.0, 2.4), "hp", 300), 0.3, 0.8), 2.4, 0.5)
+    mix(x, sig, 3.0)
+    save(ct(4, 1), x, -4)
+if selected(ct(4, 4)):  # the count-in, two bars exactly, as in Scene 3
+    kit = baton_kit()
+    x = music.render(SPECS["count_in"], kit=kit, tail=0.0)[: int(2 * BAR * SR)]
+    mix(x, voice_48k("eq_s03_extra_02_conteggio"), BAR, 0.9)
+    x = x[: int(2 * BAR * SR)]
+    save_fixed(ct(4, 4), x, 0.8 / max(abs(v) for v in x))
+if selected(ct(4, 5)):  # the bass walks from D down to F on the exchange boundary: the music comes home
+    x = silence(BAR + 1.0)
+    for k, n in enumerate(("D2", "C2", "A1", "F1")):
+        mix(x, music.synth.pizz(NOTE[n], 0.5, 0.8), k * BEAT)
+    mix(x, tamburo("F3", 1.2, 0.8), 0.0)
+    save(ct(4, 5), x, -5)
+stems(SPECS_T["loop_allenamento_tamburo"], REG_T, ("L0",), "x_t03_allenamento")
+stems(SPECS_T["loop_sfida_tamburo_A"], REG_T, ("L0", "L1", "L3"), "x_t04_base_a")
+stems(SPECS_T["loop_sfida_tamburo_B"], REG_T, ("L0", "L1", "L3"), "x_t04_base_b")
+stems(SPECS_T["loop_sfida_tamburo_casa"], REG_T, ("L0", "L1"), "x_t04_base_casa")
+if selected("x_t05_colpo"):  # the final stroke: the biggest drum, with a low timpani under it
+    x = mix(tamburo("D3", 3.0, 1.0), tamburo("A3", 2.0, 0.5), 0.0)
+    mix(x, music.synth.timpani(NOTE["D2"], 1.0), 0.0, 0.8)
+    save("x_t05_colpo", x, -2)
+if selected("x_t05_soffio"):  # one of Sbuffo's gusts, for the scene where he blows in time with the child
+    save("x_t05_soffio", gust(0.7), -8)
+if selected(ct(5, 2)):  # the wind goes away in gusts, never on a beat
+    x = silence(6.5)
+    for t, g in ((0.0, 1.0), (1.3, 0.8), (1.75, 0.8), (3.9, 0.5)):
+        mix(x, gust(0.9, g), t)
+    save(ct(5, 2), fade(x, 0, 1.0), -7)
+
+
+# ---- Chapter 3: the campanella
+def cc(sec, n):
+    return f"c{sec:02d}_sfx_{n:02d}"
+
+
+for letter, nome in (("D", "re"), ("F", "fa"), ("A", "la"), ("C", "do")):  # the bells under the four fingers
+    if selected(f"x_c01_campanella_{nome}"):
+        save(f"x_c01_campanella_{nome}", campana(reg_note(music.BUTTON_NOTES[letter], REG_C), 1.6, 0.8), -10)
+question = call_with(SPECS_C["c_domanda_rubata"], REG_C, campana, tail=2.0) if any(
+    selected(n) for n in (cc(0, 1) + "_grave", cc(0, 1) + "_acuto", cc(0, 2))) else None
+for register in CHOSEN:
+    if selected(f"{cc(0, 1)}_{register}"):  # the piano's piece, then the bell's question twice, and no answer
+        x = [v * 0.6 for v in song([0, 1], register, layers=("L2",), tail=0.5)]
+        q = question + silence(1.2)
+        x = x + silence(0.4) + q + question
+        save(f"{cc(0, 1)}_{register}", x, -6)
+    if selected(f"{cc(5, 3)}_{register}"):  # fanfare, then the song with the bell's question and, at last, its answer
+        x = music.render(SPECS["fanfare_win_piano"], tail=0.0)[: int(2 * BAR * SR)]
+        rep = song([0, 1, 6, 7], register, tail=2.5)
+        mix(rep, call_with(SPECS_C["c_domanda_rubata"], REG_C, campana, vel=0.5), 2 * BAR)
+        mix(rep, call_with(SPECS_C["c_risposta_rubata"], REG_C, campana, vel=0.5), 3 * BAR)
+        mix(x, rep, 2 * BAR)
+        save(f"{cc(5, 3)}_{register}", fade(x, 0, 1.5), -3)
+    if selected(f"c99_sfx_01_{register}"):
+        x = song([0, 1, 6, 7], register, tail=2.5)
+        mix(x, call_with(SPECS_C["c_domanda_rubata"], REG_C, campana, vel=0.5), 2 * BAR)
+        mix(x, call_with(SPECS_C["c_risposta_rubata"], REG_C, campana, vel=0.5), 3 * BAR)
+        save(f"c99_sfx_01_{register}", fade(x, 0, 2.0), -5)
+if selected(cc(0, 2)):  # the question once more, softer, almost sad
+    save(cc(0, 2), [v * 0.6 for v in question], -10)
+if selected(cc(0, 3)):  # footsteps to the right, a light tinkle getting closer
+    x = steps([0.55 * k for k in range(8)], vel=0.9)
+    mix(x, campana("A5", 1.5, 0.25), 1.4)
+    mix(x, campana("C6", 1.5, 0.35), 3.2)
+    save(cc(0, 3), fade(x, 0, 0.6), -5)
+long_ring, short_ring = campana("A5", 4.0, 0.8), campana("A5", 4.0, 0.8, damp=0.25)
+if selected(cc(1, 1)):
+    save(cc(1, 1), long_ring, -5)
+if selected("x_c01_lungo"):
+    save("x_c01_lungo", long_ring, -5)
+if selected("x_c01_corto"):
+    save("x_c01_corto", short_ring + silence(0.5), -5)
+if selected(cc(1, 2)):
+    save(cc(1, 2), long_ring + silence(0.8) + short_ring + silence(0.5), -5)
+if selected("x_c02_rintocco"):  # one ring, placed left or right by the regia
+    save("x_c02_rintocco", campana("C6", 2.0, 0.8), -5)
+if selected("x_c02_movimento"):  # three rings while the bell moves (the regia moves it and stops it on the left)
+    x = silence(3.5)
+    for t in (0.0, 0.9, 1.8):
+        mix(x, campana("A5", 1.4, 0.7), t)
+    save("x_c02_movimento", x, -5)
+for count, name in ((2, "x_c02_due"), (3, "x_c02_tre")):  # rings to count, well apart
+    if selected(name):
+        x = silence(0.9 * count + 1.6)
+        for k in range(count):
+            mix(x, campana("C6", 1.2, 0.7, damp=0.5), 0.9 * k)
+        save(name, x, -5)
+for sid in ("c_ciao", "c_motto", "c_altalena", "c_domanda", "c_risposta", "c_r1", "c_r2", "c_domanda_rubata",
+            "c_risposta_rubata", "c_domanda_libera", "c_ninna_nanna"):
+    scene = 3 if sid in ("c_ciao", "c_motto", "c_altalena") else 4 if sid in ("c_domanda", "c_risposta") else 5
+    name = f"x_c{scene:02d}_{sid[2:]}"
+    if selected(name):
+        save_call(name, call_with(SPECS_C[sid], REG_C, campana))
+if selected(cc(3, 1)):  # the bell's motto (open), a pause, then the swing (closed)
+    x = call_with(SPECS_C["c_motto"], REG_C, campana) + silence(0.6)
+    save(cc(3, 1), x + call_with(SPECS_C["c_altalena"], REG_C, campana), -5)
+if selected(cc(4, 1)):  # memory of song bars 7-8: the question and its answer, bell and piano
+    x = song([6, 7], "normale", tail=1.0)
+    mix(x, call_with(SPECS_C["c_domanda_rubata"], REG_C, campana, vel=0.6), 0.0)
+    mix(x, call_with(SPECS_C["c_risposta_rubata"], REG_C, campana, vel=0.6), BAR)
+    save(cc(4, 1), memory(x), -5)
+if selected(cc(5, 1)):  # the wind arrives from the right and goes round the listener, then Sbuffo's signature
+    x = fade(biquad(load("whoosh", 0.0, 3.0), "hp", 200), 0.4, 1.0)
+    sig = music.render(SPECS["intro_sbuffo"], tail=1.5)
+    mix(x, sig, 2.6)
+    save(cc(5, 1), x, -4)
+if selected(cc(5, 2)):  # the count-in, two bars exactly
+    kit = baton_kit()
+    x = music.render(SPECS["count_in"], kit=kit, tail=0.0)[: int(2 * BAR * SR)]
+    mix(x, voice_48k("eq_s03_extra_02_conteggio"), BAR, 0.9)
+    x = x[: int(2 * BAR * SR)]
+    save_fixed(cc(5, 2), x, 0.8 / max(abs(v) for v in x))
+if selected(cc(5, 4)) or selected("x_c05_domanda_sbuffo"):  # Sbuffo's small question on his pan flute: C A D
+    x = music.render(SPECS_C["c_domanda_sbuffo"], "normale", tail=1.5)
+    save(cc(5, 4), [v * 0.7 for v in x], -8)
+    save_call("x_c05_domanda_sbuffo", x)
+if selected(cc(5, 5)):  # the wind leaves softly; its last whistle is almost a note (C6)
+    x = fade(biquad(load("whoosh", 0.0, 3.0), "hp", 250), 0.1, 1.5)
+    mix(x, music.synth.slide_whistle(1300, NOTE["C6"], 0.4, 0.15), 1.6)
+    mix(x, biquad(music.synth.pan_flute(NOTE["C6"], 0.8, 0.25), "lp", 4000), 2.0)
+    save(cc(5, 5), fade(x, 0, 0.8), -8)
+if selected("x_c05_rintocco_finale"):  # the big final ring: two bells an octave apart, very long
+    x = mix(campana("C6", 5.0, 1.0), campana("F5", 5.0, 0.6), 0.0)
+    save("x_c05_rintocco_finale", x, -3)
+stems(SPECS_C["loop_allenamento_campanella"], REG_C, ("L0",), "x_c03_allenamento")
+stems(SPECS_C["loop_domande_campanella"], REG_C, ("L0", "L1"), "x_c05_base")
+if selected("x_c05_rintocco"):  # the finisher bed: three counted bars on the baton, the bell struck on bar 4
+    kit = baton_kit()
+    save_fixed("x_c05_rintocco", (x := music.render(SPECS_C["loop_rintocco"], REG_C, kit=kit, tail=0.5)),
+               0.5 / max(abs(v) for v in x))

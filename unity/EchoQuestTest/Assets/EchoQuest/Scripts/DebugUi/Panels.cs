@@ -58,10 +58,12 @@ namespace EchoQuest.DebugUi
             if (Ui.Button("Restart")) p.Restart();
             GUILayout.EndHorizontal();
 
+            // Pick a scene; "Play on" decides whether the chapter continues into the next scene.
             GUILayout.BeginHorizontal();
             foreach (var s in m_Sections)
-                if (Ui.Button(s, s == p.section)) p.SetSection(s);
+                if (Ui.Button(StoryPlayer.SectionName(s), s == p.section)) p.SetSection(s);
             GUILayout.EndHorizontal();
+            p.continueToNextSection = Ui.Toggle("Play on into the next scene (off = this scene only)", p.continueToNextSection);
 
             GUILayout.BeginHorizontal();
             GUILayout.Label("Voice take", Ui.Small, GUILayout.Width(70f));

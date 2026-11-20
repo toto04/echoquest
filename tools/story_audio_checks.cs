@@ -28,6 +28,7 @@ public static class StoryAudioChecks
         listener.AddComponent<AudioListener>(); player.listener = listener.transform;
         player.startDelay = player.pauseAfterLine = 0;
         player.section = "s01";
+        player.continueToNextSection = false;
         var sequence = new TextAsset("ordine,sezione,ramo,tipo,id,personaggio,testo,dentro_battuta\n" +
             (interaction ? "1,s01,,interazione,s01_int_01,,,\n" :
             "1,s01,,voce,s01_maes_01,MAESTRO,Prima battuta,\n" +

@@ -1,0 +1,258 @@
+# Chapter "Il tamburo": the rhythm chapter (docs/music/04-battle-cues.md, character sheet: "calls on one
+# pitch first"). Format and rules: docs/music/05-format-and-pipeline.md. Check with:
+#   python3 -m tools.music.check music/library/capitolo_02_tamburo.yaml
+# The piece this chapter wins back is the song's bars 3-4, the gallop (06-worked-example.md §1).
+#
+# Register: the tamburo plays the button pitches an octave down (04, character sheet), so the whole
+# chapter is rendered in the "grave" register (buttons D3-C4) whatever the child chose for the piano.
+# The reserved call register is then C3-D4: backing tracks are written for `register: grave` only
+# (bass below C3, pads above the call and muted in call bars, as Scene 3's pad_grave).
+#
+# Stage ladder (02-calls.md): practice words at stage 1-2 on one pitch, then two pitches, then the
+# gallop (stage 3, cell twice). Long exchanges for rounds 1-2, short exchanges from round 3 (07, D3).
+# Syncopation appears in the backing (tresillo bass of the tamed loop) before any call uses it; the
+# only syncopated call is the optional extra level (stage 4).
+
+# ------------------------------------------------------------------ practice: the drum's words (say, then play)
+
+- id: t_mela
+  role: call
+  stage: 1
+  centre: D
+  tempo: 100
+  instrument: timpani
+  intent: "ta ta, 'me-la': two even strokes on the index, the simplest drum word"
+  motif: {rhythm: "x - x - . . . .", contour: "*r"}
+  bars: ["D - D - . . . ."]
+
+- id: t_colibri
+  role: call
+  stage: 2
+  centre: D
+  tempo: 100
+  instrument: timpani
+  intent: "ti-ti ta, 'co-li-brì': the gallop's rhythm cell on one pitch (rhythm first, pitches second)"
+  motif: {rhythm: "x x x - . . . .", contour: "*rr"}
+  bars: ["D D D - . . . ."]
+
+- id: t_tartaruga
+  role: call
+  stage: 2
+  centre: D
+  tempo: 100
+  instrument: timpani
+  intent: "ti-ti ta ta, 'tar-ta-ru-ga': the cell plus one more stroke. Surprise: the extra beat"
+  motif: {rhythm: "x x x - x - . .", contour: "*rrr"}
+  bars: ["D D D - D - . ."]
+
+- id: t_due_tamburi
+  role: call
+  stage: 2
+  centre: D
+  tempo: 100
+  instrument: timpani
+  intent: "the same 'co-li-brì' on two drums: mi mi ... la, the strongest minor close (falling 5th). The one skip of stage 2; ring finger, then index"
+  development: [{op: repitch, of: t_colibri}]
+  motif: {rhythm: "x x x - . . . .", contour: "*rd"}
+  bars: ["A A D - . . . ."]
+
+# ------------------------------------------------------------------ the battle against Sbuffo (rounds use the calls above too)
+
+- id: t_colibri_doppio
+  role: call
+  stage: 3
+  centre: D
+  tempo: 100
+  instrument: timpani
+  intent: "round 2: the cell twice on one pitch (two chunks, stage 3). No new pitch: the new thing is the length"
+  development: [{op: repeat, of: t_colibri}]
+  motif: {rhythm: "x x x - x x x -", contour: "*rrrrr"}
+  bars: ["D D D - D D D -"]
+
+- id: t_galoppo
+  role: call
+  stage: 3
+  centre: F
+  tempo: 100
+  instrument: timpani
+  intent: "round 4, the piece itself (song bar 3, = s3_galoppo): a a', the same cell twice and the ending comes home to F. Played over the tamed F loop: the bass moves from D to F under the child"
+  motif: {rhythm: "x x x - x x x -", contour: "*rudrd"}
+  bars: ["A A C - A A F -"]
+
+- id: t_galoppo_sbuffo
+  role: call
+  stage: 3
+  centre: F
+  open_ending: true
+  tempo: 100
+  instrument: pan_flute
+  intent: "Sbuffo plays the gallop backwards (retrograde of the pitches, 02 'Sbuffo scrambles'): used only as the wrong example in the 'is it right?' listening game, never as a call to echo"
+  motif: {rhythm: "x x x - x x x -", contour: "*urudr"}
+  bars: ["F A A - C A A -"]
+
+- id: t_habanera
+  role: call
+  stage: 4
+  centre: D
+  tempo: 100
+  instrument: timpani
+  intent: "optional extra level: the tresillo 3+3+2 on one repeated note, then home on the next downbeat (= s4_habanera). The child has heard it in the tamed loop's bass first (02: syncopation in the backing before a call)"
+  motif: {rhythm: "x - - x - - x - x - - - . . . .", contour: "*rrd"}
+  bars: ["F - - F - - F -", "D - - - . . . ."]
+
+# ------------------------------------------------------------------ loops
+
+- id: loop_allenamento_tamburo
+  role: loop
+  centre: D
+  tempo: 100
+  meter: 4/4
+  steps_per_bar: 8
+  loop_bars: 4
+  call_bars: [1, 2]
+  chords: [D5, D5, D5, D5]
+  intent: "practice before Sbuffo comes (03 'tutorial drone'): a chord bordun and marcia percussion, one long exchange per pass; any press is consonant"
+  tracks:
+    bordun:
+      instrument: pizzicato_strings
+      layer: L0
+      bars: ["D2+A2 - D2+A2 - D2+A2 - D2+A2 -", "=1", "=1", "D2+A2 - D2+A2 - D2 - A2 -"]
+    drums:
+      layer: L0
+      steps_per_bar: 16
+      gain: 0.7
+      lanes:
+        kick:     ["x . . . . . . . x . . . . . . .", "=1", "=1", "=1"]
+        block_hi: [". . . . x . . . . . . . x . . .", "=1", "=1", ". . . . x . . . . . . . x . x x"]
+
+- id: loop_sfida_tamburo_A
+  role: loop
+  centre: D
+  tempo: 100
+  meter: 4/4
+  steps_per_bar: 8
+  loop_bars: 8
+  call_bars: [1, 2, 5, 6]
+  chords: [Dm7, Dm7, Dm7, Dm7, Gm7, Gm7, Gm7, Gm7]
+  intent: "rounds 1-2, long exchanges: 'mischief, sneaky' (03) i-iv with a root-fifth gallop bass and galoppo drums; urgency from the drums, never the tempo"
+  tracks:
+    bass:
+      instrument: pizzicato_strings
+      layer: L0
+      bars:
+        - "D2 . D2 A1 D2 . D2 A1"
+        - "=1"
+        - "=1"
+        - "D2 . D2 A1 D2 . G1 A1"
+        - "G1 . G1 D2 G1 . G1 D2"
+        - "=5"
+        - "=5"
+        - "G1 . G1 D2 G1 . A1 C2"
+    pad_grave:
+      instrument: strings
+      layer: L1
+      register: grave
+      muted_in_call_bars: true
+      bars:
+        - "F4+A4+C5 - - - - - - -"
+        - "=1"
+        - "=1"
+        - "=1"
+        - "F4+Bb4+D5 - - - - - - -"
+        - "=5"
+        - "=5"
+        - "=5"
+    hits:
+      instrument: timpani
+      layer: L3
+      bars: [". . . . . . . .", "=1", "D2 . . . . . . .", "=1", "=1", "=1", "G1 . . . . . . .", "=1"]
+    drums:
+      layer: L0
+      steps_per_bar: 16
+      lanes:
+        kick:  ["x . . x x . . . x . . x x . . .", "=1", "=1", "=1", "=1", "=1", "=1", "=1"]
+        snare: [". . . . x . . . . . . . x . . x", "=1", "=1", "=1", "=1", "=1", "=1", ". . . . x . . . . . . . x . x x"]
+        hat:   ["x . x . x . x . x . x . x . x .", "=1", "=1", "=1", "=1", "=1", "=1", "=1"]
+
+- id: loop_sfida_tamburo_B
+  role: loop
+  centre: D
+  tempo: 100
+  meter: 4/4
+  steps_per_bar: 8
+  loop_bars: 8
+  call_bars: [1, 3, 5, 7]
+  chords: [Dm7, Dm7, Gm7, Gm7, Dm7, Dm7, Gm7, Gm7]
+  intent: "round 3, short exchanges (call · echo, stage 3): the same chords twice as often, one chord per exchange; the echo bar keeps the timpani 'go!' on beat 1"
+  tracks:
+    bass:
+      instrument: pizzicato_strings
+      layer: L0
+      bars: ["D2 . D2 A1 D2 . D2 A1", "=1", "G1 . G1 D2 G1 . G1 D2", "=3", "=1", "=1", "=3", "G1 . G1 D2 G1 . A1 C2"]
+    pad_grave:
+      instrument: strings
+      layer: L1
+      register: grave
+      muted_in_call_bars: true
+      bars: ["F4+A4+C5 - - - - - - -", "=1", "F4+Bb4+D5 - - - - - - -", "=3", "=1", "=1", "=3", "=3"]
+    hits:
+      instrument: timpani
+      layer: L3
+      bars: [". . . . . . . .", "D2 . . . . . . .", "=1", "G1 . . . . . . .", "=1", "=2", "=1", "=4"]
+    drums:
+      layer: L0
+      steps_per_bar: 16
+      lanes:
+        kick:  ["x . . x x . . . x . . x x . . .", "=1", "=1", "=1", "=1", "=1", "=1", "=1"]
+        snare: [". . . . x . . . . . . . x . . x", "=1", "=1", "=1", "=1", "=1", "=1", ". . . . x . . . . . . . x . x x"]
+        hat:   ["x . x . x . x . x . x . x . x .", "=1", "=1", "=1", "=1", "=1", "=1", "=1"]
+
+- id: loop_sfida_tamburo_casa
+  role: loop
+  centre: F
+  tempo: 100
+  meter: 4/4
+  steps_per_bar: 8
+  loop_bars: 4
+  call_bars: [1, 3]
+  chords: [F, F, Bb, Bb]
+  intent: "round 4 and the attack round: the bass moves from D to F under the same drums, 'you tamed it' (01). The tresillo enters the bass here, before the extra level asks for it in a call"
+  tracks:
+    bass:
+      instrument: pizzicato_strings
+      layer: L0
+      bars: ["F2 - - F2 - - C2 -", "=1", "Bb1 - - Bb1 - - F2 -", "=3"]
+    pad_grave:
+      instrument: strings
+      layer: L1
+      register: grave
+      muted_in_call_bars: true
+      bars: ["F4+A4+C5 - - - - - - -", "=1", "F4+Bb4+D5 - - - - - - -", "=3"]
+    drums:
+      layer: L0
+      steps_per_bar: 16
+      lanes:
+        kick:  ["x . . . . . . . x . . . . . . .", "=1", "=1", "=1"]
+        snare: [". . . . x . . . . . . . x . . .", "=1", "=1", ". . . . x . . . . . . . x . x x"]
+        hat:   ["x . x . x . x . x . x . x . x .", "=1", "=1", "=1"]
+
+- id: loop_battito
+  role: loop
+  centre: D
+  tempo: 100
+  meter: 4/4
+  steps_per_bar: 8
+  loop_bars: 4
+  chords: [Dm, Dm, Dm, Dm]
+  intent: "'keep the beat' (scene 2): the orchestra plays bars 1-2 with a clear kick on every beat, then thins in bars 3-4 to a soft shaker only, so the child carries the pulse alone (continuing a beat without a pacing sound is the hard part, 03). The child taps quarters on the index"
+  tracks:
+    bass:
+      instrument: pizzicato_strings
+      layer: L0
+      bars: ["D2 - A1 - D2 - A1 -", "=1", ". . . . . . . .", "=3"]
+    drums:
+      layer: L0
+      steps_per_bar: 16
+      lanes:
+        kick:   ["x . . . x . . . x . . . x . . .", "=1", ". . . . . . . . . . . . . . . .", "=3"]
+        shaker: ["x . x . x . x . x . x . x . x .", "=1", "=1", "=1"]

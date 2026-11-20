@@ -116,7 +116,7 @@ The story, from the script [`capitolo_01_la_canzone_rubata_dal_vento.md`](../../
 
 - **Sbuffo**, the mischievous wind, stole and *scrambled* pieces of the orchestra's song.
 - **Maestro Battuta** guides the child. His sound signature is the baton: *TAC, TAC… TOC!*
-- Instruments are recovered one by one: **pianoforte** first, then **tamburo** and **campanella**. The prologue's orchestra also includes **triangolo** and **flauto**.
+- Instruments are recovered one by one: **pianoforte** first, then **tamburo** and **campanella** (the child picks the order in Scene 5), then **flauto**. These four are the prologue's orchestra, one per finger (the campanella replaced the prologue's triangle, 2026-11-19).
 - The script's first challenge (Scene 3) is a rhythm echo on the piano button ("TA… TA-TA!"), judged on structure, not precision.
 
 The music should make these characters and that arc audible. [04-battle-cues.md](04-battle-cues.md) proposes how.

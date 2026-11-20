@@ -320,6 +320,13 @@ def shaker(vel: float = 0.25) -> list[float]:
     return [vel * e * s for e, s in zip(env, biquad(noise(n), "bp", 6500, 1.2))]
 
 
+def hat(vel: float = 0.3) -> list[float]:
+    """Closed hi-hat: a very short burst of bright noise (sharper and higher than the shaker)."""
+    n = int(0.05 * SR)
+    env = [math.exp(-i / (0.008 * SR)) for i in range(n)]
+    return [vel * e * s for e, s in zip(env, biquad(noise(n), "hp", 7000))]
+
+
 def snare(vel: float = 0.6) -> list[float]:
     n = int(0.2 * SR)
     body = [vel * 0.6 * math.exp(-i / (0.03 * SR)) * math.sin(2 * math.pi * 190 * i / SR) for i in range(n)]
@@ -331,6 +338,7 @@ DRUMS = {
     "kick": kick,
     "snare": snare,
     "shaker": shaker,
+    "hat": hat,
     "claves": claves,
     "block_hi": lambda vel=0.6: woodblock(1050.0, vel),
     "block_lo": lambda vel=0.6: woodblock(680.0, vel),

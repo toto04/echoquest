@@ -1,0 +1,18 @@
+id,sezione,ramo,descrizione,dentro_battuta,file_audio,stato,riga_copione
+t00_sfx_01,t00,,"La sala della musica. Il pianoforte suona piano il pezzo ritrovato nel capitolo 1 (le prime due battute della canzone, centro Fa). Poi, da sinistra, un tamburo prova a battere il tempo: tum... tum-tum... una pausa troppo lunga... tum. I colpi non stanno mai alla stessa distanza.",,,da trovare,11
+t00_sfx_02,t00,,Passi verso sinistra. Il tamburo si avvicina.,,,da trovare,23
+t01_sfx_01,t01,,"Un colpo di tamburo profondo (timpano, Re3), lasciato risuonare.",,,da trovare,33
+t01_sfx_02,t01,,"Quattro colpi regolari e morbidi, come un cuore che batte.",,,da trovare,39
+t01_sfx_03,t01,,"Due esempi separati da una pausa. Il primo: quattro colpi regolari. Il secondo: quattro colpi, ma uno arriva troppo presto e uno troppo tardi.",,,da trovare,57
+t02_sfx_01,t02,,Il tamburo dell'orchestra ricomincia a battere insieme all'ultimo battito del bambino: quattro colpi regolari.,,,da trovare,81
+t02_sfx_02,t02,,"Quattro colpi di tamburo a 100 battiti al minuto, una pausa, poi gli stessi quattro colpi a 130 battiti al minuto.",,,da trovare,87
+t02_sfx_03,t02,,"Quattro colpi a 100 battiti al minuto, una pausa, poi gli stessi colpi a 80 battiti al minuto.",,,da trovare,95
+t03_sfx_01,t03,,"Il ricordo della canzone, con l'effetto di memoria del capitolo 1: le battute 3 e 4, il galoppo (La La Do, La La Fa; poi Do... La), suonate dal tamburo con il pianoforte. Una pausa. Poi il tamburo di oggi prova il galoppo da solo e inciampa dopo i primi due colpi.",,,da trovare,135
+t04_sfx_01,t04,,"Il vento torna, da lontano, poi la sigla di Sbuffo (intro_sbuffo).",,,da trovare,145
+t04_sfx_02,t04,,"Sbuffo suona il galoppo al contrario sul suo flauto di Pan (t_galoppo_sbuffo): Fa La La, Do La La.",,,da trovare,151
+t04_sfx_03,t04,,"Il galoppo vero sul tamburo (t_galoppo), una pausa, poi quello di Sbuffo (t_galoppo_sbuffo), entrambi senza base.",,,da trovare,157
+t04_sfx_04,t04,,"Il conteggio di tutto il gioco: TAC, TAC... TOC! e «Uno, due, tre... via!». Parte la base della sfida (loop_sfida_tamburo_A, centro Re, 100 battiti al minuto): non si ferma fino alla vittoria.",,,da trovare,169
+t04_sfx_05,t04,,Sul confine dello scambio il basso scende da Re a Fa sotto la stessa batteria (loop_sfida_tamburo_casa): la musica «torna a casa». Nel basso entra il ritmo segreto 3+3+2.,,,da trovare,181
+t05_sfx_01,t05,,"La fanfara di vittoria, poi la ripresa: la canzone fino al pezzo ritrovato (battute 1-4, il pianoforte e il galoppo del tamburo), centro Fa, festosa. Nell'ultima battuta le tre note di Sbuffo tornano piano, quasi gentili.",,,da trovare,209
+t05_sfx_02,t05,,"Il vento si allontana a raffiche: un soffio, una pausa, due soffi, una pausa lunga. Nessun passo regolare.",,,da trovare,215
+t99_sfx_01,t99,,"Il tamburo batte un passo regolare e tranquillo. Sopra, il pianoforte suona la canzone fino al galoppo.",,,da trovare,263

@@ -343,7 +343,7 @@ EPILOGO — LA MUSICA È APPENA COMINCIATA
 
 64. e00_narr_01_a.mp3 — Narratore
 -----
-[calm] La vostra prima avventura è appena terminata. Avete conosciuto il Maestro Battuta e il pianoforte. E avete aiutato l'orchestra a ritrovare il primo pezzo della sua canzone. Ma il viaggio è appena cominciato. Sbuffo ha sparpagliato tanti altri suoni. E chissà perché desidera così tanto che tutti ascoltino soltanto lui.
+[calm] La vostra prima avventura è appena terminata. Avete conosciuto il Maestro Battuta e il pianoforte. E avete aiutato l'orchestra a ritrovare il primo pezzo della sua canzone. Ma il viaggio è appena cominciato. Il tamburo, la campanella e il flauto aspettano ancora di ritrovare la loro parte. Sbuffo ha sparpagliato tanti altri suoni. E chissà perché desidera così tanto che tutti ascoltino soltanto lui.
 -----
 
 65. e00_maes_01_a.mp3 — Maestro Battuta

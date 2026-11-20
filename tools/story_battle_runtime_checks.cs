@@ -1,6 +1,6 @@
 // Play-mode checks of Scenes 2-5 and the epilogue with the real scene data (regia, clips, timing).
 // Open any story scene, set run-in-background, enter Play mode, then evaluate this file followed by
-//   return await StoryBattleRuntimeChecks.RunScene2();   (or RunScene3, RunScene4, RunScene5, RunEpilogue)
+//   return await StoryBattleRuntimeChecks.RunScene2();   (or RunScene3, RunScene4, RunScene5, RunEpilogue, RunContinuity)
 // (unity command script.eval --file <combined file>). Presses go through the on-screen buttons
 // (StoryPlayer.PressLogical), timed on the audio clock like a child playing on the beat.
 using System;
@@ -235,5 +235,32 @@ public static class StoryBattleRuntimeChecks
         p.JumpTo("e00_sfx_05");   // the laugh, then the whole song fading out
         await Until(() => p.CurrentClip == "e00_sfx_05_acuto", "the high variant of the final song", 5);
         return $"Epilogue: {checks} checks passed";
+    }
+
+    public static async Task<string> RunContinuity()
+    {
+        checks = 0;
+        StoryPlayer.ChosenRegister = "grave";
+        var p = await Load("Scena4", "s04");
+        p.Log.Clear();
+        string scene = SceneManager.GetActiveScene().name;
+
+        // The last line of Scene 4: the chapter goes on into Scene 5 in the same Unity scene.
+        p.continueToNextSection = true;
+        p.JumpTo("s04_maes_11");
+        await Until(() => p.section == "s05" && p.Current != null && p.Current.Id == "s05_sfx_01", "Scene 5 follows Scene 4", 30);
+        Check(SceneManager.GetActiveScene().name == scene, "no scene load between two sections");
+        Check(p.BranchChoice == "A" && Logged(p, "section s05"), "the new section starts on the main line");
+        Check(StoryPlayer.SectionName("s05") == "Scena 5" && StoryPlayer.SectionName("p00") == "Intro" &&
+              StoryPlayer.SectionName("e00") == "Epilogo", "the overlay names the scenes");
+
+        // "This scene only": the end of Scene 5 stops there.
+        p.continueToNextSection = false;
+        p.JumpTo("s05_maes_04");
+        await Until(() => p.Current == null, "Scene 5 ends", 30);
+        await Task.Delay(1500);
+        Check(p.section == "s05" && p.Current == null, "with play-on off the story stops at the end of the scene");
+        p.continueToNextSection = true;
+        return $"Continuity: {checks} checks passed";
     }
 }

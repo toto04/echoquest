@@ -3,19 +3,19 @@ p00_sfx_01,p00,,"Silenzio iniziale. Lentamente si sentono piccoli rumori: qualcu
 p00_sfx_02,p00,,"Tre note buffe di pianoforte, volutamente un po' stonate.",,p00_sfx_02.wav,presente,28
 p00_sfx_03,p00,,Una nota lunga e morbida di flauto che si spegne lentamente.,p00_narr_02,p00_sfx_03.wav,presente,40
 p00_sfx_04,p00,,Tre colpi brevi di tamburo.,p00_narr_02,p00_sfx_04.wav,presente,44
-p00_sfx_05,p00,,Un tocco delicatissimo di triangolo.,p00_narr_02,p00_sfx_05.wav,presente,48
-p00_sfx_06,p00,,"Un accordo energico di tutti gli strumenti insieme (pianoforte, tamburo, triangolo, flauto), a volume controllato.",p00_narr_02,p00_sfx_06.wav,presente,52
+p00_sfx_05,p00,,Un tocco delicatissimo di campanella.,p00_narr_02,p00_sfx_05.wav,presente,48
+p00_sfx_06,p00,,"Un accordo energico di tutti gli strumenti insieme (pianoforte, tamburo, campanella, flauto), a volume controllato.",p00_narr_02,p00_sfx_06.wav,presente,52
 p00_sfx_07,p00,,Si sentono passi in una stanza grande. Un battito di mani produce una piccola eco.,,p00_sfx_07.wav,presente,60
 p00_sfx_08,p00,,Due battiti di mani con una breve riverberazione.,p00_narr_03,p00_sfx_08.wav,presente,68
 p00_sfx_09,p00,,"Due colpi di tamburo: BUM, BUM.",p00_narr_03,p00_sfx_09.wav,presente,74
-p00_sfx_10,p00,,"Due tocchi di triangolo: DIN, DIN.",p00_narr_03,p00_sfx_10.wav,presente,78
+p00_sfx_10,p00,,"Due tocchi di campanella: DIN, DIN.",p00_narr_03,p00_sfx_10.wav,presente,78
 p00_sfx_11,p00,,"Un flauto suona piano poche note, come un sussurro.",p00_narr_03,p00_sfx_11.wav,presente,82
-p00_sfx_12,p00,,"Tamburo, triangolo, flauto e pianoforte suonano insieme per un attimo.",p00_narr_03,p00_sfx_12.wav,presente,86
+p00_sfx_12,p00,,"Tamburo, campanella, flauto e pianoforte suonano insieme per un attimo.",p00_narr_03,p00_sfx_12.wav,presente,86
 p00_sfx_13,p00,,Si sente qualcuno schiarirsi la voce. Un piccolo oggetto cade a terra.,,p00_sfx_13.wav,presente,92
 p00_sfx_14,p00,,Piccoli passi affrettati. Qualcuno fruga tra degli oggetti.,,p00_sfx_14.wav,presente,102
 p00_sfx_15,p00,,Qualcuno ride in lontananza.,,p00_sfx_15.wav,presente,116
 p00_sfx_16,p00,,"Tre colpetti distintivi sul leggio: TAC, TAC... TOC!",,p00_sfx_16.wav,presente,122
-p00_sfx_17,p00,,"L'orchestra inizia una melodia semplice e allegra. Il pianoforte apre con tre note riconoscibili, poi si aggiungono uno alla volta il tamburo, il triangolo e il flauto, mentre il Narratore li descrive. La musica cresce davvero fino all'arrivo del vento. È armoniosa, non troppo complessa.",,p00_sfx_17.wav,presente,140
+p00_sfx_17,p00,,"L'orchestra inizia una melodia semplice e allegra. Il pianoforte apre con tre note riconoscibili, poi si aggiungono uno alla volta il tamburo, la campanella e il flauto, mentre il Narratore li descrive. La musica cresce davvero fino all'arrivo del vento. È armoniosa, non troppo complessa.",,p00_sfx_17.wav,presente,140
 p00_sfx_18,p00,,"Un soffio di vento attraversa la stanza. All'inizio è leggero, poi diventa più insistente. Il vento non deve mai essere assordante.",,p00_sfx_18.wav,presente,158
 p00_sfx_19,p00,,FFFFFFFF... Una porta sbatte piano. Alcuni fogli si muovono.,,p00_sfx_19.wav,presente,166
 p00_sfx_20,p00,,"Il vento soffia nuovamente. La melodia perde uno strumento. Poi un altro. Rimane il pianoforte, che suona soltanto le prime due note della frase musicale.",,p00_sfx_20.wav,presente,188
@@ -92,15 +92,15 @@ s04_sfx_05,s04,,Un leggero soffio torna a muoversi nella sala.,,s04_sfx_05.wav,p
 s04_sfx_06,s04,,"Soffio prolungato, seguito da un piccolo colpo d'aria buffo.",,s04_sfx_06.wav,presente,852
 s04_sfx_07,s04,,"Il vento si allontana, lasciando dietro di sé un fischio che pian piano svanisce.",,s04_sfx_07.wav,presente,862
 s04_sfx_08,s04,,"TAC, TAC... TOC!",,s04_sfx_08.wav,presente,888
-s05_sfx_01,s05,,Il pianoforte continua a suonare delicatamente. Il Maestro si ferma e ascolta.,,,da trovare,898
-s05_sfx_02,s05,,"Un suono profondo di tamburo, ripetuto due volte, a sinistra dell'ascoltatore.",s05_maes_01,,da trovare,904
-s05_sfx_03,s05,,"Un tintinnio chiaro e prolungato di campanella, a destra dell'ascoltatore.",s05_maes_01,,da trovare,908
-s05_sfx_04,s05,,"Il tamburo, a sinistra: è il suono dell'indice.",,,da trovare,916
-s05_sfx_05,s05,,"Dopo una pausa, la campanella, a destra: è il suono del medio.",,,da trovare,918
-s05_sfx_06,s05,A,Due battiti profondi che si ripetono sempre più lontano.,s05_maes_03,,da trovare,928
-s05_sfx_07,s05,B,"Tre tintinnii, uno dopo l'altro.",s05_maes_04,,da trovare,938
-e00_sfx_01,e00,,"La melodia recuperata del pianoforte torna, lenta e riconoscibile. Il Maestro la accompagna battendo leggermente il tempo.",,,da trovare,948
-e00_sfx_02,e00,,"Il vento emette un piccolo fischio lontano, quasi musicale.",,,da trovare,954
-e00_sfx_03,e00,,"TAC, TAC... TOC!",e00_maes_02,,da trovare,966
-e00_sfx_04,e00,,La bacchetta cade nuovamente.,,,da trovare,970
-e00_sfx_05,e00,,"Piccola risata del Maestro, poi il pianoforte suona il tema principale. La musica sfuma gradualmente.",,,da trovare,976
+s05_sfx_01,s05,,Il pianoforte riprende a suonare delicatamente la canzone ritrovata. Il Maestro si ferma e ascolta.,,s05_sfx_01_acuto.wav s05_sfx_01_grave.wav,presente,898
+s05_sfx_02,s05,,"Un suono profondo di tamburo, ripetuto due volte, a sinistra dell'ascoltatore.",s05_maes_01,s05_sfx_02.wav,presente,904
+s05_sfx_03,s05,,"Un tintinnio chiaro e prolungato di campanella, a destra dell'ascoltatore.",s05_maes_01,s05_sfx_03.wav,presente,908
+s05_sfx_04,s05,,"Il tamburo, a sinistra: è il suono dell'indice.",,s05_sfx_04.wav,presente,916
+s05_sfx_05,s05,,"Dopo una pausa, la campanella, a destra: è il suono del medio.",,s05_sfx_05.wav,presente,918
+s05_sfx_06,s05,A,Due battiti profondi che si ripetono sempre più lontano.,s05_maes_03,s05_sfx_06.wav,presente,928
+s05_sfx_07,s05,B,"Tre tintinnii, uno dopo l'altro.",s05_maes_04,s05_sfx_07.wav,presente,938
+e00_sfx_01,e00,,"La melodia recuperata del pianoforte torna, lenta e riconoscibile. Il Maestro la accompagna battendo leggermente il tempo.",,e00_sfx_01_acuto.wav e00_sfx_01_grave.wav,presente,948
+e00_sfx_02,e00,,"Il vento emette un piccolo fischio lontano, quasi musicale.",,e00_sfx_02.wav,presente,954
+e00_sfx_03,e00,,"TAC, TAC... TOC!",e00_maes_02,e00_sfx_03.wav,presente,966
+e00_sfx_04,e00,,La bacchetta cade nuovamente.,,e00_sfx_04.wav,presente,970
+e00_sfx_05,e00,,"Piccola risata del Maestro, poi il pianoforte suona il tema principale. La musica sfuma gradualmente.",,e00_sfx_05_acuto.wav e00_sfx_05_grave.wav,presente,976

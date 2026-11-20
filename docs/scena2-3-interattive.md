@@ -2,8 +2,12 @@
 
 Versione del 19 novembre 2026. Le scene si giocano in Unity
 (`Story/Scenes/Scena2.unity`, `Scena3.unity`, `Scena4.unity`, `Scena5.unity` ed `Epilogo.unity`), con tutte
-le voci, i suoni e la musica. Le scene del capitolo si caricano una dopo l'altra:
-Intro → Scena 1 → Scena 2 → Scena 3 → Scena 4 → Scena 5 → Epilogo.
+le voci, i suoni e la musica. Il capitolo si gioca di fila, senza stacchi:
+Intro → Scena 1 → Scena 2 → Scena 3 → Scena 4 → Scena 5 → Epilogo. Ogni scena Unity contiene tutto il
+capitolo e dice solo da dove partire; alla fine di una sezione il lettore passa alla successiva senza caricare
+un'altra scena, così i suoni che stanno ancora risuonando non si interrompono. Nel pannello di debug (scheda
+Story) ci sono un pulsante per scena e l'interruttore «Play on into the next scene»: spento, si ascolta
+solo la scena scelta.
 Il copione è in `Story/Script/capitolo_01_la_canzone_rubata_dal_vento.md`; le regole
 musicali sono quelle di [`docs/music/`](music/README.md).
 

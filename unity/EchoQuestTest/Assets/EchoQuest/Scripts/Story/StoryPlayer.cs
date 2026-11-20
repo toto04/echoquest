@@ -25,8 +25,11 @@ namespace EchoQuest.Story
         [Tooltip("Optional id to start from, e.g. p00_maes_01. Empty = start of the section.")]
         public string startFrom = "";
         public bool autoStart = true;
-        [Tooltip("Scene loaded when this section ends (empty = stay). The chapter's scenes are chained.")]
-        public string nextScene = "";
+        [Tooltip("When a section ends, go straight on with the next one of the chapter (Intro, Scena 1 ... Epilogo) " +
+                 "in this same scene: no scene load, sounds still ringing keep ringing. Off = play only this section.")]
+        public bool continueToNextSection = true;
+        [Tooltip("Extra silence between two sections, on top of the usual pause after the last item.")]
+        public float pauseBetweenSections = 1.0f;
         [Tooltip("Piano register used when the child hasn't chosen one yet (e.g. starting from Scene 3).")]
         public string defaultRegister = "grave";
         public float startDelay = 1.5f;
@@ -289,8 +292,23 @@ namespace EchoQuest.Story
 
             StoryItem previous = null;
             float pendingPause = 0f;
-            while (index < list.Count)
+            while (true)
             {
+                if (index >= list.Count)
+                {
+                    // The chapter goes on in the same scene: the next section starts after a normal
+                    // pause, while the last sound of this one may still be ringing.
+                    string next = continueToNextSection ? NextSection(section) : null;
+                    if (next == null) break;
+                    section = next;
+                    BranchChoice = "A";
+                    LogEvent("section " + next);
+                    list = m_Items.FindAll(i => i.Section == section);
+                    ItemCount = list.Count;
+                    index = 0;
+                    pendingPause += pauseBetweenSections;
+                    continue;
+                }
                 var item = list[index];
                 ItemIndex = index;
                 bool playedInsideVoice = item.Kind == StoryItemKind.Sound && !string.IsNullOrEmpty(item.Inside);
@@ -347,12 +365,16 @@ namespace EchoQuest.Story
             StopBattle();
             Current = null;
             CurrentClip = "";
-            Status = "Fine della sezione. Backspace per ricominciare.";
-            if (!string.IsNullOrEmpty(nextScene))
-            {
-                yield return Wait(2f);
-                UnityEngine.SceneManagement.SceneManager.LoadScene(nextScene);
-            }
+            Status = continueToNextSection ? "Fine del capitolo. Backspace per ricominciare."
+                                           : "Fine della scena. Backspace per ricominciare.";
+        }
+
+        /// <summary>The section after this one in script order (p00, s01 ... s05, e00), or null.</summary>
+        private string NextSection(string current)
+        {
+            var sections = Sections();
+            int k = sections.IndexOf(current);
+            return k >= 0 && k + 1 < sections.Count ? sections[k + 1] : null;
         }
 
         private IEnumerator PlayVoice(StoryItem item, List<StoryItem> inlineSounds)

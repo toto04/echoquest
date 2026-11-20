@@ -49,6 +49,7 @@ public static class StoryInteractionRuntimeChecks
                 "2,s01,,interazione,s01_int_02,,,\n3,s01,,convergenza,s01_int_03,,,\n" :
                 "2,s01,,convergenza,s01_int_02,,,\n");
             Player.section = "s01";
+            Player.continueToNextSection = false;   // these checks play Scene 1 to its end
             Player.sequence = new TextAsset(sequence); Assets.Add(Player.sequence);
             string example = mode == "conferma" || mode == "scelta" ? "" : mode == "confronto" ? "eq_test_example;eq_test_example2" : "eq_test_example";
             if (noteExample != null) example = noteExample.name;

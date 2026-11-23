@@ -1,7 +1,7 @@
 # Scene 2, 3, 4, 5 ed epilogo interattivi
 
 Versione del 19 novembre 2026. Le scene si giocano in Unity
-(`Story/Scenes/Scena2.unity`, `Scena3.unity`, `Scena4.unity`, `Scena5.unity` ed `Epilogo.unity`), con tutte
+(`Story/Scenes/Capitolo1_Pianoforte/C1_02_Scena2.unity`, `C1_03_Scena3.unity`, `C1_04_Scena4.unity`, `C1_05_Scena5.unity` ed `C1_99_Epilogo.unity`), con tutte
 le voci, i suoni e la musica. Il capitolo si gioca di fila, senza stacchi:
 Intro → Scena 1 → Scena 2 → Scena 3 → Scena 4 → Scena 5 → Epilogo. Ogni scena Unity contiene tutto il
 capitolo e dice solo da dove partire; alla fine di una sezione il lettore passa alla successiva senza caricare

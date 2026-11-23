@@ -74,7 +74,7 @@ public static class StoryBattleRuntimeChecks
     {
         checks = 0;
         StoryPlayer.ChosenRegister = "";
-        var p = await Load("Scena2", "s02");
+        var p = await Load("C1_02_Scena2", "s02");
         p.Log.Clear();
 
         p.JumpTo("s02_int_01");   // the index plays the piano: the prompt was the story line before
@@ -114,7 +114,7 @@ public static class StoryBattleRuntimeChecks
     {
         checks = 0;
         StoryPlayer.ChosenRegister = "grave";
-        var p = await Load("Scena3", "s03");
+        var p = await Load("C1_03_Scena3", "s03");
         p.Log.Clear();
 
         p.JumpTo("s03_int_01");   // the middle button: index does nothing, middle passes
@@ -169,7 +169,7 @@ public static class StoryBattleRuntimeChecks
     {
         checks = 0;
         StoryPlayer.ChosenRegister = "acuto";
-        var p = await Load("Scena4", "s04");
+        var p = await Load("C1_04_Scena4", "s04");
         p.Log.Clear();
 
         p.JumpTo("s04_sfx_01");   // the recovered song, in the chosen register
@@ -192,7 +192,7 @@ public static class StoryBattleRuntimeChecks
     {
         checks = 0;
         StoryPlayer.ChosenRegister = "grave";
-        var p = await Load("Scena5", "s05");
+        var p = await Load("C1_05_Scena5", "s05");
         p.Log.Clear();
 
         p.JumpTo("s05_sfx_01");   // the piano goes on softly, in the register chosen in Scene 2
@@ -220,7 +220,7 @@ public static class StoryBattleRuntimeChecks
     {
         checks = 0;
         StoryPlayer.ChosenRegister = "acuto";
-        var p = await Load("Epilogo", "e00");
+        var p = await Load("C1_99_Epilogo", "e00");
         p.Log.Clear();
 
         p.JumpTo("e00_sfx_01");   // the recovered melody, slow, in the chosen register
@@ -249,7 +249,7 @@ public static class StoryBattleRuntimeChecks
     {
         checks = 0;
         StoryPlayer.ChosenRegister = "grave";
-        var p = await Load("Scena4", "s04");
+        var p = await Load("C1_04_Scena4", "s04");
         p.Log.Clear();
         string scene = SceneManager.GetActiveScene().name;
 

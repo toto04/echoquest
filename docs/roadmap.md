@@ -138,7 +138,7 @@ than all of chapter 1. Plan, interaction ladder, menu and what to build: [capito
   the campanella are real CC0 recordings (VCSL timpani and hand bells) tuned to the button pitches;
   ids carry the chapter letter (`tools/story_extract.py --section-letter`) (2026-11-19).
 - [x] Chapter 2 (tamburo) playable in Unity from the Prologo to the Epilogo (2026-11-23): regia, scenes in
-  `Story/Scenes/Tamburo`, new interaction modes (`battito`, `eco`, `colpo`, attack round, short exchanges,
+  `Story/Scenes/Capitolo2_Tamburo`, new interaction modes (`battito`, `eco`, `colpo`, attack round, short exchanges,
   loop changes), Play-mode checks in `tools/story_tamburo_runtime_checks.cs`; chapter 1 goes on into it
   when the child picks the drum.
 - [ ] Regia, Unity scenes and Play-mode checks for chapter 3 (campanella).

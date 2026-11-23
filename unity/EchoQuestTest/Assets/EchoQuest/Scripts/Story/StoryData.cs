@@ -46,7 +46,7 @@ namespace EchoQuest.Story
         /// <summary>Length of the battle loop in bars.</summary>
         public int BattleBars;
         /// <summary>Choices: the chapter scene each branch leads to when this chapter ends (capitolo_dopo
-        /// "A=Tamburo_Prologo;B="): chapter 1's Scene 5 choice opens the instrument the child picked.</summary>
+        /// "A=C2_00_Prologo;B="): chapter 1's Scene 5 choice opens the instrument the child picked.</summary>
         public Dictionary<string, string> NextChapter = new Dictionary<string, string>();
         public InteractionSettings Interaction;
 
@@ -125,7 +125,7 @@ namespace EchoQuest.Story
             return map;
         }
 
-        // "A=Tamburo_Prologo;B=" -> {A: "Tamburo_Prologo", B: ""}
+        // "A=C2_00_Prologo;B=" -> {A: "C2_00_Prologo", B: ""}
         private static Dictionary<string, string> ParseNextChapter(string text)
         {
             var map = new Dictionary<string, string>();

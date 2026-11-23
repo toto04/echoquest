@@ -174,7 +174,7 @@ In ordine, ogni passo verificabile da solo:
    accordati sulle note dei pulsanti; frasi, basi a strati, esempi e suoni di scena in `Audio/Sfx`
    (`t…`, `c…`, `x_t…`, `x_c…`). Restano regia, scene Unity e controlli in Play mode.
 7. **Capitolo 2 in Unity, scena per scena.** Regia in `Story/Script/capitolo_02_regia.csv` (stesse colonne
-   del capitolo 1), scene in `Story/Scenes/Tamburo/` (menu *EchoQuest → Rebuild Tamburo Scenes*), controlli
+   del capitolo 1), scene in `Story/Scenes/Capitolo2_Tamburo/` (`C2_00_Prologo` … `C2_99_Epilogo`; menu *EchoQuest → Rebuild Tamburo Scenes*), controlli
    in Play mode in `tools/story_tamburo_runtime_checks.cs` (`TamburoRuntimeChecks.RunSceneN`). Ogni scena
    contiene tutto il capitolo e prosegue nella successiva, come nel capitolo 1.
    - [x] Prologo e Scena 1: suono libero sui tamburi (il gioco misura il tempo spontaneo del bambino,

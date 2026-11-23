@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 
 public static class TamburoRuntimeChecks
 {
-    const string Scenes = "Assets/EchoQuest/Story/Scenes/Tamburo/";
+    const string Scenes = "Assets/EchoQuest/Story/Scenes/Capitolo2_Tamburo/";
     static int checks;
     static StoryPlayer s_Player;
 
@@ -73,7 +73,7 @@ public static class TamburoRuntimeChecks
               StoryPlayer.SectionName("t99") == "Epilogo" && StoryPlayer.SectionName("s03") == "Scena 3" &&
               StoryPlayer.SectionName("p00") == "Intro", "section names for chapter 2");
 
-        var p = await Load("Tamburo_Prologo", "t00");
+        var p = await Load("C2_00_Prologo", "t00");
         Check(p.Sections().First() == "t00" && p.Sections().Contains("t99"), "the scene holds chapter 2's script");
         await Until(() => p.Current?.Id == "t00_sfx_01", "the prologue starts", 5);
         Check(p.CurrentClip == "t00_sfx_01_" + p.Register, "the prologue opens on the piano's piece, in the chosen register");
@@ -141,7 +141,7 @@ public static class TamburoRuntimeChecks
     public static async Task<string> RunScene2()
     {
         checks = 0;
-        var p = await Load("Tamburo_Scena2", "t02");
+        var p = await Load("C2_02_Scena2", "t02");
 
         // Level 1: on the beat, within the 150 ms window.
         p.JumpTo("t02_int_01");
@@ -199,7 +199,7 @@ public static class TamburoRuntimeChecks
     public static async Task<string> RunScene3()
     {
         checks = 0;
-        var p = await Load("Tamburo_Scena3", "t03");
+        var p = await Load("C2_03_Scena3", "t03");
         p.SetSpeed(2f);
 
         p.JumpTo("t03_int_01");
@@ -240,7 +240,7 @@ public static class TamburoRuntimeChecks
     {
         checks = 0;
         StoryPlayer.ChosenRegister = "grave";
-        var p = await Load("Tamburo_Scena4", "t04");
+        var p = await Load("C2_04_Scena4", "t04");
         p.SetSpeed(2f);
 
         p.JumpTo("t04_int_01");
@@ -299,7 +299,7 @@ public static class TamburoRuntimeChecks
     {
         checks = 0;
         StoryPlayer.ChosenRegister = "grave";
-        var p = await Load("Tamburo_Scena5", "t05");
+        var p = await Load("C2_05_Scena5", "t05");
         p.SetSpeed(2f);
 
         // The attack round starts its own home loop when the chapter starts here.
@@ -362,7 +362,7 @@ public static class TamburoRuntimeChecks
     {
         checks = 0;
         StoryPlayer.ChosenRegister = "acuto";
-        string path = "Assets/EchoQuest/Story/Scenes/Scena5.unity";
+        string path = "Assets/EchoQuest/Story/Scenes/Capitolo1_Pianoforte/C1_05_Scena5.unity";
         SceneManager.LoadScene(path);
         StoryPlayer p = null;
         await Until(() => (p = UnityEngine.Object.FindAnyObjectByType<StoryPlayer>()) != null && p.section == "s05" &&
@@ -376,10 +376,10 @@ public static class TamburoRuntimeChecks
         p.JumpTo("s05_int_01");
         await Until(() => p.WaitingInteractionInput, "drum or bell, again", 10);
         p.PressLogical(1);   // the drum
-        await Until(() => Logged(p, "after this chapter: Tamburo_Prologo"), "the drum is remembered", 5);
+        await Until(() => Logged(p, "after this chapter: C2_00_Prologo"), "the drum is remembered", 5);
         p.SetSpeed(3f);
         p.JumpTo("e00_narr_02");   // the last line of chapter 1
-        await Until(() => SceneManager.GetActiveScene().name == "Tamburo_Prologo", "chapter 1 goes on into the drum's prologue", 40);
+        await Until(() => SceneManager.GetActiveScene().name == "C2_00_Prologo", "chapter 1 goes on into the drum's prologue", 40);
         await Until(() => (p = UnityEngine.Object.FindAnyObjectByType<StoryPlayer>()) != null && p.section == "t00" &&
                           p.Current?.Id == "t00_sfx_01", "the prologue starts", 10);
         s_Player = p;
@@ -393,7 +393,7 @@ public static class TamburoRuntimeChecks
     public static async Task<string> RunEpilogue()
     {
         checks = 0;
-        var p = await Load("Tamburo_Epilogo", "t99");
+        var p = await Load("C2_99_Epilogo", "t99");
         p.SetSpeed(3f);
         await Until(() => p.Current?.Id == "t99_sfx_01", "the epilogue opens with the calm drum", 5);
         Check(p.CurrentClip == "t99_sfx_01_" + p.Register, "in the chosen register");

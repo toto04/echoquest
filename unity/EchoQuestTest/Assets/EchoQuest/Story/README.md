@@ -36,7 +36,9 @@ sezione e dello stesso personaggio scalano di uno. Le registrazioni già fatte v
 
 ## Provare la scena in Unity
 
-1. Apri `Story/Scenes/Intro.unity` (doppio clic nella finestra Project) e premi **Play**.
+1. Apri `Story/Scenes/Capitolo1_Pianoforte/C1_00_Intro.unity` (doppio clic nella finestra Project) e premi **Play**.
+   Le scene stanno in una cartella per capitolo (`Capitolo1_Pianoforte`, `Capitolo2_Tamburo`); il nome dice
+   capitolo e sezione (`C1_03_Scena3` = capitolo 1, Scena 3; `C2_00_Prologo` = il prologo del tamburo).
    Meglio con le cuffie: il destra/sinistra si sente solo lì.
 2. Parte il prologo (`p00`). A sinistra c'è il **pannello di debug** (F1 lo nasconde): si usa col mouse
    e permette di saltare a qualsiasi battuta, cambiare sezione, premere i pulsanti del controller a
@@ -200,7 +202,7 @@ ridistribuirli così come sono. Sul computer di Bianca sono in `~/.cache/echoque
 python3 tools/story_placeholder_sfx.py ~/.cache/echoquest-sfx/mono unity/EchoQuestTest/Assets/EchoQuest/Story/Audio/Sfx s01
 ```
 
-## Scena 1 (`s01`, scena `Story/Scenes/Scena1.unity`)
+## Scena 1 (`s01`, scena `Story/Scenes/Capitolo1_Pianoforte/C1_01_Scena1.unity`)
 
 Versione interattiva: **93 elementi, 45 battute, 40 suoni e otto interazioni**,
 compresa quella nel ramo facoltativo di riascolto.
@@ -235,11 +237,11 @@ punti di prova, configurazione e limiti. Sono superati i test delle regole,
 quelli dell’input in Play e i due percorsi della scena. Il riascolto in cuffia
 resta necessario per valutare raccordi e riverbero.
 
-## Scene 2 e 3 (`s02`, `s03`, scene `Scena2.unity` e `Scena3.unity`)
+## Scene 2 e 3 (`s02`, `s03`, scene `C1_02_Scena2.unity` e `C1_03_Scena3.unity`)
 
 Il pianoforte e la prima sfida contro Sbuffo, giocabili con voci, suoni e musica. Le scene del capitolo
 si suonano di fila, senza stacchi, nella stessa scena Unity (Intro → Scena 1 → … → Scena 5 → Epilogo): apri
-`Intro.unity` per il capitolo intero, oppure la scena da cui vuoi partire. Per ascoltare una scena sola, spegni
+`C1_00_Intro.unity` per il capitolo intero, oppure la scena da cui vuoi partire. Per ascoltare una scena sola, spegni
 «Play on into the next scene» nella scheda Story del pannello di debug. Nella Scena 2 il bambino sceglie
 il registro del pianoforte (indice = grave, medio = acuto): i suoni con i file `_grave`/`_acuto` seguono
 la scelta. La Scena 3 è una battaglia a tempo su una base che non si ferma, descritta in
@@ -259,8 +261,8 @@ dice dove si ferma), `primo_ascolto` (`storia`: gli esempi li ha appena suonati 
 `sfida` (eco sulla base) e `libero` (Scena 4: il bambino suona insieme alla canzone, senza note sbagliate).
 Nessuna interazione chiede di premere a tempo nel silenzio di una nota mancante: era troppo difficile.
 
-La Scena 4 (`Scena4.unity`) ha voci, suoni, regia e le sue due interazioni; i suoni si rigenerano con `s04`.
-Anche la Scena 5 (`Scena5.unity`: tamburo a sinistra o campanella a destra) e l'epilogo (`Epilogo.unity`)
+La Scena 4 (`C1_04_Scena4.unity`) ha voci, suoni, regia e le sue due interazioni; i suoni si rigenerano con `s04`.
+Anche la Scena 5 (`C1_05_Scena5.unity`: tamburo a sinistra o campanella a destra) e l'epilogo (`C1_99_Epilogo.unity`)
 sono completi; i loro suoni si rigenerano con `s05` ed `e00`.
 
 

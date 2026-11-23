@@ -10,57 +10,84 @@ namespace EchoQuest.Editor
     public static class StorySceneBuilder
     {
         private const string Root = "Assets/EchoQuest/Story";
-        private const string ScenePath = Root + "/Scenes/Intro.unity";
-        private const string Scene1Path = Root + "/Scenes/Scena1.unity";
-        private const string Scene2Path = Root + "/Scenes/Scena2.unity";
-        private const string Scene3Path = Root + "/Scenes/Scena3.unity";
-        private const string Scene4Path = Root + "/Scenes/Scena4.unity";
-        private const string Scene5Path = Root + "/Scenes/Scena5.unity";
-        private const string EpiloguePath = Root + "/Scenes/Epilogo.unity";
         private const string MaterialsPath = Root + "/Materials";
         private const string AudioPath = Root + "/Audio";
-        private const string SequencePath = Root + "/Script/capitolo_01_sequenza.csv";
-        private const string StagingPath = Root + "/Script/capitolo_01_regia.csv";
+        private const string ScenesPath = Root + "/Scenes";
 
-        // Chapter 2, the tamburo (docs/capitoli-2-3.md): its own script and staging, scenes in Scenes/Tamburo.
-        private const string TamburoSequencePath = Root + "/Script/capitolo_02_sequenza.csv";
-        private const string TamburoStagingPath = Root + "/Script/capitolo_02_regia.csv";
-        private static readonly (string section, string file, string title)[] TamburoScenes =
+        /// <summary>One folder per chapter; the file names carry the chapter and the section number, so the
+        /// scenes sort in story order and stay unique across chapters (the overlay lists them by name).</summary>
+        private sealed class Chapter
         {
-            ("t99", "Tamburo_Epilogo", "Tamburo · Epilogo"),
-            ("t05", "Tamburo_Scena5", "Tamburo · Scena 5"),
-            ("t04", "Tamburo_Scena4", "Tamburo · Scena 4"),
-            ("t03", "Tamburo_Scena3", "Tamburo · Scena 3"),
-            ("t02", "Tamburo_Scena2", "Tamburo · Scena 2"),
-            ("t01", "Tamburo_Scena1", "Tamburo · Scena 1"),
-            ("t00", "Tamburo_Prologo", "Tamburo · Capitolo 2 (dal Prologo)"),
+            public string Folder, Sequence, Staging;
+            public (string section, string file, string title)[] Scenes;
+        }
+
+        private static readonly Chapter[] Chapters =
+        {
+            new Chapter
+            {
+                Folder = "Capitolo1_Pianoforte",
+                Sequence = Root + "/Script/capitolo_01_sequenza.csv",
+                Staging = Root + "/Script/capitolo_01_regia.csv",
+                Scenes = new[]
+                {
+                    ("p00", "C1_00_Intro", "Capitolo 1 · dall'Intro"),
+                    ("s01", "C1_01_Scena1", "Capitolo 1 · Scena 1"),
+                    ("s02", "C1_02_Scena2", "Capitolo 1 · Scena 2"),
+                    ("s03", "C1_03_Scena3", "Capitolo 1 · Scena 3"),
+                    ("s04", "C1_04_Scena4", "Capitolo 1 · Scena 4"),
+                    ("s05", "C1_05_Scena5", "Capitolo 1 · Scena 5"),
+                    ("e00", "C1_99_Epilogo", "Capitolo 1 · Epilogo"),
+                },
+            },
+            // Chapter 2, the tamburo (docs/capitoli-2-3.md): its own script and staging.
+            new Chapter
+            {
+                Folder = "Capitolo2_Tamburo",
+                Sequence = Root + "/Script/capitolo_02_sequenza.csv",
+                Staging = Root + "/Script/capitolo_02_regia.csv",
+                Scenes = new[]
+                {
+                    ("t00", "C2_00_Prologo", "Capitolo 2, il tamburo · dal Prologo"),
+                    ("t01", "C2_01_Scena1", "Capitolo 2, il tamburo · Scena 1"),
+                    ("t02", "C2_02_Scena2", "Capitolo 2, il tamburo · Scena 2"),
+                    ("t03", "C2_03_Scena3", "Capitolo 2, il tamburo · Scena 3"),
+                    ("t04", "C2_04_Scena4", "Capitolo 2, il tamburo · Scena 4"),
+                    ("t05", "C2_05_Scena5", "Capitolo 2, il tamburo · Scena 5"),
+                    ("t99", "C2_99_Epilogo", "Capitolo 2, il tamburo · Epilogo"),
+                },
+            },
         };
+
+        private static string ScenePath(Chapter chapter, string file) => $"{ScenesPath}/{chapter.Folder}/{file}.unity";
 
         [MenuItem("EchoQuest/Rebuild Story Scenes")]
         public static void Build()
         {
             // Every scene holds the whole chapter and plays on into the next section without a scene
             // load (StoryPlayer.continueToNextSection); a scene only sets where playback starts.
-            BuildSection("e00", EpiloguePath, "EchoQuest · Epilogo");
-            BuildSection("s05", Scene5Path, "EchoQuest · Scena 5");
-            BuildSection("s04", Scene4Path, "EchoQuest · Scena 4");
-            BuildSection("s03", Scene3Path, "EchoQuest · Scena 3");
-            BuildSection("s02", Scene2Path, "EchoQuest · Scena 2");
-            BuildSection("s01", Scene1Path, "EchoQuest · Scena 1");
-            BuildTamburo();
-            BuildSection("p00", ScenePath, "EchoQuest · Capitolo 1 (dall'Intro)");   // last, so it stays open
+            // Chapter 1's Intro is built last, so it stays open.
+            for (int c = Chapters.Length - 1; c >= 0; c--) BuildChapter(Chapters[c]);
+            SyncBuildSettings();
         }
 
         [MenuItem("EchoQuest/Rebuild Tamburo Scenes (Chapter 2)")]
         public static void BuildTamburo()
         {
-            foreach (var (section, file, title) in TamburoScenes)
-                BuildSection(section, $"{Root}/Scenes/Tamburo/{file}.unity", "EchoQuest · " + title,
-                    TamburoSequencePath, TamburoStagingPath);
+            BuildChapter(Chapters[1]);
+            SyncBuildSettings();
         }
 
-        public static void BuildSection(string section, string scenePath, string title,
-            string sequencePath = SequencePath, string stagingPath = StagingPath)
+        private static void BuildChapter(Chapter chapter)
+        {
+            for (int i = chapter.Scenes.Length - 1; i >= 0; i--)
+            {
+                var (section, file, title) = chapter.Scenes[i];
+                BuildSection(section, ScenePath(chapter, file), "EchoQuest · " + title, chapter.Sequence, chapter.Staging);
+            }
+        }
+
+        public static void BuildSection(string section, string scenePath, string title, string sequencePath, string stagingPath)
         {
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
@@ -131,7 +158,6 @@ namespace EchoQuest.Editor
 
             EnsureFolder(System.IO.Path.GetDirectoryName(scenePath)!.Replace('\\', '/'));
             EditorSceneManager.SaveScene(scene, scenePath);
-            AddToBuildSettings(scenePath);
             Debug.Log($"[Story] Built {scenePath} ({section}) with {player.clips.Length} clips");
         }
 
@@ -170,11 +196,17 @@ namespace EchoQuest.Editor
             AssetDatabase.CreateFolder(parent, System.IO.Path.GetFileName(path));
         }
 
-        private static void AddToBuildSettings(string path)
+        /// <summary>Build Settings: the other scenes first (the controller test boots the build), then every
+        /// story scene in story order, chapter by chapter; entries whose file no longer exists are dropped.</summary>
+        private static void SyncBuildSettings()
         {
-            var scenes = new List<EditorBuildSettingsScene>(EditorBuildSettings.scenes);
-            if (scenes.Exists(s => s.path == path)) return;
-            scenes.Add(new EditorBuildSettingsScene(path, true));
+            var story = new List<string>();
+            foreach (var chapter in Chapters)
+                foreach (var (_, file, _) in chapter.Scenes) story.Add(ScenePath(chapter, file));
+            var scenes = new List<EditorBuildSettingsScene>();
+            foreach (var s in EditorBuildSettings.scenes)
+                if (!s.path.StartsWith(ScenesPath + "/") && System.IO.File.Exists(s.path)) scenes.Add(s);
+            foreach (var path in story) scenes.Add(new EditorBuildSettingsScene(path, true));
             EditorBuildSettings.scenes = scenes.ToArray();
         }
     }

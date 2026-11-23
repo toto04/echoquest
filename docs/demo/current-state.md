@@ -16,8 +16,8 @@ never been built as a player, for any platform.
 | Scene | What it is | State |
 |---|---|---|
 | `Assets/EchoQuest/Scenes/ControllerTest.unity` | A critter that mirrors the controller's orientation; A changes colour, B hops | Works in the Editor with the real controller on macOS. Signs not confirmed by hand |
-| `Assets/EchoQuest/Story/Scenes/Intro.unity` | Prologue (`p00`) of chapter 1, linear, about 11 minutes of audio | Plays. One voice line missing (`p00_vent_01`), sounds are placeholders |
-| `Assets/EchoQuest/Story/Scenes/Scena1.unity` | Scene 1 (`s01`), 93 items, 8 interactions, two endings | Plays, all audio present. Checked by scripts; not yet listened through with headphones and controller |
+| `Assets/EchoQuest/Story/Scenes/Capitolo1_Pianoforte/C1_00_Intro.unity` | Prologue (`p00`) of chapter 1, linear, about 11 minutes of audio | Plays. One voice line missing (`p00_vent_01`), sounds are placeholders |
+| `Assets/EchoQuest/Story/Scenes/Capitolo1_Pianoforte/C1_01_Scena1.unity` | Scene 1 (`s01`), 93 items, 8 interactions, two endings | Plays, all audio present. Checked by scripts; not yet listened through with headphones and controller |
 
 ## Code
 
@@ -48,8 +48,8 @@ sections have audio.
 
 | Section | Voice lines recorded | Sounds present | Interactions | Scene |
 |---|---|---|---|---|
-| `p00` Prologue | 20 of 21 | 23 of 23 (placeholders) | 0 | `Intro.unity` |
-| `s01` Scene 1 | 45 of 45 | 40 of 40 (placeholders) | 8 | `Scena1.unity` |
+| `p00` Prologue | 20 of 21 | 23 of 23 (placeholders) | 0 | `C1_00_Intro.unity` |
+| `s01` Scene 1 | 45 of 45 | 40 of 40 (placeholders) | 8 | `C1_01_Scena1.unity` |
 | `s02` | 0 of 33 | 0 of 43 | 1 | none |
 | `s03` | 0 of 25 | 0 of 15 | 4 | none |
 | `s04` | 0 of 24 | 0 of 12 | 0 | none |

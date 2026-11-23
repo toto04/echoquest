@@ -9,46 +9,46 @@ EditorBuildSettings:
     path: Assets/EchoQuest/Scenes/ControllerTest.unity
     guid: 033deb9e8e14b43f6b1c02335fd782c0
   - enabled: 1
-    path: Assets/EchoQuest/Story/Scenes/Intro.unity
+    path: Assets/EchoQuest/Story/Scenes/Capitolo1_Pianoforte/C1_00_Intro.unity
     guid: 1850f4d7c00481c289f575b481f3a029
   - enabled: 1
-    path: Assets/EchoQuest/Story/Scenes/Scena1.unity
+    path: Assets/EchoQuest/Story/Scenes/Capitolo1_Pianoforte/C1_01_Scena1.unity
     guid: 414efd98f89ed959b88783a270b9c57a
   - enabled: 1
-    path: Assets/EchoQuest/Story/Scenes/Scena3.unity
-    guid: 811b8b5aadc7f747c8b0b59a4767fb05
-  - enabled: 1
-    path: Assets/EchoQuest/Story/Scenes/Scena2.unity
+    path: Assets/EchoQuest/Story/Scenes/Capitolo1_Pianoforte/C1_02_Scena2.unity
     guid: 9936c865612a05a28832e718eed00894
   - enabled: 1
-    path: Assets/EchoQuest/Story/Scenes/Scena4.unity
+    path: Assets/EchoQuest/Story/Scenes/Capitolo1_Pianoforte/C1_03_Scena3.unity
+    guid: 811b8b5aadc7f747c8b0b59a4767fb05
+  - enabled: 1
+    path: Assets/EchoQuest/Story/Scenes/Capitolo1_Pianoforte/C1_04_Scena4.unity
     guid: f032814b590eebd0e96fffa78b48af23
   - enabled: 1
-    path: Assets/EchoQuest/Story/Scenes/Epilogo.unity
-    guid: b3eb4dd00a9947f7cbaa8f073b960cb4
-  - enabled: 1
-    path: Assets/EchoQuest/Story/Scenes/Scena5.unity
+    path: Assets/EchoQuest/Story/Scenes/Capitolo1_Pianoforte/C1_05_Scena5.unity
     guid: 3706d4cf89d7e13aea8487fff23e0822
   - enabled: 1
-    path: Assets/EchoQuest/Story/Scenes/Tamburo/Tamburo_Scena1.unity
-    guid: b4b7f7b5adb18187a80b86dd91956838
+    path: Assets/EchoQuest/Story/Scenes/Capitolo1_Pianoforte/C1_99_Epilogo.unity
+    guid: b3eb4dd00a9947f7cbaa8f073b960cb4
   - enabled: 1
-    path: Assets/EchoQuest/Story/Scenes/Tamburo/Tamburo_Prologo.unity
+    path: Assets/EchoQuest/Story/Scenes/Capitolo2_Tamburo/C2_00_Prologo.unity
     guid: e5a8ddff864ee9027a20b1721cefe6b8
   - enabled: 1
-    path: Assets/EchoQuest/Story/Scenes/Tamburo/Tamburo_Scena2.unity
+    path: Assets/EchoQuest/Story/Scenes/Capitolo2_Tamburo/C2_01_Scena1.unity
+    guid: b4b7f7b5adb18187a80b86dd91956838
+  - enabled: 1
+    path: Assets/EchoQuest/Story/Scenes/Capitolo2_Tamburo/C2_02_Scena2.unity
     guid: e0c0c36cbe0d0e5fa8fe0fb6f7f8890b
   - enabled: 1
-    path: Assets/EchoQuest/Story/Scenes/Tamburo/Tamburo_Scena3.unity
+    path: Assets/EchoQuest/Story/Scenes/Capitolo2_Tamburo/C2_03_Scena3.unity
     guid: 2a84c36c85746aa418335486331f4628
   - enabled: 1
-    path: Assets/EchoQuest/Story/Scenes/Tamburo/Tamburo_Epilogo.unity
-    guid: 416e9411ff7459de0b4ea303fd9a47e1
+    path: Assets/EchoQuest/Story/Scenes/Capitolo2_Tamburo/C2_04_Scena4.unity
+    guid: b369a6bf94578243e82e019911e23a29
   - enabled: 1
-    path: Assets/EchoQuest/Story/Scenes/Tamburo/Tamburo_Scena5.unity
+    path: Assets/EchoQuest/Story/Scenes/Capitolo2_Tamburo/C2_05_Scena5.unity
     guid: 6e4497c3d7f393678b2fee254ba9679a
   - enabled: 1
-    path: Assets/EchoQuest/Story/Scenes/Tamburo/Tamburo_Scena4.unity
-    guid: b369a6bf94578243e82e019911e23a29
+    path: Assets/EchoQuest/Story/Scenes/Capitolo2_Tamburo/C2_99_Epilogo.unity
+    guid: 416e9411ff7459de0b4ea303fd9a47e1
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

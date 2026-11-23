@@ -180,7 +180,9 @@ In ordine, ogni passo verificabile da solo:
    - [x] Prologo e Scena 1: suono libero sui tamburi (il gioco misura il tempo spontaneo del bambino,
      `StoryPlayer.SpontaneousBeatSeconds`), prova del mignolo (`pulsante`: `anulare` e `mignolo`),
      confronto «regolare?».
-   - [ ] Scena 2: `battito` (tenere il passo) e i due confronti di tempo.
+   - [x] Scena 2: `battito` (tenere il passo: `tempi` = i movimenti da valutare, `quota`, `tolleranza`,
+     `aiuto` = il Maestro che conta «uno, due, tre, quattro» sui primi movimenti dopo un errore,
+     `x_t02_conta_1…4` tagliati dalla registrazione) e i due confronti di tempo.
    - [ ] Scena 3: eco di allenamento senza Sbuffo.
    - [ ] Scena 4: sfida con scambi corti, cambio di base, aiuto dopo gli errori.
    - [ ] Scena 5: turno d'attacco, `colpo`, il vento a tempo, livello extra.

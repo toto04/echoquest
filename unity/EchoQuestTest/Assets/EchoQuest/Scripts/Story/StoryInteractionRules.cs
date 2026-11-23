@@ -8,7 +8,8 @@ namespace EchoQuest.Story
     /// The story never asks for a timed press in a silence any more (too hard); Note is kept for
     /// configurations that still use it.</summary>
     /// FreePlay = the child plays along with a piece, any button at any time, no wrong answer (stage 0).
-    public enum InteractionMode { Confirm, Rhythm, Compare, Note, Decision, Battle, FreePlay }
+    /// Beat = keep the beat over a piece (chapter 2): presses near the listed beats count, a share must hit.
+    public enum InteractionMode { Confirm, Rhythm, Compare, Note, Decision, Battle, FreePlay, Beat }
 
     public class InteractionSettings
     {
@@ -37,6 +38,10 @@ namespace EchoQuest.Story
         public string[] Examples;
         public float[] Times;
         public float Tolerance = 0.3f;
+        /// <summary>Beat: how many of the beats in Times must get a press (quota).</summary>
+        public int Quota;
+        /// <summary>Beat: sounds put on the first beats after a failed try (aiuto: the Maestro counting).</summary>
+        public string[] Help = new string[0];
 
         private static string[] Split(string text) =>
             (text ?? "").Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
@@ -56,6 +61,7 @@ namespace EchoQuest.Story
                     "scelta" => InteractionMode.Decision,
                     "sfida" => InteractionMode.Battle,
                     "libero" => InteractionMode.FreePlay,
+                    "battito" => InteractionMode.Beat,
                     _ => throw new FormatException("Unknown interaction mode: " + mode),
                 },
                 Prompt = get("consegna"), Success = get("successo"), Retry = get("riprova"),
@@ -140,6 +146,28 @@ namespace EchoQuest.Story
                     throw new FormatException("Battle rounds need successo and riprova voices.");
                 return settings;
             }
+            if (settings.Mode == InteractionMode.Beat)
+            {
+                // tempi = the beats to judge, in seconds from the start of the piece (esempi).
+                if (settings.Examples.Length != 1 || settings.Feedbacks.Length == 0 || times.Count < 2)
+                    throw new FormatException("Keeping the beat needs the piece (esempi), the button sounds (suono_pulsante) and the beats (tempi).");
+                for (int i = 1; i < times.Count; i++)
+                    if (times[i] <= times[i - 1]) throw new FormatException("Beat tempi must increase.");
+                string quota = get("quota"), tolerance = get("tolleranza");
+                if (!int.TryParse(quota, NumberStyles.Integer, CultureInfo.InvariantCulture, out settings.Quota) ||
+                    settings.Quota < 1 || settings.Quota > times.Count)
+                    throw new FormatException("Beat quota must be between 1 and the number of beats: " + quota);
+                if (!string.IsNullOrEmpty(tolerance) &&
+                    (!float.TryParse(tolerance, NumberStyles.Float, CultureInfo.InvariantCulture, out settings.Tolerance) ||
+                     settings.Tolerance <= 0 || settings.Tolerance >= 0.5f))
+                    throw new FormatException("Beat tolleranza is in seconds, between 0 and 0.5: " + tolerance);
+                if (string.IsNullOrEmpty(tolerance)) settings.Tolerance = 0.15f;
+                settings.Help = Split(get("aiuto"));
+                if (settings.Help.Length > times.Count) throw new FormatException("More help sounds (aiuto) than beats.");
+                if (string.IsNullOrEmpty(settings.Retry) || string.IsNullOrEmpty(settings.Success))
+                    throw new FormatException("Keeping the beat needs successo and riprova voices.");
+                return settings;
+            }
             if (settings.Mode == InteractionMode.FreePlay)
             {
                 if (settings.Examples.Length != 1 || settings.Feedbacks.Length == 0)
@@ -167,6 +195,32 @@ namespace EchoQuest.Story
     {
         // Logical controls; these are not physical HID button numbers.
         public const int Yes = 5, No = 6;
+
+        /// <summary>Keeping the beat: how many beats (story times) have a press within
+        /// <paramref name="tolerance"/> seconds. Each press counts for one beat at most; extra presses
+        /// never count against the child (03: continuing a beat alone is the hard part, not precision).</summary>
+        public static int BeatHits(IReadOnlyList<double> presses, IReadOnlyList<double> beats, double tolerance)
+        {
+            if (presses == null || beats == null || double.IsNaN(tolerance) || tolerance <= 0) return 0;
+            var used = new bool[presses.Count];
+            int hits = 0;
+            foreach (double beat in beats)
+            {
+                int best = -1;
+                double bestDistance = tolerance;
+                for (int i = 0; i < presses.Count; i++)
+                {
+                    double d = Math.Abs(presses[i] - beat);
+                    if (used[i] || double.IsNaN(d) || d > bestDistance) continue;
+                    best = i;
+                    bestDistance = d;
+                }
+                if (best < 0) continue;
+                used[best] = true;
+                hits++;
+            }
+            return hits;
+        }
         public static bool MatchesRhythm(IReadOnlyList<double> taps, IReadOnlyList<float> expected)
         {
             if (taps.Count != 3 || expected.Count != 3) return false;

@@ -1224,6 +1224,26 @@ if selected("x_t02_battito"):  # keep the beat: the count-in bar, then loop_batt
     x = music.render(SPECS["count_in"], kit=kit, tail=0.0)[: int(BAR * SR)]
     x += music.render(SPECS_T["loop_battito"], REG_T, tail=0.5)
     save_fixed("x_t02_battito", x, 0.5 / max(abs(v) for v in x))
+if any(selected(f"x_t02_conta_{k}") for k in range(1, 5)):
+    # The Maestro's "Uno. Due. Tre. Quattro." cut word by word, so Unity can put each word on a beat
+    # (the help after a missed "keep the beat"). Words are found by their loudness; each file starts
+    # on the word's onset.
+    v = voice_48k("eq_t02_extra_01_conta")
+    frame = int(0.01 * SR)
+    env = [max(abs(s) for s in v[i:i + frame]) for i in range(0, len(v), frame)]
+    loud = [e > max(env) * 0.06 for e in env]
+    words, start, quiet, end = [], None, 0, 0
+    for i, on in enumerate(loud + [False] * 12):
+        if on:
+            start, quiet, end = (i if start is None else start), 0, i
+        elif start is not None:
+            quiet += 1
+            if quiet >= 12:
+                words.append((start * frame, (end + 1) * frame))
+                start = None
+    assert len(words) == 4, f"expected four counted words, found {len(words)}"
+    for k, (a, b) in enumerate(words, 1):
+        save_fixed(f"x_t02_conta_{k}", fade(v[a:b + int(0.08 * SR)], 0.005, 0.06), 1.0)
 if selected(ct(3, 1)):  # memory of the gallop (song bars 3-4, drum and piano), then today's drum stumbling
     x = song([2, 3], "normale", tail=1.0)
     mix(x, gallop_on_drums(), 0.0)

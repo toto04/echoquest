@@ -176,6 +176,33 @@ public static class StoryInteractionChecks
         Invalid(() => InteractionSettings.Parse(Get), "free play needs the button sounds");
         values["suono_pulsante"] = "re;fa;la;do"; values["tentativi"] = "2"; values["domanda_riprova"] = "q"; values["prosegui"] = "c";
         Invalid(() => InteractionSettings.Parse(Get), "free play has no attempts: there is no wrong note");
+
+        // Keeping the beat (chapter 2, scene 2).
+        var beats = new[] { 10d, 10.6, 11.2, 11.8 };
+        Check(StoryInteractionRules.BeatHits(new[] { 10.05, 10.55, 11.3, 11.8 }, beats, 0.15) == 4, "presses near every beat");
+        Check(StoryInteractionRules.BeatHits(new[] { 10.05, 10.4, 11.2 }, beats, 0.15) == 2, "a press 200 ms early does not count");
+        Check(StoryInteractionRules.BeatHits(new[] { 10d, 10.01, 10.02, 10.6 }, beats, 0.15) == 2, "one press counts for one beat only");
+        Check(StoryInteractionRules.BeatHits(new[] { 10.3 }, beats, 0.15) == 0, "a press between two beats hits neither");
+        Check(StoryInteractionRules.BeatHits(new[] { 9.9, 10d, 10.1, 10.6, 10.9, 11.2, 11.5, 11.8 }, beats, 0.15) == 4,
+            "extra presses never count against");
+        Check(StoryInteractionRules.BeatHits(new[] { double.NaN, 10d }, beats, 0.15) == 1, "an invalid timestamp is ignored");
+        values.Clear();
+        values["modalita"] = "battito"; values["esempi"] = "x_t02_battito"; values["suono_pulsante"] = "re";
+        values["tempi"] = "2.4;3;3.6;4.2"; values["quota"] = "3"; values["successo"] = "ok"; values["riprova"] = "again";
+        var beat = InteractionSettings.Parse(Get);
+        Check(beat.Mode == InteractionMode.Beat && beat.Quota == 3 && Math.Abs(beat.Tolerance - 0.15f) < 1e-6,
+            "battito: quota, default tolerance 150 ms");
+        values["tolleranza"] = "0.2"; values["aiuto"] = "uno;due";
+        beat = InteractionSettings.Parse(Get);
+        Check(Math.Abs(beat.Tolerance - 0.2f) < 1e-6 && beat.Help.Length == 2, "battito: tolerance and the counting help");
+        values["quota"] = "5";
+        Invalid(() => InteractionSettings.Parse(Get), "the quota cannot exceed the beats");
+        values["quota"] = "3"; values["tempi"] = "2.4;2.4;3";
+        Invalid(() => InteractionSettings.Parse(Get), "beats must increase");
+        values["tempi"] = "2.4;3;3.6;4.2"; values["tolleranza"] = "0.6";
+        Invalid(() => InteractionSettings.Parse(Get), "a tolerance over half a second is not keeping the beat");
+        values["tolleranza"] = ""; values["successo"] = "";
+        Invalid(() => InteractionSettings.Parse(Get), "keeping the beat says when it worked");
         return checks;
     }
 }

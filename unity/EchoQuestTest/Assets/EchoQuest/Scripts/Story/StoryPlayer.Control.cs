@@ -138,6 +138,14 @@ namespace EchoQuest.Story
             else if (button >= 1 && button <= 4) m_Choice = button - 1;
         }
 
+        /// <summary>A press at an exact story time (play-mode checks): the same as PressLogical, but the
+        /// timestamp does not depend on when the frame that delivers it runs.</summary>
+        public void PressLogicalAt(int button, double storyTime)
+        {
+            LogEvent("on-screen " + ButtonName(button));
+            if (m_CapturingInteraction && !Paused) m_InteractionInput.Enqueue((button, storyTime));
+        }
+
         /// <summary>Makes the interaction that is waiting for input succeed.</summary>
         public void ForcePass()
         {

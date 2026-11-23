@@ -24,6 +24,8 @@ namespace EchoQuest.Story
         /// <summary>The mean time between the child's presses in the last free play with at least three
         /// presses (0 = not measured yet): the child's spontaneous tempo.</summary>
         public float SpontaneousBeatSeconds { get; private set; }
+        /// <summary>Story time at which the piece of the current keep-the-beat try starts (tests, overlay).</summary>
+        public double BeatStart { get; private set; }
 
         private void OnEnable()
         {
@@ -150,6 +152,7 @@ namespace EchoQuest.Story
                 !InteractionVoiceExists(settings.Retry)) return false;
             foreach (var example in settings.Examples) if (!InteractionClip(example, out _)) return false;
             foreach (var feedback in settings.Feedbacks) if (!InteractionClip(feedback, out _)) return false;
+            foreach (var help in settings.Help) if (!InteractionClip(help, out _)) return false;
             return true;
         }
 
@@ -234,7 +237,7 @@ namespace EchoQuest.Story
             try
             {
                 bool firstAttempt = true;
-                int failedAttempts = 0;
+                int failedAttempts = 0, tries = 0;
                 while (!Interrupted)
                 {
                     m_Foreground.RemoveAll(source => source == null);
@@ -261,7 +264,9 @@ namespace EchoQuest.Story
                     }
                     firstAttempt = false;
                     if (settings.Mode == InteractionMode.Note) yield return CaptureMissingNote(settings);
+                    else if (settings.Mode == InteractionMode.Beat) yield return CaptureBeat(settings, help: tries > 0);
                     else yield return CaptureButtons(settings, StagingFor(item).Choices);
+                    tries++;
                     EndInteractionCapture();
                     if (Interrupted) yield break;
                     LogEvent(item.Id + (m_InteractionPassed ? " passed" : m_InteractionAttempted ? " not passed" : " no attempt"));
@@ -463,6 +468,63 @@ namespace EchoQuest.Story
                 if (taps.Count > 0 && wait >= settings.Times[2] * 2 + 1) yield break;
                 yield return null;
             }
+        }
+
+        /// <summary>Keep the beat (chapter 2, scene 2): the piece plays, every press sounds its drum, and the
+        /// beats listed in tempi are judged; the try passes when at least quota of them got a press within
+        /// tolleranza. After a failed try the Maestro counts the first beats aloud (aiuto). The piece stops
+        /// one beat after the last judged beat.</summary>
+        private IEnumerator CaptureBeat(InteractionSettings settings, bool help)
+        {
+            string id = settings.Examples[0];
+            InteractionClip(id, out var piece);
+            double start = Now + 0.15;
+            BeatStart = start;
+            var source = Spawn(piece, StagingFor(new StoryItem { Id = id, Kind = StoryItemKind.Sound }), id, soundMarker,
+                scheduledStart: start);
+            var times = settings.Times;
+            double beat = times[1] - times[0];
+            double end = start + times[times.Length - 1] + beat;
+            bool cut = end < start + piece.length - 0.05;
+            if (help)
+                for (int i = 0; i < settings.Help.Length; i++)
+                {
+                    InteractionClip(settings.Help[i], out var word);
+                    var wordItem = new StoryItem { Id = settings.Help[i], Kind = StoryItemKind.Sound };
+                    Spawn(word, StagingFor(wordItem), settings.Help[i], characterMarker, scheduledStart: start + times[i]);
+                }
+            BeginInteractionCapture(false);
+            Status = help ? "Batti il tempo: il Maestro conta con te" : "Batti il tempo insieme alla musica";
+            CurrentClip = piece.name;
+            var presses = new List<double>();
+            bool forced = false;
+            while (!Interrupted && Now < end)
+            {
+                if (m_ForcePass) { forced = true; break; }
+                while (m_InteractionInput.Count > 0)
+                {
+                    var (button, time) = m_InteractionInput.Dequeue();
+                    if (button < 1 || button > 4) continue;
+                    InteractionTapFeedback(settings, button);
+                    presses.Add(time);
+                }
+                yield return null;
+            }
+            EndInteractionCapture();
+            if ((cut || forced) && source != null) source.FadeOut(0.4f);
+            if (Interrupted) yield break;
+            // A whole listen counts as a try, even with no press.
+            m_InteractionAttempted = true;
+            var beats = new List<double>(times.Length);
+            foreach (float t in times) beats.Add(start + t);
+            int hits = StoryInteractionRules.BeatHits(presses, beats, settings.Tolerance);
+            m_InteractionPassed = forced || hits >= settings.Quota;
+            LastAttempt = forced ? "passed from the overlay" :
+                $"{hits} of {times.Length} beats hit within {settings.Tolerance * 1000:F0} ms (needed {settings.Quota}); " +
+                $"{presses.Count} presses" + (m_InteractionPassed ? ": passes" : ": not yet");
+            LogEvent("beat " + LastAttempt);
+            if (!cut && !forced) while (!Interrupted && Now < start + piece.length) yield return null;
+            else yield return Wait(0.4f);
         }
 
         private IEnumerator CaptureMissingNote(InteractionSettings settings)

@@ -122,4 +122,58 @@ public static class TamburoRuntimeChecks
         p.SetSpeed(1f);
         return $"Tamburo Scene 1: {checks} checks passed";
     }
+
+    /// <summary>Presses on the beats of a keep-the-beat try, a little early or late like a child.</summary>
+    static async Task TapBeats(StoryPlayer p, double first, int count, double[] jitter)
+    {
+        await Until(() => p.WaitingInteractionInput && p.BeatStart > 0, "the beat try starts", 10);
+        double start = p.BeatStart;
+        for (int k = 0; k < count; k++)
+        {
+            double time = start + first + 0.6 * k + jitter[k % jitter.Length];
+            await At(time);
+            p.PressLogicalAt(1, time);   // exact timestamps: the check frames must not decide a 150 ms window
+        }
+    }
+
+    /// <summary>Scene 2: keep the beat with the orchestra (6 of 8), then alone when the music thins
+    /// (5 of 8, with the Maestro counting after a miss), then the two tempo comparisons.</summary>
+    public static async Task<string> RunScene2()
+    {
+        checks = 0;
+        var p = await Load("Tamburo_Scena2", "t02");
+
+        // Level 1: on the beat, within the 150 ms window.
+        p.JumpTo("t02_int_01");
+        await TapBeats(p, 2.4, 8, new[] { 0.04, -0.06, 0.1, 0.0 });
+        await Until(() => Logged(p, "t02_int_01 passed"), "level 1 passes on the beat", 10);
+        Check(p.LastAttempt.StartsWith("8 of 8 beats hit"), "every beat is hit: " + p.LastAttempt);
+        await Until(() => p.Active.All(s => s == null || s.Label != "x_t02_battito"), "the piece stops after the judged bars", 2);
+
+        // Level 2: nothing in the bars where the music thins is not a pass; then the Maestro counts.
+        await Until(() => p.Current?.Id == "t02_int_02" && p.WaitingInteractionInput, "level 2", 40);
+        await TapBeats(p, 2.4, 4, new[] { 0.0 });   // only with the kick, then the child stops
+        await Until(() => Logged(p, "t02_int_02 not passed"), "stopping when the music thins does not pass", 15);
+        Check(p.LastAttempt.StartsWith("0 of 8 beats hit"), "the thin bars are judged: " + p.LastAttempt);
+        await Until(() => p.WaitingInteractionInput && p.Active.Any(s => s != null && s.Label == "x_t02_conta_1"),
+            "after the retry voice the Maestro counts along", 20);
+        await TapBeats(p, 7.2, 8, new[] { 0.12, -0.12, 0.2, 0.05 });   // two presses 200 ms late: 6 of 8 hit
+        await Until(() => Logged(p, "t02_int_02 passed"), "level 2 passes alone", 15);
+        Check(p.LastAttempt.StartsWith("6 of 8 beats hit"), "late presses do not count: " + p.LastAttempt);
+
+        // Tempo: the second is faster (Yes), then slower (No).
+        p.SetSpeed(3f);
+        await Until(() => p.Current?.Id == "t02_int_03" && p.WaitingInteractionInput, "is the second faster?", 40);
+        p.PressLogical(StoryInteractionRules.Yes);
+        await Until(() => Logged(p, "t02_int_03 passed"), "faster: Yes", 5);
+        await Until(() => p.Current?.Id == "t02_int_04" && p.WaitingInteractionInput, "and now?", 30);
+        p.PressLogical(StoryInteractionRules.Yes);
+        await Until(() => Logged(p, "t02_int_04 not passed"), "slower: Yes is wrong", 5);
+        await Until(() => p.WaitingInteractionInput, "the examples come back", 30);
+        p.PressLogical(StoryInteractionRules.No);
+        await Until(() => Logged(p, "t02_int_04 passed"), "slower: No", 5);
+        await Until(() => p.Current?.Id == "t02_maes_05", "the scene ends with the Maestro's secret", 20);
+        p.SetSpeed(1f);
+        return $"Tamburo Scene 2: {checks} checks passed";
+    }
 }

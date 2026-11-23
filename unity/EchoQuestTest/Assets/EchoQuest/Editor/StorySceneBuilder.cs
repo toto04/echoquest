@@ -27,6 +27,7 @@ namespace EchoQuest.Editor
         private const string TamburoStagingPath = Root + "/Script/capitolo_02_regia.csv";
         private static readonly (string section, string file, string title)[] TamburoScenes =
         {
+            ("t02", "Tamburo_Scena2", "Tamburo · Scena 2"),
             ("t01", "Tamburo_Scena1", "Tamburo · Scena 1"),
             ("t00", "Tamburo_Prologo", "Tamburo · Capitolo 2 (dal Prologo)"),
         };

@@ -1170,6 +1170,10 @@ def ct(sec, n):
 for letter, nome in (("D", "re"), ("F", "fa"), ("A", "la"), ("C", "do")):  # the drums under the four fingers
     if selected(f"x_t01_tamburo_{nome}"):
         save(f"x_t01_tamburo_{nome}", tamburo(reg_note(music.BUTTON_NOTES[letter], REG_T), 0.9, 0.8), -8)
+if selected("x_t01_marcia"):  # free play: six bars of the practice march (bordun and soft marcia) under the child's drums
+    loop = music.render(SPECS_T["loop_allenamento_tamburo"], REG_T, only_layers={"L0"})
+    x = (loop + loop)[: int(6 * BAR * SR)] + silence(0.8)
+    save_fixed("x_t01_marcia", fade(x, 0, 1.6), 0.42 / max(abs(v) for v in x))
 for register in CHOSEN:
     if selected(f"{ct(0, 1)}_{register}"):  # the piano's recovered piece, then a drum that cannot keep its step
         x = song([0, 1], register, layers=("L2",), tail=0.5)

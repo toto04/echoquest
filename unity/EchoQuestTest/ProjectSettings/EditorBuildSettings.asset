@@ -29,5 +29,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/EchoQuest/Story/Scenes/Scena5.unity
     guid: 3706d4cf89d7e13aea8487fff23e0822
+  - enabled: 1
+    path: Assets/EchoQuest/Story/Scenes/Tamburo/Tamburo_Scena1.unity
+    guid: b4b7f7b5adb18187a80b86dd91956838
+  - enabled: 1
+    path: Assets/EchoQuest/Story/Scenes/Tamburo/Tamburo_Prologo.unity
+    guid: e5a8ddff864ee9027a20b1721cefe6b8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

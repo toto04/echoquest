@@ -1,7 +1,8 @@
 // Play-mode checks of Scenes 2-5 and the epilogue with the real scene data (regia, clips, timing).
 // Open any story scene, set run-in-background, enter Play mode, then evaluate this file followed by
 //   return await StoryBattleRuntimeChecks.RunScene2();   (or RunScene3, RunScene4, RunScene5, RunEpilogue, RunContinuity)
-// (unity command script.eval --file <combined file>). Set StoryBattleRuntimeChecks.Speed = 2f first to run them at x2. Presses go through the on-screen buttons
+// (unity command script.eval --file <combined file>). Set StoryBattleRuntimeChecks.Speed = 2f first to run them at x2
+// (flaky there: the 0.12 s rhythm tolerance is only 60 ms of real time, close to the frame-timed presses). Presses go through the on-screen buttons
 // (StoryPlayer.PressLogical), timed on the audio clock like a child playing on the beat.
 using System;
 using System.Linq;
@@ -178,7 +179,7 @@ public static class StoryBattleRuntimeChecks
         await Until(() => p.WaitingInteractionInput, "free play listens", 5);
         foreach (int b in new[] { 1, 3, 2, 4, 4, 1 }) { p.PressLogical(b); await Task.Delay(400); }
         Check(p.LastAttempt == "6 notes played", "every press is a note");
-        await Until(() => Logged(p, "s04_int_01 passed (6 notes)"), "the story goes on when the music ends", 20);
+        await Until(() => Logged(p, "s04_int_01 passed (6 notes"), "the story goes on when the music ends", 20);
 
         p.JumpTo("s04_int_02");   // Sbuffo question: No leads to branch B, there is no wrong answer
         await Until(() => p.WaitingInteractionInput, "Sbuffo question", 5);
@@ -231,7 +232,7 @@ public static class StoryBattleRuntimeChecks
         Check(p.CurrentClip == "x_e00_eco_acuto", "the exchange is in the chosen register");
         foreach (int b in new[] { 1, 1, 1 }) { p.PressLogical(b); await Task.Delay(300); }
         Check(p.LastAttempt == "3 notes played", "every press is a note");
-        await Until(() => Logged(p, "e00_int_01 passed (3 notes)"), "the story goes on when the exchange ends", 20);
+        await Until(() => Logged(p, "e00_int_01 passed (3 notes"), "the story goes on when the exchange ends", 20);
 
         // No answer at all: the piano plays the phrase by itself and the story still goes on.
         p.JumpTo("e00_int_01");

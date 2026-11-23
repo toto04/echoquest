@@ -173,6 +173,18 @@ In ordine, ogni passo verificabile da solo:
 6. ~~**Suoni e musica**~~ Fatto: tamburo e campanella sono timpani e campane a mano veri (VCSL, CC0),
    accordati sulle note dei pulsanti; frasi, basi a strati, esempi e suoni di scena in `Audio/Sfx`
    (`t…`, `c…`, `x_t…`, `x_c…`). Restano regia, scene Unity e controlli in Play mode.
+7. **Capitolo 2 in Unity, scena per scena.** Regia in `Story/Script/capitolo_02_regia.csv` (stesse colonne
+   del capitolo 1), scene in `Story/Scenes/Tamburo/` (menu *EchoQuest → Rebuild Tamburo Scenes*), controlli
+   in Play mode in `tools/story_tamburo_runtime_checks.cs` (`TamburoRuntimeChecks.RunSceneN`). Ogni scena
+   contiene tutto il capitolo e prosegue nella successiva, come nel capitolo 1.
+   - [x] Prologo e Scena 1: suono libero sui tamburi (il gioco misura il tempo spontaneo del bambino,
+     `StoryPlayer.SpontaneousBeatSeconds`), prova del mignolo (`pulsante`: `anulare` e `mignolo`),
+     confronto «regolare?».
+   - [ ] Scena 2: `battito` (tenere il passo) e i due confronti di tempo.
+   - [ ] Scena 3: eco di allenamento senza Sbuffo.
+   - [ ] Scena 4: sfida con scambi corti, cambio di base, aiuto dopo gli errori.
+   - [ ] Scena 5: turno d'attacco, `colpo`, il vento a tempo, livello extra.
+   - [ ] Epilogo.
 
 ## Domande per il gruppo
 

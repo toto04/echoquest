@@ -124,6 +124,8 @@ namespace EchoQuest.Story
                 "" or "si" => StoryInteractionRules.Yes,
                 "indice" => 1,
                 "medio" => 2,
+                "anulare" => 3,
+                "mignolo" => 4,
                 _ => throw new FormatException("Unknown confirmation button: " + get("pulsante")),
             };
             if (settings.Mode == InteractionMode.Battle)

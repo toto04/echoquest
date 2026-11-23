@@ -22,6 +22,15 @@ namespace EchoQuest.Editor
         private const string SequencePath = Root + "/Script/capitolo_01_sequenza.csv";
         private const string StagingPath = Root + "/Script/capitolo_01_regia.csv";
 
+        // Chapter 2, the tamburo (docs/capitoli-2-3.md): its own script and staging, scenes in Scenes/Tamburo.
+        private const string TamburoSequencePath = Root + "/Script/capitolo_02_sequenza.csv";
+        private const string TamburoStagingPath = Root + "/Script/capitolo_02_regia.csv";
+        private static readonly (string section, string file, string title)[] TamburoScenes =
+        {
+            ("t01", "Tamburo_Scena1", "Tamburo · Scena 1"),
+            ("t00", "Tamburo_Prologo", "Tamburo · Capitolo 2 (dal Prologo)"),
+        };
+
         [MenuItem("EchoQuest/Rebuild Story Scenes")]
         public static void Build()
         {
@@ -33,10 +42,20 @@ namespace EchoQuest.Editor
             BuildSection("s03", Scene3Path, "EchoQuest · Scena 3");
             BuildSection("s02", Scene2Path, "EchoQuest · Scena 2");
             BuildSection("s01", Scene1Path, "EchoQuest · Scena 1");
+            BuildTamburo();
             BuildSection("p00", ScenePath, "EchoQuest · Capitolo 1 (dall'Intro)");   // last, so it stays open
         }
 
-        public static void BuildSection(string section, string scenePath, string title)
+        [MenuItem("EchoQuest/Rebuild Tamburo Scenes (Chapter 2)")]
+        public static void BuildTamburo()
+        {
+            foreach (var (section, file, title) in TamburoScenes)
+                BuildSection(section, $"{Root}/Scenes/Tamburo/{file}.unity", "EchoQuest · " + title,
+                    TamburoSequencePath, TamburoStagingPath);
+        }
+
+        public static void BuildSection(string section, string scenePath, string title,
+            string sequencePath = SequencePath, string stagingPath = StagingPath)
         {
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
@@ -88,8 +107,8 @@ namespace EchoQuest.Editor
 
             var storyGo = new GameObject("Storia");
             var player = storyGo.AddComponent<StoryPlayer>();
-            player.sequence = AssetDatabase.LoadAssetAtPath<TextAsset>(SequencePath);
-            player.staging = AssetDatabase.LoadAssetAtPath<TextAsset>(StagingPath);
+            player.sequence = AssetDatabase.LoadAssetAtPath<TextAsset>(sequencePath);
+            player.staging = AssetDatabase.LoadAssetAtPath<TextAsset>(stagingPath);
             player.clips = FindClips();
             player.section = section;
             player.listener = listenerGo.transform;
@@ -102,10 +121,10 @@ namespace EchoQuest.Editor
             hud.recorder = recorder;
             hud.title = title;
 
-            if (player.sequence == null) Debug.LogError("[Story] Missing " + SequencePath + ": run tools/story_extract.py");
-            if (player.staging == null) Debug.LogError("[Story] Missing " + StagingPath);
+            if (player.sequence == null) Debug.LogError("[Story] Missing " + sequencePath + ": run tools/story_extract.py");
+            if (player.staging == null) Debug.LogError("[Story] Missing " + stagingPath);
 
-            EnsureFolder(Root + "/Scenes");
+            EnsureFolder(System.IO.Path.GetDirectoryName(scenePath)!.Replace('\\', '/'));
             EditorSceneManager.SaveScene(scene, scenePath);
             AddToBuildSettings(scenePath);
             Debug.Log($"[Story] Built {scenePath} ({section}) with {player.clips.Length} clips");

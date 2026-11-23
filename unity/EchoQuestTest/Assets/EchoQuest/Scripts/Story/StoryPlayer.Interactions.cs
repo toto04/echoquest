@@ -21,6 +21,9 @@ namespace EchoQuest.Story
         private const float MissingNoteResponseSeconds = 3f;
         public bool WaitingInteractionInput => m_CapturingInteraction;
         public bool WaitingRetryChoice { get; private set; }
+        /// <summary>The mean time between the child's presses in the last free play with at least three
+        /// presses (0 = not measured yet): the child's spontaneous tempo.</summary>
+        public float SpontaneousBeatSeconds { get; private set; }
 
         private void OnEnable()
         {
@@ -322,14 +325,17 @@ namespace EchoQuest.Story
                 Status = "Suona quando vuoi: ogni nota sta bene con la musica";
                 CurrentClip = piece.name;
                 int notes = 0;
+                double firstTap = 0, lastTap = 0;
                 while (!Interrupted && Now < start + piece.length)
                 {
                     if (m_ForcePass) { source.FadeOut(0.5f); break; }
                     while (m_InteractionInput.Count > 0)
                     {
-                        var (button, _) = m_InteractionInput.Dequeue();
+                        var (button, time) = m_InteractionInput.Dequeue();
                         if (button < 1 || button > 4) continue;
                         InteractionTapFeedback(settings, button);
+                        if (notes == 0) firstTap = time;
+                        lastTap = time;
                         notes++;
                         LastAttempt = notes + (notes == 1 ? " note played" : " notes played");
                     }
@@ -337,7 +343,10 @@ namespace EchoQuest.Story
                 }
                 EndInteractionCapture();
                 if (Interrupted) yield break;
-                LogEvent(item.Id + " passed (" + notes + " notes)");
+                // The child's own pace (chapter 2, scene 1): the mean time between presses.
+                if (notes >= 3) SpontaneousBeatSeconds = (float)((lastTap - firstTap) / (notes - 1));
+                LogEvent(item.Id + " passed (" + notes + " notes" +
+                         (notes >= 3 ? $", one every {SpontaneousBeatSeconds:F2} s" : "") + ")");
                 if (!string.IsNullOrEmpty(settings.Success)) yield return InteractionVoice(settings.Success);
             }
             finally

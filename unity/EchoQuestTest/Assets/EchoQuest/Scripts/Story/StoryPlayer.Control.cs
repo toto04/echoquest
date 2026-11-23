@@ -51,13 +51,17 @@ namespace EchoQuest.Story
             return list;
         }
 
-        /// <summary>A section's name for people: p00 = Intro, s03 = Scena 3, e00 = Epilogo.</summary>
+        /// <summary>A section's name for people: p00 = Intro, s03 = Scena 3, e00 = Epilogo; in the other
+        /// chapters (t = tamburo, c = campanella) 00 is the Prologo, 99 the Epilogo, NN the Scena NN.</summary>
         public static string SectionName(string section) => section switch
         {
             "p00" => "Intro",
             "e00" => "Epilogo",
-            _ when section.Length == 3 && section[0] == 's' && int.TryParse(section.Substring(1), out int n) => "Scena " + n,
-            _ => section,
+            _ when section.Length != 3 || !int.TryParse(section.Substring(1), out int n) => section,
+            _ when section[0] == 's' => "Scena " + int.Parse(section.Substring(1)),
+            _ when section.EndsWith("00") => "Prologo",
+            _ when section.EndsWith("99") => "Epilogo",
+            _ => "Scena " + int.Parse(section.Substring(1)),
         };
 
         public void LogEvent(string message)

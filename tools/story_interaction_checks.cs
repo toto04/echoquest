@@ -91,6 +91,10 @@ public static class StoryInteractionChecks
         values["pulsante"] = "medio";
         Check(InteractionSettings.Parse(Get).ConfirmButton == 2, "Scene 3 introduces the middle button");
         values["pulsante"] = "anulare";
+        Check(InteractionSettings.Parse(Get).ConfirmButton == 3, "the ring finger can be required");
+        values["pulsante"] = "mignolo";
+        Check(InteractionSettings.Parse(Get).ConfirmButton == 4, "chapter 2 introduces the little finger");
+        values["pulsante"] = "pollice";
         Invalid(() => InteractionSettings.Parse(Get), "do not silently map an unknown confirmation button");
         values["pulsante"] = ""; values["modalita"] = "confronto";
         values["esempi"] = "a;b"; values["riprova"] = "retry";

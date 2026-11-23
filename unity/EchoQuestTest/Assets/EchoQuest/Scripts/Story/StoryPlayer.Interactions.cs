@@ -17,7 +17,7 @@ namespace EchoQuest.Story
         private bool m_CapturingInteraction, m_InteractionPassed, m_InteractionAttempted;
         private double m_CaptureStart, m_CaptureInputStart;
         private int m_InteractionSelectedButton, m_InteractionConfirmButton;
-        private int m_EncouragementIndex;
+        private int m_EncouragementIndex, m_SuccessIndex;
         private const float MissingNoteResponseSeconds = 3f;
         public bool WaitingInteractionInput => m_CapturingInteraction;
         public bool WaitingRetryChoice { get; private set; }
@@ -151,7 +151,7 @@ namespace EchoQuest.Story
             }
             // Every exercise that can fail says so, except practice echoes (no taunt, the call just comes back).
             if (settings.Mode is not (InteractionMode.Confirm or InteractionMode.Decision or InteractionMode.FreePlay) &&
-                !(settings.Mode == InteractionMode.Battle && settings.Practice))
+                !(settings.Mode == InteractionMode.Battle && (settings.Practice || (settings.FreeAnswer && settings.RetryVoices.Length == 0))))
                 voices.Add(settings.Retry ?? "");
             foreach (var voice in voices) if (!InteractionVoiceExists(voice)) return voice.Length > 0 ? voice : "(riprova)";
             var clips = new List<string>(settings.Examples);
@@ -159,6 +159,7 @@ namespace EchoQuest.Story
             clips.AddRange(settings.Help);
             if (!string.IsNullOrEmpty(settings.StrikeSound)) clips.Add(settings.StrikeSound);
             if (!string.IsNullOrEmpty(settings.Gust)) clips.Add(settings.Gust);
+            if (!string.IsNullOrEmpty(settings.Reply)) clips.Add(settings.Reply);
             foreach (var clip in clips) if (!InteractionClip(clip, out _)) return clip;
             return null;
         }
@@ -251,7 +252,25 @@ namespace EchoQuest.Story
                     // No prompt: the story lines and sounds just before the interaction asked and played the
                     // examples, so the first attempt starts listening straight away.
                     bool introducedByStory = firstAttempt && string.IsNullOrEmpty(settings.Prompt);
-                    if (firstAttempt && !introducedByStory && settings.Mode != InteractionMode.Compare)
+                    bool listen = settings.Mode is InteractionMode.Recognize or InteractionMode.Count;
+                    if (listen)
+                    {
+                        // Chapter 3: the sound, then the question (from the second listen on, or always with
+                        // chiedi = sempre: the story line before the first one already asked it).
+                        if (!(firstAttempt && settings.ExamplesPlayedByStory))
+                            foreach (var example in settings.Examples)
+                            {
+                                yield return InteractionExample(example, pauseAfter: false);
+                                if (Interrupted) yield break;
+                            }
+                        if (!firstAttempt || settings.AskFirst)
+                        {
+                            yield return Wait(pauseAfterSound * 0.5f);
+                            yield return InteractionVoice(settings.Prompt, pauseAfter: false);
+                            if (Interrupted) yield break;
+                        }
+                    }
+                    else if (firstAttempt && !introducedByStory && settings.Mode != InteractionMode.Compare)
                     {
                         yield return InteractionVoice(settings.Prompt,
                             settings.Mode is InteractionMode.Rhythm or InteractionMode.Note);
@@ -272,6 +291,7 @@ namespace EchoQuest.Story
                     firstAttempt = false;
                     if (settings.Mode == InteractionMode.Note) yield return CaptureMissingNote(settings);
                     else if (settings.Mode == InteractionMode.Beat) yield return CaptureBeat(settings, help: tries > 0);
+                    else if (settings.Mode == InteractionMode.Count) yield return CaptureCount(settings);
                     else yield return CaptureButtons(settings, StagingFor(item).Choices);
                     tries++;
                     EndInteractionCapture();
@@ -287,7 +307,10 @@ namespace EchoQuest.Story
                             RememberNextChapter(item, branch);
                         }
                         if (settings.Registers.TryGetValue(m_InteractionSelectedButton, out var register)) SetRegister(register);
-                        if (!string.IsNullOrEmpty(settings.Success)) yield return InteractionVoice(settings.Success);
+                        // Several success voices take turns (chapter 3: "Trovata!" / "Eccola!").
+                        string success = settings.SuccessVoices.Length > 1
+                            ? settings.SuccessVoices[m_SuccessIndex++ % settings.SuccessVoices.Length] : settings.Success;
+                        if (!string.IsNullOrEmpty(success)) yield return InteractionVoice(success);
                         yield break;
                     }
                     if (m_InteractionAttempted)
@@ -438,8 +461,9 @@ namespace EchoQuest.Story
             bool noteChoice = settings.Mode == InteractionMode.Decision && !choices.ContainsKey(StoryInteractionRules.Yes);
             int firstChoice = int.MaxValue;
             foreach (var key in choices.Keys) firstChoice = Mathf.Min(firstChoice, key);
-            BeginInteractionCapture(settings.Mode is InteractionMode.Confirm or InteractionMode.Compare or InteractionMode.Decision,
-                noteChoice ? firstChoice : settings.ConfirmButton);
+            bool recognize = settings.Mode == InteractionMode.Recognize;
+            BeginInteractionCapture(settings.Mode is InteractionMode.Confirm or InteractionMode.Compare or InteractionMode.Decision or InteractionMode.Recognize,
+                noteChoice ? firstChoice : recognize ? settings.ExpectedAnswer : settings.ConfirmButton);
             var taps = new List<double>();
             bool declined = false;
             int declineIndex = 0;
@@ -450,7 +474,7 @@ namespace EchoQuest.Story
                 if (Paused) { yield return null; continue; }
                 if (m_ForcePass)
                 {
-                    m_InteractionSelectedButton = settings.Mode == InteractionMode.Compare ? settings.ExpectedAnswer :
+                    m_InteractionSelectedButton = settings.Mode is InteractionMode.Compare or InteractionMode.Recognize ? settings.ExpectedAnswer :
                         noteChoice ? firstChoice : settings.ConfirmButton;
                     m_InteractionAttempted = m_InteractionPassed = true;
                     LastAttempt = "passed from the overlay";
@@ -459,6 +483,16 @@ namespace EchoQuest.Story
                 while (m_InteractionInput.Count > 0)
                 {
                     var (button, time) = m_InteractionInput.Dequeue();
+                    if (recognize)
+                    {
+                        // Only the answer fingers count (index or middle); the answer itself makes no sound.
+                        if (System.Array.IndexOf(settings.Buttons, button) < 0) continue;
+                        m_InteractionAttempted = true;
+                        m_InteractionSelectedButton = button;
+                        m_InteractionPassed = button == settings.ExpectedAnswer;
+                        LastAttempt = $"answered {ButtonName(button)}, right answer {ButtonName(settings.ExpectedAnswer)}";
+                        yield break;
+                    }
                     if (settings.Mode is InteractionMode.Compare or InteractionMode.Decision)
                     {
                         bool valid = noteChoice ? choices.ContainsKey(button)
@@ -589,6 +623,46 @@ namespace EchoQuest.Story
             else if (!cut && !forced) while (!Interrupted && Now < start + piece.length) yield return null;
             else yield return Wait(0.4f);
         }
+
+        /// <summary>How many rings (chapter 3): every press sounds its bell and only the number counts, not the
+        /// rhythm. The answer is over when the child stops pressing for a moment.</summary>
+        private IEnumerator CaptureCount(InteractionSettings settings)
+        {
+            BeginInteractionCapture(false);
+            Status = $"Premi tante volte quanti sono i rintocchi";
+            int presses = 0;
+            double last = 0;
+            while (!Interrupted)
+            {
+                if (Paused) { yield return null; continue; }
+                if (m_ForcePass)
+                {
+                    m_InteractionAttempted = m_InteractionPassed = true;
+                    LastAttempt = "passed from the overlay";
+                    yield break;
+                }
+                while (m_InteractionInput.Count > 0)
+                {
+                    var (button, time) = m_InteractionInput.Dequeue();
+                    if (button < 1 || button > 4) continue;
+                    InteractionTapFeedback(settings, button);
+                    presses++;
+                    last = time;
+                    m_InteractionAttempted = true;
+                    LastAttempt = presses + (presses == 1 ? " press" : " presses");
+                }
+                if (presses > 0 && Now - last >= CountSilenceSeconds) break;
+                yield return null;
+            }
+            EndInteractionCapture();
+            if (Interrupted) yield break;
+            m_InteractionPassed = presses == settings.Quota;
+            LastAttempt = $"{presses} presses, {settings.Quota} rings: " + (m_InteractionPassed ? "right" : "not right");
+            LogEvent("count " + LastAttempt);
+        }
+
+        /// <summary>Count: the answer ends after this long without a press.</summary>
+        private const float CountSilenceSeconds = 1.6f;
 
         private IEnumerator CaptureMissingNote(InteractionSettings settings)
         {

@@ -32,6 +32,9 @@ namespace EchoQuest.Story
             public string Prefix = "";
             /// <summary>Bars per exchange: 4 for long exchanges (call twice), 2 for short ones (call once).</summary>
             public int ExchangeBars = 4;
+            /// <summary>Beats in a bar (staging metro: 3 for the lullaby in three).</summary>
+            public int Beats = 4;
+            public double Beat => Bar / Beats;
         }
 
         private Battle m_Battle;
@@ -57,12 +60,14 @@ namespace EchoQuest.Story
             {
                 Start = start, Bars = bars, Bar = (double)l0.samples / l0.frequency / bars,
                 Until = staging.Until, HighPad = Register == "grave", Prefix = prefix, ExchangeBars = exchangeBars,
+                Beats = staging.BattleBeats,
             };
             battle.L0 = BattleStem(prefix + "_l0", l0, start, 1f);
             if (InteractionClip(prefix + "_l1", out var l1)) battle.L1 = BattleStem(prefix + "_l1", l1, start, 0f);
             if (InteractionClip(prefix + "_l3", out var l3)) battle.L3 = BattleStem(prefix + "_l3", l3, start, 0f);
             m_Battle = battle;
-            LogEvent($"battle loop {prefix}: {bars} bars of {battle.Bar:F2} s, register {Register}");
+            LogEvent($"battle loop {prefix}: {bars} bars of {battle.Bar:F2} s" + (battle.Beats != 4 ? $" in {battle.Beats}" : "") +
+                     $", register {Register}");
         }
 
         private SpatialSource BattleStem(string id, AudioClip clip, double start, float gain)
@@ -175,7 +180,7 @@ namespace EchoQuest.Story
             }
             CurrentInteraction = settings;
             LastAttempt = "";
-            int failed = 0, missesInARow = 0, failedTries = 0;
+            int failed = 0, missesInARow = 0, failedTries = 0, piece = 0;
             try
             {
                 while (!Interrupted)
@@ -192,15 +197,26 @@ namespace EchoQuest.Story
                     if (help && m_Battle.Layers > 0) m_Battle.Layers = 0;
                     // The attack round: the first try has no call at all; after a miss the call comes once.
                     bool withCall = !(settings.Attack && failedTries == 0);
-                    yield return EchoExchange(settings, exchange, help, withCall);
+                    yield return EchoExchange(settings, exchange, help, withCall, piece);
                     failedTries++;
                     EndInteractionCapture();
                     if (Interrupted) yield break;
-                    LogEvent(item.Id + (m_InteractionPassed ? " passed" : " not passed"));
+                    string pieceName = settings.Pieces.Count > 1 ? $" (piece {piece + 1} of {settings.Pieces.Count})" : "";
+                    LogEvent(item.Id + pieceName + (m_InteractionPassed ? " passed" : " not passed"));
+                    if (m_InteractionPassed && piece + 1 < settings.Pieces.Count)
+                    {
+                        // The next piece of the call comes on the next exchange, with fresh attempts.
+                        piece++;
+                        failed = missesInARow = failedTries = 0;
+                        continue;
+                    }
                     if (m_InteractionPassed)
                     {
-                        string voice = settings.SuccessVoices[m_BattleSuccessIndex++ % settings.SuccessVoices.Length];
-                        yield return InteractionVoice(voice);
+                        if (settings.SuccessVoices.Length > 0)
+                        {
+                            string voice = settings.SuccessVoices[m_BattleSuccessIndex++ % settings.SuccessVoices.Length];
+                            yield return InteractionVoice(voice);
+                        }
                         yield break;
                     }
                     missesInARow++;
@@ -268,12 +284,13 @@ namespace EchoQuest.Story
         private int ExchangeBarsFor(InteractionSettings settings) =>
             settings.CallBars * (settings.ShortExchange || settings.Attack ? 2 : 4);
 
-        private IEnumerator EchoExchange(InteractionSettings settings, double ex, bool help = false, bool withCall = true)
+        private IEnumerator EchoExchange(InteractionSettings settings, double ex, bool help = false, bool withCall = true, int piece = 0)
         {
             var b = m_Battle;
-            double beat = b.Bar / 4;
+            double beat = b.Beat;
             double phrase = settings.CallBars * b.Bar;
-            string call = settings.Examples[0];
+            var (call, expectedButtons, expectedTimes) = settings.Pieces.Count > 0 ? settings.Pieces[piece]
+                : (settings.Examples[0], settings.Buttons, settings.Times);
             int calls = settings.ShortExchange || settings.Attack ? 1 : 2;
             double echoBar = ex + calls * phrase;
             for (int i = 0; i < calls && withCall; i++)
@@ -284,8 +301,11 @@ namespace EchoQuest.Story
             ScheduleBattleClip("x_s03_toc", echoBar - beat);
             double open = echoBar - beat - 0.15;                                       // from the TOC on, presses count
             double close = settings.ShortExchange || settings.Attack ? echoBar + phrase : echoBar + phrase + 2 * beat;
+            // An invented answer belongs to the response bar.
+            if (settings.FreeAnswer) close = echoBar + phrase;
             BeginInteractionCapture(false);
-            Status = (!withCall ? "Nessuno la suona prima: al TOC suonala a memoria" :
+            Status = settings.FreeAnswer ? "Ascolta la domanda; al TOC rispondi come vuoi" + (settings.RetryVoices.Length > 0 ? ", finendo sul medio" : "") :
+                     (!withCall ? "Nessuno la suona prima: al TOC suonala a memoria" :
                       calls == 1 ? "Ascolta la frase una volta; al TOC ripetila" : "Ascolta la frase due volte; al TOC ripetila") +
                      (help ? " (aiuto: il Maestro dice le sillabe)" : "");
             var taps = new List<(int button, double time)>();
@@ -299,20 +319,59 @@ namespace EchoQuest.Story
                     var (button, time) = m_InteractionInput.Dequeue();
                     if (button < 1 || button > 4) continue;
                     InteractionTapFeedback(settings, button);   // wrong presses always sound
-                    if (time < open || taps.Count >= settings.Buttons.Length) continue;
+                    if (time < open || (!settings.FreeAnswer && taps.Count >= expectedButtons.Length)) continue;
                     taps.Add((button, time));
                     m_InteractionAttempted = true;
                 }
-                if (taps.Count >= settings.Buttons.Length || Now >= close) break;
+                if ((!settings.FreeAnswer && taps.Count >= expectedButtons.Length) || Now >= close) break;
                 yield return null;
             }
             EndInteractionCapture();
             if (Interrupted) yield break;
             m_InteractionAttempted = true;
-            m_InteractionPassed = forced || StoryInteractionRules.MatchesPhrase(taps, settings.Buttons, settings.Times);
-            LastAttempt = forced ? "passed from the overlay" : DescribeTaps(taps, settings) + (m_InteractionPassed ? ": matches" : ": does not match");
+            double replyBar = System.Math.Max(echoBar + phrase, NextBar(0.1));
+            if (settings.FreeAnswer)
+            {
+                yield return FreeAnswerVerdict(settings, taps, forced, replyBar);
+                yield break;
+            }
+            m_InteractionPassed = forced || StoryInteractionRules.MatchesPhrase(taps, expectedButtons, expectedTimes);
+            LastAttempt = forced ? "passed from the overlay" : DescribeTaps(taps, expectedButtons, expectedTimes) +
+                (m_InteractionPassed ? ": matches" : ": does not match");
             double verdict = System.Math.Max(echoBar + phrase - beat, NextBeat(0.05));
-            yield return Verdict(settings, verdict, System.Math.Max(echoBar + phrase, NextBar(0.1)), call);
+            yield return Verdict(settings, verdict, replyBar, string.IsNullOrEmpty(settings.Reply) ? call : settings.Reply);
+        }
+
+        /// <summary>The child's own answer (chapter 3): it passes with at least quota notes ending on the home
+        /// button. Without riprova nothing is wrong: an answer ending at home gets suono_successo, any other
+        /// answer just goes on, and with no note at all the companion answers (replica).</summary>
+        private IEnumerator FreeAnswerVerdict(InteractionSettings settings, List<(int button, double time)> taps, bool forced, double replyBar)
+        {
+            int home = settings.Buttons[0];
+            bool atHome = taps.Count > 0 && taps[taps.Count - 1].button == home;
+            string notes = DescribeAnswer(taps) + (atHome ? ", ends at home" : taps.Count > 0 ? ", does not end at home" : "");
+            bool judged = settings.RetryVoices.Length > 0;
+            if (!judged)
+            {
+                m_InteractionPassed = true;
+                LastAttempt = forced ? "passed from the overlay" : notes;
+                string answer = taps.Count == 0 ? settings.Reply : atHome ? settings.StrikeSound : "";
+                if (!string.IsNullOrEmpty(answer)) ScheduleBattleClip(answer, replyBar);
+                LogEvent("free answer " + LastAttempt + (string.IsNullOrEmpty(answer) ? "" : ", then " + answer));
+                double clipEnd = !string.IsNullOrEmpty(answer) && InteractionClip(answer, out var clip) ? clip.length : 0;
+                yield return WaitUntilDsp(replyBar + System.Math.Max((m_Battle?.Bar ?? 2.4) * 0.5, clipEnd));
+                yield break;
+            }
+            m_InteractionPassed = forced || (taps.Count >= settings.Quota && atHome);
+            LastAttempt = forced ? "passed from the overlay" : notes + $" (needs {settings.Quota}+ notes ending on {home})" +
+                (m_InteractionPassed ? ": a real answer" : ": not yet");
+            var b = m_Battle;
+            if (b == null) yield break;
+            ScheduleBattleClip(m_InteractionPassed ? "x_s03_ok" : "x_s03_notyet", System.Math.Max(replyBar - b.Beat, NextBeat(0.05)));
+            if (m_InteractionPassed && !string.IsNullOrEmpty(settings.StrikeSound)) ScheduleBattleClip(settings.StrikeSound, replyBar);
+            yield return WaitUntilDsp(replyBar + b.Bar * 0.6);
+            if (m_Battle != null)
+                m_Battle.Layers = m_InteractionPassed ? System.Math.Min(2, m_Battle.Layers + 1) : System.Math.Max(0, m_Battle.Layers - 1);
         }
 
         /// <summary>"Let's play it together": the call as usual, then in the echo bar the drum plays it again
@@ -324,8 +383,9 @@ namespace EchoQuest.Story
             double echoBar = ex + calls * b.Bar;
             string call = settings.Examples[0];
             for (int i = 0; i < calls; i++) ScheduleBattleClip(call, ex + i * b.Bar);
-            ScheduleBattleClip("x_s03_toc", echoBar - b.Bar / 4);
-            ScheduleBattleClip(call, echoBar);
+            ScheduleBattleClip("x_s03_toc", echoBar - b.Beat);
+            // In an answer round the companion plays the answer with the child, not the question.
+            ScheduleBattleClip(string.IsNullOrEmpty(settings.Reply) ? call : settings.Reply, echoBar);
             BeginInteractionCapture(false);
             Status = "Suoniamola insieme";
             while (!Interrupted && Now < echoBar + b.Bar)
@@ -374,21 +434,29 @@ namespace EchoQuest.Story
         private double NextBeat(double lead)
         {
             var b = m_Battle;
-            double beat = b.Bar / 4;
+            double beat = b.Beat;
             double k = System.Math.Ceiling((Now + lead - b.Start) / beat);
             return b.Start + k * beat;
         }
 
-        private static string DescribeTaps(List<(int button, double time)> taps, InteractionSettings settings)
+        private static string DescribeTaps(List<(int button, double time)> taps, int[] buttons, float[] times)
         {
             if (taps.Count == 0) return "no press after the TOC";
             var sb = new System.Text.StringBuilder("presses ");
             for (int i = 0; i < taps.Count; i++)
                 sb.Append(i == 0 ? "" : ", ").Append($"{taps[i].button}@{taps[i].time - taps[0].time:F2}");
             sb.Append(" s; expected ");
-            for (int i = 0; i < settings.Buttons.Length; i++)
-                sb.Append(i == 0 ? "" : ", ").Append($"{settings.Buttons[i]}@{settings.Times[i]:F2}");
+            for (int i = 0; i < buttons.Length; i++)
+                sb.Append(i == 0 ? "" : ", ").Append($"{buttons[i]}@{times[i]:F2}");
             return sb.Append(" s").ToString();
+        }
+
+        private static string DescribeAnswer(List<(int button, double time)> taps)
+        {
+            if (taps.Count == 0) return "no answer after the TOC";
+            var sb = new System.Text.StringBuilder($"answer of {taps.Count} note{(taps.Count == 1 ? "" : "s")}: ");
+            for (int i = 0; i < taps.Count; i++) sb.Append(i == 0 ? "" : " ").Append(taps[i].button);
+            return sb.ToString();
         }
     }
 }

@@ -23,7 +23,7 @@ c05_maes_01,c05,,MAESTRO BATTUTA,"Accettiamo! Ma niente trucchi, Sbuffo. Giovane
 c05_maes_02,c05,,MAESTRO BATTUTA,"Adesso la domanda vera! Non ripeterla: rispondi, come nel ricordo!",66,,da registrare,173
 c05_vent_02,c05,,VENTO,"Grrr! Va bene, quella la sapevi. Ma questa no! Questa domanda è nuova di zecca!",79,,da registrare,179
 c05_maes_03,c05,,MAESTRO BATTUTA,"Una domanda nuova vuol dire una risposta nuova. Inventala tu! Puoi suonare le note che vuoi, basta che l'ultima torni a casa, sul medio. Anche la tua altalena va benissimo.",172,,da registrare,183
-c05_maes_04,c05,,MAESTRO BATTUTA,"E adesso il rintocco finale! Io batto tre volte la bacchetta, e al quarto colpo suoni la campanella: un rintocco solo, il più chiaro che hai. Uno... due... tre...",162,,da registrare,189
+c05_maes_04,c05,,MAESTRO BATTUTA,"E adesso il rintocco finale! Io batto tre volte la bacchetta, e al quarto colpo suoni la campanella: un rintocco solo, il più chiaro che hai.",141,,da registrare,189
 c05_vent_03,c05,,VENTO,Ffff... Avete vinto. Tenetevi la vostra risposta. Tanto... a me nessuno risponde mai.,85,,da registrare,197
 c05_maes_05,c05,,MAESTRO BATTUTA,"Hai sentito? Anche Sbuffo ha fatto una domanda. Forse è la prima volta che qualcuno la ascolta. Vuoi rispondergli tu? Qualunque risposta va bene. Se l'ultima nota torna a casa, sul medio, sarà ancora più bella.",210,,da registrare,203
 c05_vent_04,c05,,VENTO,Mi... mi hai risposto? Nessuno... nessuno l'aveva mai fatto. Fff... Devo andare. Ma... grazie.,94,,da registrare,209

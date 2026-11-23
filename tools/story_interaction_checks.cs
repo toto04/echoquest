@@ -241,6 +241,69 @@ public static class StoryInteractionChecks
             "colpo: a single stroke, 200 ms by default");
         values["suono_successo"] = "";
         Invalid(() => InteractionSettings.Parse(Get), "colpo needs the big drum");
+
+        // Chapter 3: recognize (answer with a finger) and count.
+        values.Clear();
+        values["modalita"] = "riconosci"; values["esempi"] = "x_c01_lungo"; values["consegna"] = "lungo o corto?";
+        values["successo"] = "ok"; values["riprova"] = "again"; values["pulsanti"] = "1;2"; values["risposta"] = "indice";
+        var recognize = InteractionSettings.Parse(Get);
+        Check(recognize.Mode == InteractionMode.Recognize && recognize.ExpectedAnswer == 1 && !recognize.AskFirst &&
+              recognize.Buttons.Length == 2, "riconosci: the index finger is the answer, the question from the second listen");
+        values["risposta"] = "medio"; values["chiedi"] = "sempre";
+        recognize = InteractionSettings.Parse(Get);
+        Check(recognize.ExpectedAnswer == 2 && recognize.AskFirst, "riconosci: the middle finger, asked every time");
+        values["risposta"] = "anulare";
+        Invalid(() => InteractionSettings.Parse(Get), "the answer must be one of the answer fingers");
+        values["risposta"] = "si";
+        Invalid(() => InteractionSettings.Parse(Get), "riconosci is answered with a finger, not yes or no");
+        values["risposta"] = "indice"; values["chiedi"] = "forse";
+        Invalid(() => InteractionSettings.Parse(Get), "chiedi is sempre or empty");
+        values["chiedi"] = ""; values["consegna"] = "";
+        Invalid(() => InteractionSettings.Parse(Get), "riconosci needs its question");
+        values["modalita"] = "confronto"; values["consegna"] = "q"; values["esempi"] = "a;b"; values["pulsanti"] = "";
+        Invalid(() => InteractionSettings.Parse(Get), "a finger answer is only for riconosci");
+        values.Clear();
+        values["modalita"] = "conta"; values["esempi"] = "x_c02_due"; values["consegna"] = "quante?"; values["quota"] = "2";
+        values["successo"] = "ok"; values["riprova"] = "again"; values["suono_pulsante"] = "re;fa;la;do";
+        var count = InteractionSettings.Parse(Get);
+        Check(count.Mode == InteractionMode.Count && count.Quota == 2, "conta: how many rings");
+        values["quota"] = "";
+        Invalid(() => InteractionSettings.Parse(Get), "conta needs the number of rings");
+
+        // Chapter 3: answers. The call is the question, replica the answer the bell plays back.
+        values.Clear();
+        values["modalita"] = "eco"; values["esempi"] = "x_c03_ciao"; values["replica"] = "x_c03_altalena";
+        values["tempi"] = "0;0.6;1.2"; values["pulsanti"] = "2;3;2"; values["successo"] = "ok";
+        var fixedAnswer = InteractionSettings.Parse(Get);
+        Check(fixedAnswer.Reply == "x_c03_altalena" && fixedAnswer.Examples[0] == "x_c03_ciao" && fixedAnswer.Pieces.Count == 1,
+            "the fixed answer: the question plays, the answer is judged and played back");
+        values.Clear();
+        values["modalita"] = "risposta"; values["esempi"] = "x_c05_domanda_libera"; values["tempi"] = "0"; values["pulsanti"] = "2";
+        values["successo"] = "ok"; values["riprova"] = "home"; values["scambio"] = "corto";
+        var free = InteractionSettings.Parse(Get);
+        Check(free.Mode == InteractionMode.Battle && free.FreeAnswer && free.Quota == 2 && free.Buttons[0] == 2,
+            "risposta: at least two notes, ending on the middle finger");
+        values["pulsanti"] = "2;3"; values["tempi"] = "0;0.6";
+        Invalid(() => InteractionSettings.Parse(Get), "risposta has only the home button");
+        values["pulsanti"] = "2"; values["tempi"] = "0"; values["riprova"] = "";
+        Invalid(() => InteractionSettings.Parse(Get), "an answer with nothing wrong needs who answers when the child does not");
+        values["replica"] = "x_c03_altalena"; values["successo"] = ""; values["quota"] = "1";
+        var noWrong = InteractionSettings.Parse(Get);
+        Check(noWrong.FreeAnswer && noWrong.RetryVoices.Length == 0 && noWrong.Quota == 1, "the answer to Sbuffo: nothing is wrong");
+        values["tentativi"] = "2"; values["prosegui"] = "go";
+        Invalid(() => InteractionSettings.Parse(Get), "nothing is wrong, so no attempts");
+
+        // Chapter 3's lullaby: a call in pieces, one exchange each.
+        values.Clear();
+        values["modalita"] = "eco"; values["esempi"] = "x_c05_ninna_a;x_c05_ninna_b"; values["successo"] = "ok";
+        values["pulsanti"] = "3;2;3;4|3;2;1"; values["tempi"] = "0;1.2;1.8;3.0|0;1.2;1.8"; values["battute_frase"] = "2";
+        var lullaby = InteractionSettings.Parse(Get);
+        Check(lullaby.Pieces.Count == 2 && lullaby.Pieces[1].buttons.Length == 3 && lullaby.Pieces[1].call == "x_c05_ninna_b" &&
+              Math.Abs(lullaby.Pieces[0].times[3] - 3.0f) < 1e-6, "the lullaby in two pieces");
+        values["esempi"] = "x_c05_ninna_a";
+        Invalid(() => InteractionSettings.Parse(Get), "one call clip per piece");
+        values["esempi"] = "x_c05_ninna_a;x_c05_ninna_b"; values["tempi"] = "0;1.2;1.8;3.0";
+        Invalid(() => InteractionSettings.Parse(Get), "pulsanti and tempi have the same pieces");
         return checks;
     }
 }

@@ -57,6 +57,23 @@ namespace EchoQuest.Editor
                     ("t99", "C2_99_Epilogo", "Capitolo 2, il tamburo · Epilogo"),
                 },
             },
+            // Chapter 3, the campanella (docs/capitoli-2-3.md): its own script and staging.
+            new Chapter
+            {
+                Folder = "Capitolo3_Campanella",
+                Sequence = Root + "/Script/capitolo_03_sequenza.csv",
+                Staging = Root + "/Script/capitolo_03_regia.csv",
+                Scenes = new[]
+                {
+                    ("c00", "C3_00_Prologo", "Capitolo 3, la campanella · dal Prologo"),
+                    ("c01", "C3_01_Scena1", "Capitolo 3, la campanella · Scena 1"),
+                    ("c02", "C3_02_Scena2", "Capitolo 3, la campanella · Scena 2"),
+                    ("c03", "C3_03_Scena3", "Capitolo 3, la campanella · Scena 3"),
+                    ("c04", "C3_04_Scena4", "Capitolo 3, la campanella · Scena 4"),
+                    ("c05", "C3_05_Scena5", "Capitolo 3, la campanella · Scena 5"),
+                    ("c99", "C3_99_Epilogo", "Capitolo 3, la campanella · Epilogo"),
+                },
+            },
         };
 
         private static string ScenePath(Chapter chapter, string file) => $"{ScenesPath}/{chapter.Folder}/{file}.unity";
@@ -75,6 +92,13 @@ namespace EchoQuest.Editor
         public static void BuildTamburo()
         {
             BuildChapter(Chapters[1]);
+            SyncBuildSettings();
+        }
+
+        [MenuItem("EchoQuest/Rebuild Campanella Scenes (Chapter 3)")]
+        public static void BuildCampanella()
+        {
+            BuildChapter(Chapters[2]);
             SyncBuildSettings();
         }
 

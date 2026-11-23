@@ -45,6 +45,8 @@ namespace EchoQuest.Story
         public string BattleBase = "";
         /// <summary>Length of the battle loop in bars.</summary>
         public int BattleBars;
+        /// <summary>Beats in a bar of the battle loop (metro "3/4" = 3; default 4).</summary>
+        public int BattleBeats = 4;
         /// <summary>Choices: the chapter scene each branch leads to when this chapter ends (capitolo_dopo
         /// "A=C2_00_Prologo;B="): chapter 1's Scene 5 choice opens the instrument the child picked.</summary>
         public Dictionary<string, string> NextChapter = new Dictionary<string, string>();
@@ -119,10 +121,21 @@ namespace EchoQuest.Story
                     Interaction = InteractionSettings.Parse(Get),
                     BattleBase = Get("base"),
                     BattleBars = (int)(Num("battute") ?? 0),
+                    BattleBeats = ParseMeter(Get("metro")),
                     NextChapter = ParseNextChapter(Get("capitolo_dopo")),
                 };
             }
             return map;
+        }
+
+        // "3/4" -> 3; "" -> 4
+        private static int ParseMeter(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return 4;
+            var parts = text.Split('/');
+            if (parts.Length != 2 || !int.TryParse(parts[0], out int beats) || beats < 2 || beats > 6 || parts[1] != "4")
+                throw new System.FormatException("metro looks like 3/4 or 4/4: " + text);
+            return beats;
         }
 
         // "A=C2_00_Prologo;B=" -> {A: "C2_00_Prologo", B: ""}

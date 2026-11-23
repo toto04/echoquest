@@ -50,5 +50,26 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/EchoQuest/Story/Scenes/Capitolo2_Tamburo/C2_99_Epilogo.unity
     guid: 416e9411ff7459de0b4ea303fd9a47e1
+  - enabled: 1
+    path: Assets/EchoQuest/Story/Scenes/Capitolo3_Campanella/C3_00_Prologo.unity
+    guid: f9dba52ac9a7b2406a9e469aeb20af68
+  - enabled: 1
+    path: Assets/EchoQuest/Story/Scenes/Capitolo3_Campanella/C3_01_Scena1.unity
+    guid: 14f5dedcc6d78fc7e8c7df44c5896874
+  - enabled: 1
+    path: Assets/EchoQuest/Story/Scenes/Capitolo3_Campanella/C3_02_Scena2.unity
+    guid: 9f7a4286cb7072817941645ffa530bbf
+  - enabled: 1
+    path: Assets/EchoQuest/Story/Scenes/Capitolo3_Campanella/C3_03_Scena3.unity
+    guid: 2644c50429f890184b1ee8e458f08d24
+  - enabled: 1
+    path: Assets/EchoQuest/Story/Scenes/Capitolo3_Campanella/C3_04_Scena4.unity
+    guid: 871100297dd91fd3f800e11e1fffc469
+  - enabled: 1
+    path: Assets/EchoQuest/Story/Scenes/Capitolo3_Campanella/C3_05_Scena5.unity
+    guid: d629282a30b7bd7738e8427147a70ba3
+  - enabled: 1
+    path: Assets/EchoQuest/Story/Scenes/Capitolo3_Campanella/C3_99_Epilogo.unity
+    guid: d0e2da6e08eb0380a8a404548aaf0197
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

@@ -123,8 +123,12 @@ namespace EchoQuest.Story
         {
             StoryItemKind.Voice => m_Voices.ContainsKey(item.Id) || m_CoveredByPrevious.Contains(item.Id),
             StoryItemKind.Sound => m_Sounds.ContainsKey(item.Id),
+            StoryItemKind.Interaction => StagingFor(item).Interaction is not { } settings || MissingInteractionAsset(settings) == null,
             _ => true,
         };
+
+        /// <summary>Every item of the chapter, in script order (checks).</summary>
+        public IReadOnlyList<StoryItem> AllItems => m_Items;
 
         /// <summary>A press from an on-screen button: 1-4 are the note buttons, Yes and No the thumb ones.</summary>
         public void PressLogical(int button)

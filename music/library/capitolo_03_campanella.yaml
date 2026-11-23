@@ -234,3 +234,25 @@
       layer: L0
       lanes:
         claves: ["x . x . x . x .", "=1", "=1", ". . . . . . . ."]
+
+- id: loop_ninna_nanna
+  role: loop
+  centre: D
+  tempo: 100
+  meter: 3/4
+  steps_per_bar: 6
+  loop_bars: 4
+  call_bars: [1, 2]
+  chords: [Dm, F, Dm, Dm]
+  intent: "the optional lullaby's bed in three (stage 4, 'a light accompaniment in three'): a cradle, one low pizzicato on beat 1 and two soft chords on beats 2-3; the chords follow the lullaby's rocking thirds (A-F over Dm, A-C over F), everything under the high bell. In Unity the lullaby is echoed in two pieces of two bars, one loop each (call_bars 1-2)"
+  tracks:
+    bass:
+      instrument: pizzicato_strings
+      layer: L0
+      bars: ["D2 - - - - -", "F2 - - - - -", "D2 - - - - -", "D2 - - - A1 -"]
+    cradle:
+      instrument: pizzicato_strings
+      layer: L0
+      register: acuto
+      gain: 0.6
+      bars: [". . D3+F3+A3 - D3+F3+A3 -", ". . F3+A3+C4 - F3+A3+C4 -", "=1", "=1"]

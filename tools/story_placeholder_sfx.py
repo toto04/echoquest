@@ -1409,3 +1409,35 @@ if selected("x_c05_rintocco"):  # the finisher bed: three counted bars on the ba
     kit = baton_kit()
     save_fixed("x_c05_rintocco", (x := music.render(SPECS_C["loop_rintocco"], REG_C, kit=kit, tail=0.5)),
                0.5 / max(abs(v) for v in x))
+if selected("x_c01_accordo"):  # free play on the bells: a soft F chord (strings) over the practice bordun, 6 bars
+    bed = {"id": "c01_accordo", "role": "loop", "loop": False, "input": "open", "centre": "F", "tempo": 100, "steps_per_bar": 8,
+           "tracks": {"pad": {"instrument": "strings", "layer": "L1", "bars": ["F3+A3+C4 - - - - - - -"] * 6},
+                      "bordun": {"instrument": "pizzicato_strings", "layer": "L0", "gain": 0.5,
+                                 "bars": ["F2+C3 - - - F2+C3 - - -"] * 5 + ["F2+C3 - - - - - - -"]}}}
+    save("x_c01_accordo", fade(music.render(bed, REG_C, tail=2.5), 0.8, 2.5), -12)
+for name in ("x_c02_sinistra", "x_c02_destra"):  # the same ring, placed left or right by the regia
+    if selected(name):
+        save(name, campana("C6", 2.0, 0.8), -5)
+if selected("x_c05_bacchetta"):  # the final ring's count, as the drum's: baton and "uno, due, tre" on beats 1-3, the bass under it
+    kit, words = baton_kit(), counted_words()
+    x = silence(2.6)
+    for k, n in enumerate(("F2", "C3", "F2")):
+        mix(x, kit["claves"](0.9), k * BEAT)
+        mix(x, words[k], k * BEAT)
+        mix(x, music.synth.pizz(NOTE[n], 0.5, 0.5), k * BEAT)
+    save_fixed("x_c05_bacchetta", x, 0.8 / max(abs(v) for v in x))
+if selected("x_c05_silenzio_l0"):  # the "loop" of the answer to Sbuffo: four silent bars at 100 bpm, the grid only
+    save_fixed("x_c05_silenzio_l0", silence(4 * BAR), 1.0)
+if selected("x_c05_rintocco_casa"):  # the bell that joins an answer ending at home: a soft F5 with C6
+    save("x_c05_rintocco_casa", mix(campana("F5", 3.0, 0.7), campana("C6", 3.0, 0.3), 0.0), -8)
+for half, bars in (("a", slice(0, 2)), ("b", slice(2, 4))):  # the lullaby in two pieces of two bars (3/4)
+    name = f"x_c05_ninna_{half}"
+    if selected(name):
+        spec = dict(SPECS_C["c_ninna_nanna"], id=f"c_ninna_nanna_{half}", bars=SPECS_C["c_ninna_nanna"]["bars"][bars])
+        save_call(name, call_with(spec, REG_C, campana))
+stems(SPECS_C["loop_ninna_nanna"], REG_C, ("L0",), "x_c05_ninna_base")
+if selected("x_c05_applauso"):  # a very soft applause, "so as not to wake anyone"
+    x = silence(2.2)
+    for k in range(9):
+        mix(x, clap(), 0.12 + k * 0.19 + random.uniform(-0.03, 0.03), 0.5 + 0.5 * math.sin(math.pi * k / 8))
+    save("x_c05_applauso", fade(biquad(x, "lp", 2500), 0.0, 0.4), -20)

@@ -116,6 +116,9 @@ namespace EchoQuest.Story
 
         private IEnumerator Start()
         {
+            // "C2_03_Scena3" -> "C2": this chapter counts as played (until the game saves progress).
+            string scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            if (scene.IndexOf('_') > 0) PlayedChapters.Add(scene.Substring(0, scene.IndexOf('_')));
             Status = autoStart ? "Sto per cominciare..." : "Premi Spazio per cominciare";
             if (autoStart) yield return new WaitForSeconds(startDelay);
             else
@@ -382,6 +385,10 @@ namespace EchoQuest.Story
         /// <summary>The scene to open when this chapter ends, chosen in it (chapter 1, Scene 5), and the
         /// chapter that chose it. Static, so it survives the load of the next scene.</summary>
         public static string NextChapterScene = "", NextChapterFrom = "";
+        /// <summary>The chapters opened in this session ("C1", "C2"...). An epilogue's "go on to the next
+        /// instrument" skips a chapter already played (docs/capitoli-2-3.md: "il capitolo successivo non
+        /// ancora giocato"); with none left the chapter ends, until the menu exists.</summary>
+        public static readonly HashSet<string> PlayedChapters = new HashSet<string>();
         private string ChapterName => sequence != null ? sequence.name : "";
 
         private void RememberNextChapter(StoryItem item, string branch)
@@ -390,6 +397,13 @@ namespace EchoQuest.Story
             if (map.Count == 0) return;
             NextChapterScene = map.TryGetValue(branch, out var scene) ? scene : "";
             NextChapterFrom = ChapterName;
+            int cut = NextChapterScene.IndexOf('_');
+            if (cut > 0 && PlayedChapters.Contains(NextChapterScene.Substring(0, cut)))
+            {
+                LogEvent("after this chapter: " + NextChapterScene + " was already played, so the end");
+                NextChapterScene = "";
+                return;
+            }
             LogEvent("after this chapter: " + (NextChapterScene.Length > 0 ? NextChapterScene : "the end (no chapter yet)"));
         }
 

@@ -3,6 +3,15 @@
 Materiale narrativo della demo: copione, voci registrate, liste di suoni e interazioni.
 È una prima bozza, non ancora validata con bambini o esperti.
 
+## Capitolo 3: la campanella
+
+Il capitolo 3 è giocabile scegliendo la campanella nel capitolo 1, oppure aprendo
+`Scenes/Capitolo3_Campanella/C3_00_Prologo.unity` (anche dal pannello F1 → Demo → Scenes).
+Le sette scene si rigenerano con *EchoQuest → Rebuild Campanella Scenes (Chapter 3)*.
+La regia è `Script/capitolo_03_regia.csv`; musica in `music/library/capitolo_03_campanella.yaml`.
+I pulsanti suonano campanelle Re5, Fa5, La5, Do6, indipendentemente dal registro del pianoforte.
+Dettagli, controlli e limiti in [`docs/capitoli-2-3.md`](../../../../../docs/capitoli-2-3.md).
+
 ## Struttura
 
 ```

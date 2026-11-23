@@ -190,3 +190,11 @@ were not rerun: the changed firmware lines are comments only; native tests pass.
 - A custom PCB as a new `BOARD_*` profile.
 - Possibly a magnetometer for absolute heading, if the game needs it.
 - A real USB VID/PID allocation.
+
+### Chapter 3: the bell (2026-11-23; listening check pending)
+
+Seven scenes, existing recordings and bell sounds, listening/counting games, question/answer
+exchanges, free answers and the optional 3/4 lullaby are wired into the story. Chapter 1's
+bell choice opens chapter 3; the instrument epilogues offer the other unplayed chapter.
+See [chapter implementation notes](capitoli-2-3.md). Stereo settings, persistent progress,
+full headphone listening and controller/child playtests remain pending.

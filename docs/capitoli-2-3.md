@@ -199,8 +199,7 @@ In ordine, ogni passo verificabile da solo:
    - [x] Epilogo: la scelta c'è; senza menu, dopo la scelta il capitolo finisce.
    - [x] Dal capitolo 1: se nella Scena 5 il bambino sceglie il tamburo, alla fine dell'epilogo del capitolo 1
      si entra nel Prologo del tamburo, con il registro del pianoforte già scelto (`capitolo_dopo` in regia,
-     `TamburoRuntimeChecks.RunChapterHandoff`). Con la campanella il capitolo 1 finisce, finché il capitolo 3
-     non è giocabile.
+     `TamburoRuntimeChecks.RunChapterHandoff`). La scelta della campanella apre invece `C3_00_Prologo`.
 
    Rispetto al copione: la **frase accorciata** al terzo errore è sostituita da «suoniamolo insieme» (non c'è
    una battuta che la spieghi al bambino); la **base d'aiuto** è la base senza strati, non una versione con
@@ -208,6 +207,27 @@ In ordine, ogni passo verificabile da solo:
    (`t05_maes_02`, `eq_t05_extra_03_ancora_bum`) e lo fa l'interazione, a tempo con la bacchetta.
    Durata stimata senza errori: circa 14 minuti, 22 interazioni; il tratto più lungo senza giocare è
    l'apertura (prologo e inizio della Scena 1, circa 80 s).
+
+8. **Capitolo 3 in Unity (2026-11-23).** Regia in `capitolo_03_regia.csv`, sette scene in
+   `Story/Scenes/Capitolo3_Campanella/` (menu *EchoQuest → Rebuild Campanella Scenes*).
+   Registrazioni esistenti, campanelle Re5–Fa5–La5–Do6 e basi da `music/library/capitolo_03_campanella.yaml`.
+   - Prologo e Scena 1: suono libero, confronto lungo/corto, riconoscimento con indice e medio.
+   - Scena 2: posizione stereo e conteggio; il conteggio termina dopo 1,6 secondi senza pressioni,
+     senza valutare il ritmo. La configurazione mono/stereo e il salto dei giochi spaziali restano da fare.
+   - Scene 3–4: eco, altalena, domanda e risposta separate (`replica` è la risposta della campanella).
+   - Scena 5: risposta inventata di almeno due note che termina sul medio nella battuta di risposta;
+     risposta a Sbuffo senza errori, con altalena del Maestro se il bambino tace; rintocco sul quattro.
+     Come per il tamburo, il conteggio registrato è tolto dalla battuta introduttiva e lo fa il gioco.
+   - Extra: ninna nanna in 3/4, due pezzi di due battute (`pulsanti` e `tempi` separati da `|`).
+   - Epiloghi: tamburo e campanella portano all'altro strumento se non è già stato aperto nella sessione.
+     Non c'è ancora salvataggio persistente né menu; esauriti gli strumenti, il capitolo finisce.
+   Controlli in `tools/story_campanella_runtime_checks.cs`: audio, scene di ascolto, risposte fisse e
+   libere (compresa una nota di casa arrivata oltre la battuta), ninna nanna e passaggi di capitolo.
+   Verificati in Play mode con Unity 6000.6.8f1 in batch mode; passano anche i controlli delle Scene 4–5
+   del tamburo e del passaggio dal capitolo 1. Il checker musicale passa tutti i 16 brani del capitolo 3
+   senza errori o avvisi; i controlli delle regole passano 123 verifiche. Restano ascolto completo in cuffia,
+   prova con controller e bambini, e impostazioni stereo. Come nel tamburo, l'aiuto è la base senza
+   strati e l'offerta di suonare insieme, al posto della frase accorciata al terzo errore.
 
 ## Domande per il gruppo
 

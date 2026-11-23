@@ -273,7 +273,8 @@ public static class TamburoRuntimeChecks
             if (miss < 3)
             {
                 await Until(() => p.WaitingInteractionInput && p.ExchangeStart > ex, "the call comes back", 20);
-                Check(Math.Abs((p.ExchangeStart - ex) / p.BattleBarSeconds % 2) < 1e-6, "short exchanges: every two bars");
+                double bars = (p.ExchangeStart - ex) / p.BattleBarSeconds;
+                Check(Math.Abs(bars - 2 * Math.Round(bars / 2)) < 1e-6, $"short exchanges: every two bars ({bars:F6} bars later)");
             }
         }
         Check(p.BattleLayers == 0, "the help loop is the bare one");
@@ -356,12 +357,13 @@ public static class TamburoRuntimeChecks
     }
 
     /// <summary>Chapter 1 to chapter 2: choosing the drum in chapter 1's Scene 5 opens the drum's prologue
-    /// right after chapter 1's epilogue, in the piano register the child chose; choosing the bell does not
-    /// (its chapter is not playable yet).</summary>
+    /// right after chapter 1's epilogue, in the piano register the child chose (choosing the bell is
+    /// remembered as the bell's prologue: CampanellaRuntimeChecks.RunChapterHandoffs).</summary>
     public static async Task<string> RunChapterHandoff()
     {
         checks = 0;
         StoryPlayer.ChosenRegister = "acuto";
+        StoryPlayer.PlayedChapters.Clear();
         string path = "Assets/EchoQuest/Story/Scenes/Capitolo1_Pianoforte/C1_05_Scena5.unity";
         SceneManager.LoadScene(path);
         StoryPlayer p = null;
@@ -372,7 +374,7 @@ public static class TamburoRuntimeChecks
         p.JumpTo("s05_int_01");
         await Until(() => p.WaitingInteractionInput, "drum or bell?", 10);
         p.PressLogical(2);   // the bell first
-        await Until(() => Logged(p, "after this chapter: the end"), "the bell's chapter is not playable yet", 5);
+        await Until(() => Logged(p, "after this chapter: C3_00_Prologo"), "the bell is remembered", 5);
         p.JumpTo("s05_int_01");
         await Until(() => p.WaitingInteractionInput, "drum or bell, again", 10);
         p.PressLogical(1);   // the drum

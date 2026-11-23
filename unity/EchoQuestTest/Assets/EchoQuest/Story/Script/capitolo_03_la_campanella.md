@@ -188,7 +188,7 @@ Una domanda nuova vuol dire una risposta nuova. Inventala tu! Puoi suonare le no
 
 **MAESTRO BATTUTA:**
 
-E adesso il rintocco finale! Io batto tre volte la bacchetta, e al quarto colpo suoni la campanella: un rintocco solo, il più chiaro che hai. Uno... due... tre...
+E adesso il rintocco finale! Io batto tre volte la bacchetta, e al quarto colpo suoni la campanella: un rintocco solo, il più chiaro che hai.
 
 *[INTERAZIONE: Rintocco finale (loop_rintocco): il Maestro batte tre battute sulla bacchetta e il bambino preme un pulsante qualsiasi sul primo movimento della quarta. Vale se cade entro circa 200 ms. Riuscita: un rintocco grande e luminoso che risuona a lungo. Se non arriva o arriva fuori tempo, il conteggio ricomincia; dopo due tentativi la campanella suona da sola e si prosegue.]*
 

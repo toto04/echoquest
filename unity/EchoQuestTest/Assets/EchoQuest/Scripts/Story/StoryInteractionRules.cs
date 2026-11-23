@@ -9,7 +9,9 @@ namespace EchoQuest.Story
     /// configurations that still use it.</summary>
     /// FreePlay = the child plays along with a piece, any button at any time, no wrong answer (stage 0).
     /// Beat = keep the beat over a piece (chapter 2): presses near the listed beats count, a share must hit.
-    public enum InteractionMode { Confirm, Rhythm, Compare, Note, Decision, Battle, FreePlay, Beat }
+    /// Recognize = listen to a sound and answer with a finger (chapter 3: long or short, left or right).
+    /// Count = listen to some rings and press as many times (chapter 3); only the number counts.
+    public enum InteractionMode { Confirm, Rhythm, Compare, Note, Decision, Battle, FreePlay, Beat, Recognize, Count }
 
     public class InteractionSettings
     {
@@ -49,6 +51,20 @@ namespace EchoQuest.Story
         public string StrikeSound = "";
         /// <summary>Free play: a gust (soffio) that drifts onto the child's beat, gust after gust.</summary>
         public string Gust = "";
+        /// <summary>Recognize and Count: chiedi "sempre" = the question (consegna) follows the sound on the
+        /// first listen too; otherwise only from the second listen (the story line just asked it).</summary>
+        public bool AskFirst;
+        /// <summary>Battle: what the companion plays back after a success (replica; default the call).
+        /// Answer rounds (chapter 3) play the answer, not the question.</summary>
+        public string Reply = "";
+        /// <summary>modalita "risposta": the child answers the call with a phrase of their own (chapter 3).
+        /// It passes with at least quota notes (default 2) ending on the home button (pulsanti, one value).
+        /// Without riprova nothing is wrong: any answer goes on, one ending at home gets suono_successo, and
+        /// with no note at all the companion answers with replica.</summary>
+        public bool FreeAnswer;
+        /// <summary>Battle: the call in pieces (pulsanti and tempi separated by "|", one esempi clip per piece):
+        /// each piece is its own exchange, all must pass (chapter 3's lullaby, "a pezzi di due battute").</summary>
+        public List<(string call, int[] buttons, float[] times)> Pieces = new List<(string, int[], float[])>();
         public string[] DeclineVoices;
         public string RetryQuestion;
         public string[] ContinueVoices;
@@ -81,6 +97,9 @@ namespace EchoQuest.Story
                     "sfida" or "eco" => InteractionMode.Battle,
                     "libero" => InteractionMode.FreePlay,
                     "battito" or "colpo" => InteractionMode.Beat,
+                    "riconosci" => InteractionMode.Recognize,
+                    "conta" => InteractionMode.Count,
+                    "risposta" => InteractionMode.Battle,
                     _ => throw new FormatException("Unknown interaction mode: " + mode),
                 },
                 Prompt = get("consegna"), Success = get("successo"), Retry = get("riprova"),
@@ -92,6 +111,14 @@ namespace EchoQuest.Story
             };
             settings.Feedbacks = Split(settings.Feedback);
             settings.Practice = mode == "eco";
+            settings.FreeAnswer = mode == "risposta";
+            settings.Reply = get("replica");
+            settings.AskFirst = get("chiedi") switch
+            {
+                "" => false,
+                "sempre" => true,
+                _ => throw new FormatException("chiedi is sempre or empty: " + get("chiedi")),
+            };
             settings.Strike = mode == "colpo";
             settings.StrikeSound = get("suono_successo");
             settings.Gust = get("soffio");
@@ -132,7 +159,11 @@ namespace EchoQuest.Story
             {
                 "" or "no" => StoryInteractionRules.No,
                 "si" or "sì" => StoryInteractionRules.Yes,
-                _ => throw new FormatException("risposta must be si or no: " + get("risposta")),
+                "indice" when settings.Mode == InteractionMode.Recognize => 1,
+                "medio" when settings.Mode == InteractionMode.Recognize => 2,
+                "anulare" when settings.Mode == InteractionMode.Recognize => 3,
+                "mignolo" when settings.Mode == InteractionMode.Recognize => 4,
+                _ => throw new FormatException("risposta must be si or no (riconosci: a finger): " + get("risposta")),
             };
             foreach (var pair in get("registro").Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
             {
@@ -141,22 +172,36 @@ namespace EchoQuest.Story
                     throw new FormatException("registro must look like 1=grave;2=acuto: " + pair);
                 settings.Registers[button] = kv[1].Trim();
             }
-            var buttons = new List<int>();
-            foreach (var value in Split(get("pulsanti")))
+            string[] buttonPieces = get("pulsanti").Split('|'), timePieces = get("tempi").Split('|');
+            if (buttonPieces.Length != timePieces.Length)
+                throw new FormatException("pulsanti and tempi need the same number of pieces (|).");
+            var pieceButtons = new List<int[]>();
+            var pieceTimes = new List<float[]>();
+            for (int k = 0; k < buttonPieces.Length; k++)
             {
-                if (!int.TryParse(value, out int b) || b < 1 || b > 4) throw new FormatException("pulsanti are note buttons 1-4: " + value);
-                buttons.Add(b);
+                var pb = new List<int>();
+                foreach (var value in Split(buttonPieces[k]))
+                {
+                    if (!int.TryParse(value, out int b) || b < 1 || b > 4) throw new FormatException("pulsanti are note buttons 1-4: " + value);
+                    pb.Add(b);
+                }
+                var pt = new List<float>();
+                foreach (var value in Split(timePieces[k]))
+                {
+                    if (!float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out float time) ||
+                        float.IsNaN(time) || float.IsInfinity(time) || time < 0)
+                        throw new FormatException("Invalid interaction time: " + value);
+                    pt.Add(time);
+                }
+                pieceButtons.Add(pb.ToArray());
+                pieceTimes.Add(pt.ToArray());
             }
+            var buttons = new List<int>(pieceButtons[0]);
+            var times = new List<float>(pieceTimes[0]);
             settings.Buttons = buttons.ToArray();
-            var times = new List<float>();
-            foreach (var value in get("tempi").Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                if (!float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out float time) ||
-                    float.IsNaN(time) || float.IsInfinity(time) || time < 0)
-                    throw new FormatException("Invalid interaction time: " + value);
-                times.Add(time);
-            }
             settings.Times = times.ToArray();
+            if (buttonPieces.Length > 1 && settings.Mode != InteractionMode.Battle)
+                throw new FormatException("Only battle rounds have pieces (|).");
             string attempts = get("tentativi");
             if (!string.IsNullOrEmpty(attempts) &&
                 (!int.TryParse(attempts, NumberStyles.Integer, CultureInfo.InvariantCulture, out settings.AttemptsPerRound) ||
@@ -184,12 +229,38 @@ namespace EchoQuest.Story
             };
             if (settings.Mode == InteractionMode.Battle)
             {
-                if (times.Count < 1 || times[0] != 0 || times.Count != settings.Buttons.Length)
-                    throw new FormatException("Battle rounds need tempi starting at zero and one pulsanti entry per note.");
-                for (int i = 1; i < times.Count; i++)
-                    if (times[i] <= times[i - 1]) throw new FormatException("Battle tempi must increase.");
-                if (settings.Examples.Length != 1)
-                    throw new FormatException("A battle round needs exactly one call clip.");
+                for (int k = 0; k < pieceButtons.Count; k++)
+                {
+                    var pt = pieceTimes[k];
+                    if (pt.Length < 1 || pt[0] != 0 || pt.Length != pieceButtons[k].Length)
+                        throw new FormatException("Battle rounds need tempi starting at zero and one pulsanti entry per note.");
+                    for (int i = 1; i < pt.Length; i++)
+                        if (pt[i] <= pt[i - 1]) throw new FormatException("Battle tempi must increase.");
+                }
+                if (settings.Examples.Length != pieceButtons.Count)
+                    throw new FormatException("A battle round needs exactly one call clip (one per piece).");
+                for (int k = 0; k < pieceButtons.Count; k++)
+                    settings.Pieces.Add((settings.Examples[k], pieceButtons[k], pieceTimes[k]));
+                if (settings.FreeAnswer)
+                {
+                    if (settings.Buttons.Length != 1 || pieceButtons.Count != 1)
+                        throw new FormatException("risposta: pulsanti is the home button only, tempi 0.");
+                    string minimum = get("quota");
+                    settings.Quota = 2;
+                    if (!string.IsNullOrEmpty(minimum) &&
+                        (!int.TryParse(minimum, NumberStyles.Integer, CultureInfo.InvariantCulture, out settings.Quota) || settings.Quota < 1))
+                        throw new FormatException("risposta: quota is the fewest notes of an answer: " + minimum);
+                    if (settings.Attack || settings.Together)
+                        throw new FormatException("risposta has no attack round and no playing together.");
+                    if (settings.RetryVoices.Length == 0)
+                    {
+                        // Nothing is wrong (the answer to Sbuffo): no attempts, nothing to say after a miss.
+                        if (settings.AttemptsPerRound > 0) throw new FormatException("risposta without riprova has no tentativi.");
+                        if (string.IsNullOrEmpty(settings.Reply))
+                            throw new FormatException("risposta without riprova needs replica (who answers when the child does not).");
+                        return settings;
+                    }
+                }
                 settings.Help = Split(get("aiuto"));
                 if (settings.Help.Length > 1) throw new FormatException("A battle round has one help voice (aiuto).");
                 if (settings.Together && (settings.AttemptsPerRound == 0 || string.IsNullOrEmpty(settings.RetryQuestion)))
@@ -198,6 +269,8 @@ namespace EchoQuest.Story
                     throw new FormatException("The attack round needs the hint voice (riprova).");
                 if (settings.SuccessVoices.Length == 0 || (settings.RetryVoices.Length == 0 && !settings.Practice))
                     throw new FormatException("Battle rounds need successo and riprova voices (riprova is optional only for eco).");
+                if (settings.Pieces.Count > 1 && (settings.Attack || settings.Together || !string.IsNullOrEmpty(settings.Reply)))
+                    throw new FormatException("A call in pieces has no attack round, no playing together and no replica.");
                 return settings;
             }
             if (settings.Mode == InteractionMode.Beat)
@@ -234,6 +307,21 @@ namespace EchoQuest.Story
             if (settings.Mode is not (InteractionMode.Confirm or InteractionMode.Decision) &&
                 (string.IsNullOrEmpty(settings.Retry) || settings.Examples.Length == 0))
                 throw new FormatException("This interaction requires riprova and esempi.");
+            if (settings.Mode is InteractionMode.Recognize or InteractionMode.Count)
+            {
+                if (string.IsNullOrEmpty(settings.Prompt))
+                    throw new FormatException("riconosci and conta need the question (consegna), asked after the sound.");
+                if (settings.Mode == InteractionMode.Recognize)
+                {
+                    // pulsanti = the fingers that answer (1;2 = index or middle); risposta = the right one.
+                    if (settings.Buttons.Length < 2 || Array.IndexOf(settings.Buttons, settings.ExpectedAnswer) < 0)
+                        throw new FormatException("riconosci: pulsanti are the answer fingers and must include risposta.");
+                }
+                else if (!int.TryParse(get("quota"), NumberStyles.Integer, CultureInfo.InvariantCulture, out settings.Quota) ||
+                         settings.Quota < 1 || settings.Quota > 9)
+                    throw new FormatException("conta: quota is how many rings there are: " + get("quota"));
+                return settings;
+            }
             if (settings.Mode is InteractionMode.Rhythm or InteractionMode.Note)
             {
                 if (times.Count != 3 || times[0] != 0 || times[1] <= times[0] || times[2] <= times[1])

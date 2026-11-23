@@ -38,5 +38,17 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/EchoQuest/Story/Scenes/Tamburo/Tamburo_Scena2.unity
     guid: e0c0c36cbe0d0e5fa8fe0fb6f7f8890b
+  - enabled: 1
+    path: Assets/EchoQuest/Story/Scenes/Tamburo/Tamburo_Scena3.unity
+    guid: 2a84c36c85746aa418335486331f4628
+  - enabled: 1
+    path: Assets/EchoQuest/Story/Scenes/Tamburo/Tamburo_Epilogo.unity
+    guid: 416e9411ff7459de0b4ea303fd9a47e1
+  - enabled: 1
+    path: Assets/EchoQuest/Story/Scenes/Tamburo/Tamburo_Scena5.unity
+    guid: 6e4497c3d7f393678b2fee254ba9679a
+  - enabled: 1
+    path: Assets/EchoQuest/Story/Scenes/Tamburo/Tamburo_Scena4.unity
+    guid: b369a6bf94578243e82e019911e23a29
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

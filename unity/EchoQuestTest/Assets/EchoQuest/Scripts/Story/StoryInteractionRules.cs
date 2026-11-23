@@ -30,6 +30,25 @@ namespace EchoQuest.Story
         /// <summary>primo_ascolto "storia": the story just played the examples, so the first attempt
         /// only asks the question (Compare) instead of playing them again.</summary>
         public bool ExamplesPlayedByStory;
+        /// <summary>modalita "eco": a battle round without Sbuffo (chapter 2 practice). A miss gets no
+        /// taunt; the call simply comes back on the next exchange.</summary>
+        public bool Practice;
+        /// <summary>Battle: scambio "corto" = call once, TOC, echo (2 bars) instead of call twice (4 bars).</summary>
+        public bool ShortExchange;
+        /// <summary>Battle: insieme "si" = after the attempts, the retry question offers to play it together:
+        /// Yes = the drum plays the call with the child and the round is won; No = try again.</summary>
+        public bool Together;
+        /// <summary>Battle: attacco "si" = the attack round: the first try has no call, the child plays from
+        /// memory; after a miss the riprova voice gives a hint and the call is played once.</summary>
+        public bool Attack;
+        /// <summary>Battle: bars of the call (battute_frase, default 1); the exchange grows to match.</summary>
+        public int CallBars = 1;
+        /// <summary>Beat, colpo mode: a single stroke on the beat in tempi (the final stroke).</summary>
+        public bool Strike;
+        /// <summary>Colpo: the sound of a stroke on time (suono_successo).</summary>
+        public string StrikeSound = "";
+        /// <summary>Free play: a gust (soffio) that drifts onto the child's beat, gust after gust.</summary>
+        public string Gust = "";
         public string[] DeclineVoices;
         public string RetryQuestion;
         public string[] ContinueVoices;
@@ -59,9 +78,9 @@ namespace EchoQuest.Story
                     "confronto" => InteractionMode.Compare,
                     "nota" => InteractionMode.Note,
                     "scelta" => InteractionMode.Decision,
-                    "sfida" => InteractionMode.Battle,
+                    "sfida" or "eco" => InteractionMode.Battle,
                     "libero" => InteractionMode.FreePlay,
-                    "battito" => InteractionMode.Beat,
+                    "battito" or "colpo" => InteractionMode.Beat,
                     _ => throw new FormatException("Unknown interaction mode: " + mode),
                 },
                 Prompt = get("consegna"), Success = get("successo"), Retry = get("riprova"),
@@ -72,6 +91,33 @@ namespace EchoQuest.Story
                 Examples = get("esempi").Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries),
             };
             settings.Feedbacks = Split(settings.Feedback);
+            settings.Practice = mode == "eco";
+            settings.Strike = mode == "colpo";
+            settings.StrikeSound = get("suono_successo");
+            settings.Gust = get("soffio");
+            settings.Attack = get("attacco") switch
+            {
+                "" or "no" => false,
+                "si" or "sì" => true,
+                _ => throw new FormatException("attacco is si or empty: " + get("attacco")),
+            };
+            string callBars = get("battute_frase");
+            if (!string.IsNullOrEmpty(callBars) &&
+                (!int.TryParse(callBars, NumberStyles.Integer, CultureInfo.InvariantCulture, out settings.CallBars) ||
+                 settings.CallBars < 1 || settings.CallBars > 2))
+                throw new FormatException("battute_frase is 1 or 2: " + callBars);
+            settings.ShortExchange = get("scambio") switch
+            {
+                "" or "lungo" => false,
+                "corto" => true,
+                _ => throw new FormatException("scambio is lungo or corto: " + get("scambio")),
+            };
+            settings.Together = get("insieme") switch
+            {
+                "" or "no" => false,
+                "si" or "sì" => true,
+                _ => throw new FormatException("insieme is si or empty: " + get("insieme")),
+            };
             settings.ExamplesPlayedByStory = get("primo_ascolto") switch
             {
                 "" => false,
@@ -120,8 +166,10 @@ namespace EchoQuest.Story
             {
                 if (settings.Mode is InteractionMode.Confirm or InteractionMode.Decision)
                     throw new FormatException("Attempt limits apply only to practice exercises.");
-                if (string.IsNullOrEmpty(settings.RetryQuestion) || settings.ContinueVoices.Length == 0)
-                    throw new FormatException("Attempt limits require domanda_riprova and prosegui voices.");
+                // Without domanda_riprova the story simply goes on after the attempts, with the prosegui voice
+                // or sound (chapter 2: the drum gives the final stroke itself).
+                if (settings.ContinueVoices.Length == 0)
+                    throw new FormatException("Attempt limits require prosegui (and usually domanda_riprova).");
             }
             else if (!string.IsNullOrEmpty(settings.RetryQuestion) || settings.ContinueVoices.Length > 0)
                 throw new FormatException("Retry choice voices require a tentativi limit.");
@@ -142,8 +190,14 @@ namespace EchoQuest.Story
                     if (times[i] <= times[i - 1]) throw new FormatException("Battle tempi must increase.");
                 if (settings.Examples.Length != 1)
                     throw new FormatException("A battle round needs exactly one call clip.");
-                if (settings.SuccessVoices.Length == 0 || settings.RetryVoices.Length == 0)
-                    throw new FormatException("Battle rounds need successo and riprova voices.");
+                settings.Help = Split(get("aiuto"));
+                if (settings.Help.Length > 1) throw new FormatException("A battle round has one help voice (aiuto).");
+                if (settings.Together && (settings.AttemptsPerRound == 0 || string.IsNullOrEmpty(settings.RetryQuestion)))
+                    throw new FormatException("insieme needs tentativi and domanda_riprova.");
+                if (settings.Attack && settings.RetryVoices.Length == 0)
+                    throw new FormatException("The attack round needs the hint voice (riprova).");
+                if (settings.SuccessVoices.Length == 0 || (settings.RetryVoices.Length == 0 && !settings.Practice))
+                    throw new FormatException("Battle rounds need successo and riprova voices (riprova is optional only for eco).");
                 return settings;
             }
             if (settings.Mode == InteractionMode.Beat)
@@ -161,7 +215,9 @@ namespace EchoQuest.Story
                     (!float.TryParse(tolerance, NumberStyles.Float, CultureInfo.InvariantCulture, out settings.Tolerance) ||
                      settings.Tolerance <= 0 || settings.Tolerance >= 0.5f))
                     throw new FormatException("Beat tolleranza is in seconds, between 0 and 0.5: " + tolerance);
-                if (string.IsNullOrEmpty(tolerance)) settings.Tolerance = 0.15f;
+                if (string.IsNullOrEmpty(tolerance)) settings.Tolerance = settings.Strike ? 0.2f : 0.15f;
+                if (settings.Strike && (times.Count != 2 || string.IsNullOrEmpty(settings.StrikeSound)))
+                    throw new FormatException("colpo: tempi = the beat before and the beat of the stroke, and suono_successo.");
                 settings.Help = Split(get("aiuto"));
                 if (settings.Help.Length > times.Count) throw new FormatException("More help sounds (aiuto) than beats.");
                 if (string.IsNullOrEmpty(settings.Retry) || string.IsNullOrEmpty(settings.Success))

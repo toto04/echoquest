@@ -101,6 +101,9 @@ public static class StoryInteractionChecks
         Check(InteractionSettings.Parse(Get).AttemptsPerRound == 0, "old staging keeps its existing retry behavior");
         values["tentativi"] = "2";
         Invalid(() => InteractionSettings.Parse(Get), "a retry limit requires spoken choice and continuation");
+        values["prosegui"] = "continue";
+        Check(InteractionSettings.Parse(Get).AttemptsPerRound == 2 && InteractionSettings.Parse(Get).RetryQuestion == "",
+            "without a question the story goes on after the attempts (chapter 2)");
         values["domanda_riprova"] = "question"; values["prosegui"] = "continue";
         Check(InteractionSettings.Parse(Get).AttemptsPerRound == 2, "two attempts per round");
         values["prosegui"] = "continue;continue_alt";
@@ -203,6 +206,41 @@ public static class StoryInteractionChecks
         Invalid(() => InteractionSettings.Parse(Get), "a tolerance over half a second is not keeping the beat");
         values["tolleranza"] = ""; values["successo"] = "";
         Invalid(() => InteractionSettings.Parse(Get), "keeping the beat says when it worked");
+
+        // Practice echoes (chapter 2, scene 3): a battle round without Sbuffo's taunt.
+        values.Clear();
+        values["modalita"] = "eco"; values["esempi"] = "x_t03_colibri"; values["tempi"] = "0;0.3;0.6";
+        values["pulsanti"] = "1;1;1"; values["successo"] = "ok";
+        var echo = InteractionSettings.Parse(Get);
+        Check(echo.Mode == InteractionMode.Battle && echo.Practice && echo.RetryVoices.Length == 0, "eco: a round without a taunt");
+        values["modalita"] = "sfida";
+        Invalid(() => InteractionSettings.Parse(Get), "a real battle round still needs the taunt");
+
+        // Chapter 2 battle options: short exchanges, two-bar calls, the attack round, play together.
+        values["riprova"] = "laugh"; values["scambio"] = "corto"; values["battute_frase"] = "2";
+        var shortRound = InteractionSettings.Parse(Get);
+        Check(shortRound.ShortExchange && shortRound.CallBars == 2 && !shortRound.Attack && !shortRound.Together, "short exchange, two-bar call");
+        values["scambio"] = "medio";
+        Invalid(() => InteractionSettings.Parse(Get), "scambio is lungo or corto");
+        values["scambio"] = ""; values["battute_frase"] = "3";
+        Invalid(() => InteractionSettings.Parse(Get), "calls are one or two bars");
+        values["battute_frase"] = ""; values["attacco"] = "si";
+        Check(InteractionSettings.Parse(Get).Attack, "the attack round");
+        values["attacco"] = ""; values["insieme"] = "si";
+        Invalid(() => InteractionSettings.Parse(Get), "play together needs the question after the attempts");
+        values["tentativi"] = "3"; values["domanda_riprova"] = "together?"; values["prosegui"] = "go on";
+        Check(InteractionSettings.Parse(Get).Together, "play together after three attempts");
+
+        // The final stroke: one press on the beat after the count.
+        values.Clear();
+        values["modalita"] = "colpo"; values["esempi"] = "x_t05_bacchetta"; values["suono_pulsante"] = "re";
+        values["tempi"] = "1.2;1.8"; values["quota"] = "1"; values["successo"] = "bum"; values["riprova"] = "again";
+        values["suono_successo"] = "x_t05_colpo";
+        var strike = InteractionSettings.Parse(Get);
+        Check(strike.Mode == InteractionMode.Beat && strike.Strike && Math.Abs(strike.Tolerance - 0.2f) < 1e-6,
+            "colpo: a single stroke, 200 ms by default");
+        values["suono_successo"] = "";
+        Invalid(() => InteractionSettings.Parse(Get), "colpo needs the big drum");
         return checks;
     }
 }

@@ -45,6 +45,9 @@ namespace EchoQuest.Story
         public string BattleBase = "";
         /// <summary>Length of the battle loop in bars.</summary>
         public int BattleBars;
+        /// <summary>Choices: the chapter scene each branch leads to when this chapter ends (capitolo_dopo
+        /// "A=Tamburo_Prologo;B="): chapter 1's Scene 5 choice opens the instrument the child picked.</summary>
+        public Dictionary<string, string> NextChapter = new Dictionary<string, string>();
         public InteractionSettings Interaction;
 
         public static readonly StagingEntry Default = new StagingEntry { Position = new Vector3(0, 0, 4) };
@@ -116,7 +119,20 @@ namespace EchoQuest.Story
                     Interaction = InteractionSettings.Parse(Get),
                     BattleBase = Get("base"),
                     BattleBars = (int)(Num("battute") ?? 0),
+                    NextChapter = ParseNextChapter(Get("capitolo_dopo")),
                 };
+            }
+            return map;
+        }
+
+        // "A=Tamburo_Prologo;B=" -> {A: "Tamburo_Prologo", B: ""}
+        private static Dictionary<string, string> ParseNextChapter(string text)
+        {
+            var map = new Dictionary<string, string>();
+            foreach (var pair in text.Split(';'))
+            {
+                var kv = pair.Split('=');
+                if (kv.Length == 2 && kv[0].Trim().Length > 0) map[kv[0].Trim().ToUpperInvariant()] = kv[1].Trim();
             }
             return map;
         }

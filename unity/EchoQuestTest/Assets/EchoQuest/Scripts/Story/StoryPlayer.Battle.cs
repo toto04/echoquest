@@ -28,6 +28,10 @@ namespace EchoQuest.Story
             public int Layers;
             /// <summary>With the low register the pad is voiced above the call: silent in call bars.</summary>
             public bool HighPad;
+            /// <summary>The loop's clip prefix (staging "base"), to know when a round asks for another loop.</summary>
+            public string Prefix = "";
+            /// <summary>Bars per exchange: 4 for long exchanges (call twice), 2 for short ones (call once).</summary>
+            public int ExchangeBars = 4;
         }
 
         private Battle m_Battle;
@@ -52,7 +56,7 @@ namespace EchoQuest.Story
             var battle = new Battle
             {
                 Start = start, Bars = bars, Bar = (double)l0.samples / l0.frequency / bars,
-                Until = staging.Until, HighPad = Register == "grave",
+                Until = staging.Until, HighPad = Register == "grave", Prefix = prefix, ExchangeBars = exchangeBars,
             };
             battle.L0 = BattleStem(prefix + "_l0", l0, start, 1f);
             if (InteractionClip(prefix + "_l1", out var l1)) battle.L1 = BattleStem(prefix + "_l1", l1, start, 0f);
@@ -109,8 +113,22 @@ namespace EchoQuest.Story
         {
             var b = m_Battle;
             double k = System.Math.Ceiling((Now + lead - b.Start) / b.Bar);
-            k = System.Math.Ceiling(System.Math.Max(0, k) / exchangeBars) * exchangeBars;
+            k = System.Math.Ceiling(System.Math.Max(0, k) / b.ExchangeBars) * b.ExchangeBars;
             return b.Start + k * b.Bar;
+        }
+
+        /// <summary>Changes the loop on an exchange boundary (chapter 2: rounds 3-4 move to the short-exchange
+        /// loop, then home to F). The old loop stops exactly where the new one starts; the layers won so far
+        /// stay. Returns the time of the change.</summary>
+        private double SwitchBattle(StagingEntry staging, double at)
+        {
+            int layers = m_Battle?.Layers ?? 0;
+            string from = m_Battle?.Prefix ?? "";
+            StopBattle(at);
+            StartBattle(staging, at);
+            if (m_Battle != null) m_Battle.Layers = layers;
+            LogEvent($"battle loop changes from {from} to {staging.BattleBase} on the exchange boundary");
+            return at;
         }
 
         private void UpdateBattleLayers(bool voicePlaying)
@@ -119,7 +137,7 @@ namespace EchoQuest.Story
             if (b == null) return;
             double now = Now;
             int bar = now < b.Start ? 0 : (int)((now - b.Start) / b.Bar) % b.Bars;
-            bool callBar = bar % exchangeBars < 2;
+            bool callBar = bar % b.ExchangeBars < b.ExchangeBars / 2;
             float duck = voicePlaying ? battleDuckGain : 1f;
             if (b.L0 != null) b.L0.TargetGain = duck;
             if (b.L1 != null) b.L1.TargetGain = (b.Layers >= 1 ? (callBar ? (b.HighPad ? 0f : callBarPadGain) : 1f) : 0f) * duck;
@@ -140,6 +158,14 @@ namespace EchoQuest.Story
 
         private IEnumerator PlayBattleRound(StoryItem item, InteractionSettings settings)
         {
+            // A round can start its own loop (practice echoes have no count-in sound) or change to another one
+            // on the next exchange boundary: staging "base" on the round.
+            var roundStaging = StagingFor(item);
+            if (!string.IsNullOrEmpty(roundStaging.BattleBase))
+            {
+                if (m_Battle == null) StartBattle(roundStaging, Now + 0.4);   // the first exchange starts with the loop
+                else if (m_Battle.Prefix != roundStaging.BattleBase) SwitchBattle(roundStaging, NextExchange(0.3));
+            }
             if (m_Battle == null)
             {
                 Status = "La sfida ha bisogno della base: in regia manca il suono con la colonna 'base'";
@@ -149,15 +175,25 @@ namespace EchoQuest.Story
             }
             CurrentInteraction = settings;
             LastAttempt = "";
-            int failed = 0;
+            int failed = 0, missesInARow = 0, failedTries = 0;
             try
             {
                 while (!Interrupted)
                 {
                     m_Foreground.RemoveAll(source => source == null);
+                    if (m_Battle == null) yield break;
+                    // Short exchanges from stage 3 (07, D3); the boundary is counted on the current loop.
                     double exchange = NextExchange(0.3);
+                    m_Battle.ExchangeBars = ExchangeBarsFor(settings);
                     ExchangeStart = exchange;
-                    yield return EchoExchange(settings, exchange);
+                    // After two misses in a row: the help (04, Failure): a barer loop and the Maestro saying the
+                    // syllables over the call.
+                    bool help = settings.Help.Length > 0 && missesInARow >= 2;
+                    if (help && m_Battle.Layers > 0) m_Battle.Layers = 0;
+                    // The attack round: the first try has no call at all; after a miss the call comes once.
+                    bool withCall = !(settings.Attack && failedTries == 0);
+                    yield return EchoExchange(settings, exchange, help, withCall);
+                    failedTries++;
                     EndInteractionCapture();
                     if (Interrupted) yield break;
                     LogEvent(item.Id + (m_InteractionPassed ? " passed" : " not passed"));
@@ -167,15 +203,44 @@ namespace EchoQuest.Story
                         yield return InteractionVoice(voice);
                         yield break;
                     }
+                    missesInARow++;
                     // Failure: the taunt is already playing in the reply bar; Sbuffo laughs, then the same
-                    // call comes back on the next exchange. Never slower (01-palette.md).
-                    string taunt = settings.RetryVoices[m_BattleTauntIndex++ % settings.RetryVoices.Length];
-                    yield return InteractionVoice(taunt, pauseAfter: false);
-                    if (Interrupted) yield break;
+                    // call comes back on the next exchange. Never slower (01-palette.md). Practice: no taunt.
+                    if (settings.RetryVoices.Length > 0)
+                    {
+                        string taunt = settings.RetryVoices[m_BattleTauntIndex++ % settings.RetryVoices.Length];
+                        yield return InteractionVoice(taunt, pauseAfter: false);
+                        if (Interrupted) yield break;
+                    }
                     if (settings.AttemptsPerRound > 0 && ++failed >= settings.AttemptsPerRound)
                     {
+                        if (string.IsNullOrEmpty(settings.RetryQuestion))
+                        {
+                            LogEvent(item.Id + " given after " + failed + " tries");
+                            yield return InteractionVoice(settings.ContinueVoices[0]);
+                            yield break;
+                        }
                         yield return RetryChoice(settings);
                         if (Interrupted) yield break;
+                        if (settings.Together)
+                        {
+                            // "Shall we play it together, slowly?" Yes: the drum plays the call along with the
+                            // child and the round is won. No: the child tries again.
+                            if (m_InteractionSelectedButton == StoryInteractionRules.Yes)
+                            {
+                                if (m_Battle == null) yield break;
+                                double together = NextExchange(0.3);
+                                ExchangeStart = together;
+                                yield return TogetherExchange(settings, together);
+                                if (Interrupted) yield break;
+                                LogEvent(item.Id + " passed together");
+                                string voice = settings.SuccessVoices[m_BattleSuccessIndex++ % settings.SuccessVoices.Length];
+                                yield return InteractionVoice(voice);
+                                yield break;
+                            }
+                            failed = 0;
+                            continue;
+                        }
                         if (m_InteractionSelectedButton == StoryInteractionRules.No)
                         {
                             string encouragement = settings.ContinueVoices[m_EncouragementIndex % settings.ContinueVoices.Length];
@@ -194,21 +259,35 @@ namespace EchoQuest.Story
             }
         }
 
-        /// <summary>Bars 1-2: the call twice, the TOC on beat 4 of bar 2. Bar 3: the child's echo, the verdict
-        /// on its beat 4. Bar 4: on success the piano plays the phrase back (the companion), on a failure
-        /// Sbuffo's taunt. Judged on order and relative rhythm.</summary>
-        private IEnumerator EchoExchange(InteractionSettings settings, double ex)
+        /// <summary>Long exchange (4 bars): bars 1-2 the call twice, the TOC on beat 4 of bar 2; bar 3 the
+        /// child's echo, the verdict on its beat 4; bar 4 on success the companion plays the phrase back, on a
+        /// failure Sbuffo's taunt. Short exchange (scambio corto, 2 bars + reply): the call once with the TOC
+        /// on its beat 4, the echo in bar 2. Judged on order and relative rhythm.</summary>
+        /// <summary>Bars of one exchange: the call (once or twice), the echo, and for long exchanges the reply.
+        /// The attack round has the shape of a short exchange.</summary>
+        private int ExchangeBarsFor(InteractionSettings settings) =>
+            settings.CallBars * (settings.ShortExchange || settings.Attack ? 2 : 4);
+
+        private IEnumerator EchoExchange(InteractionSettings settings, double ex, bool help = false, bool withCall = true)
         {
             var b = m_Battle;
             double beat = b.Bar / 4;
+            double phrase = settings.CallBars * b.Bar;
             string call = settings.Examples[0];
-            ScheduleBattleClip(call, ex);
-            ScheduleBattleClip(call, ex + b.Bar);
-            ScheduleBattleClip("x_s03_toc", ex + b.Bar + 3 * beat);
-            double open = ex + b.Bar + 3 * beat - 0.15;     // from the TOC on, presses count
-            double close = ex + 3 * b.Bar + 2 * beat;       // until the middle of the reply bar
+            int calls = settings.ShortExchange || settings.Attack ? 1 : 2;
+            double echoBar = ex + calls * phrase;
+            for (int i = 0; i < calls && withCall; i++)
+            {
+                ScheduleBattleClip(call, ex + i * phrase);
+                if (help) ScheduleBattleVoice(settings.Help[0], ex + i * phrase);
+            }
+            ScheduleBattleClip("x_s03_toc", echoBar - beat);
+            double open = echoBar - beat - 0.15;                                       // from the TOC on, presses count
+            double close = settings.ShortExchange || settings.Attack ? echoBar + phrase : echoBar + phrase + 2 * beat;
             BeginInteractionCapture(false);
-            Status = "Ascolta la frase due volte; al TOC ripetila";
+            Status = (!withCall ? "Nessuno la suona prima: al TOC suonala a memoria" :
+                      calls == 1 ? "Ascolta la frase una volta; al TOC ripetila" : "Ascolta la frase due volte; al TOC ripetila") +
+                     (help ? " (aiuto: il Maestro dice le sillabe)" : "");
             var taps = new List<(int button, double time)>();
             bool forced = false;
             while (!Interrupted)
@@ -232,8 +311,45 @@ namespace EchoQuest.Story
             m_InteractionAttempted = true;
             m_InteractionPassed = forced || StoryInteractionRules.MatchesPhrase(taps, settings.Buttons, settings.Times);
             LastAttempt = forced ? "passed from the overlay" : DescribeTaps(taps, settings) + (m_InteractionPassed ? ": matches" : ": does not match");
-            double verdict = System.Math.Max(ex + 2 * b.Bar + 3 * beat, NextBeat(0.05));
-            yield return Verdict(settings, verdict, System.Math.Max(ex + 3 * b.Bar, NextBar(0.1)), call);
+            double verdict = System.Math.Max(echoBar + phrase - beat, NextBeat(0.05));
+            yield return Verdict(settings, verdict, System.Math.Max(echoBar + phrase, NextBar(0.1)), call);
+        }
+
+        /// <summary>"Let's play it together": the call as usual, then in the echo bar the drum plays it again
+        /// with the child. Every press sounds; nothing is judged.</summary>
+        private IEnumerator TogetherExchange(InteractionSettings settings, double ex)
+        {
+            var b = m_Battle;
+            int calls = settings.ShortExchange ? 1 : 2;
+            double echoBar = ex + calls * b.Bar;
+            string call = settings.Examples[0];
+            for (int i = 0; i < calls; i++) ScheduleBattleClip(call, ex + i * b.Bar);
+            ScheduleBattleClip("x_s03_toc", echoBar - b.Bar / 4);
+            ScheduleBattleClip(call, echoBar);
+            BeginInteractionCapture(false);
+            Status = "Suoniamola insieme";
+            while (!Interrupted && Now < echoBar + b.Bar)
+            {
+                while (m_InteractionInput.Count > 0)
+                {
+                    var (button, _) = m_InteractionInput.Dequeue();
+                    if (button >= 1 && button <= 4) InteractionTapFeedback(settings, button);
+                }
+                yield return null;
+            }
+            EndInteractionCapture();
+            m_InteractionAttempted = m_InteractionPassed = !Interrupted;
+            if (m_Battle != null && !Interrupted) m_Battle.Layers = System.Math.Min(2, m_Battle.Layers + 1);
+        }
+
+        /// <summary>A Maestro line on the audio clock (the help syllables over the call).</summary>
+        private void ScheduleBattleVoice(string id, double at)
+        {
+            var parts = InteractionVoiceClips(id);
+            if (parts == null || parts.Count == 0) { Debug.LogError("[Story] Missing battle voice " + id); return; }
+            var staging = m_Staging.TryGetValue(id, out var own) ? own :
+                m_Staging.TryGetValue("maes", out var maestro) ? maestro : StagingEntry.Default;
+            Spawn(parts[0], staging, id, characterMarker, isVoice: true, scheduledStart: System.Math.Max(at, Now + 0.02));
         }
 
         private IEnumerator Verdict(InteractionSettings settings, double stingAt, double replyBar, string reply)
@@ -243,12 +359,12 @@ namespace EchoQuest.Story
             if (m_InteractionPassed)
             {
                 ScheduleBattleClip(reply, replyBar);                  // the companion plays the phrase back
-                yield return WaitUntilDsp(replyBar + b.Bar);
+                yield return WaitUntilDsp(replyBar + settings.CallBars * b.Bar);
                 if (m_Battle != null) m_Battle.Layers = System.Math.Min(2, m_Battle.Layers + 1);   // on the bar line
             }
             else
             {
-                ScheduleBattleClip("x_s03_taunt", replyBar);           // locked bar: Sbuffo laughs
+                if (!settings.Practice && !settings.Attack) ScheduleBattleClip("x_s03_taunt", replyBar);   // locked bar: Sbuffo laughs
                 yield return WaitUntilDsp(replyBar);
                 if (m_Battle != null) m_Battle.Layers = System.Math.Max(0, m_Battle.Layers - 1);   // only the top layer
                 yield return WaitUntilDsp(replyBar + b.Bar * 0.6);

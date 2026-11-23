@@ -183,10 +183,31 @@ In ordine, ogni passo verificabile da solo:
    - [x] Scena 2: `battito` (tenere il passo: `tempi` = i movimenti da valutare, `quota`, `tolleranza`,
      `aiuto` = il Maestro che conta «uno, due, tre, quattro» sui primi movimenti dopo un errore,
      `x_t02_conta_1…4` tagliati dalla registrazione) e i due confronti di tempo.
-   - [ ] Scena 3: eco di allenamento senza Sbuffo.
-   - [ ] Scena 4: sfida con scambi corti, cambio di base, aiuto dopo gli errori.
-   - [ ] Scena 5: turno d'attacco, `colpo`, il vento a tempo, livello extra.
-   - [ ] Epilogo.
+   - [x] Scena 3: `eco` = uno scambio della sfida senza Sbuffo (niente presa in giro: la parola torna nello
+     scambio dopo); la base di allenamento parte con la prima parola (`base` sull'interazione) e si ferma
+     sulla battuta del ricordo del galoppo.
+   - [x] Scena 4: confronto col galoppo al contrario; sfida con `scambio` = `corto` (la frase una volta) dal
+     turno 3; il turno che chiede un'altra `base` la cambia sul confine dello scambio, tenendo gli strati
+     vinti; `t04_sfx_05` porta la base a casa (Re → Fa) e la base nuova parte dopo `attesa`; `aiuto` = il
+     Maestro dice «co-li-brì» sopra la frase dopo due errori di fila, con la base spoglia; `insieme` = dopo
+     tre tentativi «Vuoi che lo suoniamo insieme?» (Sì = insieme e vinto, No = si riprova).
+   - [x] Scena 5: `attacco` (primo tentativo senza chiamata, poi il suggerimento e la frase una volta);
+     `colpo` (bacchetta e «uno, due, tre» a tempo in `x_t05_bacchetta`, un colpo entro 200 ms sul quattro;
+     dopo due tentativi il tamburo lo dà da solo); `soffio` nel suono libero (i soffi di Sbuffo vanno a
+     poco a poco sul battito del bambino); livello extra con `battute_frase` = 2 (il 3+3+2).
+     `tentativi` senza `domanda_riprova` = dopo i tentativi si prosegue con `prosegui`.
+   - [x] Epilogo: la scelta c'è; senza menu, dopo la scelta il capitolo finisce.
+   - [x] Dal capitolo 1: se nella Scena 5 il bambino sceglie il tamburo, alla fine dell'epilogo del capitolo 1
+     si entra nel Prologo del tamburo, con il registro del pianoforte già scelto (`capitolo_dopo` in regia,
+     `TamburoRuntimeChecks.RunChapterHandoff`). Con la campanella il capitolo 1 finisce, finché il capitolo 3
+     non è giocabile.
+
+   Rispetto al copione: la **frase accorciata** al terzo errore è sostituita da «suoniamolo insieme» (non c'è
+   una battuta che la spieghi al bambino); la **base d'aiuto** è la base senza strati, non una versione con
+   la cassa più forte; nel colpo finale il conteggio «uno, due, tre» è tolto dalle registrazioni
+   (`t05_maes_02`, `eq_t05_extra_03_ancora_bum`) e lo fa l'interazione, a tempo con la bacchetta.
+   Durata stimata senza errori: circa 14 minuti, 22 interazioni; il tratto più lungo senza giocare è
+   l'apertura (prologo e inizio della Scena 1, circa 80 s).
 
 ## Domande per il gruppo
 

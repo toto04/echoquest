@@ -136,24 +136,31 @@ namespace EchoQuest.Story
 
         private bool InteractionVoiceExists(string id) => InteractionVoiceClips(id) is { Count: > 0 };
 
-        private bool InteractionAssetsReady(InteractionSettings settings)
+        /// <summary>The first voice or clip the interaction needs that has no recording, or null when all exist.</summary>
+        private string MissingInteractionAsset(InteractionSettings settings)
         {
-            if (!string.IsNullOrEmpty(settings.Prompt) && !InteractionVoiceExists(settings.Prompt)) return false;
-            foreach (var voice in settings.SuccessVoices) if (!InteractionVoiceExists(voice)) return false;
-            if (settings.Mode == InteractionMode.Battle)
-                foreach (var voice in settings.RetryVoices) if (!InteractionVoiceExists(voice)) return false;
-            foreach (var voice in settings.DeclineVoices) if (!InteractionVoiceExists(voice)) return false;
+            var voices = new List<string>();
+            if (!string.IsNullOrEmpty(settings.Prompt)) voices.Add(settings.Prompt);
+            voices.AddRange(settings.SuccessVoices);
+            if (settings.Mode == InteractionMode.Battle) voices.AddRange(settings.RetryVoices);
+            voices.AddRange(settings.DeclineVoices);
             if (settings.AttemptsPerRound > 0)
             {
-                if (!InteractionVoiceExists(settings.RetryQuestion)) return false;
-                foreach (var voice in settings.ContinueVoices) if (!InteractionVoiceExists(voice)) return false;
+                if (!string.IsNullOrEmpty(settings.RetryQuestion)) voices.Add(settings.RetryQuestion);
+                voices.AddRange(settings.ContinueVoices);
             }
+            // Every exercise that can fail says so, except practice echoes (no taunt, the call just comes back).
             if (settings.Mode is not (InteractionMode.Confirm or InteractionMode.Decision or InteractionMode.FreePlay) &&
-                !InteractionVoiceExists(settings.Retry)) return false;
-            foreach (var example in settings.Examples) if (!InteractionClip(example, out _)) return false;
-            foreach (var feedback in settings.Feedbacks) if (!InteractionClip(feedback, out _)) return false;
-            foreach (var help in settings.Help) if (!InteractionClip(help, out _)) return false;
-            return true;
+                !(settings.Mode == InteractionMode.Battle && settings.Practice))
+                voices.Add(settings.Retry ?? "");
+            foreach (var voice in voices) if (!InteractionVoiceExists(voice)) return voice.Length > 0 ? voice : "(riprova)";
+            var clips = new List<string>(settings.Examples);
+            clips.AddRange(settings.Feedbacks);
+            clips.AddRange(settings.Help);
+            if (!string.IsNullOrEmpty(settings.StrikeSound)) clips.Add(settings.StrikeSound);
+            if (!string.IsNullOrEmpty(settings.Gust)) clips.Add(settings.Gust);
+            foreach (var clip in clips) if (!InteractionClip(clip, out _)) return clip;
+            return null;
         }
 
         private IEnumerator InteractionVoice(string id, bool pauseAfter = true)
@@ -208,9 +215,9 @@ namespace EchoQuest.Story
 
         private IEnumerator PlayInteraction(StoryItem item, InteractionSettings settings)
         {
-            if (!InteractionAssetsReady(settings))
+            if (MissingInteractionAsset(settings) is { } missing)
             {
-                Status = "Mancano gli audio dell'interazione " + item.Id;
+                Status = $"Mancano gli audio dell'interazione {item.Id}: {missing}";
                 Debug.LogError("[Story] " + Status);
                 while (!Interrupted) yield return null;
                 yield break;
@@ -277,6 +284,7 @@ namespace EchoQuest.Story
                         {
                             BranchChoice = branch;
                             LogEvent("branch " + branch);
+                            RememberNextChapter(item, branch);
                         }
                         if (settings.Registers.TryGetValue(m_InteractionSelectedButton, out var register)) SetRegister(register);
                         if (!string.IsNullOrEmpty(settings.Success)) yield return InteractionVoice(settings.Success);
@@ -286,6 +294,13 @@ namespace EchoQuest.Story
                     {
                         if (settings.AttemptsPerRound > 0 && ++failedAttempts >= settings.AttemptsPerRound)
                         {
+                            if (string.IsNullOrEmpty(settings.RetryQuestion))
+                            {
+                                // No question: after the attempts the story goes on (the drum gives the stroke).
+                                LogEvent(item.Id + " given after " + failedAttempts + " tries");
+                                yield return InteractionVoice(settings.ContinueVoices[0]);
+                                yield break;
+                            }
                             yield return RetryChoice(settings);
                             if (Interrupted) yield break;
                             if (m_InteractionSelectedButton == StoryInteractionRules.No)
@@ -331,9 +346,20 @@ namespace EchoQuest.Story
                 CurrentClip = piece.name;
                 int notes = 0;
                 double firstTap = 0, lastTap = 0;
+                var taps = new List<double>();
+                int gusts = 0;
+                double nextGust = start + 1.5;
                 while (!Interrupted && Now < start + piece.length)
                 {
                     if (m_ForcePass) { source.FadeOut(0.5f); break; }
+                    if (!string.IsNullOrEmpty(settings.Gust) && Now >= nextGust - 0.1 && Now < start + piece.length - 2.0)
+                    {
+                        // Chapter 2, scene 5: Sbuffo's gusts drift onto the child's beat, a little more each time.
+                        double at = GustTime(taps, nextGust, ++gusts, out double offBeat);
+                        ScheduleBattleClip(settings.Gust, at);
+                        LogEvent(double.IsNaN(offBeat) ? $"gust {gusts}, no beat yet" : $"gust {gusts}, {offBeat * 1000:F0} ms off the child's beat");
+                        nextGust = at + 1.2 + (taps.Count >= 2 ? 0.0 : 0.6);
+                    }
                     while (m_InteractionInput.Count > 0)
                     {
                         var (button, time) = m_InteractionInput.Dequeue();
@@ -341,6 +367,7 @@ namespace EchoQuest.Story
                         InteractionTapFeedback(settings, button);
                         if (notes == 0) firstTap = time;
                         lastTap = time;
+                        taps.Add(time);
                         notes++;
                         LastAttempt = notes + (notes == 1 ? " note played" : " notes played");
                     }
@@ -359,6 +386,25 @@ namespace EchoQuest.Story
                 EndInteractionCapture();
                 CurrentInteraction = null;
             }
+        }
+
+        /// <summary>When Sbuffo's next gust blows: with no beat from the child, a little after
+        /// <paramref name="planned"/>, never on a pulse; once the child taps, it moves towards the child's next
+        /// beat (last press + the mean gap), closer with every gust, from the fourth on exactly on it.</summary>
+        private double GustTime(List<double> taps, double planned, int gust, out double offBeat)
+        {
+            double wander = planned + 0.37 * ((gust * 7) % 5) / 4.0;
+            offBeat = double.NaN;
+            if (taps.Count < 2) return System.Math.Max(Now + 0.1, wander);
+            int n = System.Math.Min(5, taps.Count - 1);
+            double period = (taps[taps.Count - 1] - taps[taps.Count - 1 - n]) / n;
+            period = System.Math.Clamp(period, 0.3, 1.5);
+            double beat = taps[taps.Count - 1];
+            while (beat < Now + 0.1) beat += period;
+            double pull = System.Math.Min(1.0, gust / 4.0);
+            double at = System.Math.Max(Now + 0.1, wander + (beat - wander) * pull);
+            offBeat = at - beat;
+            return at;
         }
 
         private IEnumerator RetryChoice(InteractionSettings settings)
@@ -505,9 +551,21 @@ namespace EchoQuest.Story
                 {
                     var (button, time) = m_InteractionInput.Dequeue();
                     if (button < 1 || button > 4) continue;
+                    if (settings.Strike)
+                    {
+                        // One stroke only: on the beat it is the biggest drum of all, otherwise an ordinary one.
+                        presses.Add(time);
+                        bool onTime = System.Math.Abs(time - (start + times[times.Length - 1])) <= settings.Tolerance;
+                        if (onTime && InteractionClip(settings.StrikeSound, out var big))
+                            Spawn(big, StagingFor(new StoryItem { Id = settings.StrikeSound, Kind = StoryItemKind.Sound }),
+                                settings.StrikeSound, soundMarker);
+                        else InteractionTapFeedback(settings, button);
+                        break;
+                    }
                     InteractionTapFeedback(settings, button);
                     presses.Add(time);
                 }
+                if (settings.Strike && presses.Count > 0) break;
                 yield return null;
             }
             EndInteractionCapture();
@@ -516,14 +574,19 @@ namespace EchoQuest.Story
             // A whole listen counts as a try, even with no press.
             m_InteractionAttempted = true;
             var beats = new List<double>(times.Length);
-            foreach (float t in times) beats.Add(start + t);
+            if (settings.Strike) beats.Add(start + times[times.Length - 1]);   // only the stroke's beat is judged
+            else foreach (float t in times) beats.Add(start + t);
             int hits = StoryInteractionRules.BeatHits(presses, beats, settings.Tolerance);
             m_InteractionPassed = forced || hits >= settings.Quota;
             LastAttempt = forced ? "passed from the overlay" :
+                settings.Strike ? (presses.Count == 0 ? "no stroke" :
+                    $"stroke {(presses[0] - beats[0]) * 1000:+0;-0} ms from the beat (within {settings.Tolerance * 1000:F0} ms)" +
+                    (m_InteractionPassed ? ": BUM" : ": not on the beat")) :
                 $"{hits} of {times.Length} beats hit within {settings.Tolerance * 1000:F0} ms (needed {settings.Quota}); " +
                 $"{presses.Count} presses" + (m_InteractionPassed ? ": passes" : ": not yet");
             LogEvent("beat " + LastAttempt);
-            if (!cut && !forced) while (!Interrupted && Now < start + piece.length) yield return null;
+            if (settings.Strike) yield return Wait(m_InteractionPassed ? 1.5f : 0.6f);   // let the big drum ring
+            else if (!cut && !forced) while (!Interrupted && Now < start + piece.length) yield return null;
             else yield return Wait(0.4f);
         }
 

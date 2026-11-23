@@ -146,7 +146,8 @@ CAPITOLO 2 — IL TAMBURO
 
 28. t05_maes_02_a.mp3 — Maestro Battuta
 -----
-[excited] E adesso il colpo finale! Io conto, e sul «BUM!» tu colpisci il tamburo: un colpo solo, il più bello che hai. Uno... due... tre...
+[excited] E adesso il colpo finale! Io conto, e sul «BUM!» tu colpisci il tamburo: un colpo solo, il più bello che hai.
+(La registrazione è tagliata qui: il conteggio «uno, due, tre» lo fa l'interazione, a tempo con la bacchetta.)
 -----
 
 29. t05_vent_01_a.mp3 — Vento
@@ -469,7 +470,8 @@ CAPITOLO 2 — RISPOSTE DELLE INTERAZIONI
 
 91. eq_t05_extra_03_ancora_bum.mp3 — Maestro Battuta — Colpo finale da ripetere
 -----
-[warm] Quasi! Ricominciamo: uno, due, tre...
+[warm] Quasi! Ricominciamo.
+(Registrata con «uno, due, tre...» e tagliata dopo «Ricominciamo»: il conteggio lo fa l'interazione, a tempo.)
 -----
 
 92. eq_t05_extra_04_quasi_storto.mp3 — Maestro Battuta — Ritmo segreto raddrizzato

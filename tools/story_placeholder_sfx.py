@@ -1224,10 +1224,9 @@ if selected("x_t02_battito"):  # keep the beat: the count-in bar, then loop_batt
     x = music.render(SPECS["count_in"], kit=kit, tail=0.0)[: int(BAR * SR)]
     x += music.render(SPECS_T["loop_battito"], REG_T, tail=0.5)
     save_fixed("x_t02_battito", x, 0.5 / max(abs(v) for v in x))
-if any(selected(f"x_t02_conta_{k}") for k in range(1, 5)):
-    # The Maestro's "Uno. Due. Tre. Quattro." cut word by word, so Unity can put each word on a beat
-    # (the help after a missed "keep the beat"). Words are found by their loudness; each file starts
-    # on the word's onset.
+def counted_words():
+    """The Maestro's "Uno. Due. Tre. Quattro." cut word by word, so each word can sit on a beat. Words are
+    found by their loudness; each one starts on its onset."""
     v = voice_48k("eq_t02_extra_01_conta")
     frame = int(0.01 * SR)
     env = [max(abs(s) for s in v[i:i + frame]) for i in range(0, len(v), frame)]
@@ -1242,8 +1241,12 @@ if any(selected(f"x_t02_conta_{k}") for k in range(1, 5)):
                 words.append((start * frame, (end + 1) * frame))
                 start = None
     assert len(words) == 4, f"expected four counted words, found {len(words)}"
-    for k, (a, b) in enumerate(words, 1):
-        save_fixed(f"x_t02_conta_{k}", fade(v[a:b + int(0.08 * SR)], 0.005, 0.06), 1.0)
+    return [fade(v[a:b + int(0.08 * SR)], 0.005, 0.06) for a, b in words]
+
+
+if any(selected(f"x_t02_conta_{k}") for k in range(1, 5)):  # the help after a missed "keep the beat": one word per beat in Unity
+    for k, word in enumerate(counted_words(), 1):
+        save_fixed(f"x_t02_conta_{k}", word, 1.0)
 if selected(ct(3, 1)):  # memory of the gallop (song bars 3-4, drum and piano), then today's drum stumbling
     x = song([2, 3], "normale", tail=1.0)
     mix(x, gallop_on_drums(), 0.0)
@@ -1289,6 +1292,16 @@ if selected("x_t05_colpo"):  # the final stroke: the biggest drum, with a low ti
     save("x_t05_colpo", x, -2)
 if selected("x_t05_soffio"):  # one of Sbuffo's gusts, for the scene where he blows in time with the child
     save("x_t05_soffio", gust(0.7), -8)
+if selected("x_t05_bacchetta"):  # the final stroke's count: the baton and "uno, due, tre" on beats 1-3; beat 4 is the child's
+    kit, words = baton_kit(), counted_words()
+    x = silence(2.6)
+    for k in range(3):
+        mix(x, kit["claves"](0.9), k * BEAT)
+        mix(x, words[k], k * BEAT)
+    save_fixed("x_t05_bacchetta", x, 0.8 / max(abs(v) for v in x))
+if selected("x_t05_libero"):  # the bed of "Sbuffo blows in time": a soft, distant wind for sixteen seconds
+    x = fade(biquad(load("storm", 3.0, 19.0), "lp", 500), 1.5, 2.5)
+    save("x_t05_libero", x, -20)
 if selected(ct(5, 2)):  # the wind goes away in gusts, never on a beat
     x = silence(6.5)
     for t, g in ((0.0, 1.0), (1.3, 0.8), (1.75, 0.8), (3.9, 0.5)):

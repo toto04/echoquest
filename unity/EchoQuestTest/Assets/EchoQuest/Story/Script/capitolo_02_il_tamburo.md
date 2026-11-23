@@ -202,9 +202,9 @@ Ci siamo quasi! Ora attacchi tu. Suona la frase del pianoforte che hai già ritr
 
 **MAESTRO BATTUTA:**
 
-E adesso il colpo finale! Io conto, e sul «BUM!» tu colpisci il tamburo: un colpo solo, il più bello che hai. Uno... due... tre...
+E adesso il colpo finale! Io conto, e sul «BUM!» tu colpisci il tamburo: un colpo solo, il più bello che hai.
 
-*[INTERAZIONE: Colpo finale: il Maestro conta tre movimenti sulla bacchetta e il bambino preme un pulsante qualsiasi sul quarto. Vale se cade entro circa 200 ms dal movimento. Riuscita: un colpo enorme di timpano. Se non arriva o arriva fuori tempo, il Maestro ricomincia il conteggio; dopo due tentativi il tamburo dà il colpo da solo e si prosegue.]*
+*[INTERAZIONE: Colpo finale: il Maestro conta tre movimenti sulla bacchetta, «uno, due, tre», e il bambino preme un pulsante qualsiasi sul quarto. Vale se cade entro circa 200 ms dal movimento. Riuscita: un colpo enorme di timpano. Se non arriva o arriva fuori tempo, il Maestro ricomincia il conteggio; dopo due tentativi il tamburo dà il colpo da solo e si prosegue.]*
 
 *[AUDIO: La fanfara di vittoria, poi la ripresa: la canzone fino al pezzo ritrovato (battute 1-4, il pianoforte e il galoppo del tamburo), centro Fa, festosa. Nell'ultima battuta le tre note di Sbuffo tornano piano, quasi gentili.]*
 

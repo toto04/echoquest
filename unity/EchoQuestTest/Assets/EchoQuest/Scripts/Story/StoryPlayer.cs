@@ -367,6 +367,30 @@ namespace EchoQuest.Story
             CurrentClip = "";
             Status = continueToNextSection ? "Fine del capitolo. Backspace per ricominciare."
                                            : "Fine della scena. Backspace per ricominciare.";
+            // The chapter the child chose goes on straight away (until the menu exists).
+            if (continueToNextSection && NextChapterFrom == ChapterName && !string.IsNullOrEmpty(NextChapterScene))
+            {
+                string scene = NextChapterScene;
+                NextChapterScene = NextChapterFrom = "";
+                LogEvent("next chapter: " + scene);
+                Status = "Si continua con il capitolo scelto...";
+                yield return Wait(pauseBetweenSections + pauseAfterLine);
+                UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
+            }
+        }
+
+        /// <summary>The scene to open when this chapter ends, chosen in it (chapter 1, Scene 5), and the
+        /// chapter that chose it. Static, so it survives the load of the next scene.</summary>
+        public static string NextChapterScene = "", NextChapterFrom = "";
+        private string ChapterName => sequence != null ? sequence.name : "";
+
+        private void RememberNextChapter(StoryItem item, string branch)
+        {
+            var map = StagingFor(item).NextChapter;
+            if (map.Count == 0) return;
+            NextChapterScene = map.TryGetValue(branch, out var scene) ? scene : "";
+            NextChapterFrom = ChapterName;
+            LogEvent("after this chapter: " + (NextChapterScene.Length > 0 ? NextChapterScene : "the end (no chapter yet)"));
         }
 
         /// <summary>The section after this one in script order (p00, s01 ... s05, e00), or null.</summary>
@@ -482,12 +506,25 @@ namespace EchoQuest.Story
             Status = staging.Loop ? "Suono (continua di sottofondo)" : "Suono";
             CurrentClip = clip.name;
             // A sound that starts the battle loop is scheduled, so the loop can start exactly when it ends.
+            // During a battle it replaces the loop on the next exchange boundary (chapter 2: the bass walks
+            // home to F), and the new loop starts after "attesa" seconds (default: the whole sound).
+            bool switchLoop = m_Battle != null && !string.IsNullOrEmpty(staging.BattleBase);
+            if (switchLoop) scheduledStart = NextExchange(0.15);
             if (scheduledStart == null && !string.IsNullOrEmpty(staging.BattleBase))
                 scheduledStart = Now + 0.1;
             var src = Spawn(clip, staging, item.Id, MarkerFor(item), loop: staging.Loop, scheduledStart: scheduledStart);
             if (staging.Loop) m_Beds.Add((src, staging.Until));
             double lead = scheduledStart.HasValue ? scheduledStart.Value - Now : 0;
-            if (!string.IsNullOrEmpty(staging.BattleBase))
+            if (switchLoop)
+            {
+                int layers = m_Battle.Layers;
+                string from = m_Battle.Prefix;
+                StopBattle(scheduledStart.Value);
+                StartBattle(staging, scheduledStart.Value + (staging.Wait ?? (double)clip.samples / clip.frequency));
+                if (m_Battle != null) m_Battle.Layers = layers;
+                LogEvent($"battle loop changes from {from} to {staging.BattleBase} after {item.Id}");
+            }
+            else if (!string.IsNullOrEmpty(staging.BattleBase))
                 StartBattle(staging, scheduledStart.Value + (double)clip.samples / clip.frequency);
             yield return Wait((float)lead + (staging.Wait ?? clip.length));
         }
@@ -510,6 +547,7 @@ namespace EchoQuest.Story
                 if (choices.TryGetValue(m_Choice + 1, out var mapped))
                 {
                     BranchChoice = mapped;
+                    RememberNextChapter(item, mapped);
                     LogEvent("branch " + mapped);
                 }
                 else { m_Repeat = true; yield break; }  // a button with no meaning here: ask again
@@ -521,6 +559,7 @@ namespace EchoQuest.Story
                 if (list[i].Branch == letter)
                 {
                     BranchChoice = letter;
+                    RememberNextChapter(item, letter);
                     LogEvent("branch " + letter);
                     break;
                 }

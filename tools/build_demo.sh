@@ -156,7 +156,7 @@ for os in "${TARGETS[@]}"; do
   mkdir -p "$stage"
 
   if ! "$UNITY" build "$PROJECT" --profile "$profile" --output-path "$stage/$exe" \
-      --log-file "$log" --no-tail --no-provenance --allow-dirty-build \
+      --log-file "$log" --no-tail --allow-dirty-build \
       --non-interactive --no-banner; then
     echo "!!  $os: build failed. Last lines of the log:" >&2
     tail -n 30 "$log" >&2 || true

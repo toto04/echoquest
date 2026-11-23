@@ -65,6 +65,13 @@ namespace EchoQuest.DebugUi
             GUILayout.EndHorizontal();
             p.continueToNextSection = Ui.Toggle("Play on into the next scene (off = this scene only)", p.continueToNextSection);
 
+            // Development only: audio pitch and every wait scale together (StoryPlayer.Clock.cs).
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Speed", Ui.Small, GUILayout.Width(70f));
+            foreach (var speed in StoryPlayer.SpeedSteps)
+                if (Ui.Button($"x{speed:0.#}", Mathf.Approximately(p.Speed, speed))) p.SetSpeed(speed);
+            GUILayout.EndHorizontal();
+
             GUILayout.BeginHorizontal();
             GUILayout.Label("Voice take", Ui.Small, GUILayout.Width(70f));
             if (Ui.Button("a", p.take == "a")) p.take = "a";

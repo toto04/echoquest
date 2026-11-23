@@ -54,7 +54,7 @@ namespace EchoQuest.Story
             if (!m_CapturingInteraction || Paused ||
                 (!ev.IsA<StateEvent>() && !ev.IsA<DeltaStateEvent>())) return;
             if (ev.time < m_CaptureInputStart) return;
-            double time = m_CaptureStart + (ev.time - m_CaptureInputStart);
+            double time = m_CaptureStart + (ev.time - m_CaptureInputStart) * Speed;
             void Read(ButtonControl button, int number)
             {
                 if (button != null && button.ReadValueFromEvent(ev, out float value) &&
@@ -110,7 +110,7 @@ namespace EchoQuest.Story
         {
             if (!m_CapturingInteraction) return;
             // A fixed offset avoids rounding a fresh press back into the preceding DSP buffer.
-            m_CaptureStart = AudioSettings.dspTime;
+            m_CaptureStart = Now;
             m_CaptureInputStart = InputState.currentTime;
         }
 
@@ -315,14 +315,14 @@ namespace EchoQuest.Story
                     if (Interrupted) yield break;
                 }
                 InteractionClip(settings.Examples[0], out var piece);
-                double start = AudioSettings.dspTime + 0.1;
+                double start = Now + 0.1;
                 var source = Spawn(piece, StagingFor(new StoryItem { Id = settings.Examples[0], Kind = StoryItemKind.Sound }),
                     settings.Examples[0], soundMarker, scheduledStart: start);
                 BeginInteractionCapture(false);
                 Status = "Suona quando vuoi: ogni nota sta bene con la musica";
                 CurrentClip = piece.name;
                 int notes = 0;
-                while (!Interrupted && AudioSettings.dspTime < start + piece.length)
+                while (!Interrupted && Now < start + piece.length)
                 {
                     if (m_ForcePass) { source.FadeOut(0.5f); break; }
                     while (m_InteractionInput.Count > 0)
@@ -384,7 +384,7 @@ namespace EchoQuest.Story
             bool declined = false;
             int declineIndex = 0;
             Status = "Aspetto la tua risposta";
-            double lastActivity = AudioSettings.dspTime;
+            double lastActivity = Now;
             while (!Interrupted)
             {
                 if (Paused) { yield return null; continue; }
@@ -434,7 +434,7 @@ namespace EchoQuest.Story
                         continue;
                     }
                     if (button != 1) continue;
-                    lastActivity = AudioSettings.dspTime;
+                    lastActivity = Now;
                     m_InteractionAttempted = true;
                     InteractionTapFeedback(settings, button);
                     taps.Add(time);
@@ -450,7 +450,7 @@ namespace EchoQuest.Story
                         yield break;
                     }
                 }
-                double wait = AudioSettings.dspTime - lastActivity;
+                double wait = Now - lastActivity;
                 if (taps.Count > 0 && wait >= settings.Times[2] * 2 + 1) yield break;
                 yield return null;
             }
@@ -460,7 +460,7 @@ namespace EchoQuest.Story
         {
             InteractionClip(settings.Examples[0], out var clip);
             var sound = new StoryItem { Id = settings.Examples[0], Kind = StoryItemKind.Sound };
-            double start = AudioSettings.dspTime + 0.15;
+            double start = Now + 0.15;
             var source = Spawn(clip, StagingFor(sound), sound.Id, soundMarker, scheduledStart: start);
             source.Source.bypassReverbZones = true;
             BeginInteractionCapture(false);
@@ -486,15 +486,15 @@ namespace EchoQuest.Story
                     LastAttempt = "passed from the overlay";
                 }
                 if (m_InteractionPassed) break;
-                if (AudioSettings.dspTime >= deadline) break;
-                if (AudioSettings.dspTime >= start + clip.length) Status = "Ora premi 1 nel silenzio";
+                if (Now >= deadline) break;
+                if (Now >= start + clip.length) Status = "Ora premi 1 nel silenzio";
                 yield return null;
             }
             // A complete listening window counts as a try even if no button was pressed.
             if (!Interrupted) m_InteractionAttempted = true;
             EndInteractionCapture();
             if (!Interrupted) Status = m_InteractionPassed ? "Nota riconosciuta" : "Ascolta la fine dell’esempio";
-            while (!Interrupted && AudioSettings.dspTime < start + clip.length + pauseAfterSound) yield return null;
+            while (!Interrupted && Now < start + clip.length + pauseAfterSound) yield return null;
         }
     }
 }

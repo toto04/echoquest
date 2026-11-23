@@ -1,7 +1,7 @@
 // Play-mode checks of Scenes 2-5 and the epilogue with the real scene data (regia, clips, timing).
 // Open any story scene, set run-in-background, enter Play mode, then evaluate this file followed by
 //   return await StoryBattleRuntimeChecks.RunScene2();   (or RunScene3, RunScene4, RunScene5, RunEpilogue, RunContinuity)
-// (unity command script.eval --file <combined file>). Presses go through the on-screen buttons
+// (unity command script.eval --file <combined file>). Set StoryBattleRuntimeChecks.Speed = 2f first to run them at x2. Presses go through the on-screen buttons
 // (StoryPlayer.PressLogical), timed on the audio clock like a child playing on the beat.
 using System;
 using System.Linq;
@@ -29,9 +29,14 @@ public static class StoryBattleRuntimeChecks
         }
     }
 
-    static async Task At(double dspTime)
+    /// <summary>Playback speed for the checks (StoryPlayer.Clock.cs); every time below is story time.</summary>
+    public static float Speed = 1f;
+    static StoryPlayer s_Player;
+    static double Clock => s_Player != null ? s_Player.Now : AudioSettings.dspTime;
+
+    static async Task At(double time)
     {
-        while (AudioSettings.dspTime < dspTime - 0.003) await Task.Delay(1);
+        while (Clock < time - 0.003 * Speed) await Task.Delay(1);
     }
 
     static async Task<StoryPlayer> Load(string scene, string section)
@@ -47,6 +52,8 @@ public static class StoryBattleRuntimeChecks
                 "scene " + scene, 20);
         }
         finally { SceneManager.sceneLoaded -= OnLoaded; }
+        s_Player = p;
+        p.SetSpeed(Speed);
         await Task.Delay(300);
         return p;
     }
@@ -96,7 +103,7 @@ public static class StoryBattleRuntimeChecks
 
         p.JumpTo("s02_int_05");
         await Until(() => p.WaitingInteractionInput, "rhythm capture", 5);
-        double t0 = AudioSettings.dspTime + 0.2;
+        double t0 = Clock + 0.2;
         await Press(p, new[] { 1, 1, 1 }, t0, new[] { 0, 0.32, 0.95 });
         await Until(() => Logged(p, "s02_int_05 passed"), "TAC TAC... TOC on the piano", 6);
         return $"Scene 2: {checks} checks passed; register {StoryPlayer.ChosenRegister}";
@@ -121,7 +128,7 @@ public static class StoryBattleRuntimeChecks
         await Until(() => p.BattleRunning, "the battle loop is scheduled", 6);
         double bar = p.BattleBarSeconds, start = p.BattleStart;
         Check(Math.Abs(bar - 2.4) < 1e-3, "100 BPM: a bar is 2.4 s");
-        Check(Math.Abs(start - AudioSettings.dspTime - 4.8) < 0.25, "the loop starts two bars (the count-in) later");
+        Check(Math.Abs(start - Clock - 4.8) < 0.25, "the loop starts two bars (the count-in) later");
 
         // Round 1: D... D-D, echoed on the beat of the echo bar (bar 3 of the exchange).
         await Until(() => p.Current?.Id == "s03_int_02" && p.WaitingInteractionInput, "round 1", 8);

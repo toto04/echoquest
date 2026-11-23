@@ -33,7 +33,9 @@ namespace EchoQuest.Story
         private Vector3 m_From, m_To;
         private float m_MoveSeconds, m_MoveTime;
         private bool m_Moves;
+        // Story-clock times (StoryPlayer.Now); converted to the audio clock whenever the speed changes.
         private double m_ScheduledStart;
+        private double? m_ScheduledEnd;
 
         public void Init(StoryPlayer owner, Transform listener, AudioClip clip, StagingEntry staging, string label,
             Material marker, bool isVoice = false, bool loop = false, float startGain = 1f, double? scheduledStart = null)
@@ -91,8 +93,9 @@ namespace EchoQuest.Story
             }
 
             m_Owner.Active.Add(this);
-            m_ScheduledStart = scheduledStart ?? AudioSettings.dspTime;
-            if (scheduledStart.HasValue) Source.PlayScheduled(m_ScheduledStart);
+            Source.pitch = owner.Speed;
+            m_ScheduledStart = scheduledStart ?? owner.Now;
+            if (scheduledStart.HasValue) Source.PlayScheduled(owner.ToDsp(m_ScheduledStart));
             else Source.Play();
         }
 
@@ -101,7 +104,7 @@ namespace EchoQuest.Story
             if (Source == null || AudioListener.pause) return;
             if (m_Moves)
             {
-                m_MoveTime += Time.deltaTime;
+                m_MoveTime += Time.deltaTime * m_Owner.Speed;
                 transform.position = Vector3.Lerp(m_From, m_To, Mathf.Clamp01(m_MoveTime / m_MoveSeconds));
             }
             if (m_Lowpass != null) UpdateLowpass();
@@ -115,7 +118,25 @@ namespace EchoQuest.Story
             }
             Source.volume = m_Volume * m_Gain * m_Fade;
 
-            if (!Source.isPlaying && AudioSettings.dspTime >= m_ScheduledStart) Destroy(gameObject);
+            if (!Source.isPlaying && m_Owner.Now >= m_ScheduledStart) Destroy(gameObject);
+        }
+
+        /// <summary>Stops playback exactly at story time <paramref name="storyTime"/>.</summary>
+        public void ScheduleEnd(double storyTime)
+        {
+            m_ScheduledEnd = storyTime;
+            Source.SetScheduledEndTime(m_Owner.ToDsp(storyTime));
+        }
+
+        /// <summary>Follows a playback-speed change: pitch, and pending start and end times.</summary>
+        public void ApplySpeed()
+        {
+            if (Source == null) return;
+            Source.pitch = m_Owner.Speed;
+            double now = m_Owner.Now;
+            if (now < m_ScheduledStart) Source.SetScheduledStartTime(m_Owner.ToDsp(m_ScheduledStart));
+            if (m_ScheduledEnd.HasValue && now < m_ScheduledEnd.Value)
+                Source.SetScheduledEndTime(m_Owner.ToDsp(m_ScheduledEnd.Value));
         }
 
         public void Stop()

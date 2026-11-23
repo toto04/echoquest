@@ -129,7 +129,7 @@ namespace EchoQuest.Story
             if (m_CapturingInteraction)
             {
                 if (!Paused)
-                    m_InteractionInput.Enqueue((button, m_CaptureStart + (InputState.currentTime - m_CaptureInputStart)));
+                    m_InteractionInput.Enqueue((button, m_CaptureStart + (InputState.currentTime - m_CaptureInputStart) * Speed));
             }
             else if (button >= 1 && button <= 4) m_Choice = button - 1;
         }

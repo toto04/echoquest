@@ -80,7 +80,7 @@ namespace EchoQuest.Story
             foreach (var stem in new[] { m_Battle.L0, m_Battle.L1, m_Battle.L3 })
             {
                 if (stem == null) continue;
-                if (at.HasValue) stem.Source.SetScheduledEndTime(at.Value);
+                if (at.HasValue) stem.ScheduleEnd(at.Value);
                 else stem.FadeOut(0.5f);
             }
             m_Battle = null;
@@ -100,7 +100,7 @@ namespace EchoQuest.Story
         private double NextBar(double lead)
         {
             var b = m_Battle;
-            double k = System.Math.Ceiling((AudioSettings.dspTime + lead - b.Start) / b.Bar);
+            double k = System.Math.Ceiling((Now + lead - b.Start) / b.Bar);
             return b.Start + System.Math.Max(0, k) * b.Bar;
         }
 
@@ -108,7 +108,7 @@ namespace EchoQuest.Story
         private double NextExchange(double lead)
         {
             var b = m_Battle;
-            double k = System.Math.Ceiling((AudioSettings.dspTime + lead - b.Start) / b.Bar);
+            double k = System.Math.Ceiling((Now + lead - b.Start) / b.Bar);
             k = System.Math.Ceiling(System.Math.Max(0, k) / exchangeBars) * exchangeBars;
             return b.Start + k * b.Bar;
         }
@@ -117,7 +117,7 @@ namespace EchoQuest.Story
         {
             var b = m_Battle;
             if (b == null) return;
-            double now = AudioSettings.dspTime;
+            double now = Now;
             int bar = now < b.Start ? 0 : (int)((now - b.Start) / b.Bar) % b.Bars;
             bool callBar = bar % exchangeBars < 2;
             float duck = voicePlaying ? battleDuckGain : 1f;
@@ -130,12 +130,12 @@ namespace EchoQuest.Story
         {
             if (!InteractionClip(id, out var clip)) { Debug.LogError("[Story] Missing battle clip " + id); return; }
             var staging = StagingFor(new StoryItem { Id = id, Kind = StoryItemKind.Sound });
-            Spawn(clip, staging, id, soundMarker, scheduledStart: System.Math.Max(at, AudioSettings.dspTime + 0.02));
+            Spawn(clip, staging, id, soundMarker, scheduledStart: System.Math.Max(at, Now + 0.02));
         }
 
         private IEnumerator WaitUntilDsp(double time)
         {
-            while (!Interrupted && AudioSettings.dspTime < time) yield return null;
+            while (!Interrupted && Now < time) yield return null;
         }
 
         private IEnumerator PlayBattleRound(StoryItem item, InteractionSettings settings)
@@ -224,7 +224,7 @@ namespace EchoQuest.Story
                     taps.Add((button, time));
                     m_InteractionAttempted = true;
                 }
-                if (taps.Count >= settings.Buttons.Length || AudioSettings.dspTime >= close) break;
+                if (taps.Count >= settings.Buttons.Length || Now >= close) break;
                 yield return null;
             }
             EndInteractionCapture();
@@ -259,7 +259,7 @@ namespace EchoQuest.Story
         {
             var b = m_Battle;
             double beat = b.Bar / 4;
-            double k = System.Math.Ceiling((AudioSettings.dspTime + lead - b.Start) / beat);
+            double k = System.Math.Ceiling((Now + lead - b.Start) / beat);
             return b.Start + k * beat;
         }
 

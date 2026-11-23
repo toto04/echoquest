@@ -483,10 +483,10 @@ namespace EchoQuest.Story
             CurrentClip = clip.name;
             // A sound that starts the battle loop is scheduled, so the loop can start exactly when it ends.
             if (scheduledStart == null && !string.IsNullOrEmpty(staging.BattleBase))
-                scheduledStart = AudioSettings.dspTime + 0.1;
+                scheduledStart = Now + 0.1;
             var src = Spawn(clip, staging, item.Id, MarkerFor(item), loop: staging.Loop, scheduledStart: scheduledStart);
             if (staging.Loop) m_Beds.Add((src, staging.Until));
-            double lead = scheduledStart.HasValue ? scheduledStart.Value - AudioSettings.dspTime : 0;
+            double lead = scheduledStart.HasValue ? scheduledStart.Value - Now : 0;
             if (!string.IsNullOrEmpty(staging.BattleBase))
                 StartBattle(staging, scheduledStart.Value + (double)clip.samples / clip.frequency);
             yield return Wait((float)lead + (staging.Wait ?? clip.length));
@@ -540,8 +540,8 @@ namespace EchoQuest.Story
         {
             // Editor pauses freeze audio, but the first resumed frame includes the wall-time gap.
             // Keep story delays on the audio clock instead of adding frame durations.
-            double end = AudioSettings.dspTime + seconds;
-            while (AudioSettings.dspTime < end)
+            double end = Now + seconds;
+            while (Now < end)
             {
                 if (Interrupted) yield break;
                 yield return null;

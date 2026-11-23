@@ -117,10 +117,17 @@ write_readme() { # <os> <file>
     echo "  R            repeat the last line"
     echo "  N            skip (or \"no\" when asked a question)"
     echo "  S or Y       yes"
-    echo "  1 to 4       note buttons in the piano battle"
+    echo "  1 to 4       note buttons (index, middle, ring, little finger)"
     echo "  Arrows       turn your head; Home recentres it"
     echo "  Backspace    restart the scene"
     echo "  F1 or \`     show / hide the debug overlay (also usable with the mouse)"
+    echo
+    echo "WHAT TO PLAY"
+    echo
+    echo "Chapter 1 (the piano) plays from the Intro to the Epilogue. Choose the drum"
+    echo "in its Scene 5 and chapter 2 (the drum) follows straight after it. To start"
+    echo "anywhere: F1 > Demo > Scenes (C1_... = chapter 1, C2_... = chapter 2), or"
+    echo "F1 > Story to jump to a scene; F1 > Story > Speed plays faster (x2, x3)."
     echo
     echo "CONTROLLER"
     echo

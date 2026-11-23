@@ -16,7 +16,7 @@ Nella sala della musica il pianoforte ha ritrovato il suo pezzo di canzone. Ma i
 
 **MAESTRO BATTUTA:**
 
-Lo senti anche tu? È il tamburo! Di solito è il più puntuale di tutta l'orchestra. Oggi invece inciampa a ogni colpo. Sbuffo deve essere passato anche di qui.
+Lo senti anche tu? È il tamburo! Ha una storia molto lunga. Già più di duemila anni fa, nell'antico Egitto, si suonavano tamburi fatti di legno e pelle. Alcuni si portavano appesi al collo: così le mani erano libere di battere! Il nostro tamburo, di solito, è il più puntuale di tutta l'orchestra. Oggi invece inciampa a ogni colpo. Sbuffo deve essere passato anche di qui.
 
 Andiamo a conoscerlo. È a sinistra. Seguimi... e attento alla carota sul pavimento. Non chiedermi perché c'è una carota sul pavimento.
 
@@ -28,7 +28,7 @@ Andiamo a conoscerlo. È a sinistra. Seguimi... e attento alla carota sul pavime
 
 **MAESTRO BATTUTA:**
 
-Eccoci. Il tamburo ha una pelle tesa sopra un grande cerchio. Quando la colpisci, con le mani o con un bastoncino che si chiama battente, la pelle vibra. Proprio come la corda del pianoforte! E dalla vibrazione nasce il suono. Ascolta.
+Eccoci. Esistono tamburi di tante forme. Il nostro è un timpano: pensa a un grande recipiente di metallo, vuoto dentro, con un'apertura rotonda. Immagina di seguirne il bordo con le dita: fai tutto il giro e torni al punto di partenza. Sopra l'apertura è tesa una pelle, come un coperchio sottile ed elastico. Un bastoncino con la punta morbida, il battente, la colpisce. La pelle vibra, cioè trema molto in fretta, e nasce il suono. Ascolta.
 
 *[AUDIO: Un colpo di tamburo profondo (timpano, Re3), lasciato risuonare.]*
 
@@ -60,7 +60,7 @@ Adesso ascolta il nostro tamburo. Prima com'era prima di Sbuffo... e poi com'è 
 
 **MAESTRO BATTUTA:**
 
-Sbuffo gli ha soffiato via il passo. E un'orchestra senza passo è come una fila di bambini che cammina senza guardarsi: dopo tre metri, uno è già finito contro un albero.
+Sbuffo gli ha soffiato via il passo. E un'orchestra senza passo è come un gruppo che prova a cantare insieme, ma ognuno comincia in un momento diverso. Io sarei ancora al primo «la», e gli altri avrebbero già finito!
 
 ---
 

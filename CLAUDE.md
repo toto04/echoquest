@@ -71,6 +71,8 @@ After **any** descriptor change:
 
 ## Conventions
 
+- Story narration is for blind children, including children blind from birth. Never assume visual memories or ask them to look or close their eyes. Explain instrument shapes through materials, spatial relationships and imagined hand movements; connect the explanation to sound. Keep historical claims sourced. Follow `docs/strumenti-descrizioni-accessibili.md` when introducing an instrument.
+
 - NimBLE callbacks run in the NimBLE host task. Do not block there or call into other modules; parse and push onto the queue, then let `loop()` consume it.
 - Logging goes through the `LOG(tag, fmt, ...)` macro in `include/log.h`, gated by `ECHO_DEBUG`.
 - Pure logic (anything testable without hardware) goes in header-only files under `include/` with tests in `test/test_logic/`.

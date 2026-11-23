@@ -22,7 +22,7 @@ Ah, la campanella! Hai sentito? Sta facendo una domanda. Nella nostra canzone, d
 
 **MAESTRO BATTUTA:**
 
-Povera campanella. Andiamo da lei, è a destra. Cammina piano: le campanelle sono un po' timide.
+Povera campanella. Anche le campanelle hanno una storia antica: già al tempo degli antichi Romani, circa duemila anni fa, si facevano suonare piccole campane di metallo. Alcune si appendevano al collo degli animali: il tintinnio accompagnava i loro passi. La nostra, invece, fa parte dell'orchestra! Andiamo da lei, è a destra. Cammina piano: le campanelle sono un po' timide.
 
 *[AUDIO: Passi verso destra. Un tintinnio leggero si avvicina.]*
 
@@ -32,7 +32,7 @@ Povera campanella. Andiamo da lei, è a destra. Cammina piano: le campanelle son
 
 **MAESTRO BATTUTA:**
 
-Eccola. La campanella è fatta di metallo. Dentro c'è un piccolo martello, che si chiama batacchio. Quando il batacchio colpisce il metallo, il metallo vibra. E continua a vibrare a lungo, anche dopo il colpo: per questo il suono della campanella resta nell'aria. Ascolta.
+Eccola. La nostra campanella ha un manico e un piccolo corpo di metallo, vuoto dentro. Dal manico il corpo si allarga fino a un bordo rotondo, con l'apertura rivolta verso il basso. Immagina un dito che segue quel bordo e fa tutto il giro. Dentro pende un piccolo pezzo di metallo: si chiama batacchio. Quando scuoti il manico, il batacchio urta la parete dall'interno. Il metallo vibra, cioè trema molto in fretta, e continua anche dopo il colpo: per questo il suono resta nell'aria. Ascolta.
 
 *[AUDIO: Un rintocco di campanella (La5), lasciato risuonare fino in fondo.]*
 

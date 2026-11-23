@@ -16,12 +16,12 @@ CAPITOLO 2 — IL TAMBURO
 
 2. t00_maes_01_a.mp3 — Maestro Battuta
 -----
-[warm] Lo senti anche tu? È il tamburo! Di solito è il più puntuale di tutta l'orchestra. Oggi invece inciampa a ogni colpo. Sbuffo deve essere passato anche di qui. Andiamo a conoscerlo. È a sinistra. Seguimi... e attento alla carota sul pavimento. Non chiedermi perché c'è una carota sul pavimento.
+[warm] Lo senti anche tu? È il tamburo! Ha una storia molto lunga. Già più di duemila anni fa, nell'antico Egitto, si suonavano tamburi fatti di legno e pelle. Alcuni si portavano appesi al collo: così le mani erano libere di battere! Il nostro tamburo, di solito, è il più puntuale di tutta l'orchestra. Oggi invece inciampa a ogni colpo. Sbuffo deve essere passato anche di qui. Andiamo a conoscerlo. È a sinistra. Seguimi... e attento alla carota sul pavimento. Non chiedermi perché c'è una carota sul pavimento.
 -----
 
 3. t01_maes_01_a.mp3 — Maestro Battuta
 -----
-[warm] Eccoci. Il tamburo ha una pelle tesa sopra un grande cerchio. Quando la colpisci, con le mani o con un bastoncino che si chiama battente, la pelle vibra. Proprio come la corda del pianoforte! E dalla vibrazione nasce il suono. Ascolta.
+[warm] Eccoci. Esistono tamburi di tante forme. Il nostro è un timpano: pensa a un grande recipiente di metallo, vuoto dentro, con un'apertura rotonda. Immagina di seguirne il bordo con le dita: fai tutto il giro e torni al punto di partenza. Sopra l'apertura è tesa una pelle, come un coperchio sottile ed elastico. Un bastoncino con la punta morbida, il battente, la colpisce. La pelle vibra, cioè trema molto in fretta, e nasce il suono. Ascolta.
 -----
 
 4. t01_maes_02_a.mp3 — Maestro Battuta
@@ -46,7 +46,7 @@ CAPITOLO 2 — IL TAMBURO
 
 8. t01_maes_06_a.mp3 — Maestro Battuta
 -----
-[warm] Sbuffo gli ha soffiato via il passo. E un'orchestra senza passo è come una fila di bambini che cammina senza guardarsi: dopo tre metri, uno è già finito contro un albero.
+[warm] Sbuffo gli ha soffiato via il passo. E un'orchestra senza passo è come un gruppo che prova a cantare insieme, ma ognuno comincia in un momento diverso. Io sarei ancora al primo «la», e gli altri avrebbero già finito!
 -----
 
 9. t02_maes_01_a.mp3 — Maestro Battuta
@@ -216,12 +216,12 @@ CAPITOLO 3 — LA CAMPANELLA
 
 41. c00_maes_02_a.mp3 — Maestro Battuta
 -----
-[warm] Povera campanella. Andiamo da lei, è a destra. Cammina piano: le campanelle sono un po' timide.
+[warm] Povera campanella. Anche le campanelle hanno una storia antica: già al tempo degli antichi Romani, circa duemila anni fa, si facevano suonare piccole campane di metallo. Alcune si appendevano al collo degli animali: il tintinnio accompagnava i loro passi. La nostra, invece, fa parte dell'orchestra! Andiamo da lei, è a destra. Cammina piano: le campanelle sono un po' timide.
 -----
 
 42. c01_maes_01_a.mp3 — Maestro Battuta
 -----
-[warm] Eccola. La campanella è fatta di metallo. Dentro c'è un piccolo martello, che si chiama batacchio. Quando il batacchio colpisce il metallo, il metallo vibra. E continua a vibrare a lungo, anche dopo il colpo: per questo il suono della campanella resta nell'aria. Ascolta.
+[warm] Eccola. La nostra campanella ha un manico e un piccolo corpo di metallo, vuoto dentro. Dal manico il corpo si allarga fino a un bordo rotondo, con l'apertura rivolta verso il basso. Immagina un dito che segue quel bordo e fa tutto il giro. Dentro pende un piccolo pezzo di metallo: si chiama batacchio. Quando scuoti il manico, il batacchio urta la parete dall'interno. Il metallo vibra, cioè trema molto in fretta, e continua anche dopo il colpo: per questo il suono resta nell'aria. Ascolta.
 -----
 
 43. c01_maes_02_a.mp3 — Maestro Battuta

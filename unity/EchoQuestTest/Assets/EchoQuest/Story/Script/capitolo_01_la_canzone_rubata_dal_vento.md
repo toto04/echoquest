@@ -619,7 +619,7 @@ L'ultima nota del pianoforte rimane nell'aria per qualche secondo. Poi tutto tor
 
 **MAESTRO BATTUTA:**
 
-Eccoci qui. Questo è il pianoforte. Hai sentito? Ci ha appena salutato! Non farci caso se a volte parlo con gli strumenti: è il mio modo di ascoltarli con attenzione. Ti racconto come funziona. Davanti a chi suona c'è una lunga fila di tasti. Quando il pianista preme un tasto...
+Eccoci qui. Questo è il pianoforte. Hai sentito? Ci ha appena salutato! Non farci caso se a volte parlo con gli strumenti: è il mio modo di ascoltarli con attenzione. Ti aiuto a immaginare com'è fatto. Ha una grande cassa di legno, sostenuta da gambe. Dentro ci sono le corde. Davanti a chi suona c'è una lunga fila di tasti: piccole leve lisce, una accanto all'altra. Alcune sporgono un po' più in alto delle altre. Quando il pianista preme un tasto...
 
 *[AUDIO: Il piccolo rumore meccanico di un tasto premuto, molto discreto.]*
 
